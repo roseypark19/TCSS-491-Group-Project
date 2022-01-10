@@ -6,7 +6,7 @@ class TinyHero {
                               // 0, 1, 0, 1 
         this.state = 0; // idle, walking, shooting, charged, dead
                         // 0, 1, 2, 3, 4
-        this.velocityConstant = 2;
+        this.velocityConstant = 7;
         this.velocity = { x : 0, y : 0 };
         this.animations = [];
         this.scale = PARAMS.SCALE / 1;
@@ -21,7 +21,7 @@ class TinyHero {
 
     loadAnimations() {
         this.animations[0] = new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 16, 0.25, false, true);
-        this.animations[1] = new AnimationGroup(this.spritesheet, 64 * 32, 0, 32, 32, 4, 0.1, false, true);
+        this.animations[1] = new AnimationGroup(this.spritesheet, 64 * 32, 0, 32, 32, 4, 0.1 / (this.velocityConstant / 4), false, true);
     };
     
     update() {
