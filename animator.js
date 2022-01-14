@@ -34,8 +34,8 @@
 
 class AnimationGroup {
 
-    constructor(spritesheet, xStart, yStart, width, height, frameCount, frameDuration, reverse, loop) {
-        Object.assign(this, { spritesheet, xStart, yStart, width, height, frameCount, frameDuration, reverse, loop });
+    constructor(spritesheet, xStart, yStart, width, height, frameCount, frameDuration, reverse, loop, framePadding = 0) {
+        Object.assign(this, { spritesheet, xStart, yStart, width, height, frameCount, frameDuration, reverse, loop, framePadding });
         this.elapsedTime = 0;
     };
 
@@ -54,7 +54,9 @@ class AnimationGroup {
         let frame = this.currentFrame();
         if (this.reverse) frame = this.frameCount - frame - 1;
         ctx.drawImage(this.spritesheet, 
-                      this.xStart + (frame * this.width) + (2 * vertFace * this.frameCount * this.width) + (this.frameCount * horizFace * this.width), 
+                      this.xStart + (frame * (this.width + this.framePadding)) + 
+                        (2 * vertFace * this.frameCount * (this.width + this.framePadding)) + 
+                            (this.frameCount * horizFace * (this.width + this.framePadding)), 
                       this.yStart, this.width, this.height, x, y, this.width * scale, this.height * scale);
     };
 
