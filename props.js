@@ -1,7 +1,7 @@
-function genProp(game, x, y, centered, spritePath, spriteX, spriteY, width, height, collideable, propID) {
+function genProp(game, x, y, centered, spritePath, spriteX, spriteY, width, height, collideable, propID, scale = PARAMS.SCALE) {
     return new PropTile(game,
-                        x - (centered ? (props[propID].width + props[propID].shadowDiffX) * PARAMS.SCALE / 2 : 0),
-                        y - (centered ? (props[propID].height + props[propID].shadowDiffY) * PARAMS.SCALE / 2 : 0),
+                        x - (centered ? (props[propID].width + props[propID].shadowDiffX) * scale / 2 : 0),
+                        y - (centered ? (props[propID].height + props[propID].shadowDiffY) * scale / 2 : 0),
                         spritePath,
                         spriteX,
                         spriteY,
@@ -9,10 +9,33 @@ function genProp(game, x, y, centered, spritePath, spriteX, spriteY, width, heig
                         spriteY - props[propID].topY,
                         width,
                         height,
-                        collideable);
+                        collideable,
+                        scale);
 };
 
 const props = {
+    1: {
+        topX: 9,
+        topY: 140,
+        width: 22,
+        height: 8,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/overworld/structures.png", 9, 140, 22, 4, false, 1, PARAMS.OVERWORLD_SCALE),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/overworld/structures.png", 9, 144, 22, 4, false, 1, PARAMS.OVERWORLD_SCALE)
+    },
+
+    2: {
+        topX: 69,
+        topY: 140,
+        width: 22,
+        height: 8,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/overworld/structures.png", 69, 140, 22, 4, false, 2, PARAMS.OVERWORLD_SCALE),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/overworld/structures.png", 69, 144, 22, 4, false, 2, PARAMS.OVERWORLD_SCALE)
+    },
+
     10 : {
         topX: 153,
         topY: 3,

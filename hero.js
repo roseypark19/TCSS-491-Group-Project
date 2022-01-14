@@ -1,12 +1,12 @@
 class TinyHero {
-    constructor(game, x, y, destinations) {
-        Object.assign(this, { game, x, y, destinations });
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/hero/hero.png");
+    constructor(game, destinations) {
+        Object.assign(this, { game, destinations });
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/hero/tiny_hero.png");
         this.facing = [0, 0]; // down, up, right, left
                               // 0, 1, 0, 1 
         this.state = 0; // idle, walking, shooting, charged, dead
                         // 0, 1, 2, 3, 4
-        this.velocityConstant = 7;
+        this.velocityConstant = 8;
         this.velocity = { x : 0, y : 0 };
         this.animations = [];
         this.scale = PARAMS.SCALE / 1;
