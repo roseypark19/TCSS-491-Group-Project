@@ -5,9 +5,25 @@ const PARAMS = {
     DEBUG_COLOR: "Red",
     CANVAS_DIMENSION : 1000,
     SCALE : 4,
-    OVERWORLD_SCALE: 6
+    OVERWORLD_SCALE: 6,
+    GUI_SCALE : 6,
+    MMAP_SCALE: 0.4625,
+    GAMEOVER: false,
+    LIFE_ID: 0,
+    SHOT_ID: 0,
+    LOW_HP_COLOR: "Red",
+    MED_HP_COLOR: "Orange",
+    HIGH_HP_COLOR: "Green"  
 };
 
+const WEAPONS = {
+    0 : { base_damage: 50, base_dexterity: 0.1, range: 6, projectileType: 0 },
+    1 : { base_damage: 75, base_dexterity: 0.125, range: 6, projectileType: 0 },
+    2 : { base_damage: 40, base_dexterity: 0.065, range: 14, projectileType: 0 },
+    3 : { base_damage: 65, base_dexterity: 0.085, range: 14, projectileType: 0 },
+    4 : { base_damage: 30, base_dexterity: 0.045, projectileType: 1 },
+    5 : { base_damage: 55, base_dexterity: 0.065, projectileType: 0 },
+};
 
 // returns a random integer between 0 and n-1
 function randomInt(n) {
