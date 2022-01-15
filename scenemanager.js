@@ -4,8 +4,8 @@ class SceneManager {
         this.game.camera = this;
         this.x = 0;
         this.y = 0;
-        this.loadLevel(overworld, true);
         // this.loadLevel(overworld, true);
+        this.loadLevel(town, false);
     };
 
     clearEntities() {
@@ -30,6 +30,8 @@ class SceneManager {
                     this.game.addEntity(props[1].topper(this.game, 252 * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE, 55.5 * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE - 2 * PARAMS.OVERWORLD_SCALE, true));
                 } else {
                     // add a regular hero -- to come later!
+                    this.hero = new Hero(this.game, 1150, 1100);
+                    this.game.addEntity(this.hero);
                 }
             } else {
                 this.loadLayer(level[layer_name], level, isOverworld);
