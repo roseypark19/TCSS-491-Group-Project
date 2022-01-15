@@ -153,14 +153,37 @@ class GameEngine {
     };
 
     addEntity(entity) {
-        this.entities.push(entity);
+        // this.entities.push(entity);
+        if (this.heroIndex !== undefined) {
+            if (entity.hasOwnProperty("hp")) {
+                this.entities.splice(this.heroIndex, 0, entity);
+                this.heroIndex++;
+            } else if (entity.hasOwnProperty("friendlyProjectile")) {
+                this.entities.splice(this.heroIndex + 1, 0, entity);
+            } else {
+                this.entities.push(entity);
+            }
+        } else {
+            this.entities.push(entity);
+            if (entity instanceof Hero) {
+                this.heroIndex = this.entities.length - 1;
+            }
+        }
+        if (entity.hasOwnProperty("hp")) {
+            this.livingEntities.push(entity);
+            this.livingCount++;
+        } else if (entity.collideable) {
+            this.collideableEntities.push(entity);
+        } else if (entity.hasOwnProperty("friendlyProjectile")) {
+            this.projectileEntities.push(entity);
+        }
     };
 
     draw() {
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         for (let i = 0; i < this.entities.length; i++) {
-            if (Math.abs(this.camera.hero.BB.center.x - this.entities[i].BB.center.x) <= PARAMS.CANVAS_DIMENSION * 0.75 &&
-                Math.abs(this.camera.hero.BB.center.y - this.entities[i].BB.center.y) <= PARAMS.CANVAS_DIMENSION * 0.75) {
+            if (Math.abs(this.camera.hero.BB.center.x - this.entities[i].BB.center.x) <= PARAMS.CANVAS_DIMENSION * (this.camera.overworld ? 0.75 : 0.55) &&
+                Math.abs(this.camera.hero.BB.center.y - this.entities[i].BB.center.y) <= PARAMS.CANVAS_DIMENSION * (this.camera.overworld ? 0.75 : 0.55)) {
                 this.entities[i].draw(this.ctx);
             } else if (this.entities[i].updateElapsedTime) {
                 this.entities[i].updateElapsedTime();
@@ -173,6 +196,10 @@ class GameEngine {
         let entitiesCount = this.entities.length;
         for (let i = 0; i < entitiesCount; i++) {
             let entity = this.entities[i];
+            
+            if (PARAMS.GAMEOVER && ((!(entity instanceof Hero) && entity.hasOwnProperty("hp")) || entity.hasOwnProperty("friendlyProjectile"))) {
+                entity.removeFromWorld = true;
+            }
 
             if (!entity.removeFromWorld) {
                 entity.update();
@@ -182,14 +209,47 @@ class GameEngine {
 
         for (let i = this.entities.length - 1; i >= 0; --i) {
             if (this.entities[i].removeFromWorld) {
+                let entity = this.entities[i];
+                this.updateCustomEntities(entity);
                 this.entities.splice(i, 1);
+                if (i < this.heroIndex) {
+                    this.heroIndex--;
+                }
             }
         }
+
+        // GAME OVER LOGIC -- to be implemented at a later time
+
+        // if (!PARAMS.GAMEOVER && this.livingCount === 1 && this.camera.hero.hp > 0) {
+        //     PARAMS.GAMEOVER = true;
+        //     ASSET_MANAGER.pauseBackgroundMusic();
+        //     ASSET_MANAGER.playAsset("./audio/victory.mp3");
+        // }
     };
 
     loop() {
         this.clockTick = this.timer.tick();
         this.update();
         this.draw();
+    };
+
+    updateCustomEntities(deletedEntity) {
+        if (deletedEntity.hasOwnProperty("hp")) {
+            this.livingCount--;
+            this.removeFromEntityList(this.livingEntities, deletedEntity.id);
+        } else if (deletedEntity.collideable) {
+            this.removeFromEntityList(this.collideableEntities, deletedEntity.id);
+        } else if (deletedEntity.hasOwnProperty("friendlyProjectile")) {
+            this.removeFromEntityList(this.projectileEntities, deletedEntity.id);
+        }
+    };
+
+    removeFromEntityList(list, id) {
+        for (let i = list.length - 1; i >= 0; --i) {
+            if (list[i].id === id) {
+                list.splice(i, 1);
+                break;
+            }
+        }
     };
 };
