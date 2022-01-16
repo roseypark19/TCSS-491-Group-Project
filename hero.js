@@ -172,7 +172,7 @@ class Hero {
         // this.abilityData = [{ x: 32, y: 0, button: "R"}, { x: 64, y: 0, button: "F"}];
         this.spriteCenter = 15.5;
 
-        this.weapon = { type: 5, attack: 0, dexterity: 0 }; 
+        this.weapon = { type: 0, attack: 0, dexterity: 0 }; 
         // types: 0 = longsword, 1 = war axe, 2 = whip, 3 = flail, 4 = slingshot, 5 = bow
 
         this.velocityConstant = 4;
@@ -451,7 +451,7 @@ class Hero {
     updateBB() {
         this.BB = new BoundingBox(this.x, this.y, 32 * PARAMS.SCALE, 32 * PARAMS.SCALE);
         this.hitBB = new BoundingBox(this.x + 12 * PARAMS.SCALE, this.y + 12 * PARAMS.SCALE, 8 * PARAMS.SCALE, 8 * PARAMS.SCALE);
-        this.collisionBB = new BoundingBox(this.hitBB.x, this.hitBB.y + 4 * PARAMS.SCALE, 8 * PARAMS.SCALE, 8 * PARAMS.SCALE);
+        this.collisionBB = new BoundingBox(this.hitBB.x, this.hitBB.y + 4 * PARAMS.SCALE, 8 * PARAMS.SCALE, 4 * PARAMS.SCALE);
     };
     
     draw(ctx) {

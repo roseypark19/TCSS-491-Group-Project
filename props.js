@@ -58,4 +58,136 @@ const props = {
         base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 2, 55, 51, 9, true, 11),
         topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 2, 40, 51, 15, false, 11)    
     },
+
+    12 : { // town bulletin board
+        topX: 106,
+        topY: 90,
+        width: 19,
+        height: 13,
+        shadowDiffX: 0, 
+        shadowDiffY: 0,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 106, 95, 19, 8, true, 12),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 106, 90, 19, 8, false, 12)    
+    },
+
+    13 : { // town well
+        topX: 12,
+        topY: 49,
+        width: 16,
+        height: 29,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 12, 64, 17, 15, true, 12),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 12, 49, 17, 15, false, 12)    
+    },
+
+    14 : { // town mailbox 
+        topX: 50,
+        topY: 70,
+        width: 5,
+        height: 9,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 50, 70, 5, 9, true, 12),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 12, 49, 17, 15, false, 12)    
+    },
+
+    15 : { // small flower 
+        topX: 56,
+        topY: 54,
+        width: 7,
+        height: 9,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 56, 54, 7, 9, true, 12),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 56, 54, 7, 9, false, 12)    
+    },
+
+    16 : { // medium flower 
+        topX: 48,
+        topY: 52,
+        width: 8,
+        height: 11,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 48, 55, 8, 11, true, 12),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 48, 52, 8, 11, false, 12)    
+    },
+
+    17 : { // large flower 
+        topX: 36,
+        topY: 51,
+        width: 9,
+        height: 12,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 36, 58, 9, 6, true, 12),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 36, 51, 9, 9, false, 12)    
+    },
+
+    18 : { // chicken coop
+        topX: 33,
+        topY: 64,
+        width: 15,
+        height: 16,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 33, 64, 15, 16, true, 12),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 33, 55, 15, 16, false, 12)    
+    },
+
+    19 : { // weapons billboard
+        topX: 56,
+        topY: 86,
+        width: 24,
+        height: 17,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 56, 96, 24, 7, true, 12),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 56, 86, 24, 12, false, 12)    
+    },
+
+    20 : { // stats billboard
+        topX: 56,
+        topY: 86,
+        width: 23,
+        height: 17,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 9, 96, 23, 7, true, 12),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 9, 86, 23, 12, false, 12)    
+    },
+
+    21 : { // log
+        topX: 68,
+        topY: 66,
+        width: 10,
+        height: 13,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 68, 66, 10, 13, true, 12),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 68, 66, 10, 12, false, 12)    
+    },
+
+    22 : { // anvil horizontal
+        topX: 162,
+        topY: 133,
+        width: 12,
+        height: 10,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 162, 133, 12, 10, true, 12),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 68, 66, 10, 12, false, 12)    
+    },
+
+    23 : { // anvil horizontal
+        topX: 146,
+        topY: 136,
+        width: 12,
+        height: 11,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 146, 136, 12, 11, true, 12),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 68, 66, 10, 12, false, 12)    
+    },
 };
