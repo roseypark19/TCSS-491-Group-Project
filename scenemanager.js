@@ -110,8 +110,6 @@ class SceneManager {
                     // stats shop
                     this.game.addEntity(props[20].topper(this.game, 117 * PARAMS.BLOCKWIDTH, 150 * PARAMS.BLOCKWIDTH, true)); 
 
-                    
-
                 } else {
                     // add a regular hero -- to come later!
                 }
@@ -119,6 +117,12 @@ class SceneManager {
                 this.loadLayer(level[layer_name], level, isOverworld);
             }
         }
+
+        // loads the shops for the town at the end
+        if (isTown) {
+            this.game.addEntity(new WeaponsShop(this.game));
+        }
+
     };
 
     createDestinations(level) {
