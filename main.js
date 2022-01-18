@@ -2,6 +2,12 @@ let gameEngine = new GameEngine();
 
 let ASSET_MANAGER = new AssetManager();
 
+// audio
+ASSET_MANAGER.queueDownload("./audio/Upgrade.wav");
+ASSET_MANAGER.queueDownload("./audio/CoinUpgrade.wav");
+ASSET_MANAGER.queueDownload("./audio/MaxLevelUpgrade.wav");
+
+
 // sprites
 ASSET_MANAGER.queueDownload("./sprites/hero/tiny_hero.png");
 ASSET_MANAGER.queueDownload("./sprites/hero/hero.png");

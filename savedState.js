@@ -2,7 +2,7 @@ const saveState = {
     firstCutsceneFinished: false,
     gameFinished: false,   // if boss is complete
     numLevelsCompleted: 1, // 1 - 9
-    currency: 5000,
+    currency: 1500,
     
     numSpellsUnlocked: 0, // 0 - 4
 
