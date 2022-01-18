@@ -20,6 +20,24 @@ class WeaponsShop {
         Object.assign(this, {game});
         // this.cashSheet = ASSET_MANAGER.getAsset("./assets/visuals/Money.png");
         // this.cashAnimation = new Animator(this.cashSheet, 0, 0, 24, 24, 6, 0.2, 0, false, true);
+
+        this.enteredShop = true;
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/ui/weapon_icons.png");
+        
+        this.swordImage = new AnimationGroup(this.spritesheet, 24, 0, 12, 12, 1, 1, false, true);
+        this.axeImage = new AnimationGroup(this.spritesheet, 48, 0, 12, 12, 1, 1, false, true);
+        this.whipImage = new AnimationGroup(this.spritesheet, 60, 0, 12, 12, 1, 1, false, true);
+        this.flailImage = new AnimationGroup(this.spritesheet, 36, 0, 12, 12, 1, 1, false, true);
+        this.slingshotImage = new AnimationGroup(this.spritesheet, 0, 0, 12, 12, 1, 1, false, true);
+        this.bowImage = new AnimationGroup(this.spritesheet, 12, 0, 12, 12, 1, 1, false, true);
+        
+        
+
+
+        
+
+        
+        
         
         this.addConstants();
         this.addBBs();
@@ -55,73 +73,70 @@ class WeaponsShop {
         this.SHOP_TEXT_X = 24;  // x pos of shop title
         this.SHOP_TEXT_Y = 115; // y pos of shop title
 
-        this.CASH_TEXT_X = 883; // x pos of cash title
-        this.CASH_TEXT_Y = 105; // y pos of cash title
-        this.CASH_TEXT_WIDTH = 30; // width of cash text font for 1 char
+        // this.CASH_TEXT_X = 883; // x pos of cash title
+        // this.CASH_TEXT_Y = 105; // y pos of cash title
+        // this.CASH_TEXT_WIDTH = 30; // width of cash text font for 1 char
 
-        this.CASH_ANIM_X = 816;  // cash animation x pos
-        this.CASH_ANIM_Y = 57.6; // cash animation y pos
+        // this.CASH_ANIM_X = 816;  // cash animation x pos
+        // this.CASH_ANIM_Y = 57.6; // cash animation y pos
 
         
         this.TEXT_X = 29;      // x start position of category text
-        this.BOX_X = 24;        // x start for category boxes
-        this.BOX_WIDTH = 912;   // width of category boxes
-        this.BOX_HEIGHT = 96;   // height of category boxes
+        this.BOX_X = 25;        // x start for category boxes
+        this.BOX_WIDTH = 950;   // width of category boxes
+        this.BOX_HEIGHT = 110;   // height of category boxes
 
-        this.COST_OFFSET_X = 880;  // x offset from TEXT_X to cost text
-        this.COST_OFFSET_Y = 20;   // y offset from category y value to cost text
-        this.LEVEL_OFFSET_X = 810; // x offset from TEXT_X to level text
-        this.LEVEL_OFFSET_Y = 10;  // y offset from category y value for level text
+        // this.COST_OFFSET_X = 880;  // x offset from TEXT_X to cost text
+        // this.COST_OFFSET_Y = 20;   // y offset from category y value to cost text
+        // this.LEVEL_OFFSET_X = 810; // x offset from TEXT_X to level text
+        // this.LEVEL_OFFSET_Y = 10;  // y offset from category y value for level text
         
-        this.TEXT_Y_INITIAL = 200; // starting y pos for category text
-        this.BOX_Y_INITIAL = 130;  // starting y pos for category text
-        this.TEXT_BOX_Y_OFFSET = 120; // y offset for each category box
+        this.TEXT_Y_INITIAL = 205; // starting y pos for category text
+        this.BOX_Y_INITIAL = 128;  // starting y pos for category text
+        this.TEXT_BOX_Y_OFFSET = 130; // y offset for each category box
 
         // y positions for the text and box for each categorY
-        this.ENTER_TEXT_X = 201.5 * PARAMS.BLOCKWIDTH;
-        this.ENTER_TEXT_Y = 116.5 * PARAMS.BLOCKWIDTH;
-
+        // this.ENTER_TEXT_X = 201.5 * PARAMS.BLOCKWIDTH;
+        // this.ENTER_TEXT_Y = 116.5 * PARAMS.BLOCKWIDTH;
         
-
-        // this.SPEED_TEXT_Y = this.TEXT_Y_INITIAL + (0 * this.TEXT_BOX_Y_OFFSET);
-        // this.SPEED_BOX_Y = this.BOX_Y_INITIAL + (0 * this.TEXT_BOX_Y_OFFSET); 
-        // this.JUMP_TEXT_Y = this.TEXT_Y_INITIAL + (1 * this.TEXT_BOX_Y_OFFSET);
-        // this.JUMP_BOX_Y =  this.BOX_Y_INITIAL + (1 * this.TEXT_BOX_Y_OFFSET); 
-        // this.HEALTH_TEXT_Y = this.TEXT_Y_INITIAL + (2 * this.TEXT_BOX_Y_OFFSET);
-        // this.HEALTH_BOX_Y = this.BOX_Y_INITIAL + (2 * this.TEXT_BOX_Y_OFFSET);
-        // this.TIME_TEXT_Y = this.TEXT_Y_INITIAL + (3 * this.TEXT_BOX_Y_OFFSET);
-        // this.TIME_BOX_Y = this.BOX_Y_INITIAL + (3 * this.TEXT_BOX_Y_OFFSET); 
-        // this.AMMO_TEXT_Y = this.TEXT_Y_INITIAL + (4 * this.TEXT_BOX_Y_OFFSET);
-        // this.AMMO_BOX_Y = this.BOX_Y_INITIAL + (4 * this.TEXT_BOX_Y_OFFSET); 
-        // this.SHOOT_SPEED_TEXT_Y = this.TEXT_Y_INITIAL + (5 * this.TEXT_BOX_Y_OFFSET);
-        // this.SHOOT_SPEED_BOX_Y = this.BOX_Y_INITIAL + (5 * this.TEXT_BOX_Y_OFFSET); 
-        // this.MULTIPLIER_TEXT_Y = this.TEXT_Y_INITIAL + (6 * this.TEXT_BOX_Y_OFFSET);
-        // this.MULTIPLIER_BOX_Y = this.BOX_Y_INITIAL + (6 * this.TEXT_BOX_Y_OFFSET); 
+        this.SWORD_TEXT_Y = this.TEXT_Y_INITIAL + (0 * this.TEXT_BOX_Y_OFFSET);
+        this.SWORD_BOX_Y = this.BOX_Y_INITIAL + (0 * this.TEXT_BOX_Y_OFFSET); 
+        this.AXE_TEXT_Y = this.TEXT_Y_INITIAL + (1 * this.TEXT_BOX_Y_OFFSET);
+        this.AXE_BOX_Y =  this.BOX_Y_INITIAL + (1 * this.TEXT_BOX_Y_OFFSET); 
+        this.WHIP_TEXT_Y = this.TEXT_Y_INITIAL + (2 * this.TEXT_BOX_Y_OFFSET);
+        this.WHIP_BOX_Y = this.BOX_Y_INITIAL + (2 * this.TEXT_BOX_Y_OFFSET);
+        this.FLAIL_TEXT_Y = this.TEXT_Y_INITIAL + (3 * this.TEXT_BOX_Y_OFFSET);
+        this.FLAIL_BOX_Y = this.BOX_Y_INITIAL + (3 * this.TEXT_BOX_Y_OFFSET); 
+        this.SLINGSHOT_TEXT_Y = this.TEXT_Y_INITIAL + (4 * this.TEXT_BOX_Y_OFFSET);
+        this.SLINGSHOT_BOX_Y = this.BOX_Y_INITIAL + (4 * this.TEXT_BOX_Y_OFFSET); 
+        this.BOW_TEXT_Y = this.TEXT_Y_INITIAL + (5 * this.TEXT_BOX_Y_OFFSET);
+        this.BOW_BOX_Y = this.BOX_Y_INITIAL + (5 * this.TEXT_BOX_Y_OFFSET); 
         
         // play button stats
-        this.PLAY_BOX_X = 374;
-        this.PLAY_BOX_Y = 67;
-        this.PLAY_BOX_WIDTH = 153;
-        this.PLAY_BOX_HEIGHT = 48; 
-        this.PLAY_TEXT_X = 382;
-        this.PLAY_TEXT_Y = 103;
+        this.EXIT_BOX_X = 840;
+        this.EXIT_BOX_Y = 920;
+        this.EXIT_BOX_WIDTH = 130;
+        this.EXIT_BOX_HEIGHT = 48; 
+        this.EXIT_TEXT_X = this.EXIT_BOX_X + 10;
+        this.EXIT_TEXT_Y = this.EXIT_BOX_Y + 36;
     }
 
     addBBs() {
         this.BB = new BoundingBox(205 * PARAMS.BLOCKWIDTH, 105 * PARAMS.BLOCKWIDTH, 32 * PARAMS.BLOCKWIDTH, 13 * PARAMS.BLOCKWIDTH);
         this.openShopBB = new BoundingBox(this.ENTER_TEXT_X - this.game.camera.x - 9, this.ENTER_TEXT_Y - this.game.camera.y, 350, 50);
 
-        this.mouseBB = new BoundingBox(0, 0, 1, 1);   
+        this.mouseBB = new BoundingBox(0, 0, 1, 1);  
+        this.shopMouseBB = new BoundingBox(0, 0, 1, 1);  
+         
+        this.swordBB = new BoundingBox(this.BOX_X, this.SWORD_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+        this.axeBB = new BoundingBox(this.BOX_X, this.AXE_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+        this.whipBB = new BoundingBox(this.BOX_X, this.WHIP_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+        this.flailBB = new BoundingBox(this.BOX_X, this.FLAIL_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+        this.slingshotBB = new BoundingBox(this.BOX_X, this.SLINGSHOT_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+        this.bowBB = new BoundingBox(this.BOX_X, this.BOW_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
 
-        // this.speedBB = new BoundingBox(this.BOX_X, this.SPEED_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-        // this.jumpBB = new BoundingBox(this.BOX_X, this.JUMP_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-        // this.healthBB = new BoundingBox(this.BOX_X, this.HEALTH_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-        // this.timeBB = new BoundingBox(this.BOX_X, this.TIME_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-        // this.ammoBB = new BoundingBox(this.BOX_X, this.AMMO_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-        // this.shootSpeedBB = new BoundingBox(this.BOX_X, this.SHOOT_SPEED_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-        // this.multiplierBB = new BoundingBox(this.BOX_X, this.MULTIPLIER_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
 
-        this.playBB = new BoundingBox(this.PLAY_BOX_X, this.PLAY_BOX_Y, this.PLAY_BOX_WIDTH, this.PLAY_BOX_HEIGHT);   
+        this.exitBB = new BoundingBox(this.EXIT_BOX_X, this.EXIT_BOX_Y, this.EXIT_BOX_WIDTH, this.EXIT_BOX_HEIGHT);   
     }
  
     setDefaultFillAndStroke(ctx) {
@@ -164,17 +179,27 @@ class WeaponsShop {
 
     update() {
         if (this.game.mouse) {
-            this.mouseBB = new BoundingBox(this.game.mouse.x + this.game.camera.x, this.game.mouse.y + this.game.camera.y, 1, 1)
-            // console.log({openShop: this.openShopBB, mouse: this.mouseBB});
+            this.mouseBB = new BoundingBox(this.game.mouse.x + this.game.camera.x, this.game.mouse.y + this.game.camera.y, 1, 1);
+            this.shopMouseBB = new BoundingBox(this.game.mouse.x, this.game.mouse.y, 1, 1);
+        }
+
+        if (this.enteredShop) { // updates when user is in shop
+            // exit button
+            if (this.game.clicked && this.shopMouseBB.collide(this.exitBB)) {
+                this.enteredShop = false;
+            }
+
+
+        } else { // updates when user is not in shop
+            if (this.BB.collide(this.game.camera.hero.BB) &&
+                    this.game.clicked && this.openShopBB.collide(this.mouseBB)) {
+                    this.enteredShop = true;
+            }
         }
         
+       
 
         
-        if (this.game.clicked) {
-            
-            let mousePoint = this.game.mouse ? this.game.mouse : this.game.click;
-
-        }
 
         // // check for a click 
         // if (this.game.click) {
@@ -287,29 +312,193 @@ class WeaponsShop {
         return String(currentLevel).padStart(2, '0') + "/" + String(maxLevel).padStart(2, '0');
     }
 
-    draw(ctx) { 
+    draw(ctx) {
+        let oldLineWidth = ctx.lineWidth;
+
         // console.log(this.openShopBB)
         // console.log(this.mouseBB)
-           
-        let oldLineWidth = ctx.lineWidth;
-        // hero close enough to show 
-        if (this.BB.collide(this.game.camera.hero.BB)) {
+        if (this.enteredShop) {
+            // shop is open
+            ctx.fillStyle = 'rgba(0, 0, 0, .5)';
+            ctx.fillRect(0, 0, PARAMS.CANVAS_DIMENSION, PARAMS.CANVAS_DIMENSION);
+
             this.setDefaultFillAndStroke(ctx);
-            this.setMediumFont(ctx);
-            ctx.font = 48 + 'px "silkscreennormal"';
             ctx.lineWidth = 10;
-            ctx.fillStyle = 'rgba(0, 0, 0, .5)'
-            ctx.fillRect(this.ENTER_TEXT_X - this.game.camera.x - 9, this.ENTER_TEXT_Y - this.game.camera.y, 350, 50);
-           
-         
-            if (this.openShopBB.collide(this.mouseBB)) {
-               this.setStrokeAndFillGreen(ctx);
-            } else {
-                ctx.fillStyle = 'White'
+            
+            // SHOP title
+            let shopFontSize = 80;
+            ctx.font = shopFontSize + 'px "silkscreennormal"';
+            ctx.fillText("WEAPONS SHOP", this.SHOP_TEXT_X, this.SHOP_TEXT_Y);
+
+            this.setDefaultFillAndStroke(ctx);
+
+            // exit
+            if (this.shopMouseBB.collide(this.exitBB)) {
+                this.setStrokeAndFillGreen(ctx);
             }
-            ctx.strokeRect(this.ENTER_TEXT_X - this.game.camera.x - 9, this.ENTER_TEXT_Y - this.game.camera.y, 350, 50);
-            ctx.fillText("ENTER SHOP", this.ENTER_TEXT_X - this.game.camera.x, this.ENTER_TEXT_Y + 40 - this.game.camera.y);
+            ctx.lineWidth = 7;
+            let exitFontSize = 38;
+            ctx.font = exitFontSize + 'px "silkscreenbold"';  
+            ctx.fillText("EXIT", this.EXIT_TEXT_X, this.EXIT_TEXT_Y);
+            ctx.strokeRect(this.EXIT_BOX_X, this.EXIT_BOX_Y, this.EXIT_BOX_WIDTH, this.EXIT_BOX_HEIGHT);
+
+            this.setDefaultFillAndStroke(ctx);
+            
+            ctx.lineWidth = 8;
+        // sword
+            if (this.shopMouseBB.collide(this.swordBB)) {
+                this.setStrokeAndFillGreen(ctx);
+            }
+            // if (this.jumpCost > this.game.savedData.cash) {
+            //     this.setStrokeAndFillDark(ctx);
+            // }
+            // if (this.game.savedData.jumpLevel == this.game.MAX_JUMP_LEVEL) {
+            //     this.setStrokeAndFillMaxLevel(ctx);
+            // }
+            this.setLargeFont(ctx);
+            ctx.fillText("SWORD", this.TEXT_X, this.SWORD_TEXT_Y);
+            this.setSmallFont(ctx);
+            // ctx.fillText("Upgrade your jump", this.TEXT_X + 220, this.SWORD_TEXT_Y);
+            // ctx.fillText(this.formatLevel(this.game.savedData.jumpLevel, this.game.MAX_JUMP_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.JUMP_TEXT_Y + this.LEVEL_OFFSET_Y);
+            this.setMediumFont(ctx);
+            // costText = this.game.savedData.jumpLevel == this.game.MAX_JUMP_LEVEL ? "MAX " : "$" + this.jumpCost;
+            // ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.JUMP_TEXT_Y - this.COST_OFFSET_Y);
+            ctx.strokeRect(this.BOX_X, this.SWORD_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+            
+            this.setDefaultFillAndStroke(ctx);
+            
+        // axe
+            if (this.shopMouseBB.collide(this.axeBB)) {
+                this.setStrokeAndFillGreen(ctx);
+            }
+    //     if (this.jumpCost > this.game.savedData.cash) {
+    //         this.setStrokeAndFillDark(ctx);
+    //     }
+    //     if (this.game.savedData.jumpLevel == this.game.MAX_JUMP_LEVEL) {
+    //         this.setStrokeAndFillMaxLevel(ctx);
+    //     }
+            this.setLargeFont(ctx);
+            ctx.fillText("AXE", this.TEXT_X, this.AXE_TEXT_Y);
+    //     this.setSmallFont(ctx);
+    //     ctx.fillText("Upgrade your jump", this.TEXT_X + 220, this.JUMP_TEXT_Y);
+    //     ctx.fillText(this.formatLevel(this.game.savedData.jumpLevel, this.game.MAX_JUMP_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.JUMP_TEXT_Y + this.LEVEL_OFFSET_Y);
+            this.setMediumFont(ctx);
+    //     costText = this.game.savedData.jumpLevel == this.game.MAX_JUMP_LEVEL ? "MAX " : "$" + this.jumpCost;
+    //     ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.JUMP_TEXT_Y - this.COST_OFFSET_Y);
+            ctx.strokeRect(this.BOX_X, this.AXE_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+
+        this.setDefaultFillAndStroke(ctx);
+        
+    // whip
+        if (this.shopMouseBB.collide(this.whipBB)) {
+            this.setStrokeAndFillGreen(ctx);
         }
+    //     if (this.timeCost > this.game.savedData.cash) {
+    //         this.setStrokeAndFillDark(ctx);            
+    //     }
+    //     if (this.game.savedData.timeLevel == this.game.MAX_TIME_LEVEL) {
+    //         this.setStrokeAndFillMaxLevel(ctx);
+    //     }
+            this.setLargeFont(ctx);
+        ctx.fillText("WHIP", this.TEXT_X, this.WHIP_TEXT_Y);
+    //     this.setSmallFont(ctx);
+    //     ctx.fillText("Get more time", this.TEXT_X + 180, this.TIME_TEXT_Y);
+    //     ctx.fillText(this.formatLevel(this.game.savedData.timeLevel, this.game.MAX_TIME_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.TIME_TEXT_Y + this.LEVEL_OFFSET_Y);
+    //     this.setMediumFont(ctx);
+    //     costText = this.game.savedData.timeLevel == this.game.MAX_TIME_LEVEL ? "MAX " : "$" + this.timeCost;
+    //     ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.TIME_TEXT_Y - this.COST_OFFSET_Y);
+        ctx.strokeRect(this.BOX_X, this.WHIP_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+
+        this.setDefaultFillAndStroke(ctx);
+
+    // flail
+        if (this.shopMouseBB.collide(this.flailBB)) {
+            this.setStrokeAndFillGreen(ctx);
+        }
+    //     if (this.healthCost > this.game.savedData.cash) {
+    //         this.setStrokeAndFillDark(ctx);
+    //     }
+    //     if (this.game.savedData.healthLevel == this.game.MAX_HEALTH_LEVEL) {
+    //         this.setStrokeAndFillMaxLevel(ctx);
+    //     }
+        this.setLargeFont(ctx);
+        ctx.fillText("FLAIL", this.TEXT_X, this.FLAIL_TEXT_Y);
+    //     this.setSmallFont(ctx);
+    //     ctx.fillText("Increase health", this.TEXT_X + 300, this.HEALTH_TEXT_Y);
+    //     ctx.fillText(this.formatLevel(this.game.savedData.healthLevel, this.game.MAX_HEALTH_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.HEALTH_TEXT_Y + this.LEVEL_OFFSET_Y);
+    //     this.setMediumFont(ctx);
+    //     costText = this.game.savedData.healthLevel == this.game.MAX_HEALTH_LEVEL ? "MAX " : "$" + this.healthCost;
+        // ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.HEALTH_TEXT_Y - this.COST_OFFSET_Y);
+        ctx.strokeRect(this.BOX_X, this.FLAIL_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+
+        this.setDefaultFillAndStroke(ctx);
+
+    // slingshot
+        if (this.shopMouseBB.collide(this.slingshotBB)) {
+            this.setStrokeAndFillGreen(ctx);
+        }
+    //     if (this.ammoCost > this.game.savedData.cash) {
+    //         this.setStrokeAndFillDark(ctx);
+    //     }
+    //     if (this.game.savedData.ammoLevel == this.game.MAX_AMMO_LEVEL) {
+    //         this.setStrokeAndFillMaxLevel(ctx);
+    //     }
+        this.setLargeFont(ctx);
+        ctx.fillText("SLINGSHOT", this.TEXT_X, this.SLINGSHOT_TEXT_Y);
+        ctx.strokeRect(this.BOX_X, this.SLINGSHOT_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+    //     this.setSmallFont(ctx);
+    //     ctx.fillText("Get more ammo", this.TEXT_X + 235, this.AMMO_TEXT_Y);
+    //     ctx.fillText(this.formatLevel(this.game.savedData.ammoLevel, this.game.MAX_AMMO_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.AMMO_TEXT_Y + this.LEVEL_OFFSET_Y);
+    //     this.setMediumFont(ctx);
+    //     costText = this.game.savedData.ammoLevel == this.game.MAX_AMMO_LEVEL ? "MAX " : "$" + this.ammoCost;
+        // ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.AMMO_TEXT_Y - this.COST_OFFSET_Y);
+        
+        this.setDefaultFillAndStroke(ctx);
+
+    // bow
+        if (this.shopMouseBB.collide(this.bowBB)) {
+            this.setStrokeAndFillGreen(ctx);
+        }
+    //     if (this.shootSpeedCost > this.game.savedData.cash) {
+    //         this.setStrokeAndFillDark(ctx);
+    //     }
+    //     if (this.game.savedData.shootSpeedLevel == this.game.MAX_SHOOT_SPEED_LEVEL) {
+    //         this.setStrokeAndFillMaxLevel(ctx);
+    //     }
+        this.setLargeFont(ctx);
+        ctx.fillText("BOW", this.TEXT_X, this.BOW_TEXT_Y);
+    //     this.setSmallFont(ctx);
+    //     ctx.fillText("Shoot faster", this.TEXT_X + 550, this.SHOOT_SPEED_TEXT_Y);
+    //     ctx.fillText(this.formatLevel(this.game.savedData.shootSpeedLevel, this.game.MAX_SHOOT_SPEED_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.SHOOT_SPEED_TEXT_Y + this.LEVEL_OFFSET_Y);
+    //     this.setMediumFont(ctx);
+    //     costText = this.game.savedData.shootSpeedLevel == this.game.MAX_SHOOT_SPEED_LEVEL ? "MAX " : "$" + this.shootSpeedCost;
+    //     ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.SHOOT_SPEED_TEXT_Y - this.COST_OFFSET_Y);
+        ctx.strokeRect(this.BOX_X, this.BOW_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+
+
+        } else {
+            // shop is closed
+            // hero close enough to show 
+            if (this.BB.collide(this.game.camera.hero.BB)) {
+                this.setDefaultFillAndStroke(ctx);
+                this.setMediumFont(ctx);
+                ctx.font = 48 + 'px "silkscreennormal"';
+                ctx.lineWidth = 10;
+                ctx.fillStyle = 'rgba(0, 0, 0, .5)';
+                ctx.fillRect(this.ENTER_TEXT_X - this.game.camera.x - 9, this.ENTER_TEXT_Y - this.game.camera.y, 350, 50);
+            
+                if (this.openShopBB.collide(this.mouseBB)) {
+                    this.setStrokeAndFillGreen(ctx);
+                } else {
+                    ctx.fillStyle = 'White'
+                }
+                ctx.strokeRect(this.ENTER_TEXT_X - this.game.camera.x - 9, this.ENTER_TEXT_Y - this.game.camera.y, 350, 50);
+                ctx.fillText("ENTER SHOP", this.ENTER_TEXT_X - this.game.camera.x, this.ENTER_TEXT_Y + 40 - this.game.camera.y);
+            }
+        }
+           
+      
+        // sword axe, whip, plail, slingshop, bow
 
         
         
@@ -516,21 +705,28 @@ class WeaponsShop {
 
         ctx.lineWidth = oldLineWidth;
 
+        this.swordImage.drawFrame(this.game.clockTick, ctx, 400, 100, PARAMS.SCALE * 2);
+        this.axeImage.drawFrame(this.game.clockTick, ctx, 400, 200, PARAMS.SCALE * 2);
+        this.whipImage.drawFrame(this.game.clockTick, ctx, 400, 300, PARAMS.SCALE * 2);
+        this.flailImage.drawFrame(this.game.clockTick, ctx, 400, 400, PARAMS.SCALE * 2);
+        this.slingshotImage.drawFrame(this.game.clockTick, ctx, 400, 500, PARAMS.SCALE * 2);
+        this.bowImage.drawFrame(this.game.clockTick, ctx, 400, 600, PARAMS.SCALE * 2);
+
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.mouseBB.x, this.mouseBB.y, this.mouseBB.width, this.mouseBB.height);
             ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width, this.BB.height);
             ctx.strokeRect(this.openShopBB.x - this.game.camera.x, this.openShopBB.y - this.game.camera.y, this.openShopBB.width, this.openShopBB.height);
             
-            // ctx.strokeRect(this.speedBB.x, this.speedBB.y, this.speedBB.width, this.speedBB.height);
-            // ctx.strokeRect(this.jumpBB.x, this.jumpBB.y, this.jumpBB.width, this.jumpBB.height);
-            // ctx.strokeRect(this.healthBB.x, this.healthBB.y, this.healthBB.width, this.healthBB.height);
-            // ctx.strokeRect(this.timeBB.x, this.timeBB.y, this.timeBB.width, this.timeBB.height);
-            // ctx.strokeRect(this.ammoBB.x, this.ammoBB.y, this.ammoBB.width, this.ammoBB.height);
-            // ctx.strokeRect(this.shootSpeedBB.x, this.shootSpeedBB.y, this.shootSpeedBB.width, this.shootSpeedBB.height);
-            // ctx.strokeRect(this.multiplierBB.x, this.multiplierBB.y, this.multiplierBB.width, this.multiplierBB.height);
+            ctx.strokeRect(this.swordBB.x, this.swordBB.y, this.swordBB.width, this.swordBB.height);
+            ctx.strokeRect(this.axeBB.x, this.axeBB.y, this.axeBB.width, this.axeBB.height);
+            ctx.strokeRect(this.whipBB.x, this.whipBB.y, this.whipBB.width, this.whipBB.height);
+            ctx.strokeRect(this.flailBB.x, this.flailBB.y, this.flailBB.width, this.flailBB.height);
+            ctx.strokeRect(this.slingshotBB.x, this.slingshotBB.y, this.slingshotBB.width, this.slingshotBB.height);
+            ctx.strokeRect(this.bowBB.x, this.bowBB.y, this.bowBB.width, this.bowBB.height);
 
-            // ctx.strokeRect(this.playBB.x, this.playBB.y, this.playBB.width, this.playBB.height);
+
+            ctx.strokeRect(this.exitBB.x, this.exitBB.y, this.exitBB.width, this.exitBB.height);
         }
 
     };

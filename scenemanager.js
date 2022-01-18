@@ -30,7 +30,8 @@ class SceneManager {
                     this.game.addEntity(props[1].topper(this.game, 252 * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE, 55.5 * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE - 2 * PARAMS.OVERWORLD_SCALE, true));
                 } else if (isTown) {
                     // bulletin board (left)
-                    this.game.addEntity(props[12].base(this.game, 138 * PARAMS.BLOCKWIDTH, 102 * PARAMS.BLOCKWIDTH, true)); 
+                    this.game.addEntity(props[12].base(this.game, 45 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 102 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); 
+                    
                     this.game.addEntity(props[12].base(this.game, 166 * PARAMS.BLOCKWIDTH, 102 * PARAMS.BLOCKWIDTH, true)); 
                     // well
                     this.game.addEntity(props[13].base(this.game, 199.5 * PARAMS.BLOCKWIDTH, 140 * PARAMS.BLOCKWIDTH, true)); 
