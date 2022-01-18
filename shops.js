@@ -45,32 +45,12 @@ class WeaponsShop {
 
     addConstants() { 
 
-        // this.game.MAX_SPEED_LEVEL = 10;
-        // this.game.MAX_JUMP_LEVEL = 10;
-        // this.game.MAX_HEALTH_LEVEL = 4;
-        // this.game.MAX_TIME_LEVEL = 10;
-        // this.game.MAX_AMMO_LEVEL = 10;
-        // this.game.MAX_SHOOT_SPEED_LEVEL = 10;
-        // this.game.MAX_MULTIPLIER_LEVEL = 4;
-
-        // this.SPEED_COSTS    = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        // this.JUMP_COSTS     = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        // this.HEALTH_COSTS   = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        // this.TIME_COSTS     = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        // this.AMMO_COSTS     = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        // this.SHOOT_SPEED_COSTS  = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        // this.MULTIPLIER_COSTS   = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
         this.SHOP_TEXT_X = 24;  // x pos of shop title
         this.SHOP_TEXT_Y = 90; // y pos of shop title
 
-        // this.CASH_TEXT_X = 883; // x pos of cash title
-        // this.CASH_TEXT_Y = 105; // y pos of cash title
-        // this.CASH_TEXT_WIDTH = 30; // width of cash text font for 1 char
-
-        // this.CASH_ANIM_X = 816;  // cash animation x pos
-        // this.CASH_ANIM_Y = 57.6; // cash animation y pos
-
+        this.CURRENCY_TEXT_X = 920; // x pos of cash title
+        this.CURRENCY_TEXT_Y = 80; // y pos of cash title
+        this.CASH_TEXT_WIDTH = 30; // width of cash text font for 1 char
         
         this.TEXT_X = 110;      // x start position of category text
         this.BOX_X = 25;        // x start for category boxes
@@ -79,11 +59,6 @@ class WeaponsShop {
 
         this.DESCRIPTION_OFFSET_Y  = 30; // y offset of description text below name text
         this.DESCRIPTION_OFFSET_X  = 5; // x offset of description text below name text
-
-        // this.COST_OFFSET_X = 880;  // x offset from TEXT_X to cost text
-        // this.COST_OFFSET_Y = 20;   // y offset from category y value to cost text
-        // this.LEVEL_OFFSET_X = 810; // x offset from TEXT_X to level text
-        // this.LEVEL_OFFSET_Y = 10;  // y offset from category y value for level text
         
         this.TEXT_Y_INITIAL = 180  ; // starting y pos for category text
         this.BOX_Y_INITIAL = 108;  // starting y pos for category text
@@ -93,6 +68,7 @@ class WeaponsShop {
         this.ENTER_TEXT_X = 201.5 * PARAMS.BLOCKWIDTH;
         this.ENTER_TEXT_Y = 116.5 * PARAMS.BLOCKWIDTH;
         
+        // y values for text for each weapon
         this.SWORD_TEXT_Y = this.TEXT_Y_INITIAL + (0 * this.TEXT_BOX_Y_OFFSET);
         this.SWORD_BOX_Y = this.BOX_Y_INITIAL + (0 * this.TEXT_BOX_Y_OFFSET); 
         this.AXE_TEXT_Y = this.TEXT_Y_INITIAL + (1 * this.TEXT_BOX_Y_OFFSET);
@@ -117,13 +93,54 @@ class WeaponsShop {
         // vals for upgrade buttons
         this.DAMAGE_BOX_X = this.BOX_X + 810;
         this.DAMAGE_TEXT_X = this.DAMAGE_BOX_X - 170;
-
         this.DAMAGE_UPGRADE_BOX_X = this.BOX_X + 810;
         this.DAMAGE_UPGRADE_WIDTH = 120;
         this.DAMAGE_UPGRADE_HEIGHT = 40;
-
         this.DAMAGE_BOX_OFFSET_Y = 12;
         this.DEXTERITY_BOX_OFFSET_Y = 67;
+
+        // vals for unlock buttons
+        this.UNLOCK_X = 680;
+        this.UNLOCK_WIDTH = 260;
+        this.UNLOCK_HEIGHT = 50;
+        this.UNLOCK_OFFSET_Y = 33;
+        this.UNLOCK_TEXT_OFFSET_X = 10;
+
+        // costs and levels
+        this.game.MAX_DMG_LEVEL = 10;
+        this.game.MAX_DXT_LEVEL = 10;
+        this.SWORD_DMG_COSTS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        this.SWORD_DXT_COSTS = [2, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        this.AXE_DMG_COSTS = [3, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        this.AXE_DXT_COSTS = [4, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        this.WHIP_DMG_COSTS = [5, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        this.WHIP_DXT_COSTS = [6, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        this.FLAIL_DMG_COSTS = [7, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        this.FLAIL_DXT_COSTS = [8, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        this.SLINGSHOT_DMG_COSTS = [9, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        this.SLINGSHOT_DXT_COSTS = [10, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        this.BOW_DMG_COSTS = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        this.BOW_DXT_COSTS = [12, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+        this.SWORD_UNLOCK_COST = 0;
+        this.AXE_UNLOCK_COST = 50;
+        this.WHIP_UNLOCK_COST = 100;
+        this.FLAIL_UNLOCK_COST = 300;
+        this.SLINGSHOT_UNLOCK_COST = 666;
+        this.BOW_UNLOCK_COST = 999;
+
+        this.swordDmgCost = this.SWORD_DMG_COSTS[saveState.weapons[0].attack];
+        this.swordDxtCost = this.SWORD_DXT_COSTS[saveState.weapons[0].dexterity];
+        this.axeDmgCost = this.AXE_DMG_COSTS[saveState.weapons[1].attack];
+        this.axeDxtCost = this.AXE_DXT_COSTS[saveState.weapons[1].dexterity];
+        this.whipDmgCost = this.WHIP_DMG_COSTS[saveState.weapons[2].attack];
+        this.whipDxtCost = this.WHIP_DXT_COSTS[saveState.weapons[2].dexterity];
+        this.flailDmgCost = this.FLAIL_DMG_COSTS[saveState.weapons[3].attack];
+        this.flailDxtCost = this.FLAIL_DXT_COSTS[saveState.weapons[3].dexterity];
+        this.slingshotDmgCost = this.SLINGSHOT_DMG_COSTS[saveState.weapons[4].attack];
+        this.slingshotDxtCost = this.SLINGSHOT_DXT_COSTS[saveState.weapons[4].dexterity];
+        this.bowDmgCost = this.BOW_DMG_COSTS[saveState.weapons[5].attack];
+        this.bowDxtCost = this.BOW_DXT_COSTS[saveState.weapons[5].dexterity];
     }
 
     addBBs() {
@@ -133,16 +150,32 @@ class WeaponsShop {
         this.mouseBB = new BoundingBox(0, 0, 1, 1);  
         this.shopMouseBB = new BoundingBox(0, 0, 1, 1);  
          
-        this.swordBB = new BoundingBox(this.BOX_X, this.SWORD_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-        this.axeBB = new BoundingBox(this.BOX_X, this.AXE_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-        this.whipBB = new BoundingBox(this.BOX_X, this.WHIP_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-        this.flailBB = new BoundingBox(this.BOX_X, this.FLAIL_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-        this.slingshotBB = new BoundingBox(this.BOX_X, this.SLINGSHOT_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-        this.bowBB = new BoundingBox(this.BOX_X, this.BOW_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+        // this.swordBB = new BoundingBox(this.BOX_X, this.SWORD_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+        // this.axeBB = new BoundingBox(this.BOX_X, this.AXE_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+        // this.whipBB = new BoundingBox(this.BOX_X, this.WHIP_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+        // this.flailBB = new BoundingBox(this.BOX_X, this.FLAIL_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+        // this.slingshotBB = new BoundingBox(this.BOX_X, this.SLINGSHOT_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+        // this.bowBB = new BoundingBox(this.BOX_X, this.BOW_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
 
         this.swordDmgUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.SWORD_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
         this.swordDxtUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.SWORD_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+        this.axeDmgUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.AXE_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+        this.axeDxtUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.AXE_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+        this.whipDmgUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.WHIP_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+        this.whipDxtUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.WHIP_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+        this.flailDmgUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.FLAIL_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+        this.flailDxtUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.FLAIL_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+        this.slingshotDmgUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.SLINGSHOT_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+        this.slingshotDxtUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.SLINGSHOT_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+        this.bowDmgUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.BOW_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+        this.bowDxtUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.BOW_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
 
+        this.swordUnlockBB = new BoundingBox(this.UNLOCK_X, this.SWORD_TEXT_Y - this.UNLOCK_OFFSET_Y, this.UNLOCK_WIDTH, this.UNLOCK_HEIGHT);
+        this.axeUnlockBB = new BoundingBox(this.UNLOCK_X, this.AXE_TEXT_Y - this.UNLOCK_OFFSET_Y, this.UNLOCK_WIDTH, this.UNLOCK_HEIGHT);
+        this.whipUnlockBB = new BoundingBox(this.UNLOCK_X, this.WHIP_TEXT_Y - this.UNLOCK_OFFSET_Y, this.UNLOCK_WIDTH, this.UNLOCK_HEIGHT);
+        this.flailUnlockBB = new BoundingBox(this.UNLOCK_X, this.FLAIL_TEXT_Y - this.UNLOCK_OFFSET_Y, this.UNLOCK_WIDTH, this.UNLOCK_HEIGHT);
+        this.slingshotUnlockBB = new BoundingBox(this.UNLOCK_X, this.SLINGSHOT_TEXT_Y - this.UNLOCK_OFFSET_Y, this.UNLOCK_WIDTH, this.UNLOCK_HEIGHT);
+        this.bowUnlockBB = new BoundingBox(this.UNLOCK_X, this.BOW_TEXT_Y - this.UNLOCK_OFFSET_Y, this.UNLOCK_WIDTH, this.UNLOCK_HEIGHT);
 
         this.exitBB = new BoundingBox(this.EXIT_BOX_X, this.EXIT_BOX_Y, this.EXIT_BOX_WIDTH, this.EXIT_BOX_HEIGHT);   
     }
@@ -173,7 +206,7 @@ class WeaponsShop {
         ctx.font = 30 + 'px "silkscreennormal"';
     }
     setMediumFont(ctx) {
-        ctx.font = 48 + 'px "silkscreennormal"';
+        ctx.font = 40 + 'px "silkscreennormal"';
     }
     setLargeFont(ctx) {
         ctx.font = 72 + 'px "silkscreennormal"'; 
@@ -320,9 +353,13 @@ class WeaponsShop {
 
     // formats and returns the upgrade level text depending on the current 
     // level and the maximum possible level
-    formatLevel(currentLevel, maxLevel) {
+    formatLevel(currentLevel, maxLevel = 10) {
         return String(currentLevel).padStart(2, '0') + "/" + String(maxLevel).padStart(2, '0');
     }
+    calcUpgradeCostX(costStr) {
+        return this.DAMAGE_BOX_X + 4 + (13 * (5 - costStr.length))
+    }
+
 
     setLargeStroke(ctx) {
         ctx.lineWidth = 8;
@@ -332,11 +369,25 @@ class WeaponsShop {
         ctx.lineWidth = 5;
     }
 
+    
     draw(ctx) {
-        let oldLineWidth = ctx.lineWidth;
 
-        // console.log(this.openShopBB)
-        // console.log(this.mouseBB)
+        this.swordDmgCost = this.SWORD_DMG_COSTS[saveState.weapons[0].attack];
+        this.swordDxtCost = this.SWORD_DXT_COSTS[saveState.weapons[0].dexterity];
+        this.axeDmgCost = this.AXE_DMG_COSTS[saveState.weapons[1].attack];
+        this.axeDxtCost = this.AXE_DXT_COSTS[saveState.weapons[1].dexterity];
+        this.whipDmgCost = this.WHIP_DMG_COSTS[saveState.weapons[2].attack];
+        this.whipDxtCost = this.WHIP_DXT_COSTS[saveState.weapons[2].dexterity];
+        this.flailDmgCost = this.FLAIL_DMG_COSTS[saveState.weapons[3].attack];
+        this.flailDxtCost = this.FLAIL_DXT_COSTS[saveState.weapons[3].dexterity];
+        this.slingshotDmgCost = this.SLINGSHOT_DMG_COSTS[saveState.weapons[4].attack];
+        this.slingshotDxtCost = this.SLINGSHOT_DXT_COSTS[saveState.weapons[4].dexterity];
+        this.bowDmgCost = this.BOW_DMG_COSTS[saveState.weapons[5].attack];
+        this.bowDxtCost = this.BOW_DXT_COSTS[saveState.weapons[5].dexterity];
+        
+        let oldLineWidth = ctx.lineWidth;
+        let costStr;
+
         if (this.enteredShop) {
             // shop is open
             ctx.fillStyle = 'rgba(0, 0, 0, .7)';
@@ -364,178 +415,313 @@ class WeaponsShop {
             this.setDefaultFillAndStroke(ctx);
             this.setLargeStroke(ctx);
 
+            // currency
+            this.cashOffset = (("" + saveState.currency).length - 1) * this.CASH_TEXT_WIDTH;
+            this.cashTextX = this.CURRENCY_TEXT_X - this.cashOffset;
+            this.setMediumFont(ctx);
+            ctx.fillText("$" + saveState.currency, this.cashTextX, this.CURRENCY_TEXT_Y);
+            // ctx.fillText(saveState.currency, this.CURRENCY_TEXT_X, this.CURRENCY_TEXT_Y);
+
         // sword
-            // if (this.shopMouseBB.collide(this.swordBB)) {
-            //     this.setStrokeAndFillGreen(ctx);
-            // }
-            // if (this.jumpCost > this.game.savedData.cash) {
-            //     this.setStrokeAndFillDark(ctx);
-            // }
-            // if (this.game.savedData.jumpLevel == this.game.MAX_JUMP_LEVEL) {
-            //     this.setStrokeAndFillMaxLevel(ctx);
-            // }
+            if (!saveState.weapons[0].bought) {
+                this.setStrokeAndFillDark(ctx);
+            }
             this.setLargeFont(ctx);
             ctx.fillText("SWORD", this.TEXT_X, this.SWORD_TEXT_Y);
             this.setSmallFont(ctx);
             ctx.fillText("It's what you get when you start", this.TEXT_X + this.DESCRIPTION_OFFSET_X, this.SWORD_TEXT_Y + this.DESCRIPTION_OFFSET_Y);
-
-             
-            ctx.fillText("Damage", this.DAMAGE_TEXT_X, this.SWORD_BOX_Y + 30);
-            this.setDefaultFillAndStroke(ctx);
-            
-            ctx.fillText("Lvl: 09/10", this.DAMAGE_TEXT_X, this.SWORD_BOX_Y + 53)
-            
-            
-            ctx.fillText("Dexterity", this.DAMAGE_TEXT_X, this.SWORD_BOX_Y + 85)
-            ctx.fillText("Lvl: 09/10", this.DAMAGE_TEXT_X, this.SWORD_BOX_Y + 108)
-
-
             ctx.strokeRect(this.BOX_X, this.SWORD_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+            
+            if (saveState.weapons[0].bought) {
+                // bought the weapon, so show damage and dexterity upgrade stuff
+                ctx.fillText("Damage", this.DAMAGE_TEXT_X, this.SWORD_BOX_Y + 30);            
+                ctx.fillText("Lvl: " + this.formatLevel(saveState.weapons[0].attack), this.DAMAGE_TEXT_X, this.SWORD_BOX_Y + 53)
+                ctx.fillText("Dexterity", this.DAMAGE_TEXT_X, this.SWORD_BOX_Y + 85)
+                ctx.fillText("Lvl: " + this.formatLevel(saveState.weapons[0].dexterity), this.DAMAGE_TEXT_X, this.SWORD_BOX_Y + 108)
+    
+                this.setSmallStroke(ctx);
+                this.setCostFont(ctx);
+                
+                if (this.shopMouseBB.collide(this.swordDmgUpgradeBB)) {
+                    this.setStrokeAndFillGreen(ctx);
+                } 
+                costStr = "$" + this.swordDmgCost
+                ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.SWORD_BOX_Y + 41)
+                ctx.strokeRect(this.DAMAGE_BOX_X, this.SWORD_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+                
+                this.setDefaultFillAndStroke(ctx);
+                 
+                if (this.shopMouseBB.collide(this.swordDxtUpgradeBB)) {
+                    this.setStrokeAndFillGreen(ctx);
+                } 
+                costStr = "$" + this.swordDxtCost
+                ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.SWORD_BOX_Y + 96)
+                ctx.strokeRect(this.DAMAGE_BOX_X, this.SWORD_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y, this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+                this.setDefaultFillAndStroke(ctx);
+            } else {
+                // weapon not bought yet
+                this.setDefaultFillAndStroke(ctx);
+                if (this.shopMouseBB.collide(this.swordUnlockBB)) {
+                    this.setStrokeAndFillGreen(ctx);
+                }
+                this.setCostFont(ctx);
+                ctx.strokeRect(this.UNLOCK_X, this.SWORD_TEXT_Y - this.UNLOCK_OFFSET_Y, this.UNLOCK_WIDTH, this.UNLOCK_HEIGHT);
+                ctx.fillText("Unlock $" + this.SWORD_UNLOCK_COST, this.UNLOCK_X + this.UNLOCK_TEXT_OFFSET_X, this.SWORD_TEXT_Y);
 
-            this.setSmallStroke(ctx);
-            this.setCostFont(ctx);
-            
-            
-            if (this.shopMouseBB.collide(this.swordDmgUpgradeBB)) {
-                this.setStrokeAndFillGreen(ctx);
-            } 
-            ctx.fillText("$1000", this.DAMAGE_BOX_X + 4, this.SWORD_BOX_Y + 41)
-            ctx.strokeRect(this.DAMAGE_BOX_X, this.SWORD_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
-            
-            this.setDefaultFillAndStroke(ctx);
-             
-            if (this.shopMouseBB.collide(this.swordDxtUpgradeBB)) {
-                this.setStrokeAndFillGreen(ctx);
-            } 
-            ctx.fillText("$9999", this.DAMAGE_BOX_X + 4, this.SWORD_BOX_Y + 96)
-            ctx.strokeRect(this.DAMAGE_BOX_X, this.SWORD_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y, this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
-            this.setDefaultFillAndStroke(ctx);
-            
-            
-            // ctx.fillText(this.formatLevel(this.game.savedData.jumpLevel, this.game.MAX_JUMP_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.JUMP_TEXT_Y + this.LEVEL_OFFSET_Y);
-            this.setMediumFont(ctx);
-            // costText = this.game.savedData.jumpLevel == this.game.MAX_JUMP_LEVEL ? "MAX " : "$" + this.jumpCost;
-            // ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.JUMP_TEXT_Y - this.COST_OFFSET_Y);
-            
-            
+            }
+               
             this.setDefaultFillAndStroke(ctx);
             this.setLargeStroke(ctx);
             
         // axe
-            if (this.shopMouseBB.collide(this.axeBB)) {
-                this.setStrokeAndFillGreen(ctx);
+            if (!saveState.weapons[1].bought) {
+                this.setStrokeAndFillDark(ctx);
             }
-    //     if (this.jumpCost > this.game.savedData.cash) {
-    //         this.setStrokeAndFillDark(ctx);
-    //     }
-    //     if (this.game.savedData.jumpLevel == this.game.MAX_JUMP_LEVEL) {
-    //         this.setStrokeAndFillMaxLevel(ctx);
-    //     }
             this.setLargeFont(ctx);
             ctx.fillText("AXE", this.TEXT_X, this.AXE_TEXT_Y);
             this.setSmallFont(ctx);
             ctx.fillText("It's an axe... so yeah", this.TEXT_X + this.DESCRIPTION_OFFSET_X, this.AXE_TEXT_Y + this.DESCRIPTION_OFFSET_Y);
-    //     ctx.fillText(this.formatLevel(this.game.savedData.jumpLevel, this.game.MAX_JUMP_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.JUMP_TEXT_Y + this.LEVEL_OFFSET_Y);
-            this.setMediumFont(ctx);
-    //     costText = this.game.savedData.jumpLevel == this.game.MAX_JUMP_LEVEL ? "MAX " : "$" + this.jumpCost;
-    //     ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.JUMP_TEXT_Y - this.COST_OFFSET_Y);
             ctx.strokeRect(this.BOX_X, this.AXE_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+            if (saveState.weapons[1].bought) {
+                // bought the weapon, so show damage and dexterity upgrade stuff
+                ctx.fillText("Damage", this.DAMAGE_TEXT_X, this.AXE_BOX_Y + 30);            
+                ctx.fillText("Lvl: " + this.formatLevel(saveState.weapons[1].attack), this.DAMAGE_TEXT_X, this.AXE_BOX_Y + 53)
+                ctx.fillText("Dexterity", this.DAMAGE_TEXT_X, this.AXE_BOX_Y + 85)
+                ctx.fillText("Lvl: " + this.formatLevel(saveState.weapons[1].dexterity), this.DAMAGE_TEXT_X, this.AXE_BOX_Y + 108)
+    
+                this.setSmallStroke(ctx);
+                this.setCostFont(ctx);
+                
+                if (this.shopMouseBB.collide(this.axeDmgUpgradeBB)) {
+                    this.setStrokeAndFillGreen(ctx);
+                } 
+                costStr = "$" + this.axeDmgCost
+                ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.AXE_BOX_Y + 41)
+                // ctx.fillText("$1000", this.DAMAGE_BOX_X + 4, this.AXE_BOX_Y + 41)
+                ctx.strokeRect(this.DAMAGE_BOX_X, this.AXE_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+                
+                this.setDefaultFillAndStroke(ctx);
+                 
+                if (this.shopMouseBB.collide(this.axeDxtUpgradeBB)) {
+                    this.setStrokeAndFillGreen(ctx);
+                }
+                costStr = "$" + this.axeDxtCost
+                ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.AXE_BOX_Y + 96) 
+                ctx.strokeRect(this.DAMAGE_BOX_X, this.AXE_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y, this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+                this.setDefaultFillAndStroke(ctx);
+
+            } else {
+                // weapon not bought yet
+                this.setDefaultFillAndStroke(ctx);
+                if (this.shopMouseBB.collide(this.axeUnlockBB)) {
+                    this.setStrokeAndFillGreen(ctx);
+                }
+                this.setCostFont(ctx);
+                ctx.strokeRect(this.UNLOCK_X, this.AXE_TEXT_Y - this.UNLOCK_OFFSET_Y, this.UNLOCK_WIDTH, this.UNLOCK_HEIGHT);
+                ctx.fillText("Unlock $" + this.AXE_UNLOCK_COST, this.UNLOCK_X + this.UNLOCK_TEXT_OFFSET_X, this.AXE_TEXT_Y);
+            }
 
             this.setDefaultFillAndStroke(ctx);
+            this.setLargeStroke(ctx);
         
-    // whip
-            if (this.shopMouseBB.collide(this.whipBB)) {
-                this.setStrokeAndFillGreen(ctx);
+        // whip
+            if (!saveState.weapons[2].bought) {
+                this.setStrokeAndFillDark(ctx);
             }
-    //     if (this.timeCost > this.game.savedData.cash) {
-    //         this.setStrokeAndFillDark(ctx);            
-    //     }
-    //     if (this.game.savedData.timeLevel == this.game.MAX_TIME_LEVEL) {
-    //         this.setStrokeAndFillMaxLevel(ctx);
-    //     }
             this.setLargeFont(ctx);
             ctx.fillText("WHIP", this.TEXT_X, this.WHIP_TEXT_Y);
             this.setSmallFont(ctx);
             ctx.fillText("Embrace your inner cowboy", this.TEXT_X + this.DESCRIPTION_OFFSET_X, this.WHIP_TEXT_Y + this.DESCRIPTION_OFFSET_Y);
-    //     this.setSmallFont(ctx);
-    //     ctx.fillText("Get more time", this.TEXT_X + 180, this.TIME_TEXT_Y);
-    //     ctx.fillText(this.formatLevel(this.game.savedData.timeLevel, this.game.MAX_TIME_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.TIME_TEXT_Y + this.LEVEL_OFFSET_Y);
-    //     this.setMediumFont(ctx);
-    //     costText = this.game.savedData.timeLevel == this.game.MAX_TIME_LEVEL ? "MAX " : "$" + this.timeCost;
-    //     ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.TIME_TEXT_Y - this.COST_OFFSET_Y);
-         ctx.strokeRect(this.BOX_X, this.WHIP_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+            ctx.strokeRect(this.BOX_X, this.WHIP_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+            if (saveState.weapons[2].bought) {
+                // bought the weapon, so show damage and dexterity upgrade stuff
+                ctx.fillText("Damage", this.DAMAGE_TEXT_X, this.WHIP_BOX_Y + 30);            
+                ctx.fillText("Lvl: " + this.formatLevel(saveState.weapons[2].attack), this.DAMAGE_TEXT_X, this.WHIP_BOX_Y + 53)
+                ctx.fillText("Dexterity", this.DAMAGE_TEXT_X, this.WHIP_BOX_Y + 85)
+                ctx.fillText("Lvl: " + this.formatLevel(saveState.weapons[2].dexterity), this.DAMAGE_TEXT_X, this.WHIP_BOX_Y + 108)
+    
+                this.setSmallStroke(ctx);
+                this.setCostFont(ctx);
+                
+                if (this.shopMouseBB.collide(this.whipDmgUpgradeBB)) {
+                    this.setStrokeAndFillGreen(ctx);
+                }
+                costStr = "$" + this.whipDmgCost
+                ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.WHIP_BOX_Y + 41) 
+                ctx.strokeRect(this.DAMAGE_BOX_X, this.WHIP_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+                
+                this.setDefaultFillAndStroke(ctx);
+                 
+                if (this.shopMouseBB.collide(this.whipDxtUpgradeBB)) {
+                    this.setStrokeAndFillGreen(ctx);
+                } 
+                costStr = "$" + this.whipDxtCost
+                ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.WHIP_BOX_Y + 96) 
+                // ctx.fillText("$9999", this.DAMAGE_BOX_X + 4, this.WHIP_BOX_Y + 96)
+                ctx.strokeRect(this.DAMAGE_BOX_X, this.WHIP_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y, this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+                this.setDefaultFillAndStroke(ctx);
+
+            } else {
+                // weapon not bought yet
+                this.setDefaultFillAndStroke(ctx);
+                if (this.shopMouseBB.collide(this.whipUnlockBB)) {
+                    this.setStrokeAndFillGreen(ctx);
+                }
+                this.setCostFont(ctx);
+                ctx.strokeRect(this.UNLOCK_X, this.WHIP_TEXT_Y - this.UNLOCK_OFFSET_Y, this.UNLOCK_WIDTH, this.UNLOCK_HEIGHT);
+                ctx.fillText("Unlock $" + this.WHIP_UNLOCK_COST, this.UNLOCK_X + this.UNLOCK_TEXT_OFFSET_X, this.WHIP_TEXT_Y);
+            }
 
             this.setDefaultFillAndStroke(ctx);
+            this.setLargeStroke(ctx);
 
-    // flail
-            if (this.shopMouseBB.collide(this.flailBB)) {
-                this.setStrokeAndFillGreen(ctx);
+        // flail
+            if (!saveState.weapons[3].bought) {
+                this.setStrokeAndFillDark(ctx);
             }
-    //     if (this.healthCost > this.game.savedData.cash) {
-    //         this.setStrokeAndFillDark(ctx);
-    //     }
-    //     if (this.game.savedData.healthLevel == this.game.MAX_HEALTH_LEVEL) {
-    //         this.setStrokeAndFillMaxLevel(ctx);
-    //     }
             this.setLargeFont(ctx);
             ctx.fillText("FLAIL", this.TEXT_X, this.FLAIL_TEXT_Y);
             this.setSmallFont(ctx);
             ctx.fillText("A ball and a handle and a rope", this.TEXT_X + this.DESCRIPTION_OFFSET_X, this.FLAIL_TEXT_Y + this.DESCRIPTION_OFFSET_Y);
-    //     this.setSmallFont(ctx);
-    //     ctx.fillText("Increase health", this.TEXT_X + 300, this.HEALTH_TEXT_Y);
-    //     ctx.fillText(this.formatLevel(this.game.savedData.healthLevel, this.game.MAX_HEALTH_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.HEALTH_TEXT_Y + this.LEVEL_OFFSET_Y);
-    //     this.setMediumFont(ctx);
-    //     costText = this.game.savedData.healthLevel == this.game.MAX_HEALTH_LEVEL ? "MAX " : "$" + this.healthCost;
-        // ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.HEALTH_TEXT_Y - this.COST_OFFSET_Y);
             ctx.strokeRect(this.BOX_X, this.FLAIL_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+            if (saveState.weapons[3].bought) {
+                // bought the weapon, so show damage and dexterity upgrade stuff
+                ctx.fillText("Damage", this.DAMAGE_TEXT_X, this.FLAIL_BOX_Y + 30);            
+                ctx.fillText("Lvl: " + this.formatLevel(saveState.weapons[3].attack), this.DAMAGE_TEXT_X, this.FLAIL_BOX_Y + 53)
+                ctx.fillText("Dexterity", this.DAMAGE_TEXT_X, this.FLAIL_BOX_Y + 85)
+                ctx.fillText("Lvl: " + this.formatLevel(saveState.weapons[3].dexterity), this.DAMAGE_TEXT_X, this.FLAIL_BOX_Y + 108)
+    
+                this.setSmallStroke(ctx);
+                this.setCostFont(ctx);
+                
+                if (this.shopMouseBB.collide(this.flailDmgUpgradeBB)) {
+                    this.setStrokeAndFillGreen(ctx);
+                } 
+                costStr = "$" + this.flailDmgCost
+                ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.FLAIL_BOX_Y + 41) 
+                ctx.strokeRect(this.DAMAGE_BOX_X, this.FLAIL_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+                
+                this.setDefaultFillAndStroke(ctx);
+                 
+                if (this.shopMouseBB.collide(this.flailDxtUpgradeBB)) {
+                    this.setStrokeAndFillGreen(ctx);
+                } 
+                costStr = "$" + this.flailDxtCost
+                ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.FLAIL_BOX_Y + 96) 
+                // ctx.fillText("$9999", this.DAMAGE_BOX_X + 4, this.FLAIL_BOX_Y + 96)
+                ctx.strokeRect(this.DAMAGE_BOX_X, this.FLAIL_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y, this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+                this.setDefaultFillAndStroke(ctx);
+
+            } else {
+                // weapon not bought yet
+                this.setDefaultFillAndStroke(ctx);
+                if (this.shopMouseBB.collide(this.flailUnlockBB)) {
+                    this.setStrokeAndFillGreen(ctx);
+                }
+                this.setCostFont(ctx);
+                ctx.strokeRect(this.UNLOCK_X, this.FLAIL_TEXT_Y - this.UNLOCK_OFFSET_Y, this.UNLOCK_WIDTH, this.UNLOCK_HEIGHT);
+                ctx.fillText("Unlock $" + this.FLAIL_UNLOCK_COST, this.UNLOCK_X + this.UNLOCK_TEXT_OFFSET_X, this.FLAIL_TEXT_Y);
+            }
 
             this.setDefaultFillAndStroke(ctx);
+            this.setLargeStroke(ctx);
 
-    // slingshot
-        if (this.shopMouseBB.collide(this.slingshotBB)) {
-            this.setStrokeAndFillGreen(ctx);
-        }
-    //     if (this.ammoCost > this.game.savedData.cash) {
-    //         this.setStrokeAndFillDark(ctx);
-    //     }
-    //     if (this.game.savedData.ammoLevel == this.game.MAX_AMMO_LEVEL) {
-    //         this.setStrokeAndFillMaxLevel(ctx);
-    //     }
+        // slingshot
+            if (!saveState.weapons[4].bought) {
+                this.setStrokeAndFillDark(ctx);
+            }
             this.setLargeFont(ctx);
             ctx.fillText("SLINGSHOT", this.TEXT_X, this.SLINGSHOT_TEXT_Y);
-            ctx.strokeRect(this.BOX_X, this.SLINGSHOT_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
             this.setSmallFont(ctx);
             ctx.fillText("A child's favorite toy", this.TEXT_X + this.DESCRIPTION_OFFSET_X, this.SLINGSHOT_TEXT_Y + this.DESCRIPTION_OFFSET_Y);
-    //     this.setSmallFont(ctx);
-    //     ctx.fillText("Get more ammo", this.TEXT_X + 235, this.AMMO_TEXT_Y);
-    //     ctx.fillText(this.formatLevel(this.game.savedData.ammoLevel, this.game.MAX_AMMO_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.AMMO_TEXT_Y + this.LEVEL_OFFSET_Y);
-    //     this.setMediumFont(ctx);
-    //     costText = this.game.savedData.ammoLevel == this.game.MAX_AMMO_LEVEL ? "MAX " : "$" + this.ammoCost;
-        // ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.AMMO_TEXT_Y - this.COST_OFFSET_Y);
-        
-            this.setDefaultFillAndStroke(ctx);
+            ctx.strokeRect(this.BOX_X, this.SLINGSHOT_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+            if (saveState.weapons[4].bought) {
+                // bought the weapon, so show damage and dexterity upgrade stuff
+                ctx.fillText("Damage", this.DAMAGE_TEXT_X, this.SLINGSHOT_BOX_Y + 30);            
+                ctx.fillText("Lvl: " + this.formatLevel(saveState.weapons[4].attack), this.DAMAGE_TEXT_X, this.SLINGSHOT_BOX_Y + 53)
+                ctx.fillText("Dexterity", this.DAMAGE_TEXT_X, this.SLINGSHOT_BOX_Y + 85)
+                ctx.fillText("Lvl: " + this.formatLevel(saveState.weapons[4].dexterity), this.DAMAGE_TEXT_X, this.SLINGSHOT_BOX_Y + 108)
+    
+                this.setSmallStroke(ctx);
+                this.setCostFont(ctx);
+                
+                if (this.shopMouseBB.collide(this.slingshotDmgUpgradeBB)) {
+                    this.setStrokeAndFillGreen(ctx);
+                } 
+                costStr = "$" + this.slingshotDmgCost
+                ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.SLINGSHOT_BOX_Y + 41) 
+                ctx.strokeRect(this.DAMAGE_BOX_X, this.SLINGSHOT_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+                
+                this.setDefaultFillAndStroke(ctx);
+                 
+                if (this.shopMouseBB.collide(this.slingshotDxtUpgradeBB)) {
+                    this.setStrokeAndFillGreen(ctx);
+                } 
+                costStr = "$" + this.slingshotDxtCost
+                ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.SLINGSHOT_BOX_Y + 96) 
+                ctx.strokeRect(this.DAMAGE_BOX_X, this.SLINGSHOT_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y, this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+                this.setDefaultFillAndStroke(ctx);
 
-    // bow
-            if (this.shopMouseBB.collide(this.bowBB)) {
-                this.setStrokeAndFillGreen(ctx);
+            } else {
+                // weapon not bought yet
+                this.setDefaultFillAndStroke(ctx);
+                if (this.shopMouseBB.collide(this.slingshotUnlockBB)) {
+                    this.setStrokeAndFillGreen(ctx);
+                }
+                this.setCostFont(ctx);
+                ctx.strokeRect(this.UNLOCK_X, this.SLINGSHOT_TEXT_Y - this.UNLOCK_OFFSET_Y, this.UNLOCK_WIDTH, this.UNLOCK_HEIGHT);
+                ctx.fillText("Unlock $" + this.SLINGSHOT_UNLOCK_COST, this.UNLOCK_X + this.UNLOCK_TEXT_OFFSET_X, this.SLINGSHOT_TEXT_Y);
             }
-    //     if (this.shootSpeedCost > this.game.savedData.cash) {
-    //         this.setStrokeAndFillDark(ctx);
-    //     }
-    //     if (this.game.savedData.shootSpeedLevel == this.game.MAX_SHOOT_SPEED_LEVEL) {
-    //         this.setStrokeAndFillMaxLevel(ctx);
-    //     }
+    
+            this.setDefaultFillAndStroke(ctx);
+            this.setLargeStroke(ctx);
+
+        // bow
+            if (!saveState.weapons[5].bought) {
+                this.setStrokeAndFillDark(ctx);
+            }
             this.setLargeFont(ctx);
             ctx.fillText("BOW", this.TEXT_X, this.BOW_TEXT_Y);
             this.setSmallFont(ctx);
             ctx.fillText("Your enemies will quiver", this.TEXT_X + this.DESCRIPTION_OFFSET_X, this.BOW_TEXT_Y + this.DESCRIPTION_OFFSET_Y);
-    //     this.setSmallFont(ctx);
-    //     ctx.fillText("Shoot faster", this.TEXT_X + 550, this.SHOOT_SPEED_TEXT_Y);
-    //     ctx.fillText(this.formatLevel(this.game.savedData.shootSpeedLevel, this.game.MAX_SHOOT_SPEED_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.SHOOT_SPEED_TEXT_Y + this.LEVEL_OFFSET_Y);
-    //     this.setMediumFont(ctx);
-    //     costText = this.game.savedData.shootSpeedLevel == this.game.MAX_SHOOT_SPEED_LEVEL ? "MAX " : "$" + this.shootSpeedCost;
-    //     ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.SHOOT_SPEED_TEXT_Y - this.COST_OFFSET_Y);
             ctx.strokeRect(this.BOX_X, this.BOW_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+            if (saveState.weapons[5].bought) {
+                // bought the weapon, so show damage and dexterity upgrade stuff
+                ctx.fillText("Damage", this.DAMAGE_TEXT_X, this.BOW_BOX_Y + 30);            
+                ctx.fillText("Lvl: " + this.formatLevel(saveState.weapons[4].attack), this.DAMAGE_TEXT_X, this.BOW_BOX_Y + 53)
+                ctx.fillText("Dexterity", this.DAMAGE_TEXT_X, this.BOW_BOX_Y + 85)
+                ctx.fillText("Lvl: " + this.formatLevel(saveState.weapons[4].dexterity), this.DAMAGE_TEXT_X, this.BOW_BOX_Y + 108)
+    
+                this.setSmallStroke(ctx);
+                this.setCostFont(ctx);
+                
+                if (this.shopMouseBB.collide(this.bowDmgUpgradeBB)) {
+                    this.setStrokeAndFillGreen(ctx);
+                } 
+                costStr = "$" + this.bowDmgCost
+                ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.BOW_BOX_Y + 41) 
+                ctx.strokeRect(this.DAMAGE_BOX_X, this.BOW_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+                
+                this.setDefaultFillAndStroke(ctx);
+                 
+                if (this.shopMouseBB.collide(this.bowDxtUpgradeBB)) {
+                    this.setStrokeAndFillGreen(ctx);
+                } 
+                costStr = "$" + this.bowDxtCost
+                ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.BOW_BOX_Y + 96) 
+                ctx.strokeRect(this.DAMAGE_BOX_X, this.BOW_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y, this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+                this.setDefaultFillAndStroke(ctx);
+
+            } else {
+                // weapon not bought yet
+                this.setDefaultFillAndStroke(ctx);
+                if (this.shopMouseBB.collide(this.bowUnlockBB)) {
+                    this.setStrokeAndFillGreen(ctx);
+                }
+                this.setCostFont(ctx);
+                ctx.strokeRect(this.UNLOCK_X, this.BOW_TEXT_Y - this.UNLOCK_OFFSET_Y, this.UNLOCK_WIDTH, this.UNLOCK_HEIGHT);
+                ctx.fillText("Unlock $" + this.BOW_UNLOCK_COST, this.UNLOCK_X + this.UNLOCK_TEXT_OFFSET_X, this.BOW_TEXT_Y);
+            }    
 
             let iconOffset = 10;
             this.swordImage.drawFrame(this.game.clockTick, ctx, this.BOX_X, this.SWORD_BOX_Y + iconOffset, PARAMS.SCALE * 2);
@@ -544,7 +730,11 @@ class WeaponsShop {
             this.flailImage.drawFrame(this.game.clockTick, ctx, this.BOX_X, this.FLAIL_BOX_Y + iconOffset, PARAMS.SCALE * 2);
             this.slingshotImage.drawFrame(this.game.clockTick, ctx, this.BOX_X, this.SLINGSHOT_BOX_Y + iconOffset, PARAMS.SCALE * 2);
             this.bowImage.drawFrame(this.game.clockTick, ctx, this.BOX_X, this.BOW_BOX_Y+ iconOffset, PARAMS.SCALE * 2);
+            
+            this.setDefaultFillAndStroke(ctx);
 
+            ctx.fillText("Damage increases attack damage", 20, 930);
+            ctx.fillText("Dexterity increases attack speed", 20, 955);
 
         } else {
             // shop is closed
@@ -566,231 +756,16 @@ class WeaponsShop {
                 ctx.fillText("ENTER SHOP", this.ENTER_TEXT_X - this.game.camera.x, this.ENTER_TEXT_Y + 40 - this.game.camera.y);
             }
         }
-           
-      
-        // sword axe, whip, plail, slingshop, bow
-
-        
-        
-        // this.speedCost = this.SPEED_COSTS[this.game.savedData.speedLevel];
-        // this.jumpCost = this.JUMP_COSTS[this.game.savedData.jumpLevel];
-        // this.timeCost = this.TIME_COSTS[this.game.savedData.timeLevel];
-        // this.ammoCost = this.AMMO_COSTS[this.game.savedData.ammoLevel];
-        // this.shootSpeedCost = this.SHOOT_SPEED_COSTS[this.game.savedData.shootSpeedLevel];
-        // this.multiplierCost = this.MULTIPLIER_COSTS[this.game.savedData.multiplierLevel];
-
-        
-
-    //     // black background
-    //     // ctx.fillStyle = 'black';
-    //     // ctx.fillRect(0, 0, PARAMS.CANVAS_WIDTH, PARAMS.CANVAS_HEIGHT);
-
-    //     this.setDefaultFillAndStroke(ctx);
-    //     ctx.lineWidth = 10;
-        
-    //     // SHOP title
-    //     let shopFontSize = 96;
-    //     ctx.font = shopFontSize + 'px "silkscreenbold"';
-    //     ctx.fillText("SHOP", this.SHOP_TEXT_X, this.SHOP_TEXT_Y);
-        
-    //     // cash
-    //     this.cashOffset = (("" + this.game.savedData.cash).length - 1) * this.CASH_TEXT_WIDTH;
-    //     this.cashTextX = this.CASH_TEXT_X - this.cashOffset;
-    //     this.cashAnimX = this.CASH_ANIM_X - this.cashOffset;
-    //     this.setMediumFont(ctx);
-    //     ctx.fillText("" + floor(this.game.savedData.cash), this.cashTextX, this.CASH_TEXT_Y);
-    //     this.cashAnimation.drawFrame(this.game.clockTick, ctx, this.cashAnimX, this.CASH_ANIM_Y, PARAMS.SCALE * 1.5); 
-
-    //     this.setDefaultFillAndStroke(ctx); 
-
-        
-    // // SPEED
-    //     if (this.mouseBB.collide(this.speedBB)) { // first, check for hovering over
-    //         this.setStrokeAndFillGreen(ctx);
-    //     } 
-    //     if (this.speedCost > this.game.savedData.cash) { // the, highlight dark if can't afford 
-    //         this.setStrokeAndFillDark(ctx);
-    //     }
-    //     if (this.game.savedData.speedLevel == this.game.MAX_SPEED_LEVEL) { // finally, highlight max level
-    //         this.setStrokeAndFillMaxLevel(ctx);
-    //     }     
-    //     // main text
-    //     this.setLargeFont(ctx);
-    //     ctx.fillText("SPEED", this.TEXT_X, this.SPEED_TEXT_Y);   
-    //     // description
-    //     this.setSmallFont(ctx);
-    //     ctx.fillText("Upgrade your speed", this.TEXT_X + 255, this.SPEED_TEXT_Y); 
-    //     // upgrade level
-    //     ctx.fillText(this.formatLevel(this.game.savedData.speedLevel, this.game.MAX_SPEED_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.SPEED_TEXT_Y + this.LEVEL_OFFSET_Y);
-    //     // cost text
-    //     this.setMediumFont(ctx);
-    //     let costText = this.game.savedData.speedLevel == this.game.MAX_SPEED_LEVEL ? "MAX " : "$" + this.speedCost;
-    //     ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.SPEED_TEXT_Y - this.COST_OFFSET_Y);
-    //     // outline border
-    //     ctx.strokeRect(this.BOX_X, this.SPEED_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-
-    //     this.setDefaultFillAndStroke(ctx);
-        
-    // // JUMP
-    //     if (this.mouseBB.collide(this.jumpBB)) {
-    //         this.setStrokeAndFillGreen(ctx);
-    //     }
-    //     if (this.jumpCost > this.game.savedData.cash) {
-    //         this.setStrokeAndFillDark(ctx);
-    //     }
-    //     if (this.game.savedData.jumpLevel == this.game.MAX_JUMP_LEVEL) {
-    //         this.setStrokeAndFillMaxLevel(ctx);
-    //     }
-    //     this.setLargeFont(ctx);
-    //     ctx.fillText("JUMP", this.TEXT_X, this.JUMP_TEXT_Y);
-    //     this.setSmallFont(ctx);
-    //     ctx.fillText("Upgrade your jump", this.TEXT_X + 220, this.JUMP_TEXT_Y);
-    //     ctx.fillText(this.formatLevel(this.game.savedData.jumpLevel, this.game.MAX_JUMP_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.JUMP_TEXT_Y + this.LEVEL_OFFSET_Y);
-    //     this.setMediumFont(ctx);
-    //     costText = this.game.savedData.jumpLevel == this.game.MAX_JUMP_LEVEL ? "MAX " : "$" + this.jumpCost;
-    //     ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.JUMP_TEXT_Y - this.COST_OFFSET_Y);
-    //     ctx.strokeRect(this.BOX_X, this.JUMP_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-
-    //     this.setDefaultFillAndStroke(ctx);
-        
-    // // TIME
-    //     if (this.mouseBB.collide(this.timeBB)) {
-    //         this.setStrokeAndFillGreen(ctx);
-    //     }
-    //     if (this.timeCost > this.game.savedData.cash) {
-    //         this.setStrokeAndFillDark(ctx);            
-    //     }
-    //     if (this.game.savedData.timeLevel == this.game.MAX_TIME_LEVEL) {
-    //         this.setStrokeAndFillMaxLevel(ctx);
-    //     }
-    //     this.setLargeFont(ctx);
-    //     ctx.fillText("TIME", this.TEXT_X, this.TIME_TEXT_Y);
-    //     this.setSmallFont(ctx);
-    //     ctx.fillText("Get more time", this.TEXT_X + 180, this.TIME_TEXT_Y);
-    //     ctx.fillText(this.formatLevel(this.game.savedData.timeLevel, this.game.MAX_TIME_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.TIME_TEXT_Y + this.LEVEL_OFFSET_Y);
-    //     this.setMediumFont(ctx);
-    //     costText = this.game.savedData.timeLevel == this.game.MAX_TIME_LEVEL ? "MAX " : "$" + this.timeCost;
-    //     ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.TIME_TEXT_Y - this.COST_OFFSET_Y);
-    //     ctx.strokeRect(this.BOX_X, this.TIME_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-
-    //     this.setDefaultFillAndStroke(ctx);
-
-    // // HEALTH
-    //     if (this.mouseBB.collide(this.healthBB)) {
-    //         this.setStrokeAndFillGreen(ctx);
-    //     }
-    //     if (this.healthCost > this.game.savedData.cash) {
-    //         this.setStrokeAndFillDark(ctx);
-    //     }
-    //     if (this.game.savedData.healthLevel == this.game.MAX_HEALTH_LEVEL) {
-    //         this.setStrokeAndFillMaxLevel(ctx);
-    //     }
-    //     this.setLargeFont(ctx);
-    //     ctx.fillText("HEALTH", this.TEXT_X, this.HEALTH_TEXT_Y);
-    //     this.setSmallFont(ctx);
-    //     ctx.fillText("Increase health", this.TEXT_X + 300, this.HEALTH_TEXT_Y);
-    //     ctx.fillText(this.formatLevel(this.game.savedData.healthLevel, this.game.MAX_HEALTH_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.HEALTH_TEXT_Y + this.LEVEL_OFFSET_Y);
-    //     this.setMediumFont(ctx);
-    //     costText = this.game.savedData.healthLevel == this.game.MAX_HEALTH_LEVEL ? "MAX " : "$" + this.healthCost;
-    //     ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.HEALTH_TEXT_Y - this.COST_OFFSET_Y);
-    //     ctx.strokeRect(this.BOX_X, this.HEALTH_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-
-    //     this.setDefaultFillAndStroke(ctx);
-
-    // // AMMO
-    //     if (this.mouseBB.collide(this.ammoBB)) {
-    //         this.setStrokeAndFillGreen(ctx);
-    //     }
-    //     if (this.ammoCost > this.game.savedData.cash) {
-    //         this.setStrokeAndFillDark(ctx);
-    //     }
-    //     if (this.game.savedData.ammoLevel == this.game.MAX_AMMO_LEVEL) {
-    //         this.setStrokeAndFillMaxLevel(ctx);
-    //     }
-    //     this.setLargeFont(ctx);
-    //     ctx.fillText("AMMO", this.TEXT_X, this.AMMO_TEXT_Y);
-    //     ctx.strokeRect(this.BOX_X, this.AMMO_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-    //     this.setSmallFont(ctx);
-    //     ctx.fillText("Get more ammo", this.TEXT_X + 235, this.AMMO_TEXT_Y);
-    //     ctx.fillText(this.formatLevel(this.game.savedData.ammoLevel, this.game.MAX_AMMO_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.AMMO_TEXT_Y + this.LEVEL_OFFSET_Y);
-    //     this.setMediumFont(ctx);
-    //     costText = this.game.savedData.ammoLevel == this.game.MAX_AMMO_LEVEL ? "MAX " : "$" + this.ammoCost;
-    //     ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.AMMO_TEXT_Y - this.COST_OFFSET_Y);
-        
-    //     this.setDefaultFillAndStroke(ctx);
-
-    // // SHOOT SPEED
-    //     if (this.mouseBB.collide(this.shootSpeedBB)) {
-    //         this.setStrokeAndFillGreen(ctx);
-    //     }
-    //     if (this.shootSpeedCost > this.game.savedData.cash) {
-    //         this.setStrokeAndFillDark(ctx);
-    //     }
-    //     if (this.game.savedData.shootSpeedLevel == this.game.MAX_SHOOT_SPEED_LEVEL) {
-    //         this.setStrokeAndFillMaxLevel(ctx);
-    //     }
-    //     this.setLargeFont(ctx);
-    //     ctx.fillText("SHOOT SPEED", this.TEXT_X, this.SHOOT_SPEED_TEXT_Y);
-    //     this.setSmallFont(ctx);
-    //     ctx.fillText("Shoot faster", this.TEXT_X + 550, this.SHOOT_SPEED_TEXT_Y);
-    //     ctx.fillText(this.formatLevel(this.game.savedData.shootSpeedLevel, this.game.MAX_SHOOT_SPEED_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.SHOOT_SPEED_TEXT_Y + this.LEVEL_OFFSET_Y);
-    //     this.setMediumFont(ctx);
-    //     costText = this.game.savedData.shootSpeedLevel == this.game.MAX_SHOOT_SPEED_LEVEL ? "MAX " : "$" + this.shootSpeedCost;
-    //     ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.SHOOT_SPEED_TEXT_Y - this.COST_OFFSET_Y);
-    //     ctx.strokeRect(this.BOX_X, this.SHOOT_SPEED_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-
-    //     this.setDefaultFillAndStroke(ctx);
- 
-    // // MULTIPLIER
-    //     if (this.mouseBB.collide(this.multiplierBB)) {
-    //         this.setStrokeAndFillGreen(ctx);
-    //     }
-    //     if (this.multiplierCost > this.game.savedData.cash) {
-    //         this.setStrokeAndFillDark(ctx);
-    //     }
-    //     if (this.game.savedData.multiplierLevel == this.game.MAX_MULTIPLIER_LEVEL) {
-    //         this.setStrokeAndFillMaxLevel(ctx);
-    //     }
-    //     this.setLargeFont(ctx);
-    //     ctx.fillText("MULTIPLIER", this.TEXT_X, this.MULTIPLIER_TEXT_Y);
-    //     this.setSmallFont(ctx);
-    //     ctx.fillText("Increase cash value", this.TEXT_X + 460, this.MULTIPLIER_TEXT_Y);
-    //     ctx.fillText(this.formatLevel(this.game.savedData.multiplierLevel, this.game.MAX_MULTIPLIER_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.MULTIPLIER_TEXT_Y + this.LEVEL_OFFSET_Y);
-    //     this.setMediumFont(ctx);
-    //     costText = this.game.savedData.multiplierLevel == this.game.MAX_MULTIPLIER_LEVEL ? "MAX " : "$" + this.multiplierCost;
-    //     ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.MULTIPLIER_TEXT_Y - this.COST_OFFSET_Y);
-    //     ctx.strokeRect(this.BOX_X, this.MULTIPLIER_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-
-    //     this.setDefaultFillAndStroke(ctx);
-
-    //     // play
-    //     if (this.mouseBB.collide(this.playBB)) {
-    //         this.setStrokeAndFillGreen(ctx);
-    //     }
-    //     ctx.lineWidth = 7;
-    //     let playFontSize = 38;
-    //     ctx.font = playFontSize + 'px "silkscreenbold"';  
-    //     ctx.fillText("PLAY", this.PLAY_TEXT_X, this.PLAY_TEXT_Y);
-    //     ctx.strokeRect(this.PLAY_BOX_X, this.PLAY_BOX_Y, this.PLAY_BOX_WIDTH, this.PLAY_BOX_HEIGHT);
-
+                   
         ctx.lineWidth = oldLineWidth;
 
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'Red';
-            // ctx.strokeRect(this.mouseBB.x, this.mouseBB.y, this.mouseBB.width, this.mouseBB.height);
-            
-            
             if (this.enteredShop) {
-                ctx.strokeRect(this.swordBB.x, this.swordBB.y, this.swordBB.width, this.swordBB.height);
-                ctx.strokeRect(this.axeBB.x, this.axeBB.y, this.axeBB.width, this.axeBB.height);
-                ctx.strokeRect(this.whipBB.x, this.whipBB.y, this.whipBB.width, this.whipBB.height);
-                ctx.strokeRect(this.flailBB.x, this.flailBB.y, this.flailBB.width, this.flailBB.height);
-                ctx.strokeRect(this.slingshotBB.x, this.slingshotBB.y, this.slingshotBB.width, this.slingshotBB.height);
-                ctx.strokeRect(this.bowBB.x, this.bowBB.y, this.bowBB.width, this.bowBB.height);
-                ctx.strokeRect(this.exitBB.x, this.exitBB.y, this.exitBB.width, this.exitBB.height);
-                
+                // note: only includes boxes for sword
                 ctx.strokeRect(this.swordDmgUpgradeBB.x, this.swordDmgUpgradeBB.y, this.swordDmgUpgradeBB.width, this.swordDmgUpgradeBB.height);
                 ctx.strokeRect(this.swordDxtUpgradeBB.x, this.swordDxtUpgradeBB.y, this.swordDxtUpgradeBB.width, this.swordDxtUpgradeBB.height);
+                ctx.strokeRect(this.swordUnlockBB.x, this.swordUnlockBB.y, this.swordUnlockBB.width, this.swordUnlockBB.height);
                 
                 
             } else {
@@ -798,10 +773,7 @@ class WeaponsShop {
                 ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width, this.BB.height);
                 ctx.strokeRect(this.openShopBB.x - this.game.camera.x, this.openShopBB.y - this.game.camera.y, this.openShopBB.width, this.openShopBB.height);
             }
-            
-
-
-            
+           
         }
 
     };
