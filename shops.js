@@ -30,19 +30,10 @@ class WeaponsShop {
         this.flailImage = new AnimationGroup(this.spritesheet, 36, 0, 12, 12, 1, 1, false, true);
         this.slingshotImage = new AnimationGroup(this.spritesheet, 0, 0, 12, 12, 1, 1, false, true);
         this.bowImage = new AnimationGroup(this.spritesheet, 12, 0, 12, 12, 1, 1, false, true);
-        
-        
-
-
-        
-
-        
-        
-        
+                
         this.addConstants();
         this.addBBs();
         
-        // TODO: 
         // this.speedCost = this.SPEED_COSTS[0];
         // this.jumpCost = this.JUMP_COSTS[0];
         // this.healthCost = this.HEALTH_COSTS[0];
@@ -71,7 +62,7 @@ class WeaponsShop {
         // this.MULTIPLIER_COSTS   = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
         this.SHOP_TEXT_X = 24;  // x pos of shop title
-        this.SHOP_TEXT_Y = 115; // y pos of shop title
+        this.SHOP_TEXT_Y = 90; // y pos of shop title
 
         // this.CASH_TEXT_X = 883; // x pos of cash title
         // this.CASH_TEXT_Y = 105; // y pos of cash title
@@ -81,23 +72,26 @@ class WeaponsShop {
         // this.CASH_ANIM_Y = 57.6; // cash animation y pos
 
         
-        this.TEXT_X = 29;      // x start position of category text
+        this.TEXT_X = 110;      // x start position of category text
         this.BOX_X = 25;        // x start for category boxes
         this.BOX_WIDTH = 950;   // width of category boxes
-        this.BOX_HEIGHT = 110;   // height of category boxes
+        this.BOX_HEIGHT = 120;  // height of category boxes
+
+        this.DESCRIPTION_OFFSET_Y  = 30; // y offset of description text below name text
+        this.DESCRIPTION_OFFSET_X  = 5; // x offset of description text below name text
 
         // this.COST_OFFSET_X = 880;  // x offset from TEXT_X to cost text
         // this.COST_OFFSET_Y = 20;   // y offset from category y value to cost text
         // this.LEVEL_OFFSET_X = 810; // x offset from TEXT_X to level text
         // this.LEVEL_OFFSET_Y = 10;  // y offset from category y value for level text
         
-        this.TEXT_Y_INITIAL = 205; // starting y pos for category text
-        this.BOX_Y_INITIAL = 128;  // starting y pos for category text
-        this.TEXT_BOX_Y_OFFSET = 130; // y offset for each category box
+        this.TEXT_Y_INITIAL = 180  ; // starting y pos for category text
+        this.BOX_Y_INITIAL = 108;  // starting y pos for category text
+        this.TEXT_BOX_Y_OFFSET = 135; // y offset for each category box
 
-        // y positions for the text and box for each categorY
-        // this.ENTER_TEXT_X = 201.5 * PARAMS.BLOCKWIDTH;
-        // this.ENTER_TEXT_Y = 116.5 * PARAMS.BLOCKWIDTH;
+        // x, y position for open shop button
+        this.ENTER_TEXT_X = 201.5 * PARAMS.BLOCKWIDTH;
+        this.ENTER_TEXT_Y = 116.5 * PARAMS.BLOCKWIDTH;
         
         this.SWORD_TEXT_Y = this.TEXT_Y_INITIAL + (0 * this.TEXT_BOX_Y_OFFSET);
         this.SWORD_BOX_Y = this.BOX_Y_INITIAL + (0 * this.TEXT_BOX_Y_OFFSET); 
@@ -119,6 +113,17 @@ class WeaponsShop {
         this.EXIT_BOX_HEIGHT = 48; 
         this.EXIT_TEXT_X = this.EXIT_BOX_X + 10;
         this.EXIT_TEXT_Y = this.EXIT_BOX_Y + 36;
+
+        // vals for upgrade buttons
+        this.DAMAGE_BOX_X = this.BOX_X + 810;
+        this.DAMAGE_TEXT_X = this.DAMAGE_BOX_X - 170;
+
+        this.DAMAGE_UPGRADE_BOX_X = this.BOX_X + 810;
+        this.DAMAGE_UPGRADE_WIDTH = 120;
+        this.DAMAGE_UPGRADE_HEIGHT = 40;
+
+        this.DAMAGE_BOX_OFFSET_Y = 12;
+        this.DEXTERITY_BOX_OFFSET_Y = 67;
     }
 
     addBBs() {
@@ -134,6 +139,9 @@ class WeaponsShop {
         this.flailBB = new BoundingBox(this.BOX_X, this.FLAIL_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
         this.slingshotBB = new BoundingBox(this.BOX_X, this.SLINGSHOT_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
         this.bowBB = new BoundingBox(this.BOX_X, this.BOW_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+
+        this.swordDmgUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.SWORD_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+        this.swordDxtUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.SWORD_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
 
 
         this.exitBB = new BoundingBox(this.EXIT_BOX_X, this.EXIT_BOX_Y, this.EXIT_BOX_WIDTH, this.EXIT_BOX_HEIGHT);   
@@ -161,6 +169,9 @@ class WeaponsShop {
     setSmallFont(ctx) {
         ctx.font = 24 + 'px "silkscreennormal"';
     }
+    setCostFont(ctx) {
+        ctx.font = 30 + 'px "silkscreennormal"';
+    }
     setMediumFont(ctx) {
         ctx.font = 48 + 'px "silkscreennormal"';
     }
@@ -186,6 +197,7 @@ class WeaponsShop {
         if (this.enteredShop) { // updates when user is in shop
             // exit button
             if (this.game.clicked && this.shopMouseBB.collide(this.exitBB)) {
+                console.log("exited")
                 this.enteredShop = false;
             }
 
@@ -312,6 +324,14 @@ class WeaponsShop {
         return String(currentLevel).padStart(2, '0') + "/" + String(maxLevel).padStart(2, '0');
     }
 
+    setLargeStroke(ctx) {
+        ctx.lineWidth = 8;
+    }
+
+    setSmallStroke(ctx) {
+        ctx.lineWidth = 5;
+    }
+
     draw(ctx) {
         let oldLineWidth = ctx.lineWidth;
 
@@ -319,11 +339,11 @@ class WeaponsShop {
         // console.log(this.mouseBB)
         if (this.enteredShop) {
             // shop is open
-            ctx.fillStyle = 'rgba(0, 0, 0, .5)';
+            ctx.fillStyle = 'rgba(0, 0, 0, .7)';
             ctx.fillRect(0, 0, PARAMS.CANVAS_DIMENSION, PARAMS.CANVAS_DIMENSION);
 
             this.setDefaultFillAndStroke(ctx);
-            ctx.lineWidth = 10;
+            this.setLargeStroke(ctx);
             
             // SHOP title
             let shopFontSize = 80;
@@ -331,24 +351,23 @@ class WeaponsShop {
             ctx.fillText("WEAPONS SHOP", this.SHOP_TEXT_X, this.SHOP_TEXT_Y);
 
             this.setDefaultFillAndStroke(ctx);
+            this.setSmallStroke(ctx);
 
             // exit
             if (this.shopMouseBB.collide(this.exitBB)) {
                 this.setStrokeAndFillGreen(ctx);
             }
-            ctx.lineWidth = 7;
-            let exitFontSize = 38;
-            ctx.font = exitFontSize + 'px "silkscreenbold"';  
+            ctx.font = 38 + 'px "silkscreenbold"';  
             ctx.fillText("EXIT", this.EXIT_TEXT_X, this.EXIT_TEXT_Y);
             ctx.strokeRect(this.EXIT_BOX_X, this.EXIT_BOX_Y, this.EXIT_BOX_WIDTH, this.EXIT_BOX_HEIGHT);
 
             this.setDefaultFillAndStroke(ctx);
-            
-            ctx.lineWidth = 8;
+            this.setLargeStroke(ctx);
+
         // sword
-            if (this.shopMouseBB.collide(this.swordBB)) {
-                this.setStrokeAndFillGreen(ctx);
-            }
+            // if (this.shopMouseBB.collide(this.swordBB)) {
+            //     this.setStrokeAndFillGreen(ctx);
+            // }
             // if (this.jumpCost > this.game.savedData.cash) {
             //     this.setStrokeAndFillDark(ctx);
             // }
@@ -358,14 +377,49 @@ class WeaponsShop {
             this.setLargeFont(ctx);
             ctx.fillText("SWORD", this.TEXT_X, this.SWORD_TEXT_Y);
             this.setSmallFont(ctx);
-            // ctx.fillText("Upgrade your jump", this.TEXT_X + 220, this.SWORD_TEXT_Y);
+            ctx.fillText("It's what you get when you start", this.TEXT_X + this.DESCRIPTION_OFFSET_X, this.SWORD_TEXT_Y + this.DESCRIPTION_OFFSET_Y);
+
+             
+            ctx.fillText("Damage", this.DAMAGE_TEXT_X, this.SWORD_BOX_Y + 30);
+            this.setDefaultFillAndStroke(ctx);
+            
+            ctx.fillText("Lvl: 09/10", this.DAMAGE_TEXT_X, this.SWORD_BOX_Y + 53)
+            
+            
+            ctx.fillText("Dexterity", this.DAMAGE_TEXT_X, this.SWORD_BOX_Y + 85)
+            ctx.fillText("Lvl: 09/10", this.DAMAGE_TEXT_X, this.SWORD_BOX_Y + 108)
+
+
+            ctx.strokeRect(this.BOX_X, this.SWORD_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+
+            this.setSmallStroke(ctx);
+            this.setCostFont(ctx);
+            
+            
+            if (this.shopMouseBB.collide(this.swordDmgUpgradeBB)) {
+                this.setStrokeAndFillGreen(ctx);
+            } 
+            ctx.fillText("$1000", this.DAMAGE_BOX_X + 4, this.SWORD_BOX_Y + 41)
+            ctx.strokeRect(this.DAMAGE_BOX_X, this.SWORD_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+            
+            this.setDefaultFillAndStroke(ctx);
+             
+            if (this.shopMouseBB.collide(this.swordDxtUpgradeBB)) {
+                this.setStrokeAndFillGreen(ctx);
+            } 
+            ctx.fillText("$9999", this.DAMAGE_BOX_X + 4, this.SWORD_BOX_Y + 96)
+            ctx.strokeRect(this.DAMAGE_BOX_X, this.SWORD_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y, this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+            this.setDefaultFillAndStroke(ctx);
+            
+            
             // ctx.fillText(this.formatLevel(this.game.savedData.jumpLevel, this.game.MAX_JUMP_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.JUMP_TEXT_Y + this.LEVEL_OFFSET_Y);
             this.setMediumFont(ctx);
             // costText = this.game.savedData.jumpLevel == this.game.MAX_JUMP_LEVEL ? "MAX " : "$" + this.jumpCost;
             // ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.JUMP_TEXT_Y - this.COST_OFFSET_Y);
-            ctx.strokeRect(this.BOX_X, this.SWORD_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+            
             
             this.setDefaultFillAndStroke(ctx);
+            this.setLargeStroke(ctx);
             
         // axe
             if (this.shopMouseBB.collide(this.axeBB)) {
@@ -379,20 +433,20 @@ class WeaponsShop {
     //     }
             this.setLargeFont(ctx);
             ctx.fillText("AXE", this.TEXT_X, this.AXE_TEXT_Y);
-    //     this.setSmallFont(ctx);
-    //     ctx.fillText("Upgrade your jump", this.TEXT_X + 220, this.JUMP_TEXT_Y);
+            this.setSmallFont(ctx);
+            ctx.fillText("It's an axe... so yeah", this.TEXT_X + this.DESCRIPTION_OFFSET_X, this.AXE_TEXT_Y + this.DESCRIPTION_OFFSET_Y);
     //     ctx.fillText(this.formatLevel(this.game.savedData.jumpLevel, this.game.MAX_JUMP_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.JUMP_TEXT_Y + this.LEVEL_OFFSET_Y);
             this.setMediumFont(ctx);
     //     costText = this.game.savedData.jumpLevel == this.game.MAX_JUMP_LEVEL ? "MAX " : "$" + this.jumpCost;
     //     ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.JUMP_TEXT_Y - this.COST_OFFSET_Y);
             ctx.strokeRect(this.BOX_X, this.AXE_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
 
-        this.setDefaultFillAndStroke(ctx);
+            this.setDefaultFillAndStroke(ctx);
         
     // whip
-        if (this.shopMouseBB.collide(this.whipBB)) {
-            this.setStrokeAndFillGreen(ctx);
-        }
+            if (this.shopMouseBB.collide(this.whipBB)) {
+                this.setStrokeAndFillGreen(ctx);
+            }
     //     if (this.timeCost > this.game.savedData.cash) {
     //         this.setStrokeAndFillDark(ctx);            
     //     }
@@ -400,38 +454,42 @@ class WeaponsShop {
     //         this.setStrokeAndFillMaxLevel(ctx);
     //     }
             this.setLargeFont(ctx);
-        ctx.fillText("WHIP", this.TEXT_X, this.WHIP_TEXT_Y);
+            ctx.fillText("WHIP", this.TEXT_X, this.WHIP_TEXT_Y);
+            this.setSmallFont(ctx);
+            ctx.fillText("Embrace your inner cowboy", this.TEXT_X + this.DESCRIPTION_OFFSET_X, this.WHIP_TEXT_Y + this.DESCRIPTION_OFFSET_Y);
     //     this.setSmallFont(ctx);
     //     ctx.fillText("Get more time", this.TEXT_X + 180, this.TIME_TEXT_Y);
     //     ctx.fillText(this.formatLevel(this.game.savedData.timeLevel, this.game.MAX_TIME_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.TIME_TEXT_Y + this.LEVEL_OFFSET_Y);
     //     this.setMediumFont(ctx);
     //     costText = this.game.savedData.timeLevel == this.game.MAX_TIME_LEVEL ? "MAX " : "$" + this.timeCost;
     //     ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.TIME_TEXT_Y - this.COST_OFFSET_Y);
-        ctx.strokeRect(this.BOX_X, this.WHIP_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+         ctx.strokeRect(this.BOX_X, this.WHIP_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
 
-        this.setDefaultFillAndStroke(ctx);
+            this.setDefaultFillAndStroke(ctx);
 
     // flail
-        if (this.shopMouseBB.collide(this.flailBB)) {
-            this.setStrokeAndFillGreen(ctx);
-        }
+            if (this.shopMouseBB.collide(this.flailBB)) {
+                this.setStrokeAndFillGreen(ctx);
+            }
     //     if (this.healthCost > this.game.savedData.cash) {
     //         this.setStrokeAndFillDark(ctx);
     //     }
     //     if (this.game.savedData.healthLevel == this.game.MAX_HEALTH_LEVEL) {
     //         this.setStrokeAndFillMaxLevel(ctx);
     //     }
-        this.setLargeFont(ctx);
-        ctx.fillText("FLAIL", this.TEXT_X, this.FLAIL_TEXT_Y);
+            this.setLargeFont(ctx);
+            ctx.fillText("FLAIL", this.TEXT_X, this.FLAIL_TEXT_Y);
+            this.setSmallFont(ctx);
+            ctx.fillText("A ball and a handle and a rope", this.TEXT_X + this.DESCRIPTION_OFFSET_X, this.FLAIL_TEXT_Y + this.DESCRIPTION_OFFSET_Y);
     //     this.setSmallFont(ctx);
     //     ctx.fillText("Increase health", this.TEXT_X + 300, this.HEALTH_TEXT_Y);
     //     ctx.fillText(this.formatLevel(this.game.savedData.healthLevel, this.game.MAX_HEALTH_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.HEALTH_TEXT_Y + this.LEVEL_OFFSET_Y);
     //     this.setMediumFont(ctx);
     //     costText = this.game.savedData.healthLevel == this.game.MAX_HEALTH_LEVEL ? "MAX " : "$" + this.healthCost;
         // ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.HEALTH_TEXT_Y - this.COST_OFFSET_Y);
-        ctx.strokeRect(this.BOX_X, this.FLAIL_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+            ctx.strokeRect(this.BOX_X, this.FLAIL_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
 
-        this.setDefaultFillAndStroke(ctx);
+            this.setDefaultFillAndStroke(ctx);
 
     // slingshot
         if (this.shopMouseBB.collide(this.slingshotBB)) {
@@ -443,9 +501,11 @@ class WeaponsShop {
     //     if (this.game.savedData.ammoLevel == this.game.MAX_AMMO_LEVEL) {
     //         this.setStrokeAndFillMaxLevel(ctx);
     //     }
-        this.setLargeFont(ctx);
-        ctx.fillText("SLINGSHOT", this.TEXT_X, this.SLINGSHOT_TEXT_Y);
-        ctx.strokeRect(this.BOX_X, this.SLINGSHOT_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+            this.setLargeFont(ctx);
+            ctx.fillText("SLINGSHOT", this.TEXT_X, this.SLINGSHOT_TEXT_Y);
+            ctx.strokeRect(this.BOX_X, this.SLINGSHOT_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+            this.setSmallFont(ctx);
+            ctx.fillText("A child's favorite toy", this.TEXT_X + this.DESCRIPTION_OFFSET_X, this.SLINGSHOT_TEXT_Y + this.DESCRIPTION_OFFSET_Y);
     //     this.setSmallFont(ctx);
     //     ctx.fillText("Get more ammo", this.TEXT_X + 235, this.AMMO_TEXT_Y);
     //     ctx.fillText(this.formatLevel(this.game.savedData.ammoLevel, this.game.MAX_AMMO_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.AMMO_TEXT_Y + this.LEVEL_OFFSET_Y);
@@ -453,27 +513,37 @@ class WeaponsShop {
     //     costText = this.game.savedData.ammoLevel == this.game.MAX_AMMO_LEVEL ? "MAX " : "$" + this.ammoCost;
         // ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.AMMO_TEXT_Y - this.COST_OFFSET_Y);
         
-        this.setDefaultFillAndStroke(ctx);
+            this.setDefaultFillAndStroke(ctx);
 
     // bow
-        if (this.shopMouseBB.collide(this.bowBB)) {
-            this.setStrokeAndFillGreen(ctx);
-        }
+            if (this.shopMouseBB.collide(this.bowBB)) {
+                this.setStrokeAndFillGreen(ctx);
+            }
     //     if (this.shootSpeedCost > this.game.savedData.cash) {
     //         this.setStrokeAndFillDark(ctx);
     //     }
     //     if (this.game.savedData.shootSpeedLevel == this.game.MAX_SHOOT_SPEED_LEVEL) {
     //         this.setStrokeAndFillMaxLevel(ctx);
     //     }
-        this.setLargeFont(ctx);
-        ctx.fillText("BOW", this.TEXT_X, this.BOW_TEXT_Y);
+            this.setLargeFont(ctx);
+            ctx.fillText("BOW", this.TEXT_X, this.BOW_TEXT_Y);
+            this.setSmallFont(ctx);
+            ctx.fillText("Your enemies will quiver", this.TEXT_X + this.DESCRIPTION_OFFSET_X, this.BOW_TEXT_Y + this.DESCRIPTION_OFFSET_Y);
     //     this.setSmallFont(ctx);
     //     ctx.fillText("Shoot faster", this.TEXT_X + 550, this.SHOOT_SPEED_TEXT_Y);
     //     ctx.fillText(this.formatLevel(this.game.savedData.shootSpeedLevel, this.game.MAX_SHOOT_SPEED_LEVEL), this.TEXT_X + this.LEVEL_OFFSET_X, this.SHOOT_SPEED_TEXT_Y + this.LEVEL_OFFSET_Y);
     //     this.setMediumFont(ctx);
     //     costText = this.game.savedData.shootSpeedLevel == this.game.MAX_SHOOT_SPEED_LEVEL ? "MAX " : "$" + this.shootSpeedCost;
     //     ctx.fillText(costText, this.TEXT_X + this.COST_OFFSET_X - ("" + costText).length * this.CASH_TEXT_WIDTH, this.SHOOT_SPEED_TEXT_Y - this.COST_OFFSET_Y);
-        ctx.strokeRect(this.BOX_X, this.BOW_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+            ctx.strokeRect(this.BOX_X, this.BOW_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
+
+            let iconOffset = 10;
+            this.swordImage.drawFrame(this.game.clockTick, ctx, this.BOX_X, this.SWORD_BOX_Y + iconOffset, PARAMS.SCALE * 2);
+            this.axeImage.drawFrame(this.game.clockTick, ctx, this.BOX_X, this.AXE_BOX_Y + iconOffset, PARAMS.SCALE * 2);
+            this.whipImage.drawFrame(this.game.clockTick, ctx, this.BOX_X, this.WHIP_BOX_Y + iconOffset, PARAMS.SCALE * 2);
+            this.flailImage.drawFrame(this.game.clockTick, ctx, this.BOX_X, this.FLAIL_BOX_Y + iconOffset, PARAMS.SCALE * 2);
+            this.slingshotImage.drawFrame(this.game.clockTick, ctx, this.BOX_X, this.SLINGSHOT_BOX_Y + iconOffset, PARAMS.SCALE * 2);
+            this.bowImage.drawFrame(this.game.clockTick, ctx, this.BOX_X, this.BOW_BOX_Y+ iconOffset, PARAMS.SCALE * 2);
 
 
         } else {
@@ -705,28 +775,33 @@ class WeaponsShop {
 
         ctx.lineWidth = oldLineWidth;
 
-        this.swordImage.drawFrame(this.game.clockTick, ctx, 400, 100, PARAMS.SCALE * 2);
-        this.axeImage.drawFrame(this.game.clockTick, ctx, 400, 200, PARAMS.SCALE * 2);
-        this.whipImage.drawFrame(this.game.clockTick, ctx, 400, 300, PARAMS.SCALE * 2);
-        this.flailImage.drawFrame(this.game.clockTick, ctx, 400, 400, PARAMS.SCALE * 2);
-        this.slingshotImage.drawFrame(this.game.clockTick, ctx, 400, 500, PARAMS.SCALE * 2);
-        this.bowImage.drawFrame(this.game.clockTick, ctx, 400, 600, PARAMS.SCALE * 2);
-
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'Red';
-            ctx.strokeRect(this.mouseBB.x, this.mouseBB.y, this.mouseBB.width, this.mouseBB.height);
-            ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width, this.BB.height);
-            ctx.strokeRect(this.openShopBB.x - this.game.camera.x, this.openShopBB.y - this.game.camera.y, this.openShopBB.width, this.openShopBB.height);
+            // ctx.strokeRect(this.mouseBB.x, this.mouseBB.y, this.mouseBB.width, this.mouseBB.height);
             
-            ctx.strokeRect(this.swordBB.x, this.swordBB.y, this.swordBB.width, this.swordBB.height);
-            ctx.strokeRect(this.axeBB.x, this.axeBB.y, this.axeBB.width, this.axeBB.height);
-            ctx.strokeRect(this.whipBB.x, this.whipBB.y, this.whipBB.width, this.whipBB.height);
-            ctx.strokeRect(this.flailBB.x, this.flailBB.y, this.flailBB.width, this.flailBB.height);
-            ctx.strokeRect(this.slingshotBB.x, this.slingshotBB.y, this.slingshotBB.width, this.slingshotBB.height);
-            ctx.strokeRect(this.bowBB.x, this.bowBB.y, this.bowBB.width, this.bowBB.height);
+            
+            if (this.enteredShop) {
+                ctx.strokeRect(this.swordBB.x, this.swordBB.y, this.swordBB.width, this.swordBB.height);
+                ctx.strokeRect(this.axeBB.x, this.axeBB.y, this.axeBB.width, this.axeBB.height);
+                ctx.strokeRect(this.whipBB.x, this.whipBB.y, this.whipBB.width, this.whipBB.height);
+                ctx.strokeRect(this.flailBB.x, this.flailBB.y, this.flailBB.width, this.flailBB.height);
+                ctx.strokeRect(this.slingshotBB.x, this.slingshotBB.y, this.slingshotBB.width, this.slingshotBB.height);
+                ctx.strokeRect(this.bowBB.x, this.bowBB.y, this.bowBB.width, this.bowBB.height);
+                ctx.strokeRect(this.exitBB.x, this.exitBB.y, this.exitBB.width, this.exitBB.height);
+                
+                ctx.strokeRect(this.swordDmgUpgradeBB.x, this.swordDmgUpgradeBB.y, this.swordDmgUpgradeBB.width, this.swordDmgUpgradeBB.height);
+                ctx.strokeRect(this.swordDxtUpgradeBB.x, this.swordDxtUpgradeBB.y, this.swordDxtUpgradeBB.width, this.swordDxtUpgradeBB.height);
+                
+                
+            } else {
+                console.log(this.openShopBB)
+                ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width, this.BB.height);
+                ctx.strokeRect(this.openShopBB.x - this.game.camera.x, this.openShopBB.y - this.game.camera.y, this.openShopBB.width, this.openShopBB.height);
+            }
+            
 
 
-            ctx.strokeRect(this.exitBB.x, this.exitBB.y, this.exitBB.width, this.exitBB.height);
+            
         }
 
     };
