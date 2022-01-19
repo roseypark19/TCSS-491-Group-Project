@@ -2,7 +2,7 @@ class StatsShop {
     constructor(game) {
         Object.assign(this, {game});
 
-        this.enteredShop = true;
+        this.enteredShop = false;
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/ui/weapon_icons.png");
         
         this.speedImage = new AnimationGroup(this.spritesheet, 24, 0, 12, 12, 1, 1, false, true);
@@ -37,8 +37,8 @@ class StatsShop {
         this.TEXT_BOX_Y_OFFSET = 135; // y offset for each category box
 
         // x, y position for open shop button
-        this.ENTER_TEXT_X = 201.5 * PARAMS.BLOCKWIDTH;
-        this.ENTER_TEXT_Y = 116.5 * PARAMS.BLOCKWIDTH;
+        this.ENTER_TEXT_X = 14.3 * PARAMS.BLOCKWIDTH * PARAMS.SCALE;
+        this.ENTER_TEXT_Y = 39 * PARAMS.BLOCKWIDTH * PARAMS.SCALE;
         
         // y values for text for each weapon
         this.SPEED_TEXT_Y = this.TEXT_Y_INITIAL + (0 * this.TEXT_BOX_Y_OFFSET);
@@ -63,13 +63,11 @@ class StatsShop {
         this.EXIT_TEXT_Y = this.EXIT_BOX_Y + 36;
 
         // vals for upgrade buttons
-        this.DAMAGE_BOX_X = this.BOX_X + 800;
-        this.LEVEL_TEXT_X = this.DAMAGE_BOX_X - 210;
-        this.DAMAGE_UPGRADE_BOX_X = this.BOX_X + 810;
-        this.DAMAGE_UPGRADE_WIDTH = 120;
-        this.DAMAGE_UPGRADE_HEIGHT = 40;
-        this.DAMAGE_BOX_OFFSET_Y = 33;
-        this.DEXTERITY_BOX_OFFSET_Y = 67;
+        this.UPGRADE_BOX_X = this.BOX_X + 800;
+        this.LEVEL_TEXT_X = this.UPGRADE_BOX_X - 210;
+        this.UPGRADE_BOX_WIDTH = 120;
+        this.UPGRADE_BOX_HEIGHT = 40;
+        this.UPGRADE_BOX_OFFSET_Y = 33;
 
         // vals for unlock buttons
         this.UNLOCK_X = 680;
@@ -79,20 +77,13 @@ class StatsShop {
         this.UNLOCK_TEXT_OFFSET_X = 10;
 
         // costs and levels
-        this.MAX_DMG_LEVEL = 10;
-        this.MAX_DXT_LEVEL = 10;
-        this.SPEED_DMG_COSTS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.SPEED_DXT_COSTS = [2, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.HEALTH_DMG_COSTS = [3, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.HEALTH_DXT_COSTS = [4, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.MANA_DMG_COSTS = [5, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.MANA_DXT_COSTS = [6, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.VITALITY_DMG_COSTS = [7, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.VITALITY_DXT_COSTS = [8, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.WISDOM_DMG_COSTS = [9, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.WISDOM_DXT_COSTS = [10, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.DEFENSE_DMG_COSTS = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.DEFENSE_DXT_COSTS = [12, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        this.MAX_LEVEL = 10;
+        this.SPEED_COSTS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        this.HEALTH_COSTS = [3, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        this.MANA_COSTS = [5, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        this.VITALITY_COSTS = [7, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        this.WISDOM_COSTS = [9, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        this.DEFENSE_COSTS = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
         this.SPEED_UNLOCK_COST = 999;
         this.HEALTH_UNLOCK_COST = 50;
@@ -101,46 +92,27 @@ class StatsShop {
         this.WISDOM_UNLOCK_COST = 666;
         this.DEFENSE_UNLOCK_COST = 999;
 
-        this.speedDmgCost = this.SPEED_DMG_COSTS[saveState.weapons[0].attack];
-        this.speedDxtCost = this.SPEED_DXT_COSTS[saveState.weapons[0].dexterity];
-        this.healthDmgCost = this.HEALTH_DMG_COSTS[saveState.weapons[1].attack];
-        this.healthDxtCost = this.HEALTH_DXT_COSTS[saveState.weapons[1].dexterity];
-        this.manaDmgCost = this.MANA_DMG_COSTS[saveState.weapons[2].attack];
-        this.manaDxtCost = this.MANA_DXT_COSTS[saveState.weapons[2].dexterity];
-        this.vitalityDmgCost = this.VITALITY_DMG_COSTS[saveState.weapons[3].attack];
-        this.vitalityDxtCost = this.VITALITY_DXT_COSTS[saveState.weapons[3].dexterity];
-        this.wisdomDmgCost = this.WISDOM_DMG_COSTS[saveState.weapons[4].attack];
-        this.wisdomDxtCost = this.WISDOM_DXT_COSTS[saveState.weapons[4].dexterity];
-        this.defenseDmgCost = this.DEFENSE_DMG_COSTS[saveState.weapons[5].attack];
-        this.defenseDxtCost = this.DEFENSE_DXT_COSTS[saveState.weapons[5].dexterity];
+        this.speedCost = this.SPEED_COSTS[saveState.heroStats[0]];
+        this.healthCost = this.HEALTH_COSTS[saveState.heroStats[1]];
+        this.manaCost = this.MANA_COSTS[saveState.heroStats[2]];
+        this.vitalityCost = this.VITALITY_COSTS[saveState.heroStats[3]];
+        this.wisdomCost = this.WISDOM_COSTS[saveState.heroStats[4]];
+        this.defenseCost = this.DEFENSE_COSTS[saveState.heroStats[5]];
     }
 
     addBBs() {
-        this.BB = new BoundingBox(51 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 27 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 32 * PARAMS.BLOCKWIDTH, 13 * PARAMS.BLOCKWIDTH);
+        this.BB = new BoundingBox(16 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 32 * PARAMS.BLOCKWIDTH, 13 * PARAMS.BLOCKWIDTH);
         this.openShopBB = new BoundingBox(this.ENTER_TEXT_X - this.game.camera.x - 9, this.ENTER_TEXT_Y - this.game.camera.y, 350, 50);
 
         this.mouseBB = new BoundingBox(0, 0, 1, 1);  
         this.shopMouseBB = new BoundingBox(0, 0, 1, 1);  
 
-        this.speedDmgUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.SPEED_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
-        this.speedDxtUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.SPEED_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
-        this.healthDmgUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.HEALTH_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
-        this.healthDxtUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.HEALTH_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
-        this.manaDmgUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.MANA_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
-        this.manaDxtUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.MANA_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
-        this.vitalityDmgUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.VITALITY_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
-        this.vitalityDxtUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.VITALITY_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
-        this.wisdomDmgUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.WISDOM_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
-        this.wisdomDxtUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.WISDOM_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
-        this.defenseDmgUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.DEFENSE_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
-        this.defenseDxtUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.DEFENSE_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
-
-        this.speedUnlockBB = new BoundingBox(this.UNLOCK_X, this.SPEED_TEXT_Y - this.UNLOCK_OFFSET_Y, this.UNLOCK_WIDTH, this.UNLOCK_HEIGHT);
-        this.healthUnlockBB = new BoundingBox(this.UNLOCK_X, this.HEALTH_TEXT_Y - this.UNLOCK_OFFSET_Y, this.UNLOCK_WIDTH, this.UNLOCK_HEIGHT);
-        this.manaUnlockBB = new BoundingBox(this.UNLOCK_X, this.MANA_TEXT_Y - this.UNLOCK_OFFSET_Y, this.UNLOCK_WIDTH, this.UNLOCK_HEIGHT);
-        this.vitalityUnlockBB = new BoundingBox(this.UNLOCK_X, this.VITALITY_TEXT_Y - this.UNLOCK_OFFSET_Y, this.UNLOCK_WIDTH, this.UNLOCK_HEIGHT);
-        this.wisdomUnlockBB = new BoundingBox(this.UNLOCK_X, this.WISDOM_TEXT_Y - this.UNLOCK_OFFSET_Y, this.UNLOCK_WIDTH, this.UNLOCK_HEIGHT);
-        this.defenseUnlockBB = new BoundingBox(this.UNLOCK_X, this.DEFENSE_TEXT_Y - this.UNLOCK_OFFSET_Y, this.UNLOCK_WIDTH, this.UNLOCK_HEIGHT);
+        this.speedUpgradeBB = new BoundingBox(this.UPGRADE_BOX_X, this.SPEED_BOX_Y + this.UPGRADE_BOX_OFFSET_Y , this.UPGRADE_BOX_WIDTH, this.UPGRADE_BOX_HEIGHT);
+        this.healthUpgradeBB = new BoundingBox(this.UPGRADE_BOX_X, this.HEALTH_BOX_Y + this.UPGRADE_BOX_OFFSET_Y , this.UPGRADE_BOX_WIDTH, this.UPGRADE_BOX_HEIGHT);
+        this.manaUpgradeBB = new BoundingBox(this.UPGRADE_BOX_X, this.MANA_BOX_Y + this.UPGRADE_BOX_OFFSET_Y , this.UPGRADE_BOX_WIDTH, this.UPGRADE_BOX_HEIGHT);
+        this.vitalityUpgradeBB = new BoundingBox(this.UPGRADE_BOX_X, this.VITALITY_BOX_Y + this.UPGRADE_BOX_OFFSET_Y , this.UPGRADE_BOX_WIDTH, this.UPGRADE_BOX_HEIGHT);
+        this.wisdomUpgradeBB = new BoundingBox(this.UPGRADE_BOX_X, this.WISDOM_BOX_Y + this.UPGRADE_BOX_OFFSET_Y , this.UPGRADE_BOX_WIDTH, this.UPGRADE_BOX_HEIGHT);
+        this.defenseUpgradeBB = new BoundingBox(this.UPGRADE_BOX_X, this.DEFENSE_BOX_Y + this.UPGRADE_BOX_OFFSET_Y , this.UPGRADE_BOX_WIDTH, this.UPGRADE_BOX_HEIGHT);
 
         this.exitBB = new BoundingBox(this.EXIT_BOX_X, this.EXIT_BOX_Y, this.EXIT_BOX_WIDTH, this.EXIT_BOX_HEIGHT);   
     }
@@ -188,7 +160,7 @@ class StatsShop {
     
     // returns x pos for upgrade cost
     calcUpgradeCostX(costStr) {
-        return this.DAMAGE_BOX_X + 4 + (13 * (5 - costStr.length))
+        return this.UPGRADE_BOX_X + 4 + (13 * (5 - costStr.length))
     }
 
     playUnlockSound() {
@@ -208,166 +180,67 @@ class StatsShop {
         }
 
         if (this.enteredShop && this.game.clicked && this.game.click) { // updates when user is in shop
-            let unlockedSomething = false;
             
             // exit button
             if (this.shopMouseBB.collide(this.exitBB)) {
-                console.log("exited")
                 this.enteredShop = false;
             }
-
-            // unlocks
-            if (!saveState.weapons[0].bought && this.shopMouseBB.collide(this.speedUnlockBB) && saveState.currency >= this.SPEED_UNLOCK_COST) {
-                saveState.weapons[0].bought = true;
-                saveState.currency -= this.SPEED_UNLOCK_COST;
-                unlockedSomething = true;
-                this.playUnlockSound();
-            }
-            if (!saveState.weapons[1].bought && this.shopMouseBB.collide(this.healthUnlockBB) && saveState.currency >= this.HEALTH_UNLOCK_COST) {
-                saveState.weapons[1].bought = true;
-                saveState.currency -= this.HEALTH_UNLOCK_COST;
-                unlockedSomething = true;
-                this.playUnlockSound();
-            }
-            if (!saveState.weapons[2].bought && this.shopMouseBB.collide(this.manaUnlockBB) && saveState.currency >= this.MANA_UNLOCK_COST) {
-                saveState.weapons[2].bought = true;
-                saveState.currency -= this.MANA_UNLOCK_COST;
-                unlockedSomething = true;
-                this.playUnlockSound();
-            }
-            if (!saveState.weapons[3].bought && this.shopMouseBB.collide(this.vitalityUnlockBB) && saveState.currency >= this.VITALITY_UNLOCK_COST) {
-                saveState.weapons[3].bought = true;
-                saveState.currency -= this.VITALITY_UNLOCK_COST;
-                unlockedSomething = true;
-                this.playUnlockSound();
-            }
-            if (!saveState.weapons[4].bought && this.shopMouseBB.collide(this.wisdomUnlockBB) && saveState.currency >= this.WISDOM_UNLOCK_COST) {
-                saveState.weapons[4].bought = true;
-                saveState.currency -= this.WISDOM_UNLOCK_COST;
-                unlockedSomething = true;
-                this.playUnlockSound();
-            }
-            if (!saveState.weapons[5].bought && this.shopMouseBB.collide(this.defenseUnlockBB) && saveState.currency >= this.DEFENSE_UNLOCK_COST) {
-                saveState.weapons[5].bought = true;
-                saveState.currency -= this.DEFENSE_UNLOCK_COST;
-                unlockedSomething = true;
-                this.playUnlockSound();
-            }
-
-            if (!unlockedSomething) {
-                // damage upgrades
-                if (this.shopMouseBB.collide(this.speedDmgUpgradeBB) && saveState.currency >= this.speedDmgCost) {
-                    saveState.currency -= this.speedDmgCost;
-                    saveState.weapons[0].attack++;
-                    if (saveState.weapons[0].attack == this.MAX_DMG_LEVEL) {
-                        this.playMaxUpgradeSound();
-                    } else {
-                        this.playUpgradeSound();
-                    }
-                }
-                if (this.shopMouseBB.collide(this.healthDmgUpgradeBB) && saveState.currency >= this.healthDmgCost) {
-                    saveState.currency -= this.healthDmgCost;
-                    saveState.weapons[1].attack++;
-                    if (saveState.weapons[1].attack == this.MAX_DMG_LEVEL) {
-                        this.playMaxUpgradeSound();
-                    } else {
-                        this.playUpgradeSound();
-                    }
-                }
-                if (this.shopMouseBB.collide(this.manaDmgUpgradeBB) && saveState.currency >= this.manaDmgCost) {
-                    saveState.currency -= this.manaDmgCost;
-                    saveState.weapons[2].attack++;
-                    if (saveState.weapons[2].attack == this.MAX_DMG_LEVEL) {
-                        this.playMaxUpgradeSound();
-                    } else {
-                        this.playUpgradeSound();
-                    }
-                }
-                if (this.shopMouseBB.collide(this.vitalityDmgUpgradeBB) && saveState.currency >= this.vitalityDmgCost) {
-                    saveState.currency -= this.vitalityDmgCost;
-                    saveState.weapons[3].attack++;
-                    if (saveState.weapons[3].attack == this.MAX_DMG_LEVEL) {
-                        this.playMaxUpgradeSound();
-                    } else {
-                        this.playUpgradeSound();
-                    }
-                }
-                if (this.shopMouseBB.collide(this.wisdomDmgUpgradeBB) && saveState.currency >= this.wisdomDmgCost) {
-                    saveState.currency -= this.wisdomDmgCost;
-                    saveState.weapons[4].attack++;
-                    if (saveState.weapons[4].attack == this.MAX_DMG_LEVEL) {
-                        this.playMaxUpgradeSound();
-                    } else {
-                        this.playUpgradeSound();
-                    }
-                }
-                if (this.shopMouseBB.collide(this.defenseDmgUpgradeBB) && saveState.currency >= this.defenseDmgCost) {
-                    saveState.currency -= this.defenseDmgCost;
-                    saveState.weapons[5].attack++;
-                    if (saveState.weapons[5].attack == this.MAX_DMG_LEVEL) {
-                        this.playMaxUpgradeSound();
-                    } else {
-                        this.playUpgradeSound();
-                    }
-                }
-
-                // dexterity upgrades
-                if (this.shopMouseBB.collide(this.speedDxtUpgradeBB) && saveState.currency >= this.speedDxtCost) {
-                    saveState.currency -= this.speedDxtCost;
-                    saveState.weapons[0].dexterity++;
-                    if (saveState.weapons[0].dexterity == this.MAX_DMG_LEVEL) {
-                        this.playMaxUpgradeSound();
-                    } else {
-                        this.playUpgradeSound();
-                    }
-                }
-                if (this.shopMouseBB.collide(this.healthDxtUpgradeBB) && saveState.currency >= this.healthDxtCost) {
-                    saveState.currency -= this.healthDxtCost;
-                    saveState.weapons[1].dexterity++;
-                    if (saveState.weapons[1].dexterity == this.MAX_DMG_LEVEL) {
-                        this.playMaxUpgradeSound();
-                    } else {
-                        this.playUpgradeSound();
-                    }
-                }
-                if (this.shopMouseBB.collide(this.manaDxtUpgradeBB) && saveState.currency >= this.manaDxtCost) {
-                    saveState.currency -= this.manaDxtCost;
-                    saveState.weapons[2].dexterity++;
-                    if (saveState.weapons[2].dexterity == this.MAX_DMG_LEVEL) {
-                        this.playMaxUpgradeSound();
-                    } else {
-                        this.playUpgradeSound();
-                    }
-                }
-                if (this.shopMouseBB.collide(this.vitalityDxtUpgradeBB) && saveState.currency >= this.vitalityDxtCost) {
-                    saveState.currency -= this.vitalityDxtCost;
-                    saveState.weapons[3].dexterity++;
-                    if (saveState.weapons[3].dexterity == this.MAX_DMG_LEVEL) {
-                        this.playMaxUpgradeSound();
-                    } else {
-                        this.playUpgradeSound();
-                    }
-                }
-                if (this.shopMouseBB.collide(this.wisdomDxtUpgradeBB) && saveState.currency >= this.wisdomDxtCost) {
-                    saveState.currency -= this.wisdomDxtCost;
-                    saveState.weapons[4].dexterity++;
-                    if (saveState.weapons[4].dexterity == this.MAX_DMG_LEVEL) {
-                        this.playMaxUpgradeSound();
-                    } else {
-                        this.playUpgradeSound();
-                    }
-                }
-                if (this.shopMouseBB.collide(this.defenseDxtUpgradeBB) && saveState.currency >= this.defenseDxtCost) {
-                    saveState.currency -= this.defenseDxtCost;
-                    saveState.weapons[5].dexterity++;
-                    if (saveState.weapons[5].dexterity == this.MAX_DMG_LEVEL) {
-                        this.playMaxUpgradeSound();
-                    } else {
-                        this.playUpgradeSound();
-                    }
-                }
-            }
             
+            // upgrades
+            if (this.shopMouseBB.collide(this.speedUpgradeBB) && saveState.currency >= this.speedCost) {
+                saveState.currency -= this.speedCost;
+                saveState.heroStats[0]++;
+                if (saveState.heroStats[0] == this.MAX_LEVEL) {
+                    this.playMaxUpgradeSound();
+                } else {
+                    this.playUpgradeSound();
+                }
+            }
+            if (this.shopMouseBB.collide(this.healthUpgradeBB) && saveState.currency >= this.healthCost) {
+                saveState.currency -= this.healthCost;
+                saveState.heroStats[1]++;
+                if (saveState.heroStats[1] == this.MAX_LEVEL) {
+                    this.playMaxUpgradeSound();
+                } else {
+                    this.playUpgradeSound();
+                }
+            }
+            if (this.shopMouseBB.collide(this.manaUpgradeBB) && saveState.currency >= this.manaCost) {
+                saveState.currency -= this.manaCost;
+                saveState.heroStats[2]++;
+                if (saveState.heroStats[2] == this.MAX_LEVEL) {
+                    this.playMaxUpgradeSound();
+                } else {
+                    this.playUpgradeSound();
+                }
+            }
+            if (this.shopMouseBB.collide(this.vitalityUpgradeBB) && saveState.currency >= this.vitalityCost) {
+                saveState.currency -= this.vitalityCost;
+                saveState.heroStats[3]++;
+                if (saveState.heroStats[3] == this.MAX_LEVEL) {
+                    this.playMaxUpgradeSound();
+                } else {
+                    this.playUpgradeSound();
+                }
+            }
+            if (this.shopMouseBB.collide(this.wisdomUpgradeBB) && saveState.currency >= this.wisdomCost) {
+                saveState.currency -= this.wisdomCost;
+                saveState.heroStats[4]++;
+                if (saveState.heroStats[4] == this.MAX_LEVEL) {
+                    this.playMaxUpgradeSound();
+                } else {
+                    this.playUpgradeSound();
+                }
+            }
+            if (this.shopMouseBB.collide(this.defenseUpgradeBB) && saveState.currency >= this.defenseCost) {
+                saveState.currency -= this.defenseCost;
+                saveState.heroStats[5]++;
+                if (saveState.heroStats[5] == this.MAX_LEVEL) {
+                    this.playMaxUpgradeSound();
+                } else {
+                    this.playUpgradeSound();
+                }
+            }
 
             this.game.click = null;
 
@@ -381,24 +254,24 @@ class StatsShop {
 
     draw(ctx) {
 
-        this.speedDmgCost = this.SPEED_DMG_COSTS[saveState.weapons[0].attack];
-        this.healthDmgCost = this.HEALTH_DMG_COSTS[saveState.weapons[1].attack];
-        this.manaDmgCost = this.MANA_DMG_COSTS[saveState.weapons[2].attack];
-        this.vitalityDmgCost = this.VITALITY_DMG_COSTS[saveState.weapons[3].attack];
-        this.wisdomDmgCost = this.WISDOM_DMG_COSTS[saveState.weapons[4].attack];
-        this.defenseDmgCost = this.DEFENSE_DMG_COSTS[saveState.weapons[5].attack];
+        this.speedCost = this.SPEED_COSTS[saveState.heroStats[0]];
+        this.healthCost = this.HEALTH_COSTS[saveState.heroStats[1]];
+        this.manaCost = this.MANA_COSTS[saveState.heroStats[2]];
+        this.vitalityCost = this.VITALITY_COSTS[saveState.heroStats[3]];
+        this.wisdomCost = this.WISDOM_COSTS[saveState.heroStats[4]];
+        this.defenseCost = this.DEFENSE_COSTS[saveState.heroStats[5]];
         
         let oldLineWidth = ctx.lineWidth;
         let costStr;
 
         if (this.enteredShop) {
             // whether or not upgrade level is maxxed
-            let speedDmgMax = saveState.weapons[0].attack == this.MAX_DMG_LEVEL;
-            let healthDmgMax = saveState.weapons[1].attack == this.MAX_DMG_LEVEL;
-            let manaDmgMax = saveState.weapons[2].attack == this.MAX_DMG_LEVEL;
-            let vitalityDmgMax = saveState.weapons[3].attack == this.MAX_DMG_LEVEL;
-            let wisdomDmgMax = saveState.weapons[4].attack == this.MAX_DMG_LEVEL;
-            let defenseDmgMax = saveState.weapons[5].attack == this.MAX_DMG_LEVEL;
+            let speedDmgMax = saveState.heroStats[0] == this.MAX_LEVEL;
+            let healthDmgMax = saveState.heroStats[1] == this.MAX_LEVEL;
+            let manaDmgMax = saveState.heroStats[2] == this.MAX_LEVEL;
+            let vitalityDmgMax = saveState.heroStats[3] == this.MAX_LEVEL;
+            let wisdomDmgMax = saveState.heroStats[4] == this.MAX_LEVEL;
+            let defenseDmgMax = saveState.heroStats[5] == this.MAX_LEVEL;
 
             // shop is open
             ctx.fillStyle = 'rgba(0, 0, 0, .7)';
@@ -410,7 +283,7 @@ class StatsShop {
             // SHOP title
             let shopFontSize = 80;
             ctx.font = shopFontSize + 'px "silkscreennormal"';
-            ctx.fillText("WEAPONS SHOP", this.SHOP_TEXT_X, this.SHOP_TEXT_Y);
+            ctx.fillText("STATS SHOP", this.SHOP_TEXT_X, this.SHOP_TEXT_Y);
 
             this.setDefaultFillAndStroke(ctx);
             this.setSmallStroke(ctx);
@@ -432,11 +305,6 @@ class StatsShop {
             this.setMediumFont(ctx);
             ctx.fillText("$" + saveState.currency, this.cashTextX, this.CURRENCY_TEXT_Y);
             
-
-
-
-
-
         // speed
             this.setLargeFont(ctx);
             ctx.fillText("SPEED", this.TEXT_X, this.SPEED_TEXT_Y);
@@ -450,40 +318,31 @@ class StatsShop {
             }
             // ctx.fillText("Damage", this.LEVEL_TEXT_X, this.SPEED_BOX_Y + 30);            
             this.setCostFont(ctx);
-            ctx.fillText("Lvl: " + this.formatLevel(saveState.weapons[0].attack), this.LEVEL_TEXT_X, this.SPEED_BOX_Y + 63)
+            ctx.fillText("Lvl: " + this.formatLevel(saveState.heroStats[0]), this.LEVEL_TEXT_X, this.SPEED_BOX_Y + 63)
             this.setDefaultFillAndStroke(ctx);
 
             this.setDefaultFillAndStroke(ctx);
             this.setSmallStroke(ctx);
             this.setCostFont(ctx);
             
-            if (this.shopMouseBB.collide(this.speedDmgUpgradeBB)) {
+            if (this.shopMouseBB.collide(this.speedUpgradeBB)) {
                 this.setStrokeAndFillGreen(ctx);
             }
-            costStr = "$" + this.speedDmgCost;
+            costStr = "$" + this.speedCost;
             if (speedDmgMax) {
                 costStr = "MAX!";
                 this.setStrokeAndFillMaxLevel(ctx);
             }
-            if (saveState.currency < this.speedDmgCost) {
+            if (saveState.currency < this.speedCost) {
                 this.setStrokeAndFillDark(ctx);
             }
             ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.SPEED_BOX_Y + 63)
-            ctx.strokeRect(this.DAMAGE_BOX_X, this.SPEED_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
-            
-            this.setDefaultFillAndStroke(ctx);
-        
-            // ctx.strokeRect(this.DAMAGE_BOX_X, this.SPEED_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y, this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
-            this.setDefaultFillAndStroke(ctx);
-
-               
+            ctx.strokeRect(this.UPGRADE_BOX_X, this.SPEED_BOX_Y + this.UPGRADE_BOX_OFFSET_Y , this.UPGRADE_BOX_WIDTH, this.UPGRADE_BOX_HEIGHT);
+                           
             this.setDefaultFillAndStroke(ctx);
             this.setLargeStroke(ctx);
             
         // health
-            if (!saveState.weapons[1].bought) {
-                this.setStrokeAndFillDark(ctx);
-            }
             this.setLargeFont(ctx);
             ctx.fillText("HEALTH", this.TEXT_X, this.HEALTH_TEXT_Y);
             this.setSmallFont(ctx);
@@ -491,43 +350,37 @@ class StatsShop {
             ctx.strokeRect(this.BOX_X, this.HEALTH_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
     
             // bought the weapon, so show damage and dexterity upgrade stuff
+            
             if (healthDmgMax) {
                 this.setStrokeAndFillMaxLevel(ctx);
             }
-            ctx.fillText("Damage", this.LEVEL_TEXT_X, this.HEALTH_BOX_Y + 30);            
-            ctx.fillText("Lvl: " + this.formatLevel(saveState.weapons[1].attack), this.LEVEL_TEXT_X, this.HEALTH_BOX_Y + 53)
+            this.setCostFont(ctx);
+            ctx.fillText("Lvl: " + this.formatLevel(saveState.heroStats[1]), this.LEVEL_TEXT_X, this.HEALTH_BOX_Y + 63)
             this.setDefaultFillAndStroke(ctx);
             
             this.setDefaultFillAndStroke(ctx);
             this.setSmallStroke(ctx);
             this.setCostFont(ctx);
             
-            if (this.shopMouseBB.collide(this.healthDmgUpgradeBB)) {
+            if (this.shopMouseBB.collide(this.healthUpgradeBB)) {
                 this.setStrokeAndFillGreen(ctx);
-            } 
-            costStr = "$" + this.healthDmgCost;
+            }
+            costStr = "$" + this.healthCost;
             if (healthDmgMax) {
                 costStr = "MAX!";
                 this.setStrokeAndFillMaxLevel(ctx);
             }
-            if (saveState.currency < this.healthDmgCost) {
+            if (saveState.currency < this.healthCost) {
                 this.setStrokeAndFillDark(ctx);
             }
-            ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.HEALTH_BOX_Y + 41)
-            ctx.strokeRect(this.DAMAGE_BOX_X, this.HEALTH_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+            ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.HEALTH_BOX_Y + 63)
+            ctx.strokeRect(this.UPGRADE_BOX_X, this.HEALTH_BOX_Y + this.UPGRADE_BOX_OFFSET_Y , this.UPGRADE_BOX_WIDTH, this.UPGRADE_BOX_HEIGHT);
             
             this.setDefaultFillAndStroke(ctx);
 
             this.setLargeStroke(ctx);
         
-
-
-
-
         // mana
-            if (!saveState.weapons[2].bought) {
-                this.setStrokeAndFillDark(ctx);
-            }
             this.setLargeFont(ctx);
             ctx.fillText("MANA", this.TEXT_X, this.MANA_TEXT_Y);
             this.setSmallFont(ctx);
@@ -538,8 +391,8 @@ class StatsShop {
             if (manaDmgMax) {
                 this.setStrokeAndFillMaxLevel(ctx);
             }
-            ctx.fillText("Damage", this.LEVEL_TEXT_X, this.MANA_BOX_Y + 30);            
-            ctx.fillText("Lvl: " + this.formatLevel(saveState.weapons[2].attack), this.LEVEL_TEXT_X, this.MANA_BOX_Y + 53)
+            this.setCostFont(ctx);
+            ctx.fillText("Lvl: " + this.formatLevel(saveState.heroStats[2]), this.LEVEL_TEXT_X, this.MANA_BOX_Y + 63)
             this.setDefaultFillAndStroke(ctx);
 
             this.setSmallStroke(ctx);
@@ -547,35 +400,26 @@ class StatsShop {
 
             this.setDefaultFillAndStroke(ctx);
             
-            if (this.shopMouseBB.collide(this.manaDmgUpgradeBB)) {
+            if (this.shopMouseBB.collide(this.manaUpgradeBB)) {
                 this.setStrokeAndFillGreen(ctx);
             }
-            costStr = "$" + this.manaDmgCost;
+            costStr = "$" + this.manaCost;
             if (manaDmgMax) {
                 costStr = "MAX!";
                 this.setStrokeAndFillMaxLevel(ctx);
             }
-            if (saveState.currency < this.manaDmgCost) {
+            if (saveState.currency < this.manaCost) {
                 this.setStrokeAndFillDark(ctx);
             }
-            ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.MANA_BOX_Y + 41) 
-            ctx.strokeRect(this.DAMAGE_BOX_X, this.MANA_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+            ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.MANA_BOX_Y + 63); 
+            ctx.strokeRect(this.UPGRADE_BOX_X, this.MANA_BOX_Y + this.UPGRADE_BOX_OFFSET_Y , this.UPGRADE_BOX_WIDTH, this.UPGRADE_BOX_HEIGHT);
             
             this.setDefaultFillAndStroke(ctx);
 
             this.setDefaultFillAndStroke(ctx);
             this.setLargeStroke(ctx);
 
-
-
-
-
-
-
         // vitality
-            if (!saveState.weapons[3].bought) {
-                this.setStrokeAndFillDark(ctx);
-            }
             this.setLargeFont(ctx);
             ctx.fillText("VITALITY", this.TEXT_X, this.VITALITY_TEXT_Y);
             this.setSmallFont(ctx);
@@ -586,36 +430,31 @@ class StatsShop {
             if (vitalityDmgMax) {
                 this.setStrokeAndFillMaxLevel(ctx);
             }
-            ctx.fillText("Damage", this.LEVEL_TEXT_X, this.VITALITY_BOX_Y + 30);            
-            ctx.fillText("Lvl: " + this.formatLevel(saveState.weapons[3].attack), this.LEVEL_TEXT_X, this.VITALITY_BOX_Y + 53)
+            this.setCostFont(ctx);
+            ctx.fillText("Lvl: " + this.formatLevel(saveState.heroStats[3]), this.LEVEL_TEXT_X, this.VITALITY_BOX_Y + 63)
+            
             this.setDefaultFillAndStroke(ctx);
             this.setSmallStroke(ctx);
             this.setCostFont(ctx);
             
-            if (this.shopMouseBB.collide(this.vitalityDmgUpgradeBB)) {
+            if (this.shopMouseBB.collide(this.vitalityUpgradeBB)) {
                 this.setStrokeAndFillGreen(ctx);
             } 
-            costStr = "$" + this.vitalityDmgCost;
+            costStr = "$" + this.vitalityCost;
             if (vitalityDmgMax) {
                 costStr = "MAX!";
                 this.setStrokeAndFillMaxLevel(ctx);
             }
-            if (saveState.currency < this.vitalityDmgCost) {
+            if (saveState.currency < this.vitalityCost) {
                 this.setStrokeAndFillDark(ctx);
             }
-            ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.VITALITY_BOX_Y + 41) 
-            ctx.strokeRect(this.DAMAGE_BOX_X, this.VITALITY_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+            ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.VITALITY_BOX_Y + 63);
+            ctx.strokeRect(this.UPGRADE_BOX_X, this.VITALITY_BOX_Y + this.UPGRADE_BOX_OFFSET_Y , this.UPGRADE_BOX_WIDTH, this.UPGRADE_BOX_HEIGHT);
             
             this.setDefaultFillAndStroke(ctx);
             this.setLargeStroke(ctx);
 
-
-
-
         // wisdom
-            if (!saveState.weapons[4].bought) {
-                this.setStrokeAndFillDark(ctx);
-            }
             this.setLargeFont(ctx);
             ctx.fillText("WISDOM", this.TEXT_X, this.WISDOM_TEXT_Y);
             this.setSmallFont(ctx);
@@ -626,38 +465,31 @@ class StatsShop {
             if (wisdomDmgMax) {
                 this.setStrokeAndFillMaxLevel(ctx);
             }
-            ctx.fillText("Damage", this.LEVEL_TEXT_X, this.WISDOM_BOX_Y + 30);            
-            ctx.fillText("Lvl: " + this.formatLevel(saveState.weapons[4].attack), this.LEVEL_TEXT_X, this.WISDOM_BOX_Y + 53)
-            this.setDefaultFillAndStroke(ctx);
+            this.setCostFont(ctx);
+            ctx.fillText("Lvl: " + this.formatLevel(saveState.heroStats[4]), this.LEVEL_TEXT_X, this.WISDOM_BOX_Y + 63)
 
             this.setDefaultFillAndStroke(ctx);
             this.setSmallStroke(ctx);
             this.setCostFont(ctx);
             
-            if (this.shopMouseBB.collide(this.wisdomDmgUpgradeBB)) {
+            if (this.shopMouseBB.collide(this.wisdomUpgradeBB)) {
                 this.setStrokeAndFillGreen(ctx);
             } 
-            costStr = "$" + this.wisdomDmgCost;
+            costStr = "$" + this.wisdomCost;
             if (wisdomDmgMax) {
                 costStr = "MAX!";
                 this.setStrokeAndFillMaxLevel(ctx);
             }
-            if (saveState.currency < this.wisdomDmgCost) {
+            if (saveState.currency < this.wisdomCost) {
                 this.setStrokeAndFillDark(ctx);
             }
-            ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.WISDOM_BOX_Y + 41) 
-            ctx.strokeRect(this.DAMAGE_BOX_X, this.WISDOM_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+            ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.WISDOM_BOX_Y + 63) 
+            ctx.strokeRect(this.UPGRADE_BOX_X, this.WISDOM_BOX_Y + this.UPGRADE_BOX_OFFSET_Y , this.UPGRADE_BOX_WIDTH, this.UPGRADE_BOX_HEIGHT);
     
             this.setDefaultFillAndStroke(ctx);
             this.setLargeStroke(ctx);
 
-
-
-
         // defense
-            if (!saveState.weapons[5].bought) {
-                this.setStrokeAndFillDark(ctx);
-            }
             this.setLargeFont(ctx);
             ctx.fillText("DEFENSE", this.TEXT_X, this.DEFENSE_TEXT_Y);
             this.setSmallFont(ctx);
@@ -668,31 +500,29 @@ class StatsShop {
             if (defenseDmgMax) {
                 this.setStrokeAndFillMaxLevel(ctx);
             }
-            ctx.fillText("Damage", this.LEVEL_TEXT_X, this.DEFENSE_BOX_Y + 30);            
-            ctx.fillText("Lvl: " + this.formatLevel(saveState.weapons[5].attack), this.LEVEL_TEXT_X, this.DEFENSE_BOX_Y + 53)
+            this.setCostFont(ctx);
+            ctx.fillText("Lvl: " + this.formatLevel(saveState.heroStats[5]), this.LEVEL_TEXT_X, this.DEFENSE_BOX_Y + 63)
             this.setDefaultFillAndStroke(ctx);
 
             this.setDefaultFillAndStroke(ctx);
             this.setSmallStroke(ctx);
             this.setCostFont(ctx);
             
-            if (this.shopMouseBB.collide(this.defenseDmgUpgradeBB)) {
+            if (this.shopMouseBB.collide(this.defenseUpgradeBB)) {
                 this.setStrokeAndFillGreen(ctx);
             } 
-            costStr = "$" + this.defenseDmgCost;
+            costStr = "$" + this.defenseCost;
             if (defenseDmgMax) {
                 costStr = "MAX!";
                 this.setStrokeAndFillMaxLevel(ctx);
             }
-            if (saveState.currency < this.defenseDmgCost) {
+            if (saveState.currency < this.defenseCost) {
                 this.setStrokeAndFillDark(ctx);
             }
-            ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.DEFENSE_BOX_Y + 41) 
-            ctx.strokeRect(this.DAMAGE_BOX_X, this.DEFENSE_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
+            ctx.fillText(costStr, this.calcUpgradeCostX(costStr), this.DEFENSE_BOX_Y + 63) 
+            ctx.strokeRect(this.UPGRADE_BOX_X, this.DEFENSE_BOX_Y + this.UPGRADE_BOX_OFFSET_Y , this.UPGRADE_BOX_WIDTH, this.UPGRADE_BOX_HEIGHT);
             
             this.setDefaultFillAndStroke(ctx);
-
-
 
             let iconOffset = 10;
             this.speedImage.drawFrame(this.game.clockTick, ctx, this.BOX_X, this.SPEED_BOX_Y + iconOffset, PARAMS.SCALE * 2);
@@ -703,9 +533,6 @@ class StatsShop {
             this.defenseImage.drawFrame(this.game.clockTick, ctx, this.BOX_X, this.DEFENSE_BOX_Y+ iconOffset, PARAMS.SCALE * 2);
             
             this.setDefaultFillAndStroke(ctx);
-
-// ctx.fillText("Damage increases attack damage", 20, 930);
-// ctx.fillText("Dexterity increases attack speed", 20, 955);
 
         } else {
             // shop is closed
@@ -734,7 +561,7 @@ class StatsShop {
             ctx.strokeStyle = 'Red';
             if (this.enteredShop) {
                 // note: only includes boxes for speed
-                ctx.strokeRect(this.speedDmgUpgradeBB.x, this.speedDmgUpgradeBB.y, this.speedDmgUpgradeBB.width, this.speedDmgUpgradeBB.height);
+                ctx.strokeRect(this.speedUpgradeBB.x, this.speedUpgradeBB.y, this.speedUpgradeBB.width, this.speedUpgradeBB.height);
                 ctx.strokeRect(this.speedDxtUpgradeBB.x, this.speedDxtUpgradeBB.y, this.speedDxtUpgradeBB.width, this.speedDxtUpgradeBB.height);
                 ctx.strokeRect(this.speedUnlockBB.x, this.speedUnlockBB.y, this.speedUnlockBB.width, this.speedUnlockBB.height);
          
