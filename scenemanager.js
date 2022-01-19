@@ -121,7 +121,8 @@ class SceneManager {
 
         // loads the shops for the town at the end
         if (isTown) {
-            this.game.addEntity(new WeaponsShop(this.game));
+            // this.game.addEntity(new WeaponsShop(this.game));
+            this.game.addEntity(new StatsShop(this.game));
         }
 
     };

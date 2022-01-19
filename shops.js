@@ -1,27 +1,8 @@
-/* TODO UPDATE SUMMARY TO MATCH GAMEE
-    Summary: 
-        The scene_manager has MAX_<CATEGORY>_LEVEL and <category>Level that
-        represent the max level for a particular category 
-        and the current level for a particular level.
-        
-        The Shop has <CATEGORY>_COSTS that has the cost for each level of a category, 
-        as well as <category>Cost which is the current cost for the level of a category.
-
-        This class allows the user to upgrade the level for a particular category.
-        When a category is upgraded, the cost is decremented from the scene_manager cash.
-        The categoryLevel is also incremented to represent the upgrade
-
-        The main character will have particular stats that will be selected based 
-        on the state of each category level represented in the scene_manager.
-
-*/
 class WeaponsShop {
     constructor(game) {
         Object.assign(this, {game});
-        // this.cashSheet = ASSET_MANAGER.getAsset("./assets/visuals/Money.png");
-        // this.cashAnimation = new Animator(this.cashSheet, 0, 0, 24, 24, 6, 0.2, 0, false, true);
 
-        this.enteredShop = true;
+        this.enteredShop = false;
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/ui/weapon_icons.png");
         
         this.swordImage = new AnimationGroup(this.spritesheet, 24, 0, 12, 12, 1, 1, false, true);
@@ -33,18 +14,9 @@ class WeaponsShop {
                 
         this.addConstants();
         this.addBBs();
-        
-        // this.speedCost = this.SPEED_COSTS[0];
-        // this.jumpCost = this.JUMP_COSTS[0];
-        // this.healthCost = this.HEALTH_COSTS[0];
-        // this.timeCost = this.TIME_COSTS[0];
-        // this.ammoCost = this.AMMO_COSTS[0];
-        // this.shootSpeedCost = this.SHOOT_SPEED_COSTS[0];
-        // this.multiplierCost = this.MULTIPLIER_COSTS[0];
     };
 
     addConstants() { 
-
         this.SHOP_TEXT_X = 24;  // x pos of shop title
         this.SHOP_TEXT_Y = 90; // y pos of shop title
 
@@ -82,7 +54,7 @@ class WeaponsShop {
         this.BOW_TEXT_Y = this.TEXT_Y_INITIAL + (5 * this.TEXT_BOX_Y_OFFSET);
         this.BOW_BOX_Y = this.BOX_Y_INITIAL + (5 * this.TEXT_BOX_Y_OFFSET); 
         
-        // play button stats
+        // exit button stats
         this.EXIT_BOX_X = 840;
         this.EXIT_BOX_Y = 920;
         this.EXIT_BOX_WIDTH = 130;
@@ -122,7 +94,7 @@ class WeaponsShop {
         this.BOW_DMG_COSTS = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         this.BOW_DXT_COSTS = [12, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-        this.SWORD_UNLOCK_COST = 100;
+        this.SWORD_UNLOCK_COST = 999;
         this.AXE_UNLOCK_COST = 50;
         this.WHIP_UNLOCK_COST = 100;
         this.FLAIL_UNLOCK_COST = 300;
@@ -144,18 +116,11 @@ class WeaponsShop {
     }
 
     addBBs() {
-        this.BB = new BoundingBox(205 * PARAMS.BLOCKWIDTH, 105 * PARAMS.BLOCKWIDTH, 32 * PARAMS.BLOCKWIDTH, 13 * PARAMS.BLOCKWIDTH);
+        this.BB = new BoundingBox(51 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 27 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 32 * PARAMS.BLOCKWIDTH, 13 * PARAMS.BLOCKWIDTH);
         this.openShopBB = new BoundingBox(this.ENTER_TEXT_X - this.game.camera.x - 9, this.ENTER_TEXT_Y - this.game.camera.y, 350, 50);
 
         this.mouseBB = new BoundingBox(0, 0, 1, 1);  
         this.shopMouseBB = new BoundingBox(0, 0, 1, 1);  
-         
-        // this.swordBB = new BoundingBox(this.BOX_X, this.SWORD_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-        // this.axeBB = new BoundingBox(this.BOX_X, this.AXE_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-        // this.whipBB = new BoundingBox(this.BOX_X, this.WHIP_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-        // this.flailBB = new BoundingBox(this.BOX_X, this.FLAIL_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-        // this.slingshotBB = new BoundingBox(this.BOX_X, this.SLINGSHOT_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-        // this.bowBB = new BoundingBox(this.BOX_X, this.BOW_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
 
         this.swordDmgUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.SWORD_BOX_Y + this.DAMAGE_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
         this.swordDxtUpgradeBB = new BoundingBox(this.DAMAGE_BOX_X, this.SWORD_BOX_Y + this.DEXTERITY_BOX_OFFSET_Y , this.DAMAGE_UPGRADE_WIDTH, this.DAMAGE_UPGRADE_HEIGHT);
@@ -204,24 +169,15 @@ class WeaponsShop {
     }
     setSmallFont(ctx) {
         ctx.font = 24 + 'px "silkscreennormal"';
-    }
-    setCostFont(ctx) {
-        ctx.font = 30 + 'px "silkscreennormal"';
-    }
+    }   
     setMediumFont(ctx) {
         ctx.font = 40 + 'px "silkscreennormal"';
     }
     setLargeFont(ctx) {
         ctx.font = 72 + 'px "silkscreennormal"'; 
     }
-
-    playUpgradeSound(isMaxLevel) {
-        if (isMaxLevel) {
-            // ASSET_MANAGER.playAsset("./assets/audio/MaxLevelUpgrade.wav");
-        } else {
-            // ASSET_MANAGER.playAsset("./assets/audio/Upgrade.wav");
-        }
-        
+    setCostFont(ctx) {
+        ctx.font = 30 + 'px "silkscreennormal"';
     }
 
     // formats and returns the upgrade level text depending on the current 
@@ -229,6 +185,8 @@ class WeaponsShop {
     formatLevel(currentLevel, maxLevel = 10) {
         return String(currentLevel).padStart(2, '0') + "/" + String(maxLevel).padStart(2, '0');
     }
+    
+    // returns x pos for upgrade cost
     calcUpgradeCostX(costStr) {
         return this.DAMAGE_BOX_X + 4 + (13 * (5 - costStr.length))
     }
@@ -249,7 +207,9 @@ class WeaponsShop {
             this.shopMouseBB = new BoundingBox(this.game.mouse.x, this.game.mouse.y, 1, 1);
         }
 
-        if (this.enteredShop && this.game.clicked) { // updates when user is in shop
+        if (this.enteredShop && this.game.clicked && this.game.click) { // updates when user is in shop
+            let unlockedSomething = false;
+            
             // exit button
             if (this.shopMouseBB.collide(this.exitBB)) {
                 console.log("exited")
@@ -260,154 +220,163 @@ class WeaponsShop {
             if (!saveState.weapons[0].bought && this.shopMouseBB.collide(this.swordUnlockBB) && saveState.currency >= this.SWORD_UNLOCK_COST) {
                 saveState.weapons[0].bought = true;
                 saveState.currency -= this.SWORD_UNLOCK_COST;
+                unlockedSomething = true;
                 this.playUnlockSound();
             }
             if (!saveState.weapons[1].bought && this.shopMouseBB.collide(this.axeUnlockBB) && saveState.currency >= this.AXE_UNLOCK_COST) {
                 saveState.weapons[1].bought = true;
                 saveState.currency -= this.AXE_UNLOCK_COST;
+                unlockedSomething = true;
                 this.playUnlockSound();
             }
             if (!saveState.weapons[2].bought && this.shopMouseBB.collide(this.whipUnlockBB) && saveState.currency >= this.WHIP_UNLOCK_COST) {
                 saveState.weapons[2].bought = true;
                 saveState.currency -= this.WHIP_UNLOCK_COST;
+                unlockedSomething = true;
                 this.playUnlockSound();
             }
             if (!saveState.weapons[3].bought && this.shopMouseBB.collide(this.flailUnlockBB) && saveState.currency >= this.FLAIL_UNLOCK_COST) {
                 saveState.weapons[3].bought = true;
                 saveState.currency -= this.FLAIL_UNLOCK_COST;
+                unlockedSomething = true;
                 this.playUnlockSound();
             }
             if (!saveState.weapons[4].bought && this.shopMouseBB.collide(this.slingshotUnlockBB) && saveState.currency >= this.SLINGSHOT_UNLOCK_COST) {
                 saveState.weapons[4].bought = true;
                 saveState.currency -= this.SLINGSHOT_UNLOCK_COST;
+                unlockedSomething = true;
                 this.playUnlockSound();
             }
             if (!saveState.weapons[5].bought && this.shopMouseBB.collide(this.bowUnlockBB) && saveState.currency >= this.BOW_UNLOCK_COST) {
                 saveState.weapons[5].bought = true;
                 saveState.currency -= this.BOW_UNLOCK_COST;
+                unlockedSomething = true;
                 this.playUnlockSound();
             }
 
-            // damage upgrades
-            if (this.shopMouseBB.collide(this.swordDmgUpgradeBB) && saveState.currency >= this.swordDmgCost) {
-                saveState.currency -= this.swordDmgCost;
-                saveState.weapons[0].attack++;
-                if (saveState.weapons[0].attack == this.MAX_DMG_LEVEL) {
-                    this.playMaxUpgradeSound();
-                } else {
-                    this.playUpgradeSound();
+            if (!unlockedSomething) {
+                // damage upgrades
+                if (this.shopMouseBB.collide(this.swordDmgUpgradeBB) && saveState.currency >= this.swordDmgCost) {
+                    saveState.currency -= this.swordDmgCost;
+                    saveState.weapons[0].attack++;
+                    if (saveState.weapons[0].attack == this.MAX_DMG_LEVEL) {
+                        this.playMaxUpgradeSound();
+                    } else {
+                        this.playUpgradeSound();
+                    }
                 }
-            }
-            if (this.shopMouseBB.collide(this.axeDmgUpgradeBB) && saveState.currency >= this.axeDmgCost) {
-                saveState.currency -= this.axeDmgCost;
-                saveState.weapons[1].attack++;
-                if (saveState.weapons[1].attack == this.MAX_DMG_LEVEL) {
-                    this.playMaxUpgradeSound();
-                } else {
-                    this.playUpgradeSound();
+                if (this.shopMouseBB.collide(this.axeDmgUpgradeBB) && saveState.currency >= this.axeDmgCost) {
+                    saveState.currency -= this.axeDmgCost;
+                    saveState.weapons[1].attack++;
+                    if (saveState.weapons[1].attack == this.MAX_DMG_LEVEL) {
+                        this.playMaxUpgradeSound();
+                    } else {
+                        this.playUpgradeSound();
+                    }
                 }
-            }
-            if (this.shopMouseBB.collide(this.whipDmgUpgradeBB) && saveState.currency >= this.whipDmgCost) {
-                saveState.currency -= this.whipDmgCost;
-                saveState.weapons[2].attack++;
-                if (saveState.weapons[2].attack == this.MAX_DMG_LEVEL) {
-                    this.playMaxUpgradeSound();
-                } else {
-                    this.playUpgradeSound();
+                if (this.shopMouseBB.collide(this.whipDmgUpgradeBB) && saveState.currency >= this.whipDmgCost) {
+                    saveState.currency -= this.whipDmgCost;
+                    saveState.weapons[2].attack++;
+                    if (saveState.weapons[2].attack == this.MAX_DMG_LEVEL) {
+                        this.playMaxUpgradeSound();
+                    } else {
+                        this.playUpgradeSound();
+                    }
                 }
-            }
-            if (this.shopMouseBB.collide(this.flailDmgUpgradeBB) && saveState.currency >= this.flailDmgCost) {
-                saveState.currency -= this.flailDmgCost;
-                saveState.weapons[3].attack++;
-                if (saveState.weapons[3].attack == this.MAX_DMG_LEVEL) {
-                    this.playMaxUpgradeSound();
-                } else {
-                    this.playUpgradeSound();
+                if (this.shopMouseBB.collide(this.flailDmgUpgradeBB) && saveState.currency >= this.flailDmgCost) {
+                    saveState.currency -= this.flailDmgCost;
+                    saveState.weapons[3].attack++;
+                    if (saveState.weapons[3].attack == this.MAX_DMG_LEVEL) {
+                        this.playMaxUpgradeSound();
+                    } else {
+                        this.playUpgradeSound();
+                    }
                 }
-            }
-            if (this.shopMouseBB.collide(this.slingshotDmgUpgradeBB) && saveState.currency >= this.slingshotDmgCost) {
-                saveState.currency -= this.slingshotDmgCost;
-                saveState.weapons[4].attack++;
-                if (saveState.weapons[4].attack == this.MAX_DMG_LEVEL) {
-                    this.playMaxUpgradeSound();
-                } else {
-                    this.playUpgradeSound();
+                if (this.shopMouseBB.collide(this.slingshotDmgUpgradeBB) && saveState.currency >= this.slingshotDmgCost) {
+                    saveState.currency -= this.slingshotDmgCost;
+                    saveState.weapons[4].attack++;
+                    if (saveState.weapons[4].attack == this.MAX_DMG_LEVEL) {
+                        this.playMaxUpgradeSound();
+                    } else {
+                        this.playUpgradeSound();
+                    }
                 }
-            }
-            if (this.shopMouseBB.collide(this.bowDmgUpgradeBB) && saveState.currency >= this.bowDmgCost) {
-                saveState.currency -= this.bowDmgCost;
-                saveState.weapons[5].attack++;
-                if (saveState.weapons[5].attack == this.MAX_DMG_LEVEL) {
-                    this.playMaxUpgradeSound();
-                } else {
-                    this.playUpgradeSound();
+                if (this.shopMouseBB.collide(this.bowDmgUpgradeBB) && saveState.currency >= this.bowDmgCost) {
+                    saveState.currency -= this.bowDmgCost;
+                    saveState.weapons[5].attack++;
+                    if (saveState.weapons[5].attack == this.MAX_DMG_LEVEL) {
+                        this.playMaxUpgradeSound();
+                    } else {
+                        this.playUpgradeSound();
+                    }
                 }
-            }
 
-            // dexterity upgrades
-            if (this.shopMouseBB.collide(this.swordDxtUpgradeBB) && saveState.currency >= this.swordDxtCost) {
-                saveState.currency -= this.swordDxtCost;
-                saveState.weapons[0].dexterity++;
-                if (saveState.weapons[0].dexterity == this.MAX_DMG_LEVEL) {
-                    this.playMaxUpgradeSound();
-                } else {
-                    this.playUpgradeSound();
+                // dexterity upgrades
+                if (this.shopMouseBB.collide(this.swordDxtUpgradeBB) && saveState.currency >= this.swordDxtCost) {
+                    saveState.currency -= this.swordDxtCost;
+                    saveState.weapons[0].dexterity++;
+                    if (saveState.weapons[0].dexterity == this.MAX_DMG_LEVEL) {
+                        this.playMaxUpgradeSound();
+                    } else {
+                        this.playUpgradeSound();
+                    }
+                }
+                if (this.shopMouseBB.collide(this.axeDxtUpgradeBB) && saveState.currency >= this.axeDxtCost) {
+                    saveState.currency -= this.axeDxtCost;
+                    saveState.weapons[1].dexterity++;
+                    if (saveState.weapons[1].dexterity == this.MAX_DMG_LEVEL) {
+                        this.playMaxUpgradeSound();
+                    } else {
+                        this.playUpgradeSound();
+                    }
+                }
+                if (this.shopMouseBB.collide(this.whipDxtUpgradeBB) && saveState.currency >= this.whipDxtCost) {
+                    saveState.currency -= this.whipDxtCost;
+                    saveState.weapons[2].dexterity++;
+                    if (saveState.weapons[2].dexterity == this.MAX_DMG_LEVEL) {
+                        this.playMaxUpgradeSound();
+                    } else {
+                        this.playUpgradeSound();
+                    }
+                }
+                if (this.shopMouseBB.collide(this.flailDxtUpgradeBB) && saveState.currency >= this.flailDxtCost) {
+                    saveState.currency -= this.flailDxtCost;
+                    saveState.weapons[3].dexterity++;
+                    if (saveState.weapons[3].dexterity == this.MAX_DMG_LEVEL) {
+                        this.playMaxUpgradeSound();
+                    } else {
+                        this.playUpgradeSound();
+                    }
+                }
+                if (this.shopMouseBB.collide(this.slingshotDxtUpgradeBB) && saveState.currency >= this.slingshotDxtCost) {
+                    saveState.currency -= this.slingshotDxtCost;
+                    saveState.weapons[4].dexterity++;
+                    if (saveState.weapons[4].dexterity == this.MAX_DMG_LEVEL) {
+                        this.playMaxUpgradeSound();
+                    } else {
+                        this.playUpgradeSound();
+                    }
+                }
+                if (this.shopMouseBB.collide(this.bowDxtUpgradeBB) && saveState.currency >= this.bowDxtCost) {
+                    saveState.currency -= this.bowDxtCost;
+                    saveState.weapons[5].dexterity++;
+                    if (saveState.weapons[5].dexterity == this.MAX_DMG_LEVEL) {
+                        this.playMaxUpgradeSound();
+                    } else {
+                        this.playUpgradeSound();
+                    }
                 }
             }
-            if (this.shopMouseBB.collide(this.axeDxtUpgradeBB) && saveState.currency >= this.axeDxtCost) {
-                saveState.currency -= this.axeDxtCost;
-                saveState.weapons[1].dexterity++;
-                if (saveState.weapons[1].dexterity == this.MAX_DMG_LEVEL) {
-                    this.playMaxUpgradeSound();
-                } else {
-                    this.playUpgradeSound();
-                }
-            }
-            if (this.shopMouseBB.collide(this.whipDxtUpgradeBB) && saveState.currency >= this.whipDxtCost) {
-                saveState.currency -= this.whipDxtCost;
-                saveState.weapons[2].dexterity++;
-                if (saveState.weapons[2].dexterity == this.MAX_DMG_LEVEL) {
-                    this.playMaxUpgradeSound();
-                } else {
-                    this.playUpgradeSound();
-                }
-            }
-            if (this.shopMouseBB.collide(this.flailDxtUpgradeBB) && saveState.currency >= this.flailDxtCost) {
-                saveState.currency -= this.flailDxtCost;
-                saveState.weapons[3].dexterity++;
-                if (saveState.weapons[3].dexterity == this.MAX_DMG_LEVEL) {
-                    this.playMaxUpgradeSound();
-                } else {
-                    this.playUpgradeSound();
-                }
-            }
-            if (this.shopMouseBB.collide(this.slingshotDxtUpgradeBB) && saveState.currency >= this.slingshotDxtCost) {
-                saveState.currency -= this.slingshotDxtCost;
-                saveState.weapons[4].dexterity++;
-                if (saveState.weapons[4].dexterity == this.MAX_DMG_LEVEL) {
-                    this.playMaxUpgradeSound();
-                } else {
-                    this.playUpgradeSound();
-                }
-            }
-            if (this.shopMouseBB.collide(this.bowDxtUpgradeBB) && saveState.currency >= this.bowDxtCost) {
-                saveState.currency -= this.bowDxtCost;
-                saveState.weapons[5].dexterity++;
-                if (saveState.weapons[5].dexterity == this.MAX_DMG_LEVEL) {
-                    this.playMaxUpgradeSound();
-                } else {
-                    this.playUpgradeSound();
-                }
-            }
+            
 
+            this.game.click = null;
 
         } else { // updates when user is not in shop
             if (this.BB.collide(this.game.camera.hero.BB) &&
                     this.game.clicked && this.openShopBB.collide(this.mouseBB)) {
                     this.enteredShop = true;
             }
-        }
-                
+        }     
     };
 
     draw(ctx) {
@@ -429,6 +398,20 @@ class WeaponsShop {
         let costStr;
 
         if (this.enteredShop) {
+            // whether or not upgrade level is maxxed
+            let swordDmgMax = saveState.weapons[0].attack == this.MAX_DMG_LEVEL;
+            let swordDxtMax = saveState.weapons[0].dexterity == this.MAX_DMG_LEVEL;
+            let axeDmgMax = saveState.weapons[1].attack == this.MAX_DMG_LEVEL;
+            let axeDxtMax = saveState.weapons[1].dexterity == this.MAX_DMG_LEVEL;
+            let whipDmgMax = saveState.weapons[2].attack == this.MAX_DMG_LEVEL;
+            let whipDxtMax = saveState.weapons[2].dexterity == this.MAX_DMG_LEVEL;
+            let flailDmgMax = saveState.weapons[3].attack == this.MAX_DMG_LEVEL;
+            let flailDxtMax = saveState.weapons[3].dexterity == this.MAX_DMG_LEVEL;
+            let slingshotDmgMax = saveState.weapons[4].attack == this.MAX_DMG_LEVEL;
+            let slingshotDxtMax = saveState.weapons[4].dexterity == this.MAX_DMG_LEVEL;
+            let bowDmgMax = saveState.weapons[5].attack == this.MAX_DMG_LEVEL;
+            let bowDxtMax = saveState.weapons[5].dexterity == this.MAX_DMG_LEVEL;
+
             // shop is open
             ctx.fillStyle = 'rgba(0, 0, 0, .7)';
             ctx.fillRect(0, 0, PARAMS.CANVAS_DIMENSION, PARAMS.CANVAS_DIMENSION);
@@ -461,19 +444,6 @@ class WeaponsShop {
             this.setMediumFont(ctx);
             ctx.fillText("$" + saveState.currency, this.cashTextX, this.CURRENCY_TEXT_Y);
             // ctx.fillText(saveState.currency, this.CURRENCY_TEXT_X, this.CURRENCY_TEXT_Y);
-
-            let swordDmgMax = saveState.weapons[0].attack == this.MAX_DMG_LEVEL;
-            let swordDxtMax = saveState.weapons[0].dexterity == this.MAX_DMG_LEVEL;
-            let axeDmgMax = saveState.weapons[1].attack == this.MAX_DMG_LEVEL;
-            let axeDxtMax = saveState.weapons[1].dexterity == this.MAX_DMG_LEVEL;
-            let whipDmgMax = saveState.weapons[2].attack == this.MAX_DMG_LEVEL;
-            let whipDxtMax = saveState.weapons[2].dexterity == this.MAX_DMG_LEVEL;
-            let flailDmgMax = saveState.weapons[3].attack == this.MAX_DMG_LEVEL;
-            let flailDxtMax = saveState.weapons[3].dexterity == this.MAX_DMG_LEVEL;
-            let slingshotDmgMax = saveState.weapons[4].attack == this.MAX_DMG_LEVEL;
-            let slingshotDxtMax = saveState.weapons[4].dexterity == this.MAX_DMG_LEVEL;
-            let bowDmgMax = saveState.weapons[5].attack == this.MAX_DMG_LEVEL;
-            let bowDxtMax = saveState.weapons[5].dexterity == this.MAX_DMG_LEVEL;
             
         // sword
             if (!saveState.weapons[0].bought) {
@@ -967,8 +937,7 @@ class WeaponsShop {
                 ctx.strokeRect(this.swordDmgUpgradeBB.x, this.swordDmgUpgradeBB.y, this.swordDmgUpgradeBB.width, this.swordDmgUpgradeBB.height);
                 ctx.strokeRect(this.swordDxtUpgradeBB.x, this.swordDxtUpgradeBB.y, this.swordDxtUpgradeBB.width, this.swordDxtUpgradeBB.height);
                 ctx.strokeRect(this.swordUnlockBB.x, this.swordUnlockBB.y, this.swordUnlockBB.width, this.swordUnlockBB.height);
-                
-                
+         
             } else {
                 console.log(this.openShopBB)
                 ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width, this.BB.height);
