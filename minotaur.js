@@ -57,8 +57,13 @@ class Minotaur {
 
         if (this.state !== 4) {
             this.game.projectileEntities.forEach(entity => {
-                if (entity.friendlyProjectile === true && this.hitBB.collide(entity.hitBB) && !(this.shotsTaken.includes(entity.id)) && this.state !== 4) {
-                    this.shotsTaken.push(entity.id);
+                if (entity.friendlyProjectile && this.hitBB.collide(entity.hitBB) && 
+                    (!(entity.passable || entity.removeFromWorld) || (entity.passable && !(this.shotsTaken.includes(entity.id)))) && this.state !== 4) {
+                    if (entity.passable) {
+                        this.shotsTaken.push(entity.id);
+                    } else {
+                        entity.removeFromWorld = true;
+                    }  
                     if (this.damagedTimer === 0 && this.deadTimer === 0) {
                         this.damagedTimer = 0.6 - this.game.clockTick;
                         this.state = 3;
@@ -80,8 +85,8 @@ class Minotaur {
         }
 
         if (this.state !== 4 && this.damagedTimer > 0) {
-            this.velocity.x = this.hitUnitVector.x * this.velocityConstant;
-            this.velocity.y = this.hitUnitVector.y * this.velocityConstant;
+            this.velocity.x = this.hitUnitVector.x * this.velocityConstant / 2;
+            this.velocity.y = this.hitUnitVector.y * this.velocityConstant / 2;
             this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
             this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
             this.movementUnitVector = undefined;

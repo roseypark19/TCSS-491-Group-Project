@@ -28,15 +28,15 @@ class SceneManager {
                     this.game.addEntity(props[2].topper(this.game, 64 * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE, 55.5 * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE - 2 * PARAMS.OVERWORLD_SCALE, true));
                     this.game.addEntity(props[1].topper(this.game, 252 * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE, 55.5 * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE - 2 * PARAMS.OVERWORLD_SCALE, true));
 
-                    // this.game.addEntity(new Ogre(this.game, 400, 350));
-                    // this.game.addEntity(new Ogre(this.game, 200, 350));
-                    // this.game.addEntity(new Ogre(this.game, 300, 350));
-                    // this.game.addEntity(new Ogre(this.game, 500, 350));
+                    this.game.addEntity(new Ogre(this.game, 400, 350));
+                    this.game.addEntity(new Ogre(this.game, 200, 350));
+                    this.game.addEntity(new Ogre(this.game, 300, 350));
+                    this.game.addEntity(new Ogre(this.game, 500, 350));
 
-                    // this.game.addEntity(new Ogre(this.game, 400, -350));
-                    // this.game.addEntity(new Ogre(this.game, 200, -350));
-                    // this.game.addEntity(new Ogre(this.game, 300, -350));
-                    // this.game.addEntity(new Ogre(this.game, 500, -350));
+                    this.game.addEntity(new Ogre(this.game, 400, -350));
+                    this.game.addEntity(new Ogre(this.game, 200, -350));
+                    this.game.addEntity(new Ogre(this.game, 300, -350));
+                    this.game.addEntity(new Ogre(this.game, 500, -350));
 
 
                     // // this.game.addEntity(new Minotaur(this.game, 400, 350, true));
@@ -48,10 +48,10 @@ class SceneManager {
                     // this.game.addEntity(new MotherSlime(this.game, 300, -450));
                     // this.game.addEntity(new MotherSlime(this.game, 500, -450));
 
-                    this.game.addEntity(new Minotaur(this.game, 400, 550, true));
-                    this.game.addEntity(new Minotaur(this.game, 400, 550, true));
-                    this.game.addEntity(new Minotaur(this.game, 400, 550, true));
-                    this.game.addEntity(new Minotaur(this.game, 400, 550, true));
+                    // this.game.addEntity(new Minotaur(this.game, 400, 550, true));
+                    // this.game.addEntity(new Minotaur(this.game, 400, 550, true));
+                    // this.game.addEntity(new Minotaur(this.game, 400, 550, true));
+                    // this.game.addEntity(new Minotaur(this.game, 400, 550, true));
                 } else {
                     // add a regular hero -- to come later!
                 }

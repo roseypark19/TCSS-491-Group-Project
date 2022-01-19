@@ -41,6 +41,7 @@ class Projectile {
         this.friendlyProjectile = friendly;
         this.id = ++PARAMS.SHOT_ID;
         this.damage = 25;
+        this.passable = false;
         this.velocityConstant = 6;
         this.velocity = { x: Math.cos(this.roundedRadians) * this.velocityConstant, 
                           y: Math.sin(this.roundedRadians) * this.velocityConstant };

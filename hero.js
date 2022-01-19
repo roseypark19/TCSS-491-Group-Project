@@ -445,12 +445,6 @@ class Hero {
                 this.game.addEntity(new ElementCircle(this.game, this.spellType));
             }
 
-            // if (this.ability2Timer <= 0.1 && this.ability2Timer > 0 && this.ability2Flag) {
-            //     this.ability2Flag = false;
-            //     this.spawnBeams();
-            //     // ASSET_MANAGER.playAsset("./audio/lightning.mp3")
-            // }
-
             if (this.ability1Timer === 0 && this.ability2Timer === 0 && this.ability3Timer === 0 && this.damagedTimer === 0) {
                 this.state = magnitude(this.velocity) === 0 ? 0 : 1;
             }
@@ -502,9 +496,6 @@ class Hero {
                                                                 this.x + PARAMS.SCALE * -8 * Math.cos(theta), 
                                                                 this.y + PARAMS.SCALE * -8 * Math.sin(theta), 
                                                                 theta, true, WEAPONS[this.weapon.type].projectileType, this.BB.center));
-                        // }
-                        
-                        
                     }
                     
                 }
@@ -555,16 +546,6 @@ class Hero {
                                             this.BB.center.y - 32 * PARAMS.SCALE / 2 - 12 * Math.sin(theta) * PARAMS.SCALE, 
                                             theta, this.BB.center, this.spellType));
     };
-
-    // spawnBeams() {
-    //     let center = this.BB.center;
-    //     for (let theta = 2 * Math.PI; theta > 0; theta -= Math.PI / 4) {             
-    //         this.game.addEntity(new Beam(this.game, 
-    //                                      center.x - 32 * PARAMS.SCALE / 2,
-    //                                      center.y - 32 * PARAMS.SCALE / 2, 
-    //                                      theta, this.BB.center));
-    //     }
-    // };
 
     updateBB() {
         this.BB = new BoundingBox(this.x, this.y, 32 * PARAMS.SCALE, 32 * PARAMS.SCALE);
@@ -624,7 +605,7 @@ class ElementBeam {
         this.roundedRadians = toRadians(this.roundedDegrees);
         this.loadSpriteSheet();
         this.friendlyProjectile = true;
-        this.damage = 25;
+        this.damage = 50;
         this.id = ++PARAMS.SHOT_ID;
         this.velocityConstant = 10;
         this.velocity = { x: Math.cos(this.roundedRadians) * this.velocityConstant, 
@@ -633,6 +614,8 @@ class ElementBeam {
         this.explosionTimer = 0;
         this.explosionFlag = false;
         this.state = 0; // 0 = moving, 1 = exploding
+        this.elemental = true;
+        this.passable = true;
         this.animations = [];
         this.loadAnimations();
         this.updateBB();
