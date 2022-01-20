@@ -88,8 +88,8 @@ const props = {
         height: 9,
         shadowDiffX: 0,
         shadowDiffY: 0,
-        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 50, 70, 5, 9, true, 12),
-        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 12, 49, 17, 15, false, 12)    
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 50, 70, 5, 9, true, 14),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 12, 49, 17, 15, false, 14)    
     },
 
     15 : { // small flower 
@@ -99,8 +99,8 @@ const props = {
         height: 9,
         shadowDiffX: 0,
         shadowDiffY: 0,
-        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 56, 54, 7, 9, true, 12),
-        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 56, 54, 7, 9, false, 12)    
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 56, 54, 7, 9, true, 15),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 56, 54, 7, 9, false, 15)    
     },
 
     16 : { // medium flower 
@@ -110,8 +110,8 @@ const props = {
         height: 11,
         shadowDiffX: 0,
         shadowDiffY: 0,
-        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 48, 55, 8, 11, true, 12),
-        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 48, 52, 8, 11, false, 12)    
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 48, 55, 8, 11, true, 16),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 48, 52, 8, 11, false, 16)    
     },
 
     17 : { // large flower 
@@ -121,8 +121,8 @@ const props = {
         height: 12,
         shadowDiffX: 0,
         shadowDiffY: 0,
-        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 36, 58, 9, 6, true, 12),
-        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 36, 51, 9, 9, false, 12)    
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 36, 58, 9, 6, true, 17),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 36, 51, 9, 9, false, 17)    
     },
 
     18 : { // chicken coop
@@ -132,8 +132,8 @@ const props = {
         height: 16,
         shadowDiffX: 0,
         shadowDiffY: 0,
-        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 33, 64, 15, 16, true, 12),
-        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 33, 55, 15, 16, false, 12)    
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 33, 64, 15, 16, true, 18),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 33, 55, 15, 16, false, 18)    
     },
 
     19 : { // weapons billboard
@@ -143,19 +143,19 @@ const props = {
         height: 17,
         shadowDiffX: 0,
         shadowDiffY: 0,
-        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 56, 96, 24, 7, true, 12),
-        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 56, 86, 24, 12, false, 12)    
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 56, 96, 24, 7, true, 19),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 56, 86, 24, 12, false, 19)    
     },
 
     20 : { // stats billboard
-        topX: 56,
+        topX: 9,
         topY: 86,
-        width: 23,
+        width: 24,
         height: 17,
         shadowDiffX: 0,
         shadowDiffY: 0,
-        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 9, 96, 23, 7, true, 12),
-        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 9, 86, 23, 12, false, 12)    
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 9, 96, 24, 7, true, 20),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 9, 86, 24, 12, false, 20)    
     },
 
     21 : { // log
@@ -165,8 +165,8 @@ const props = {
         height: 13,
         shadowDiffX: 0,
         shadowDiffY: 0,
-        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 68, 66, 10, 13, true, 12),
-        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 68, 66, 10, 12, false, 12)    
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 68, 66, 10, 13, true, 21),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 68, 66, 10, 12, false, 21)    
     },
 
     22 : { // anvil horizontal
@@ -176,8 +176,8 @@ const props = {
         height: 10,
         shadowDiffX: 0,
         shadowDiffY: 0,
-        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 162, 133, 12, 10, true, 12),
-        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 68, 66, 10, 12, false, 12)    
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 162, 133, 12, 10, true, 22),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 68, 66, 10, 12, false, 22)    
     },
 
     23 : { // anvil horizontal
@@ -187,7 +187,7 @@ const props = {
         height: 11,
         shadowDiffX: 0,
         shadowDiffY: 0,
-        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 146, 136, 12, 11, true, 12),
-        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 68, 66, 10, 12, false, 12)    
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 146, 136, 12, 11, true, 23),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 68, 66, 10, 12, false, 23)    
     },
 };

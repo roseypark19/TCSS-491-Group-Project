@@ -35,52 +35,53 @@ class SceneManager {
                     // well
                     this.game.addEntity(props[13].base(this.game, 38 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 30 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); 
                     // mailboxes
-                    this.game.addEntity(props[14].base(this.game, 190 * PARAMS.BLOCKWIDTH, 114 * PARAMS.BLOCKWIDTH, true)); // townhall
-                    this.game.addEntity(props[14].base(this.game, 257 * PARAMS.BLOCKWIDTH, 122 * PARAMS.BLOCKWIDTH, true)); // right shop
-                    this.game.addEntity(props[14].base(this.game, 238 * PARAMS.BLOCKWIDTH, 78 * PARAMS.BLOCKWIDTH, true)); // top right (4)
-                    this.game.addEntity(props[14].base(this.game, 233 * PARAMS.BLOCKWIDTH, 78 * PARAMS.BLOCKWIDTH, true)); // top right (3)
-                    this.game.addEntity(props[14].base(this.game, 214 * PARAMS.BLOCKWIDTH, 78 * PARAMS.BLOCKWIDTH, true)); // top right (2)
-                    this.game.addEntity(props[14].base(this.game, 209 * PARAMS.BLOCKWIDTH, 78 * PARAMS.BLOCKWIDTH, true)); // top right (1)
-                    this.game.addEntity(props[14].base(this.game, 238 * PARAMS.BLOCKWIDTH, 198 * PARAMS.BLOCKWIDTH, true)); // bottom right
-                    this.game.addEntity(props[14].base(this.game, 113 * PARAMS.BLOCKWIDTH, 162 * PARAMS.BLOCKWIDTH, true)); // bottom left shop
-                    this.game.addEntity(props[14].base(this.game, 81.5 * PARAMS.BLOCKWIDTH, 106 * PARAMS.BLOCKWIDTH, true)); // left (1)
-                    this.game.addEntity(props[14].base(this.game, 109.5 * PARAMS.BLOCKWIDTH, 106 * PARAMS.BLOCKWIDTH, true)); // left (2)
-                    this.game.addEntity(props[14].base(this.game, 118 * PARAMS.BLOCKWIDTH, 66 * PARAMS.BLOCKWIDTH, true)); // upper left (1)
-                    this.game.addEntity(props[14].base(this.game, 133 * PARAMS.BLOCKWIDTH, 66 * PARAMS.BLOCKWIDTH, true)); // upper left (2)
+                    this.game.addEntity(props[14].base(this.game, 39.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 25.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // townhall
+                    this.game.addEntity(props[14].base(this.game, 56.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 27.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // right shop
+                    this.game.addEntity(props[14].base(this.game, 51.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 16.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // top right (4)
+                    this.game.addEntity(props[14].base(this.game, 50.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 16.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // top right (3)
+                    this.game.addEntity(props[14].base(this.game, 44.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 16.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // top right (2)
+                    this.game.addEntity(props[14].base(this.game, 45.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 16.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // top right (1)
+                    this.game.addEntity(props[14].base(this.game, 51.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 46.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // bottom right
+                    this.game.addEntity(props[14].base(this.game, 20.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 37.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // bottom left shop
+                    this.game.addEntity(props[14].base(this.game, 12.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 23.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // left (1)
+                    this.game.addEntity(props[14].base(this.game, 19.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 23.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // left (2)
+                    this.game.addEntity(props[14].base(this.game, 21.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 13.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // upper left (1)
+                    this.game.addEntity(props[14].base(this.game, 25.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 13.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // upper left (2)
 
                     // flowers
-                    this.game.addEntity(props[15].base(this.game, 117 * PARAMS.BLOCKWIDTH, 170 * PARAMS.BLOCKWIDTH, true)); 
-                    this.game.addEntity(props[16].base(this.game, 62.8 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 51 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false)); // bottom right (1)  // 256 * PARAMS.BLOCKWIDTH, 207 * PARAMS.BLOCKWIDTH, true)); // bottom right (1)        
-                    this.game.addEntity(props[17].base(this.game, 266 * PARAMS.BLOCKWIDTH, 207 * PARAMS.BLOCKWIDTH, true)); // bottom right (2)  
-                    this.game.addEntity(props[16].base(this.game, 264 * PARAMS.BLOCKWIDTH, 207 * PARAMS.BLOCKWIDTH, true)); // bottom right (3)
-                    this.game.addEntity(props[17].base(this.game, 94 * PARAMS.BLOCKWIDTH, 114 * PARAMS.BLOCKWIDTH, true)); // left (1)
-                    this.game.addEntity(props[16].base(this.game, 120 * PARAMS.BLOCKWIDTH, 115 * PARAMS.BLOCKWIDTH, true)); // left (2)
-                    this.game.addEntity(props[15].base(this.game, 121.5 * PARAMS.BLOCKWIDTH, 75 * PARAMS.BLOCKWIDTH, true)); // top left behind
-                    this.game.addEntity(props[16].base(this.game, 200 * PARAMS.BLOCKWIDTH, 93 * PARAMS.BLOCKWIDTH, true)); // top right (1)
-                    this.game.addEntity(props[17].base(this.game, 211 * PARAMS.BLOCKWIDTH, 93 * PARAMS.BLOCKWIDTH, true)); // top right (2)
-                    this.game.addEntity(props[16].base(this.game, 160 * PARAMS.BLOCKWIDTH, 136 * PARAMS.BLOCKWIDTH, true)); // middle left (1)
-                    this.game.addEntity(props[17].base(this.game, 166 * PARAMS.BLOCKWIDTH, 143 * PARAMS.BLOCKWIDTH, true)); // middle left (2)
-                    this.game.addEntity(props[16].base(this.game, 160 * PARAMS.BLOCKWIDTH, 150 * PARAMS.BLOCKWIDTH, true)); // middle left (3)
-                    this.game.addEntity(props[16].base(this.game, 206 * PARAMS.BLOCKWIDTH, 136 * PARAMS.BLOCKWIDTH, true)); // middle right (1)
-                    this.game.addEntity(props[17].base(this.game, 212 * PARAMS.BLOCKWIDTH, 143 * PARAMS.BLOCKWIDTH, true)); // middle right (2)
-                    this.game.addEntity(props[16].base(this.game, 206 * PARAMS.BLOCKWIDTH, 150 * PARAMS.BLOCKWIDTH, true)); // middle right (3)
+                    this.game.addEntity(props[15].base(this.game, 22.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 37.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); 
+                    this.game.addEntity(props[16].base(this.game, 56 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 46.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); 
+                    this.game.addEntity(props[17].base(this.game, 57 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 46.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // bottom right (2)  
+                    this.game.addEntity(props[16].base(this.game, 58 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 46.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // bottom right (3)
+                    this.game.addEntity(props[17].base(this.game, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 23.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // left (1)
+                    this.game.addEntity(props[16].base(this.game, 22 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 23.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // left (2)
+                    this.game.addEntity(props[15].base(this.game, 23.35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // top left behind
+                    this.game.addEntity(props[16].base(this.game, 42 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 18 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // top right (1)
+                    this.game.addEntity(props[17].base(this.game, 43.1 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 18 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // top right (2)
+                    this.game.addEntity(props[16].base(this.game, 33 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 29 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // middle left (1)
+                    this.game.addEntity(props[17].base(this.game, 33.1 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 31 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // middle left (2)
+                    this.game.addEntity(props[16].base(this.game, 33 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 33 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // middle left (3)
+                    this.game.addEntity(props[16].base(this.game, 43 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 29 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // middle right (1)
+                    this.game.addEntity(props[17].base(this.game, 43.1 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 31 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // middle right (2)
+                    this.game.addEntity(props[16].base(this.game, 43 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 33 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // middle right (3)
                     
                     // chicken coop
-                    this.game.addEntity(props[18].base(this.game, 181 * PARAMS.BLOCKWIDTH, 60.5 * PARAMS.BLOCKWIDTH, true)); // middle right (3)
+                    this.game.addEntity(props[18].base(this.game, 35.8 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 12 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // middle right (3)
 
                     // shops
-                    this.game.addEntity(props[19].base(this.game, 237 * PARAMS.BLOCKWIDTH, 110 * PARAMS.BLOCKWIDTH, true)); // weapons shop
-                    this.game.addEntity(props[20].base(this.game, 117 * PARAMS.BLOCKWIDTH, 150 * PARAMS.BLOCKWIDTH, true)); // stats shop
+                    this.game.addEntity(props[19].base(this.game, 53.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 27.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // weapons shop
+                    this.game.addEntity(props[20].base(this.game, 17.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 37.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // stats shop
+
                     // logs
-                    this.game.addEntity(props[21].base(this.game, 156 * PARAMS.BLOCKWIDTH, 186 * PARAMS.BLOCKWIDTH, true)); // bottom middle
-                    this.game.addEntity(props[21].base(this.game, 52 * PARAMS.BLOCKWIDTH, 162 * PARAMS.BLOCKWIDTH, true)); // left
-                    this.game.addEntity(props[21].base(this.game, 265 * PARAMS.BLOCKWIDTH, 80 * PARAMS.BLOCKWIDTH, true)); // right
-                    this.game.addEntity(props[21].base(this.game, 100 * PARAMS.BLOCKWIDTH, 37 * PARAMS.BLOCKWIDTH, true)); // top left
+                    this.game.addEntity(props[21].base(this.game, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 43 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // bottom middle
+                    this.game.addEntity(props[21].base(this.game, 7 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 37.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // left
+                    this.game.addEntity(props[21].base(this.game, 67 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 29 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // right
+                    this.game.addEntity(props[21].base(this.game, 17 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // top left
 
                     // anvil
-                    this.game.addEntity(props[22].base(this.game, 204 * PARAMS.BLOCKWIDTH, 90 * PARAMS.BLOCKWIDTH, true)); // right shop
+                    this.game.addEntity(props[22].base(this.game, 58 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 27.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // right shop
                     // water
-                    this.game.addEntity(props[23].base(this.game, 182 * PARAMS.BLOCKWIDTH, 166 * PARAMS.BLOCKWIDTH, true)); // right shop
+                    this.game.addEntity(props[23].base(this.game, 53.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 47.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // right shop
                     
                     this.hero = new Hero(this.game, 1250, 1100);
                     this.game.addEntity(this.hero);
@@ -91,25 +92,25 @@ class SceneManager {
                     // well
                     this.game.addEntity(props[13].topper(this.game, 38 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 30 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); 
                     // flowers
-                    this.game.addEntity(props[16].topper(this.game, 62.8 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 51 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false)); // bottom right (1) 
-                    this.game.addEntity(props[17].topper(this.game, 266 * PARAMS.BLOCKWIDTH, 207 * PARAMS.BLOCKWIDTH, true)); // bottom right (2) 
-                    this.game.addEntity(props[16].topper(this.game, 264 * PARAMS.BLOCKWIDTH, 207 * PARAMS.BLOCKWIDTH, true)); // bottom right (3) 
-                    this.game.addEntity(props[17].topper(this.game, 94 * PARAMS.BLOCKWIDTH, 114 * PARAMS.BLOCKWIDTH, true)); // left (1)
-                    this.game.addEntity(props[16].topper(this.game, 120 * PARAMS.BLOCKWIDTH, 115 * PARAMS.BLOCKWIDTH, true)); // left (2
-                    this.game.addEntity(props[16].topper(this.game, 200 * PARAMS.BLOCKWIDTH, 93 * PARAMS.BLOCKWIDTH, true)); // top right (1)
-                    this.game.addEntity(props[17].topper(this.game, 211 * PARAMS.BLOCKWIDTH, 93 * PARAMS.BLOCKWIDTH, true)); // top right (2)
-                    this.game.addEntity(props[16].topper(this.game, 160 * PARAMS.BLOCKWIDTH, 136 * PARAMS.BLOCKWIDTH, true)); // middle left (1)
-                    this.game.addEntity(props[17].topper(this.game, 166 * PARAMS.BLOCKWIDTH, 143 * PARAMS.BLOCKWIDTH, true)); // middle left (2)
-                    this.game.addEntity(props[16].topper(this.game, 160 * PARAMS.BLOCKWIDTH, 150 * PARAMS.BLOCKWIDTH, true)); // middle left (3)
-                    this.game.addEntity(props[16].topper(this.game, 206 * PARAMS.BLOCKWIDTH, 136 * PARAMS.BLOCKWIDTH, true)); // middle right (1)
-                    this.game.addEntity(props[17].topper(this.game, 212 * PARAMS.BLOCKWIDTH, 143 * PARAMS.BLOCKWIDTH, true)); // middle right (2)
-                    this.game.addEntity(props[16].topper(this.game, 206 * PARAMS.BLOCKWIDTH, 150 * PARAMS.BLOCKWIDTH, true)); // middle right (3)
+                    this.game.addEntity(props[15].topper(this.game, 22.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 37.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); 
+                    this.game.addEntity(props[16].topper(this.game, 56 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 46.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); 
+                    this.game.addEntity(props[17].topper(this.game, 57 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 46.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // bottom right (2)  
+                    this.game.addEntity(props[16].topper(this.game, 58 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 46.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // bottom right (3)
+                    this.game.addEntity(props[17].topper(this.game, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 23.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // left (1)
+                    this.game.addEntity(props[16].topper(this.game, 22 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 23.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // left (2)
+                    this.game.addEntity(props[15].topper(this.game, 23.35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // top left behind
+                    this.game.addEntity(props[16].topper(this.game, 42 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 18 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // top right (1)
+                    this.game.addEntity(props[17].topper(this.game, 43.1 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 18 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // top right (2)
+                    this.game.addEntity(props[16].topper(this.game, 33 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 29 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // middle left (1)
+                    this.game.addEntity(props[17].topper(this.game, 33.1 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 31 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // middle left (2)
+                    this.game.addEntity(props[16].topper(this.game, 33 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 33 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // middle left (3)
+                    this.game.addEntity(props[16].topper(this.game, 43 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 29 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // middle right (1)
+                    this.game.addEntity(props[17].topper(this.game, 43.1 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 31 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // middle right (2)
+                    this.game.addEntity(props[16].topper(this.game, 43 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 33 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // middle right (3)
                     
-                    // weapons shop
-                    this.game.addEntity(props[19].topper(this.game, 237 * PARAMS.BLOCKWIDTH, 110 * PARAMS.BLOCKWIDTH, true)); 
-                    // stats shop
-                    this.game.addEntity(props[20].topper(this.game, 117 * PARAMS.BLOCKWIDTH, 150 * PARAMS.BLOCKWIDTH, true)); 
-
+                    this.game.addEntity(props[19].topper(this.game, 53.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 27.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // weapons shop
+                    this.game.addEntity(props[20].topper(this.game, 17.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 37.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // stats shop
+                    
                 } else {
                     // add a regular hero -- to come later!
                 }
