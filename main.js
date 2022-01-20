@@ -17,8 +17,11 @@ ASSET_MANAGER.queueDownload("./sprites/biomes/overworld/tiles.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/town/props.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/town/shadows.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/town/tiles.png");
+ASSET_MANAGER.queueDownload("./sprites/biomes/town/HenIdle.png");
+ASSET_MANAGER.queueDownload("./sprites/biomes/town/ChickIdle.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/arrow.png");
 ASSET_MANAGER.queueDownload("./sprites/ui/weapon_icons.png");
+
 
 ASSET_MANAGER.downloadAll(async function () {
 

@@ -110,6 +110,8 @@ class SceneManager {
                     
                     this.game.addEntity(props[19].topper(this.game, 53.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 27.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // weapons shop
                     this.game.addEntity(props[20].topper(this.game, 17.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 37.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); // stats shop
+
+                    
                     
                 } else {
                     // add a regular hero -- to come later!
@@ -123,6 +125,10 @@ class SceneManager {
         if (isTown) {
             this.game.addEntity(new WeaponsShop(this.game));
             this.game.addEntity(new StatsShop(this.game));
+            this.game.addEntity(new Hen(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true));
+            this.game.addEntity(new Hen(this.game, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 16 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false));
+            this.game.addEntity(new Chick(this.game, 34 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true));
+            this.game.addEntity(new Chick(this.game, 36 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false))
             // this.game.addEntity(new TownSigns(this.game));
         }
 
