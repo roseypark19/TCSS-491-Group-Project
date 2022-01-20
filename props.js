@@ -73,12 +73,12 @@ const props = {
     13 : { // town well
         topX: 12,
         topY: 49,
-        width: 16,
-        height: 29,
+        width: 17,
+        height: 30,
         shadowDiffX: 0,
         shadowDiffY: 0,
-        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 12, 64, 17, 15, true, 12),
-        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 12, 49, 17, 15, false, 12)    
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 12, 64, 17, 15, true, 13),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 12, 49, 17, 15, false, 13)    
     },
 
     14 : { // town mailbox 

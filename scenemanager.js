@@ -30,11 +30,10 @@ class SceneManager {
                     this.game.addEntity(props[1].topper(this.game, 252 * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE, 55.5 * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE - 2 * PARAMS.OVERWORLD_SCALE, true));
                 } else if (isTown) {
                     // bulletin board (left)
-                    this.game.addEntity(props[12].base(this.game, 45 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 102 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); 
-                    
-                    this.game.addEntity(props[12].base(this.game, 166 * PARAMS.BLOCKWIDTH, 102 * PARAMS.BLOCKWIDTH, true)); 
+                    this.game.addEntity(props[12].base(this.game, 33.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 24.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false)); 
+                    this.game.addEntity(props[12].base(this.game, 40.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 24.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false)); 
                     // well
-                    this.game.addEntity(props[13].base(this.game, 199.5 * PARAMS.BLOCKWIDTH, 140 * PARAMS.BLOCKWIDTH, true)); 
+                    this.game.addEntity(props[13].base(this.game, 38 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 30 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); 
                     // mailboxes
                     this.game.addEntity(props[14].base(this.game, 190 * PARAMS.BLOCKWIDTH, 114 * PARAMS.BLOCKWIDTH, true)); // townhall
                     this.game.addEntity(props[14].base(this.game, 257 * PARAMS.BLOCKWIDTH, 122 * PARAMS.BLOCKWIDTH, true)); // right shop
@@ -51,7 +50,7 @@ class SceneManager {
 
                     // flowers
                     this.game.addEntity(props[15].base(this.game, 117 * PARAMS.BLOCKWIDTH, 170 * PARAMS.BLOCKWIDTH, true)); 
-                    this.game.addEntity(props[16].base(this.game, 256 * PARAMS.BLOCKWIDTH, 207 * PARAMS.BLOCKWIDTH, true)); // bottom right (1)
+                    this.game.addEntity(props[16].base(this.game, 62.8 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 51 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false)); // bottom right (1)  // 256 * PARAMS.BLOCKWIDTH, 207 * PARAMS.BLOCKWIDTH, true)); // bottom right (1)        
                     this.game.addEntity(props[17].base(this.game, 266 * PARAMS.BLOCKWIDTH, 207 * PARAMS.BLOCKWIDTH, true)); // bottom right (2)  
                     this.game.addEntity(props[16].base(this.game, 264 * PARAMS.BLOCKWIDTH, 207 * PARAMS.BLOCKWIDTH, true)); // bottom right (3)
                     this.game.addEntity(props[17].base(this.game, 94 * PARAMS.BLOCKWIDTH, 114 * PARAMS.BLOCKWIDTH, true)); // left (1)
@@ -87,12 +86,12 @@ class SceneManager {
                     this.game.addEntity(this.hero);
 
                     // bulletin boards
-                    this.game.addEntity(props[12].topper(this.game, 138 * PARAMS.BLOCKWIDTH, 102 * PARAMS.BLOCKWIDTH, true)); 
-                    this.game.addEntity(props[12].topper(this.game, 166 * PARAMS.BLOCKWIDTH, 102 * PARAMS.BLOCKWIDTH, true)); 
+                    this.game.addEntity(props[12].topper(this.game, 33.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 24.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false)); 
+                    this.game.addEntity(props[12].topper(this.game, 40.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 24.75 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false)); 
                     // well
-                    this.game.addEntity(props[13].topper(this.game, 199.5 * PARAMS.BLOCKWIDTH, 140 * PARAMS.BLOCKWIDTH, true));
+                    this.game.addEntity(props[13].topper(this.game, 38 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 30 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true)); 
                     // flowers
-                    this.game.addEntity(props[16].topper(this.game, 256 * PARAMS.BLOCKWIDTH, 207 * PARAMS.BLOCKWIDTH, true)); // bottom right (1) 
+                    this.game.addEntity(props[16].topper(this.game, 62.8 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 51 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false)); // bottom right (1) 
                     this.game.addEntity(props[17].topper(this.game, 266 * PARAMS.BLOCKWIDTH, 207 * PARAMS.BLOCKWIDTH, true)); // bottom right (2) 
                     this.game.addEntity(props[16].topper(this.game, 264 * PARAMS.BLOCKWIDTH, 207 * PARAMS.BLOCKWIDTH, true)); // bottom right (3) 
                     this.game.addEntity(props[17].topper(this.game, 94 * PARAMS.BLOCKWIDTH, 114 * PARAMS.BLOCKWIDTH, true)); // left (1)
@@ -123,6 +122,7 @@ class SceneManager {
         if (isTown) {
             this.game.addEntity(new WeaponsShop(this.game));
             this.game.addEntity(new StatsShop(this.game));
+            // this.game.addEntity(new TownSigns(this.game));
         }
 
     };
