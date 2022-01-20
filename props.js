@@ -1,7 +1,21 @@
+// function genProp(game, x, y, centered, spritePath, spriteX, spriteY, width, height, collideable, propID, scale = PARAMS.SCALE) {
+//     return new PropTile(game,
+//                         x - (centered ? (props[propID].width + props[propID].shadowDiffX) * scale / 2 : 0),
+//                         y - (centered ? (props[propID].height + props[propID].shadowDiffY) * scale / 2 : 0),
+//                         spritePath,
+//                         spriteX,
+//                         spriteY,
+//                         spriteX - props[propID].topX,
+//                         spriteY - props[propID].topY,
+//                         width,
+//                         height,
+//                         collideable,
+//                         scale);
+// };
 function genProp(game, x, y, centered, spritePath, spriteX, spriteY, width, height, collideable, propID, scale = PARAMS.SCALE) {
     return new PropTile(game,
-                        x - (centered ? (props[propID].width + props[propID].shadowDiffX) * scale / 2 : 0),
-                        y - (centered ? (props[propID].height + props[propID].shadowDiffY) * scale / 2 : 0),
+                        x - (centered ? props[propID].width * scale / 2 : 0),
+                        y - (centered ? props[propID].height * scale / 2 : 0),
                         spritePath,
                         spriteX,
                         spriteY,
@@ -81,7 +95,7 @@ const props = {
         topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 12, 49, 17, 15, false, 13)    
     },
 
-    14 : { // town mailbox 
+    14 : { // town mailbox (no valid topper)
         topX: 50,
         topY: 70,
         width: 5,
@@ -89,10 +103,10 @@ const props = {
         shadowDiffX: 0,
         shadowDiffY: 0,
         base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 50, 70, 5, 9, true, 14),
-        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 12, 49, 17, 15, false, 14)    
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 0, 0, 0, 0, false, 14)    
     },
 
-    15 : { // small flower 
+    15 : { // small flower (no valid topper)
         topX: 56,
         topY: 54,
         width: 7,
@@ -100,7 +114,7 @@ const props = {
         shadowDiffX: 0,
         shadowDiffY: 0,
         base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 56, 54, 7, 9, true, 15),
-        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 56, 54, 7, 9, false, 15)    
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 0, 0, 0, 0, false, 15)    
     },
 
     16 : { // medium flower 
@@ -110,8 +124,8 @@ const props = {
         height: 11,
         shadowDiffX: 0,
         shadowDiffY: 0,
-        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 48, 55, 8, 11, true, 16),
-        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 48, 52, 8, 11, false, 16)    
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 48, 57, 8, 6, true, 16),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 48, 52, 8, 6, false, 16)    
     },
 
     17 : { // large flower 
@@ -125,7 +139,7 @@ const props = {
         topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 36, 51, 9, 9, false, 17)    
     },
 
-    18 : { // chicken coop
+    18 : { // chicken coop (no valid topper)
         topX: 33,
         topY: 64,
         width: 15,
@@ -133,7 +147,7 @@ const props = {
         shadowDiffX: 0,
         shadowDiffY: 0,
         base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 33, 64, 15, 16, true, 18),
-        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 33, 55, 15, 16, false, 18)    
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 0, 0, 0, 0, false, 18)    
     },
 
     19 : { // weapons billboard
@@ -158,7 +172,7 @@ const props = {
         topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 9, 86, 24, 12, false, 20)    
     },
 
-    21 : { // log
+    21 : { // log (no valid topper)
         topX: 68,
         topY: 66,
         width: 10,
@@ -166,28 +180,25 @@ const props = {
         shadowDiffX: 0,
         shadowDiffY: 0,
         base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 68, 66, 10, 13, true, 21),
-        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 68, 66, 10, 12, false, 21)    
     },
 
-    22 : { // anvil horizontal
+    22 : { // anvil horizontal (no valid topper)
         topX: 162,
         topY: 133,
         width: 12,
         height: 10,
         shadowDiffX: 0,
         shadowDiffY: 0,
-        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 162, 133, 12, 10, true, 22),
-        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 68, 66, 10, 12, false, 22)    
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 162, 133, 12, 10, true, 22)   
     },
 
-    23 : { // anvil horizontal
+    23 : { // water horizontal (no valid topper)
         topX: 146,
         topY: 136,
         width: 12,
         height: 11,
         shadowDiffX: 0,
         shadowDiffY: 0,
-        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 146, 136, 12, 11, true, 23),
-        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 68, 66, 10, 12, false, 23)    
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 146, 136, 12, 11, true, 23)
     },
 };

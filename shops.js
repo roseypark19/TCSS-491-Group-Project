@@ -953,14 +953,14 @@ class StatsShop {
         Object.assign(this, {game});
 
         this.enteredShop = false;
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/ui/weapon_icons.png");
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/ui/stats_icons.png");
         
-        this.speedImage = new AnimationGroup(this.spritesheet, 24, 0, 12, 12, 1, 1, false, true);
-        this.healthImage = new AnimationGroup(this.spritesheet, 48, 0, 12, 12, 1, 1, false, true);
-        this.manaImage = new AnimationGroup(this.spritesheet, 60, 0, 12, 12, 1, 1, false, true);
+        this.speedImage = new AnimationGroup(this.spritesheet, 0, 0, 12, 12, 1, 1, false, true);
+        this.healthImage = new AnimationGroup(this.spritesheet, 12, 0, 12, 12, 1, 1, false, true);
+        this.manaImage = new AnimationGroup(this.spritesheet, 24, 0, 12, 12, 1, 1, false, true);
         this.vitalityImage = new AnimationGroup(this.spritesheet, 36, 0, 12, 12, 1, 1, false, true);
-        this.wisdomImage = new AnimationGroup(this.spritesheet, 0, 0, 12, 12, 1, 1, false, true);
-        this.defenseImage = new AnimationGroup(this.spritesheet, 12, 0, 12, 12, 1, 1, false, true);
+        this.wisdomImage = new AnimationGroup(this.spritesheet, 48, 0, 12, 12, 1, 1, false, true);
+        this.defenseImage = new AnimationGroup(this.spritesheet, 60, 0, 12, 12, 1, 1, false, true);
                 
         this.addConstants();
         this.addBBs();
@@ -1057,10 +1057,10 @@ class StatsShop {
         this.mouseBB = new BoundingBox(0, 0, 1, 1);  
         this.shopMouseBB = new BoundingBox(0, 0, 1, 1);  
 
-        this.speedUpgradeBB = new BoundingBox(this.UPGRADE_BOX_X, this.SPEED_BOX_Y + this.UPGRADE_BOX_OFFSET_Y , this.UPGRADE_BOX_WIDTH, this.UPGRADE_BOX_HEIGHT);
+        this.speedUpgradeBB = new BoundingBox(this.UPGRADE_BOX_X + (PARAMS.BLOCKWIDTH * PARAMS.SCALE / 2), this.SPEED_BOX_Y + this.UPGRADE_BOX_OFFSET_Y , this.UPGRADE_BOX_WIDTH, this.UPGRADE_BOX_HEIGHT);
         this.healthUpgradeBB = new BoundingBox(this.UPGRADE_BOX_X, this.HEALTH_BOX_Y + this.UPGRADE_BOX_OFFSET_Y , this.UPGRADE_BOX_WIDTH, this.UPGRADE_BOX_HEIGHT);
         this.manaUpgradeBB = new BoundingBox(this.UPGRADE_BOX_X, this.MANA_BOX_Y + this.UPGRADE_BOX_OFFSET_Y , this.UPGRADE_BOX_WIDTH, this.UPGRADE_BOX_HEIGHT);
-        this.vitalityUpgradeBB = new BoundingBox(this.UPGRADE_BOX_X, this.VITALITY_BOX_Y + this.UPGRADE_BOX_OFFSET_Y , this.UPGRADE_BOX_WIDTH, this.UPGRADE_BOX_HEIGHT);
+        this.vitalityUpgradeBB = new BoundingBox(this.UPGRADE_BOX_X + (PARAMS.BLOCKWIDTH * PARAMS.SCALE / 2), this.VITALITY_BOX_Y + this.UPGRADE_BOX_OFFSET_Y , this.UPGRADE_BOX_WIDTH, this.UPGRADE_BOX_HEIGHT);
         this.wisdomUpgradeBB = new BoundingBox(this.UPGRADE_BOX_X, this.WISDOM_BOX_Y + this.UPGRADE_BOX_OFFSET_Y , this.UPGRADE_BOX_WIDTH, this.UPGRADE_BOX_HEIGHT);
         this.defenseUpgradeBB = new BoundingBox(this.UPGRADE_BOX_X, this.DEFENSE_BOX_Y + this.UPGRADE_BOX_OFFSET_Y , this.UPGRADE_BOX_WIDTH, this.UPGRADE_BOX_HEIGHT);
 

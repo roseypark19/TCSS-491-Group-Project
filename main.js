@@ -21,6 +21,7 @@ ASSET_MANAGER.queueDownload("./sprites/biomes/town/HenIdle.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/town/ChickIdle.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/arrow.png");
 ASSET_MANAGER.queueDownload("./sprites/ui/weapon_icons.png");
+ASSET_MANAGER.queueDownload("./sprites/ui/stats_icons.png");
 
 
 ASSET_MANAGER.downloadAll(async function () {

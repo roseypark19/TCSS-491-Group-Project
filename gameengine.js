@@ -182,8 +182,8 @@ class GameEngine {
     draw() {
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         for (let i = 0; i < this.entities.length; i++) {
-            if (Math.abs(this.camera.hero.BB.center.x - this.entities[i].BB.center.x) <= PARAMS.CANVAS_DIMENSION * (this.camera.overworld ? 0.75 : 0.55) &&
-                Math.abs(this.camera.hero.BB.center.y - this.entities[i].BB.center.y) <= PARAMS.CANVAS_DIMENSION * (this.camera.overworld ? 0.75 : 0.55)) {
+            if (Math.abs(this.camera.hero.BB.center.x - this.entities[i].BB.center.x) <= PARAMS.CANVAS_DIMENSION * (this.camera.overworld ? 0.75 : 1) &&
+                Math.abs(this.camera.hero.BB.center.y - this.entities[i].BB.center.y) <= PARAMS.CANVAS_DIMENSION * (this.camera.overworld ? 0.75 : 1)) {
                 this.entities[i].draw(this.ctx);
             } else if (this.entities[i].updateElapsedTime) {
                 this.entities[i].updateElapsedTime();
