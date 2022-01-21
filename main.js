@@ -7,7 +7,6 @@ ASSET_MANAGER.queueDownload("./audio/Upgrade.wav");
 ASSET_MANAGER.queueDownload("./audio/CoinUpgrade.wav");
 ASSET_MANAGER.queueDownload("./audio/MaxLevelUpgrade.wav");
 
-
 // sprites
 ASSET_MANAGER.queueDownload("./sprites/hero/tiny_hero.png");
 ASSET_MANAGER.queueDownload("./sprites/hero/hero.png");
@@ -24,9 +23,7 @@ ASSET_MANAGER.queueDownload("./sprites/ui/weapon_icons.png");
 ASSET_MANAGER.queueDownload("./sprites/ui/stats_icons.png");
 
 
-ASSET_MANAGER.downloadAll(async function () {
-
-	await new Promise(r => setTimeout(r, 50)); // wait to ensure canvas has loaded
+ASSET_MANAGER.downloadAll(function () {
 
 	let canvas = document.getElementById('gameWorld');
 	let ctx = canvas.getContext('2d');
@@ -37,5 +34,4 @@ ASSET_MANAGER.downloadAll(async function () {
 	new SceneManager(gameEngine);
 
 	gameEngine.start();	
-
 });
