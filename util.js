@@ -25,6 +25,11 @@ const WEAPONS = {
     5 : { base_damage: 55, base_dexterity: 0.065, projectileType: 0 },
 };
 
+const PROJECTILES = {
+    0: { spritesheet: "./sprites/projectiles/arrow.png" },
+    1: { spritesheet: "./sprites/projectiles/arrow.png" }
+};
+
 // returns a random integer between 0 and n-1
 function randomInt(n) {
     return Math.floor(Math.random() * n);
@@ -85,6 +90,33 @@ function rotateImage(spritesheet, xStart, yStart, width, height, theta, scale) {
                            width * scale < dimension ? (dimension - width * scale) / 2 : 0, 
                            height * scale < dimension ? (dimension - height * scale) / 2 : 0, width * scale, height * scale);
     offscreenCtx.restore();
+    return offscreenCanvas;
+};
+
+function flipImage(spritesheet, xStart, yStart, width, height, horizontal) {
+    let offscreenCanvas = document.createElement('canvas');
+    offscreenCanvas.width = width;
+    offscreenCanvas.height = height;
+    let offscreenCtx = offscreenCanvas.getContext('2d');
+    offscreenCtx.imageSmoothingEnabled = false;
+    offscreenCtx.save();
+    offscreenCtx.scale(horizontal === 0 ? 1 : -1, horizontal === 0 ? -1 : 1);
+    offscreenCtx.drawImage(spritesheet, xStart, yStart, width, height, horizontal === 0 ? 0 : -width, horizontal === 0 ? -height : 0, width, height);
+    offscreenCtx.restore();
+    return offscreenCanvas;
+};
+
+function createSpritesheet(sprites, frameWidth, frameHeight) {
+    let offscreenCanvas = document.createElement('canvas');
+    offscreenCanvas.width = sprites.length * frameWidth;
+    offscreenCanvas.height = frameHeight;
+    let offscreenCtx = offscreenCanvas.getContext('2d');
+    offscreenCtx.imageSmoothingEnabled = false;
+    let x = 0;
+    for (let i = 0; i < sprites.length; i++) {
+        offscreenCtx.drawImage(sprites[i], 0, 0, frameWidth, frameHeight, x, 0, frameWidth, frameHeight);
+        x += frameWidth;
+    }
     return offscreenCanvas;
 };
 
