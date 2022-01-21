@@ -25,8 +25,15 @@ ASSET_MANAGER.queueDownload("./sprites/enemies/slime_blue.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/slime_green.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/slime_mother_blue.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/slime_mother_green.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/druid_bird.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/druid_hound.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/druid_beast.png");
+ASSET_MANAGER.queueDownload("./sprites/projectiles/druid_beam.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/druid.png");
+ASSET_MANAGER.queueDownload("./sprites/projectiles/root.png");
 
 ASSET_MANAGER.downloadAll(function () {
+
 	let canvas = document.getElementById('gameWorld');
 	let ctx = canvas.getContext('2d');
 	ctx.imageSmoothingEnabled = false;

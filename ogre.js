@@ -22,8 +22,9 @@ class Ogre {
         this.slowedTimer = 0;
         this.burningTimer = 0;
         this.burnDamageTimer = 0;
+        this.confusedTimer = 0;
         this.velocityConstant = 3;
-        this.walkSpeed = 0.15 * (4 / this.velocityConstant);
+        this.walkSpeed = 0.1 * (4 / this.velocityConstant);
         this.velocity = { x: 0, y: 0 };
         this.animations = [];
         this.updateBB();
@@ -62,6 +63,7 @@ class Ogre {
         this.slowedTimer = Math.max(0, this.slowedTimer - this.game.clockTick);
         this.burningTimer = Math.max(0, this.burningTimer - this.game.clockTick);
         this.burnDamageTimer = Math.max(0, this.burnDamageTimer - this.game.clockTick);
+        this.confusedTimer = Math.max(0, this.confusedTimer - this.game.clockTick);
 
         if (this.state !== 4) {
             this.game.projectileEntities.forEach(entity => {
@@ -73,6 +75,7 @@ class Ogre {
                         entity.removeFromWorld = true;
                     }   
                     this.hit = true;  
+                    this.frozenTimer = 0;
                     if (this.damagedTimer === 0 && this.deadTimer === 0) {
                         this.damagedTimer = 0.6 - this.game.clockTick;
                         this.state = 3;
@@ -85,6 +88,8 @@ class Ogre {
                         switch(entity.type) {
                             case 0: // wind
                                 this.confusedTimer = 5 - this.game.clockTick;
+                                let randomTheta = toRadians(randomInt(361));
+                                this.confusionUnitVector = unitVector({ x: Math.cos(randomTheta), y: Math.sin(randomTheta) });
                                 break;
                             case 1: // fire
                                 this.burningTimer = 5 - this.game.clockTick;
@@ -124,8 +129,10 @@ class Ogre {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp -= 25;
             // play damaged sound
-            this.damagedTimer = 0.6 - this.game.clockTick;
-            this.state = 3;
+            if (this.damagedTimer === 0) {
+                this.damagedTimer = 0.6 - this.game.clockTick;
+                this.state = 3;
+            }
             if (this.deadTimer === 0 && this.hp <= 0) {
                 this.deadTimer = 14 * 0.15 - this.game.clockTick;
                 this.state = 4;
@@ -140,11 +147,6 @@ class Ogre {
         }
 
         this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed * 3 : this.walkSpeed);
-
-        // if (this.state !== 4 && this.damagedTimer === 0 && this.frozenTimer > 0) {
-        //     this.velocity.x = 0;
-        //     this.velocity.y = 0;
-        // }
 
         if (this.state !== 4) {
             let center = this.BB.center;
@@ -196,13 +198,23 @@ class Ogre {
                             dist = distance(center, this.randomPos);
                         }
                         if (dist > this.minProximity && this.damagedTimer === 0 && this.frozenTimer === 0) {
-                            this.velocity.x = movementDirectionUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
-                            this.velocity.y = movementDirectionUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
+                            if (this.confusedTimer > 0) {
+                                this.velocity.x = this.confusionUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
+                                this.velocity.y = this.confusionUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
+                            } else {
+                                this.velocity.x = movementDirectionUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
+                                this.velocity.y = movementDirectionUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
+                            }  
                         }
                         if (this.damagedTimer === 0 && this.frozenTimer === 0) {
                             if (this.randomPos !== undefined && this.state === 2) {
-                                this.facing[0] = heroDirectionUnitVector.y >= 0 ? 0 : 1;
-                                this.facing[1] = heroDirectionUnitVector.x >= 0 ? 0 : 1;
+                                if (this.confusedTimer > 0) {
+                                    this.facing[0] = this.confusionUnitVector.y >= 0 ? 0 : 1;
+                                    this.facing[1] = this.confusionUnitVector.x >= 0 ? 0 : 1;
+                                } else {
+                                    this.facing[0] = heroDirectionUnitVector.y >= 0 ? 0 : 1;
+                                    this.facing[1] = heroDirectionUnitVector.x >= 0 ? 0 : 1;
+                                }
                             } else {
                                 this.facing[0] = this.velocity.y >= 0 ? 0 : 1;
                                 this.facing[1] = this.velocity.x >= 0 ? 0 : 1;
@@ -212,6 +224,7 @@ class Ogre {
                         this.state = 0;
                         this.facing[0] = 0;
                         this.randomPos = undefined;
+                        this.confusedTimer = 0;
                     }
                 }
             });
@@ -264,7 +277,7 @@ class Ogre {
 
     draw(ctx) {
         this.animations[this.state].drawFrame(
-            this.frozenTimer > 0 && this.damagedTimer === 0 ? 0 : this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, PARAMS.SCALE, this.facing[0], this.facing[1]);
+            this.frozenTimer > 0 && this.damagedTimer === 0 && this.state !== 4 ? 0 : this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, PARAMS.SCALE, this.facing[0], this.facing[1]);
 
         if (this.hp > 0) {
             ctx.lineWidth = 1;

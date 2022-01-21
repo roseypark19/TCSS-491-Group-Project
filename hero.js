@@ -21,7 +21,7 @@ class TinyHero {
 
     loadAnimations() {
         this.animations[0] = new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 16, 0.25, false, true);
-        this.animations[1] = new AnimationGroup(this.spritesheet, 64 * 32, 0, 32, 32, 4, 0.1 / (this.velocityConstant / 4), false, true);
+        this.animations[1] = new AnimationGroup(this.spritesheet, 64 * 32, 0, 32, 32, 4, 0.1 * (4 / this.velocityConstant), false, true);
     };
     
     update() {
@@ -150,11 +150,10 @@ class Hero {
                         // explosion cast, explosion hold, explosion launch, shield casting
                         // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 1000;
+        this.maxHp = 100000;
         this.maxMp = 1000;
         this.mp = this.maxMp;
         this.hp = this.maxHp;
-        this.walkSpeed = 0.1;
         this.damagedTimer = 0;
         this.deadTimer = 0;
         this.shootTimer = 0;
@@ -180,12 +179,13 @@ class Hero {
         // this.abilityData = [{ x: 32, y: 0, button: "R"}, { x: 64, y: 0, button: "F"}];
         this.spriteCenter = 15.5;
 
-        this.weapon = { type: 5, attack: 0, dexterity: 0 }; 
+        this.weapon = { type: 5, attack: 100, dexterity: 10 }; 
         // types: 0 = longsword, 1 = war axe, 2 = whip, 3 = flail, 4 = slingshot, 5 = bow
 
         this.spellType = 1; // 0 = wind, 1 = fire, 2 = ice, 3 = earth
 
-        this.velocityConstant = 4;
+        this.velocityConstant = 8;
+        this.walkSpeed = 0.1 * (4 / this.velocityConstant);
         this.velocity = { x : 0, y : 0 };
         this.updateBB();
         this.loadAnimations();
@@ -355,7 +355,7 @@ class Hero {
             }
     
             if (newVelX !== 0 && newVelY !== 0) {
-                var diagonalVel = Math.sqrt(Math.pow(this.velocityConstant, 2) / 2);
+                var diagonalVel = Math.round(Math.sqrt(Math.pow(this.velocityConstant, 2) / 2));
             }
             if (diagonalVel) {
                 newVelX = newVelX > 0 ? diagonalVel : -diagonalVel;

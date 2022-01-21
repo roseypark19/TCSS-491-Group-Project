@@ -12,14 +12,19 @@ class BabySlime {
         this.hp = this.maxHp;
         this.minProximity = 2;
         this.visionDistance = 450;
-        this.attackDistance = 300;
+        this.attackDistance = 450;
         this.shotsTaken = [];
         this.shootTimer = 0;
         this.shootFlag = false;
         this.damagedTimer = 0;
         this.deadTimer = 0;
+        this.frozenTimer = 0;
+        this.slowedTimer = 0;
+        this.burningTimer = 0;
+        this.burnDamageTimer = 0;
+        this.confusedTimer = 0;
         this.velocityConstant = 3;
-        this.walkSpeed = 0.15 * (4 / this.velocityConstant);
+        this.walkSpeed = 0.1 * (4 / this.velocityConstant);
         this.velocity = { x: 0, y: 0 };
         this.animations = [];
         this.updateBB();
@@ -43,7 +48,9 @@ class BabySlime {
 
         let prevState = this.state;
         this.originalCollisionBB = this.collisionBB;
-        this.facing[0] = 0;
+        if (this.burningTimer === 0 && this.burnDamageTimer === 0) {
+            this.facing[0] = 0;
+        } 
         this.velocity.x = 0;
         this.velocity.y = 0;
 
@@ -51,15 +58,23 @@ class BabySlime {
         this.damagedTimer = Math.max(0, this.damagedTimer - this.game.clockTick);
         this.deadTimer = Math.max(0, this.deadTimer - this.game.clockTick);
 
+        this.frozenTimer = Math.max(0, this.frozenTimer - this.game.clockTick);
+        this.slowedTimer = Math.max(0, this.slowedTimer - this.game.clockTick);
+        this.burningTimer = Math.max(0, this.burningTimer - this.game.clockTick);
+        this.burnDamageTimer = Math.max(0, this.burnDamageTimer - this.game.clockTick);
+        this.confusedTimer = Math.max(0, this.confusedTimer - this.game.clockTick);
+
         if (this.state !== 3) {
             this.game.projectileEntities.forEach(entity => {
                 if (entity.friendlyProjectile && this.hitBB.collide(entity.hitBB) && 
-                    (!(entity.passable || entity.removeFromWorld) || (entity.passable && !(this.shotsTaken.includes(entity.id)))) && this.state !== 4) {
+                    (!(entity.passable || entity.removeFromWorld) || (entity.passable && !(this.shotsTaken.includes(entity.id)))) && this.state !== 3) {
                     if (entity.passable) {
                         this.shotsTaken.push(entity.id);
                     } else {
                         entity.removeFromWorld = true;
-                    }  
+                    } 
+                    this.hit = true;  
+                    this.frozenTimer = 0; 
                     if (this.damagedTimer === 0 && this.deadTimer === 0) {
                         this.damagedTimer = 0.6 - this.game.clockTick;
                         this.state = 2;
@@ -68,6 +83,25 @@ class BabySlime {
                     }
                     this.hp -= entity.damage;
                     // ASSET_MANAGER.playAsset("./audio/slime_hit.mp3");
+                    if (entity.elemental) {
+                        switch(entity.type) {
+                            case 0: // wind
+                                this.confusedTimer = 5 - this.game.clockTick;
+                                let randomTheta = toRadians(randomInt(361));
+                                this.confusionUnitVector = unitVector({ x: Math.cos(randomTheta), y: Math.sin(randomTheta) });
+                                break;
+                            case 1: // fire
+                                this.burningTimer = 5 - this.game.clockTick;
+                                this.burnDamageTimer = 1 - this.game.clockTick;
+                                break;
+                            case 2: // ice
+                                this.frozenTimer = 5 - this.game.clockTick;
+                                break;
+                            case 3: // earth
+                                this.slowedTimer = 5 - this.game.clockTick;
+                                break;
+                        }   
+                    }
                     if (this.deadTimer === 0 && this.hp <= 0) {
                         this.deadTimer = 9 * 0.15 - this.game.clockTick;
                         this.state = 3;
@@ -78,13 +112,40 @@ class BabySlime {
             });
         }
 
-        if (this.state !== 3 && this.damagedTimer > 0) {
+        if (this.hit && this.damagedTimer === 0) {
+            this.hit = false;
+        }
+
+        if (this.state !== 3 && this.damagedTimer > 0 && this.hit) {
             this.velocity.x = this.hitUnitVector.x * this.velocityConstant / 2;
             this.velocity.y = this.hitUnitVector.y * this.velocityConstant / 2;
             this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
             this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
             this.randomPos = undefined;
         }
+
+        if (this.state !== 3 && this.burningTimer > 0 && this.burnDamageTimer === 0) {
+            this.burnDamageTimer = 1 - this.game.clockTick;
+            this.hp -= 25;
+            // play damaged sound
+            if (this.damagedTimer === 0) {
+                this.damagedTimer = 0.6 - this.game.clockTick;
+                this.state = 2;
+            }
+            if (this.deadTimer === 0 && this.hp <= 0) {
+                this.deadTimer = 9 * 0.15 - this.game.clockTick;
+                this.state = 3;
+                this.facing = [0, 0];
+                // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
+            }
+        }
+
+        if (this.state !== 3 && this.damagedTimer === 0 && this.frozenTimer > 0) {
+            this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
+            this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
+        }
+
+        this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed * 3 : this.walkSpeed);
 
         if (this.state !== 3) {
             let center = this.BB.center;
@@ -111,9 +172,12 @@ class BabySlime {
                                                y: heroCenter.y + randomDist * posUnitVector.y };
                             this.randomPosUnitVector = unitVector({ x: this.randomPos.x - center.x, y: this.randomPos.y - center.y });
                         } 
+                        if (this.damagedTimer === 0 && this.frozenTimer === 0) {
+                            this.state = 1;
+                        }
                         if (dist <= this.attackDistance) {
                             if (this.shootTimer === 0 && this.state === 1) {
-                                this.shootTimer = 4 * 0.15 - this.game.clockTick;
+                                this.shootTimer = 4 * this.walkSpeed - this.game.clockTick;
                                 let projectileCenter = { x: this.BB.center.x + 6 * PARAMS.SCALE * heroDirectionUnitVector.x,
                                                          y: this.BB.center.y + 6 * PARAMS.SCALE * heroDirectionUnitVector.y };
                                 if (this.shootFlag) {
@@ -126,29 +190,38 @@ class BabySlime {
                                 }  
                             }
                         }
-                        if (this.damagedTimer === 0) {
-                            this.state = 1;
-                        }
                         if (this.randomPos !== undefined) {
                             movementDirectionUnitVector = this.randomPosUnitVector;
                             dist = distance(center, this.randomPos);
                         }
-                        if (dist > this.minProximity && this.damagedTimer === 0) {
-                            this.velocity.x = movementDirectionUnitVector.x * this.velocityConstant;
-                            this.velocity.y = movementDirectionUnitVector.y * this.velocityConstant;
+                        if (dist > this.minProximity && this.damagedTimer === 0 && this.frozenTimer === 0) {
+                            if (this.confusedTimer > 0) {
+                                this.velocity.x = this.confusionUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
+                                this.velocity.y = this.confusionUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
+                            } else {
+                                this.velocity.x = movementDirectionUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
+                                this.velocity.y = movementDirectionUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
+                            } 
                         }
-                        if (this.damagedTimer === 0) {
-                            if (this.randomPos !== undefined) {
-                                this.facing[0] = heroDirectionUnitVector.y >= 0 ? 0 : 1;
-                                this.facing[1] = heroDirectionUnitVector.x >= 0 ? 0 : 1;
+                        if (this.damagedTimer === 0 && this.frozenTimer === 0) {
+                            if (this.randomPos !== undefined && this.state === 1) {
+                                if (this.confusedTimer > 0) {
+                                    this.facing[0] = this.confusionUnitVector.y >= 0 ? 0 : 1;
+                                    this.facing[1] = this.confusionUnitVector.x >= 0 ? 0 : 1;
+                                } else {
+                                    this.facing[0] = heroDirectionUnitVector.y >= 0 ? 0 : 1;
+                                    this.facing[1] = heroDirectionUnitVector.x >= 0 ? 0 : 1;
+                                }
                             } else {
                                 this.facing[0] = this.velocity.y >= 0 ? 0 : 1;
                                 this.facing[1] = this.velocity.x >= 0 ? 0 : 1;
                             }  
                         }      
-                    }  else if (this.damagedTimer === 0) {
+                    }  else if (this.damagedTimer === 0 && this.frozenTimer === 0) {
                         this.state = 0;
+                        this.facing[0] = 0;
                         this.randomPos = undefined;
+                        this.confusedTimer = 0;
                     } 
                 }
             });
@@ -201,7 +274,7 @@ class BabySlime {
 
     draw(ctx) {
         this.animations[this.state].drawFrame(
-            this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, PARAMS.SCALE, this.facing[0], this.facing[1]);
+            this.frozenTimer > 0 && this.damagedTimer === 0 && this.state !== 3 ? 0 : this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, PARAMS.SCALE, this.facing[0], this.facing[1]);
 
         if (this.hp > 0) {
             ctx.lineWidth = 1;
@@ -249,8 +322,13 @@ class MotherSlime {
         this.shootFlag = false;
         this.damagedTimer = 0;
         this.deadTimer = 0;
+        this.frozenTimer = 0;
+        this.slowedTimer = 0;
+        this.burningTimer = 0;
+        this.burnDamageTimer = 0;
+        this.confusedTimer = 0;
         this.velocityConstant = 2;
-        this.walkSpeed = 0.15 * (4 / this.velocityConstant);
+        this.walkSpeed = 0.1 * (4 / this.velocityConstant);
         this.velocity = { x: 0, y: 0 };
         this.animations = [];
         this.updateBB();
@@ -274,7 +352,9 @@ class MotherSlime {
 
         let prevState = this.state;
         this.originalCollisionBB = this.collisionBB;
-        this.facing[0] = 0;
+        if (this.burningTimer === 0 && this.burnDamageTimer === 0) {
+            this.facing[0] = 0;
+        } 
         this.velocity.x = 0;
         this.velocity.y = 0;
 
@@ -282,15 +362,23 @@ class MotherSlime {
         this.damagedTimer = Math.max(0, this.damagedTimer - this.game.clockTick);
         this.deadTimer = Math.max(0, this.deadTimer - this.game.clockTick);
 
+        this.frozenTimer = Math.max(0, this.frozenTimer - this.game.clockTick);
+        this.slowedTimer = Math.max(0, this.slowedTimer - this.game.clockTick);
+        this.burningTimer = Math.max(0, this.burningTimer - this.game.clockTick);
+        this.burnDamageTimer = Math.max(0, this.burnDamageTimer - this.game.clockTick);
+        this.confusedTimer = Math.max(0, this.confusedTimer - this.game.clockTick);
+
         if (this.state !== 3) {
             this.game.projectileEntities.forEach(entity => {
                 if (entity.friendlyProjectile && this.hitBB.collide(entity.hitBB) && 
-                    (!(entity.passable || entity.removeFromWorld) || (entity.passable && !(this.shotsTaken.includes(entity.id)))) && this.state !== 4) {
+                    (!(entity.passable || entity.removeFromWorld) || (entity.passable && !(this.shotsTaken.includes(entity.id)))) && this.state !== 3) {
                     if (entity.passable) {
                         this.shotsTaken.push(entity.id);
                     } else {
                         entity.removeFromWorld = true;
                     }  
+                    this.hit = true;  
+                    this.frozenTimer = 0; 
                     if (this.damagedTimer === 0 && this.deadTimer === 0) {
                         this.damagedTimer = 0.6 - this.game.clockTick;
                         this.state = 2;
@@ -299,6 +387,25 @@ class MotherSlime {
                     }
                     this.hp -= entity.damage;
                     // ASSET_MANAGER.playAsset("./audio/slime_hit.mp3");
+                    if (entity.elemental) {
+                        switch(entity.type) {
+                            case 0: // wind
+                                this.confusedTimer = 5 - this.game.clockTick;
+                                let randomTheta = toRadians(randomInt(361));
+                                this.confusionUnitVector = unitVector({ x: Math.cos(randomTheta), y: Math.sin(randomTheta) });
+                                break;
+                            case 1: // fire
+                                this.burningTimer = 5 - this.game.clockTick;
+                                this.burnDamageTimer = 1 - this.game.clockTick;
+                                break;
+                            case 2: // ice
+                                this.frozenTimer = 5 - this.game.clockTick;
+                                break;
+                            case 3: // earth
+                                this.slowedTimer = 5 - this.game.clockTick;
+                                break;
+                        }   
+                    }
                     if (this.deadTimer === 0 && this.hp <= 0) {
                         this.deadTimer = 11 * 0.15 - this.game.clockTick;
                         this.state = 3;
@@ -309,13 +416,40 @@ class MotherSlime {
             });
         }
 
-        if (this.state !== 3 && this.damagedTimer > 0) {
+        if (this.hit && this.damagedTimer === 0) {
+            this.hit = false;
+        }
+
+        if (this.state !== 3 && this.damagedTimer > 0 && this.hit) {
             this.velocity.x = this.hitUnitVector.x * this.velocityConstant / 2;
             this.velocity.y = this.hitUnitVector.y * this.velocityConstant / 2;
             this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
             this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
             this.randomPos = undefined;
         }
+
+        if (this.state !== 3 && this.burningTimer > 0 && this.burnDamageTimer === 0) {
+            this.burnDamageTimer = 1 - this.game.clockTick;
+            this.hp -= 25;
+            // play damaged sound
+            if (this.damagedTimer === 0) {
+                this.damagedTimer = 0.6 - this.game.clockTick;
+                this.state = 2;
+            }
+            if (this.deadTimer === 0 && this.hp <= 0) {
+                this.deadTimer = 9 * 0.15 - this.game.clockTick;
+                this.state = 3;
+                this.facing = [0, 0];
+                // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
+            }
+        }
+
+        if (this.state !== 3 && this.damagedTimer === 0 && this.frozenTimer > 0) {
+            this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
+            this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
+        }
+
+        this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed * 3 : this.walkSpeed);
 
         if (this.state !== 3) {
             let center = this.BB.center;
@@ -342,9 +476,12 @@ class MotherSlime {
                                                y: heroCenter.y + randomDist * posUnitVector.y };
                             this.randomPosUnitVector = unitVector({ x: this.randomPos.x - center.x, y: this.randomPos.y - center.y });
                         } 
+                        if (this.damagedTimer === 0 && this.frozenTimer === 0) {
+                            this.state = 1;
+                        }
                         if (dist <= this.attackDistance) {
                             if (this.shootTimer === 0 && this.state === 1) {
-                                this.shootTimer = 4 * 0.15 - this.game.clockTick;
+                                this.shootTimer = 4 * this.walkSpeed - this.game.clockTick;
                                 let projectileCenter = { x: this.BB.center.x + 6 * PARAMS.SCALE * heroDirectionUnitVector.x,
                                                          y: this.BB.center.y + 6 * PARAMS.SCALE * heroDirectionUnitVector.y };
                                 if (this.shootFlag) {
@@ -357,29 +494,38 @@ class MotherSlime {
                                 }  
                             }
                         }
-                        if (this.damagedTimer === 0) {
-                            this.state = 1;
-                        }
                         if (this.randomPos !== undefined) {
                             movementDirectionUnitVector = this.randomPosUnitVector;
                             dist = distance(center, this.randomPos);
                         }
-                        if (dist > this.minProximity && this.damagedTimer === 0) {
-                            this.velocity.x = movementDirectionUnitVector.x * this.velocityConstant;
-                            this.velocity.y = movementDirectionUnitVector.y * this.velocityConstant;
+                        if (dist > this.minProximity && this.damagedTimer === 0 && this.frozenTimer === 0) {
+                            if (this.confusedTimer > 0) {
+                                this.velocity.x = this.confusionUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
+                                this.velocity.y = this.confusionUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
+                            } else {
+                                this.velocity.x = movementDirectionUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
+                                this.velocity.y = movementDirectionUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
+                            } 
                         }
-                        if (this.damagedTimer === 0) {
-                            if (this.randomPos !== undefined) {
-                                this.facing[0] = heroDirectionUnitVector.y >= 0 ? 0 : 1;
-                                this.facing[1] = heroDirectionUnitVector.x >= 0 ? 0 : 1;
+                        if (this.damagedTimer === 0 && this.frozenTimer === 0) {
+                            if (this.randomPos !== undefined && this.state === 1) {
+                                if (this.confusedTimer > 0) {
+                                    this.facing[0] = this.confusionUnitVector.y >= 0 ? 0 : 1;
+                                    this.facing[1] = this.confusionUnitVector.x >= 0 ? 0 : 1;
+                                } else {
+                                    this.facing[0] = heroDirectionUnitVector.y >= 0 ? 0 : 1;
+                                    this.facing[1] = heroDirectionUnitVector.x >= 0 ? 0 : 1;
+                                }
                             } else {
                                 this.facing[0] = this.velocity.y >= 0 ? 0 : 1;
                                 this.facing[1] = this.velocity.x >= 0 ? 0 : 1;
                             }  
                         }      
-                    }  else if (this.damagedTimer === 0) {
+                    }  else if (this.damagedTimer === 0 && this.frozenTimer === 0) {
                         this.state = 0;
+                        this.facing[0] = 0;
                         this.randomPos = undefined;
+                        this.confusedTimer = 0;
                     } 
                 }
             });
@@ -437,7 +583,7 @@ class MotherSlime {
 
     draw(ctx) {
         this.animations[this.state].drawFrame(
-            this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, PARAMS.SCALE, this.facing[0], this.facing[1]);
+            this.frozenTimer > 0 && this.damagedTimer === 0 && this.state !== 3 ? 0 : this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, PARAMS.SCALE, this.facing[0], this.facing[1]);
 
         if (this.hp > 0) {
             ctx.lineWidth = 1;

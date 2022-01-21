@@ -40,7 +40,7 @@ class Projectile {
         this.spritesheet = ASSET_MANAGER.getAsset(PROJECTILES[this.type].spritesheet);
         this.friendlyProjectile = friendly;
         this.id = ++PARAMS.SHOT_ID;
-        this.damage = 25;
+        this.damage = 100;
         this.passable = false;
         this.velocityConstant = 6;
         this.velocity = { x: Math.cos(this.roundedRadians) * this.velocityConstant, 
@@ -55,8 +55,12 @@ class Projectile {
 
     loadAnimations() {
         if (!(Projectile.rotationList[this.type][this.roundedDegrees])) {
+            let flipCheck = this.roundedDegrees >= 90 && this.roundedDegrees < 270;
+            let spritesheet = flipCheck ? flipImage(this.spritesheet, 0, 0, 32, 32, true) : this.spritesheet;
             Projectile.rotationList[this.type][this.roundedDegrees] = 
-                rotateImage(this.spritesheet, 0, 0, 32, 32, this.roundedRadians, PARAMS.SCALE);
+                rotateImage(spritesheet, 0, 0, 32, 32, flipCheck ? -(Math.PI - this.roundedRadians) : this.roundedRadians, PARAMS.SCALE);
+            // Projectile.rotationList[this.type][this.roundedDegrees] = 
+            //     rotateImage(this.spritesheet, 0, 0, 32, 32, this.roundedRadians, PARAMS.SCALE);
         }
         this.animation = 
             new AnimationGroup(

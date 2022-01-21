@@ -106,6 +106,20 @@ function flipImage(spritesheet, xStart, yStart, width, height, horizontal) {
     return offscreenCanvas;
 };
 
+function createSpritesheet(sprites, frameWidth, frameHeight) {
+    let offscreenCanvas = document.createElement('canvas');
+    offscreenCanvas.width = sprites.length * frameWidth;
+    offscreenCanvas.height = frameHeight;
+    let offscreenCtx = offscreenCanvas.getContext('2d');
+    offscreenCtx.imageSmoothingEnabled = false;
+    let x = 0;
+    for (let i = 0; i < sprites.length; i++) {
+        offscreenCtx.drawImage(sprites[i], 0, 0, frameWidth, frameHeight, x, 0, frameWidth, frameHeight);
+        x += frameWidth;
+    }
+    return offscreenCanvas;
+};
+
 function mMapDimension() {
     return 34 * PARAMS.GUI_SCALE;
 };

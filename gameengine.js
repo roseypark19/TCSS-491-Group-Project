@@ -179,9 +179,11 @@ class GameEngine {
         if (entity.hasOwnProperty("hp")) {
             this.livingEntities.push(entity);
             this.livingCount++;
-        } else if (entity.collideable) {
+        }
+        if (entity.collideable) {
             this.collideableEntities.push(entity);
-        } else if (entity.hasOwnProperty("friendlyProjectile")) {
+        }
+        if (entity.hasOwnProperty("friendlyProjectile")) {
             this.projectileEntities.push(entity);
         }
     };
@@ -197,6 +199,7 @@ class GameEngine {
             }
         }
         this.camera.draw(this.ctx);
+        DruidBeam.elapsedTime = (DruidBeam.elapsedTime + this.clockTick) % (4 * 0.1);
     };
 
     update() {
@@ -244,9 +247,11 @@ class GameEngine {
         if (deletedEntity.hasOwnProperty("hp")) {
             this.livingCount--;
             this.removeFromEntityList(this.livingEntities, deletedEntity.id);
-        } else if (deletedEntity.collideable) {
+        }
+        if (deletedEntity.collideable) {
             this.removeFromEntityList(this.collideableEntities, deletedEntity.id);
-        } else if (deletedEntity.hasOwnProperty("friendlyProjectile")) {
+        }
+        if (deletedEntity.hasOwnProperty("friendlyProjectile")) {
             this.removeFromEntityList(this.projectileEntities, deletedEntity.id);
         }
     };
