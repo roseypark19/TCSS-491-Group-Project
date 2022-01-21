@@ -40,6 +40,7 @@ class SceneManager {
                             this.game.addEntity(props[prop.index].topper(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
                         }
                     });
+                    
  
                     // this.game.addEntity(new Ogre(this.game, 400, 350));
                     // this.game.addEntity(new Ogre(this.game, 200, 350));
@@ -84,8 +85,8 @@ class SceneManager {
             this.game.addEntity(new Chick(this.game, 36 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false));
             this.game.addEntity(new WeaponsShop(this.game));
             this.game.addEntity(new StatsShop(this.game));
-           
-            // this.game.addEntity(new TownSigns(this.game));
+            this.game.addEntity(new Dialogue(this.game, "Visit the shops to upgrade stats!", true, 34.5, 22, 33, 26, 3, 0.5)); // left bulletin board
+            this.game.addEntity(new Dialogue(this.game, "Aim and attack with the mouse!", true, 41.5, 22, 40 , 26, 3, 0.5));   // right bulletin board
         }
 
     };
