@@ -1,20 +1,24 @@
-﻿
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title>Node Movement</title>
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Press+Start+2P">
+    <link rel="stylesheet" href="font/specimen_files/specimen_stylesheet.css" type="text/css" charset="utf-8" />
+	<link rel="stylesheet" href="stylesheet.css" type="text/css" charset="utf-8" />
     <style>
         body {
-            font-family: 'Press Start 2P', serif;
-            font-size: 25px;
+            font-family: 'silkscreenbold';
+            font-size: 48px;
         }
     </style>
     
     <script type="text/javascript" src="./util.js"></script>
     <script type="text/javascript" src="./assetmanager.js"></script>
+    <script type="text/javascript" src="./savedState.js"></script>
+    <script type="text/javascript" src="./shops.js"></script>
+    <script type="text/javascript" src="./chickens.js"></script>
+    <script type="text/javascript" src="./town_signs.js"></script>
+    <script type="text/javascript" src="./collision.js"></script>
     <script type="text/javascript" src="./timer.js"></script>
     <script type="text/javascript" src="./gameengine.js"></script>
     <script type="text/javascript" src="./scenemanager.js"></script>
@@ -40,7 +44,8 @@
     </div>
         <br /> <canvas id="gameWorld" width="1000" height="1000" style="background: rgb(80, 106, 190); border: 5px solid rgb(0, 0, 0)" tabindex="0" autofocus></canvas>
     <div>
-        <br /> <input type="checkbox" id="debug"> Debug
+        <input type="checkbox" id="debug"> Debug <input type="checkbox" id="mute"> Mute <input type="range" id="volume" min="0" max="1" value="0.1" step="0.05"> Volume
+        <!-- <br /> <input type="checkbox" id="debug"> Debug -->
     </div>
 
 </body>

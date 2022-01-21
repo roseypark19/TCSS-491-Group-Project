@@ -180,6 +180,7 @@ class Hero {
         this.spriteCenter = 15.5;
 
         this.weapon = { type: 5, attack: 100, dexterity: 10 }; 
+
         // types: 0 = longsword, 1 = war axe, 2 = whip, 3 = flail, 4 = slingshot, 5 = bow
 
         this.spellType = 1; // 0 = wind, 1 = fire, 2 = ice, 3 = earth

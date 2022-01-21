@@ -4,14 +4,15 @@ class SceneManager {
         this.game.camera = this;
         this.x = 0;
         this.y = 0;
-        this.loadLevel(overworld, true);
+        // this.loadLevel(overworld, true);
+        this.loadLevel(town, false, true);
     };
 
     clearEntities() {
         this.game.entities.forEach(entity => entity.removeFromWorld = true);
     };
 
-    loadLevel(level, isOverworld) {
+    loadLevel(level, isOverworld, isTown) {
         this.overworld = isOverworld;
         this.clearEntities();
         for (let i = 0; i < level.layer_names.length; i++) {
@@ -28,6 +29,18 @@ class SceneManager {
                     this.game.addEntity(props[2].topper(this.game, 64 * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE, 55.5 * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE - 2 * PARAMS.OVERWORLD_SCALE, true));
                     this.game.addEntity(props[1].topper(this.game, 252 * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE, 55.5 * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE - 2 * PARAMS.OVERWORLD_SCALE, true));
 
+                } else if (isTown) {
+                    // bases
+                    town.props.forEach(prop => this.game.addEntity(props[prop.index].base(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered)));
+                    this.hero = new Hero(this.game, 1250, 1100);
+                    this.game.addEntity(this.hero);
+                    // toppers
+                    town.props.forEach(prop => {
+                        if (props[prop.index].topper) {
+                            this.game.addEntity(props[prop.index].topper(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
+                        }
+                    });
+ 
                     // this.game.addEntity(new Ogre(this.game, 400, 350));
                     // this.game.addEntity(new Ogre(this.game, 200, 350));
                     // this.game.addEntity(new Ogre(this.game, 300, 350));
@@ -54,6 +67,7 @@ class SceneManager {
                     // this.game.addEntity(new Minotaur(this.game, 400, 550, true));
                     // this.game.addEntity(new Minotaur(this.game, 400, 550, true));
                     // this.game.addEntity(new Minotaur(this.game, 400, 550, true));
+
                 } else {
                     // add a regular hero -- to come later!
                 }
@@ -61,6 +75,19 @@ class SceneManager {
                 this.loadLayer(level[layer_name], level, isOverworld);
             }
         }
+
+        // loads the shops for the town at the end
+        if (isTown) {
+            this.game.addEntity(new Hen(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true));
+            this.game.addEntity(new Hen(this.game, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 16 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false));
+            this.game.addEntity(new Chick(this.game, 34 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true));
+            this.game.addEntity(new Chick(this.game, 36 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false));
+            this.game.addEntity(new WeaponsShop(this.game));
+            this.game.addEntity(new StatsShop(this.game));
+           
+            // this.game.addEntity(new TownSigns(this.game));
+        }
+
     };
 
     createDestinations(level) {
@@ -106,7 +133,18 @@ class SceneManager {
     update() {
         PARAMS.DEBUG = document.getElementById("debug").checked;
         let midpoint = { x : PARAMS.CANVAS_DIMENSION / 2, y : PARAMS.CANVAS_DIMENSION / 2 };
+
+        
         this.x = this.hero.BB.center.x - midpoint.x;
+
+        // this code restricts x, y camera based on the town
+        // if (this.hero.BB.center.x >= midpoint.x && this.hero.BB.center.x <= PARAMS.BLOCKWIDTH * PARAMS.SCALE * town.width - midpoint.x) {
+        //     this.x = this.hero.BB.center.x - midpoint.x;
+        // }
+        // if (this.hero.BB.center.y >= midpoint.y && this.hero.BB.center.y <= PARAMS.BLOCKWIDTH * PARAMS.SCALE * town.height - midpoint.y) {
+        //     this.y = this.hero.BB.center.y - midpoint.y;
+        // }
+
         if (!this.overworld) {
             this.y = this.hero.BB.center.y - midpoint.y;
         }

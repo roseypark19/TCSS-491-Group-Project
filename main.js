@@ -2,13 +2,25 @@ let gameEngine = new GameEngine();
 
 let ASSET_MANAGER = new AssetManager();
 
+// audio
+ASSET_MANAGER.queueDownload("./audio/Upgrade.wav");
+ASSET_MANAGER.queueDownload("./audio/CoinUpgrade.wav");
+ASSET_MANAGER.queueDownload("./audio/MaxLevelUpgrade.wav");
+
 // sprites
 ASSET_MANAGER.queueDownload("./sprites/hero/tiny_hero.png");
 ASSET_MANAGER.queueDownload("./sprites/hero/hero.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/overworld/props.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/overworld/structures.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/overworld/tiles.png");
+ASSET_MANAGER.queueDownload("./sprites/biomes/town/props.png");
+ASSET_MANAGER.queueDownload("./sprites/biomes/town/shadows.png");
+ASSET_MANAGER.queueDownload("./sprites/biomes/town/tiles.png");
+ASSET_MANAGER.queueDownload("./sprites/biomes/town/HenIdle.png");
+ASSET_MANAGER.queueDownload("./sprites/biomes/town/ChickIdle.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/arrow.png");
+ASSET_MANAGER.queueDownload("./sprites/ui/weapon_icons.png");
+ASSET_MANAGER.queueDownload("./sprites/ui/stats_icons.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/earth_beam.png");
 ASSET_MANAGER.queueDownload("./sprites/hero/earth_shield.png");
 ASSET_MANAGER.queueDownload("./sprites/hero/wind_shield.png");
@@ -32,6 +44,7 @@ ASSET_MANAGER.queueDownload("./sprites/projectiles/druid_beam.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/druid.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/root.png");
 
+
 ASSET_MANAGER.downloadAll(function () {
 
 	let canvas = document.getElementById('gameWorld');
@@ -43,5 +56,4 @@ ASSET_MANAGER.downloadAll(function () {
 	new SceneManager(gameEngine);
 
 	gameEngine.start();	
-
 });

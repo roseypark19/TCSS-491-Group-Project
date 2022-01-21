@@ -67,7 +67,7 @@ class PropTile {
                                   this.width * this.scale, this.height * this.scale);       
     };
 
-    update() {};
+    update() { };
 
     // drawMmap(ctx) {
     //     let paint = false;
