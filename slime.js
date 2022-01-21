@@ -12,7 +12,7 @@ class BabySlime {
         this.hp = this.maxHp;
         this.minProximity = 2;
         this.visionDistance = 450;
-        this.attackDistance = 450;
+        this.attackDistance = 250;
         this.shotsTaken = [];
         this.shootTimer = 0;
         this.shootFlag = false;
@@ -147,11 +147,12 @@ class BabySlime {
 
         this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed * 3 : this.walkSpeed);
 
+        let heroCenter;
         if (this.state !== 3) {
             let center = this.BB.center;
             this.game.livingEntities.forEach(entity => {
                 if (entity instanceof Hero) {
-                    let heroCenter = entity.BB.center;
+                    heroCenter = entity.BB.center;
                     let dist = distance(center, heroCenter);
                     if (dist <= this.visionDistance) {
                         let vector = { x : heroCenter.x - center.x, y : heroCenter.y - center.y };
@@ -246,19 +247,32 @@ class BabySlime {
         });
 
         if (collisionList.length > 0) {
+            this.collisionFlag = true;
             collisionList.sort((boundary1, boundary2) => distance(this.collisionBB.center, boundary1.BB.center) -
-                                                            distance(this.collisionBB.center, boundary2.BB.center));
+                                                         distance(this.collisionBB.center, boundary2.BB.center));
+            let velCopy = { x: this.velocity.x, y: this.velocity.y };
             for (let i = 0; i < collisionList.length; i++) {
                 if (this.collisionBB.collide(collisionList[i].BB)) {
                     Collision.resolveCollision(this, collisionList[i]);
                     this.updateBB();
                 }
             }
+            if (!this.validateRegionalTrajectory(heroCenter, velCopy)) {
+                this.randomPos = undefined;
+            }  
+        } else if (this.collisionFlag) {
+            this.collisionFlag = false;
+            this.randomPos = undefined;
         }
 
         if (this.state !== prevState) {
             this.animations[prevState].reset();
         }
+    };
+
+    validateRegionalTrajectory(heroCenter, trajectory) {
+        return circleCollide({ x: heroCenter.x, y: heroCenter.y, radius: 0.75 * this.attackDistance }, 
+            { pt1: this.BB.center, pt2: { x: this.BB.center.x + trajectory.x, y: this.BB.center.y + trajectory.y }}) !== false;
     };
 
     drawMmap(ctx) {
@@ -316,7 +330,7 @@ class MotherSlime {
         this.hp = this.maxHp;
         this.minProximity = 2;
         this.visionDistance = 450;
-        this.attackDistance = 100;
+        this.attackDistance = 200;
         this.shotsTaken = [];
         this.shootTimer = 0;
         this.shootFlag = false;
@@ -451,17 +465,19 @@ class MotherSlime {
 
         this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed * 3 : this.walkSpeed);
 
+        let heroCenter;
         if (this.state !== 3) {
             let center = this.BB.center;
             this.game.livingEntities.forEach(entity => {
                 if (entity instanceof Hero) {
-                    let heroCenter = entity.BB.center;
+                    heroCenter = entity.BB.center;
                     let dist = distance(center, heroCenter);
                     if (dist <= this.visionDistance) {
                         let vector = { x : heroCenter.x - center.x, y : heroCenter.y - center.y };
                         let heroDirectionUnitVector = unitVector(vector);
                         let movementDirectionUnitVector = heroDirectionUnitVector;
                         if ((this.randomPos === undefined || distance(this.randomPos, heroCenter) > 0.75 * this.attackDistance) && this.damagedTimer === 0) {
+                            console.log("position reset")
                             let angle = Math.atan2(-vector.y, -vector.x);
                             if (angle < 0) {
                                 angle += 2 * Math.PI;
@@ -555,19 +571,32 @@ class MotherSlime {
         });
 
         if (collisionList.length > 0) {
+            this.collisionFlag = true;
             collisionList.sort((boundary1, boundary2) => distance(this.collisionBB.center, boundary1.BB.center) -
-                                                            distance(this.collisionBB.center, boundary2.BB.center));
+                                                         distance(this.collisionBB.center, boundary2.BB.center));
+            let velCopy = { x: this.velocity.x, y: this.velocity.y };
             for (let i = 0; i < collisionList.length; i++) {
                 if (this.collisionBB.collide(collisionList[i].BB)) {
                     Collision.resolveCollision(this, collisionList[i]);
                     this.updateBB();
                 }
             }
+            if (!this.validateRegionalTrajectory(heroCenter, velCopy)) {
+                this.randomPos = undefined;
+            }  
+        } else if (this.collisionFlag) {
+            this.collisionFlag = false;
+            this.randomPos = undefined;
         }
 
         if (this.state !== prevState) {
             this.animations[prevState].reset();
         }
+    };
+
+    validateRegionalTrajectory(heroCenter, trajectory) {
+        return circleCollide({ x: heroCenter.x, y: heroCenter.y, radius: 0.75 * this.attackDistance }, 
+            { pt1: this.BB.center, pt2: { x: this.BB.center.x + trajectory.x, y: this.BB.center.y + trajectory.y }}) !== false;
     };
 
     drawMmap(ctx) {

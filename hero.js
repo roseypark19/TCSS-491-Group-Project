@@ -285,7 +285,6 @@ class Hero {
     };
     
     update() {
-
         let prevState = this.state;
 
         if (this.state !== 4) {
