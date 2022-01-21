@@ -120,6 +120,24 @@ function createSpritesheet(sprites, frameWidth, frameHeight) {
     return offscreenCanvas;
 };
 
+function circleCollide(circle, line) {
+    let slope = (line.pt2.y - line.pt1.y) / (line.pt2.x - line.pt1.x);
+    let yInt = line.pt1.y - slope * line.pt1.x;
+    let a = 1 + slope * slope;
+    let b = 2 * (slope * (yInt - circle.y) - circle.x);
+    let c = circle.x * circle.x + (yInt - circle.y) * (yInt - circle.y) - circle.radius * circle.radius;
+
+    let d = b * b - 4 * a * c;
+
+    if (d === 0) {
+        return [(-b + Math.sqrt(d)) / (2 * a)];
+    } else if (d > 0) {
+        return [(-b + Math.sqrt(d)) / (2 * a), (-b - Math.sqrt(d)) / (2 * a)];
+    } 
+
+    return false;
+};
+
 function mMapDimension() {
     return 34 * PARAMS.GUI_SCALE;
 };

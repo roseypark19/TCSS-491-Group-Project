@@ -229,11 +229,12 @@ class DruidBird {
 
         this.animations[1].setFrameDuration(this.slowedTimer > 0 && this.state !== 3 ? this.walkSpeed * 3 : this.walkSpeed);
 
+        let heroCenter;
         if (this.state !== 3 && !this.originReached) {
             let center = this.BB.center;
             this.game.livingEntities.forEach(entity => {
                 if (entity instanceof Hero) {
-                    let heroCenter = entity.BB.center;
+                    heroCenter = entity.BB.center;
                     let dist = distance(center, heroCenter);
                     if (dist <= this.visionDistance) {
                         let vector = { x : heroCenter.x - center.x, y : heroCenter.y - center.y };
@@ -339,26 +340,41 @@ class DruidBird {
 
         // collision detection and resolve
         let collisionList = [];
-        this.game.collideableEntities.forEach(entity => {
-            if (entity.collideable && this.collisionBB.collide(entity.BB)) { 
-                collisionList.push(entity);
-            }
-        });
+        if (this.state !== 3 && !this.originReached) {
+            this.game.collideableEntities.forEach(entity => {
+                if (entity.collideable && this.collisionBB.collide(entity.BB)) { 
+                    collisionList.push(entity);
+                }
+            });
+        }
 
         if (collisionList.length > 0) {
+            this.collisionFlag = true;
             collisionList.sort((boundary1, boundary2) => distance(this.collisionBB.center, boundary1.BB.center) -
-                                                            distance(this.collisionBB.center, boundary2.BB.center));
+                                                         distance(this.collisionBB.center, boundary2.BB.center));
+            let velCopy = { x: this.velocity.x, y: this.velocity.y };
             for (let i = 0; i < collisionList.length; i++) {
                 if (this.collisionBB.collide(collisionList[i].BB)) {
                     Collision.resolveCollision(this, collisionList[i]);
                     this.updateBB();
                 }
             }
+            if (!this.validateRegionalTrajectory(heroCenter, velCopy)) {
+                this.randomPos = undefined;
+            }  
+        } else if (this.collisionFlag) {
+            this.collisionFlag = false;
+            this.randomPos = undefined;
         }
 
         if (this.state !== prevState && !this.originReached) {
             this.animations[prevState].reset();
         }
+    };
+
+    validateRegionalTrajectory(heroCenter, trajectory) {
+        return circleCollide({ x: heroCenter.x, y: heroCenter.y, radius: 0.75 * this.attackDistance }, 
+            { pt1: this.BB.center, pt2: { x: this.BB.center.x + trajectory.x, y: this.BB.center.y + trajectory.y }}) !== false;
     };
 
     drawMmap(ctx) {
@@ -551,11 +567,12 @@ class DruidHound {
 
         this.animations[1].setFrameDuration(this.slowedTimer > 0 && this.state !== 4 ? this.walkSpeed * 3 : this.walkSpeed);
 
+        let heroCenter;
         if (this.state !== 4 && !this.originReached) {
             let center = this.BB.center;
             this.game.livingEntities.forEach(entity => {
                 if (entity instanceof Hero) {
-                    let heroCenter = entity.BB.center;
+                    heroCenter = entity.BB.center;
                     let dist = distance(center, heroCenter);
                     if (dist <= this.visionDistance) {
                         let vector = { x : heroCenter.x - center.x, y : heroCenter.y - center.y };
@@ -662,26 +679,41 @@ class DruidHound {
 
         // collision detection and resolve
         let collisionList = [];
-        this.game.collideableEntities.forEach(entity => {
-            if (entity.collideable && this.collisionBB.collide(entity.BB)) { 
-                collisionList.push(entity);
-            }
-        });
+        if (this.state !== 4 && !this.originReached) {
+            this.game.collideableEntities.forEach(entity => {
+                if (entity.collideable && this.collisionBB.collide(entity.BB)) { 
+                    collisionList.push(entity);
+                }
+            });
+        }
 
         if (collisionList.length > 0) {
+            this.collisionFlag = true;
             collisionList.sort((boundary1, boundary2) => distance(this.collisionBB.center, boundary1.BB.center) -
                                                          distance(this.collisionBB.center, boundary2.BB.center));
+            let velCopy = { x: this.velocity.x, y: this.velocity.y };
             for (let i = 0; i < collisionList.length; i++) {
                 if (this.collisionBB.collide(collisionList[i].BB)) {
                     Collision.resolveCollision(this, collisionList[i]);
                     this.updateBB();
                 }
             }
+            if (!this.validateRegionalTrajectory(heroCenter, velCopy)) {
+                this.randomPos = undefined;
+            }  
+        } else if (this.collisionFlag) {
+            this.collisionFlag = false;
+            this.randomPos = undefined;
         }
 
         if (this.state !== prevState && !this.originReached) {
             this.animations[prevState].reset();
         }
+    };
+
+    validateRegionalTrajectory(heroCenter, trajectory) {
+        return circleCollide({ x: heroCenter.x, y: heroCenter.y, radius: 0.75 * this.attackDistance }, 
+            { pt1: this.BB.center, pt2: { x: this.BB.center.x + trajectory.x, y: this.BB.center.y + trajectory.y }}) !== false;
     };
 
     drawMmap(ctx) {
@@ -1009,26 +1041,43 @@ class DruidBeast {
 
         // collision detection and resolve
         let collisionList = [];
-        this.game.collideableEntities.forEach(entity => {
-            if (entity.collideable && this.collisionBB.collide(entity.BB)) { 
-                collisionList.push(entity);
-            }
-        });
+        if (this.state !== 4 && !this.originReached) {
+            this.game.collideableEntities.forEach(entity => {
+                if (entity.collideable && this.collisionBB.collide(entity.BB)) { 
+                    collisionList.push(entity);
+                }
+            });
+        }
 
         if (collisionList.length > 0) {
+            this.collisionFlag = true;
+            this.charging = false;
             collisionList.sort((boundary1, boundary2) => distance(this.collisionBB.center, boundary1.BB.center) -
                                                          distance(this.collisionBB.center, boundary2.BB.center));
+            let velCopy = { x: this.velocity.x, y: this.velocity.y };
             for (let i = 0; i < collisionList.length; i++) {
                 if (this.collisionBB.collide(collisionList[i].BB)) {
                     Collision.resolveCollision(this, collisionList[i]);
                     this.updateBB();
                 }
             }
+            if (!this.validateRegionalTrajectory(heroCenter, velCopy)) {
+                this.movementUnitVector = undefined;
+            }  
+        } else if (this.collisionFlag) {
+            this.collisionFlag = false;
+            this.movementUnitVector = undefined;
+            this.charging = false;
         }
 
         if (this.state !== prevState && !this.originReached) {
             this.animations[prevState].reset();
         }
+    };
+
+    validateRegionalTrajectory(heroCenter, trajectory) {
+        return circleCollide({ x: heroCenter.x, y: heroCenter.y, radius: this.minProximity }, 
+            { pt1: this.BB.center, pt2: { x: this.BB.center.x + trajectory.x, y: this.BB.center.y + trajectory.y }}) !== false;
     };
 
     drawMmap(ctx) {
@@ -1107,7 +1156,6 @@ class Druid {
                 this.state = 6;
                 break;
         }
-        console.log(this.state)
         this.animations = [];
         this.updateBB();
         this.loadAnimations();
@@ -1321,7 +1369,6 @@ class DruidRoot {
         if (this.lifetime <= 0) {
             this.removeFromWorld = true;
         } else if (!this.regionSpawned && this.lifetime <= this.origLT / 15 * 7) {
-            console.log("dam")
             this.regionSpawned = true;
             this.game.addEntity(new DamageRegion(this.game, this.x + 12 * PARAMS.SCALE, this.y + 12 * PARAMS.SCALE, 8 * PARAMS.SCALE, 8 * PARAMS.SCALE, false, 100, this.lifetime / 15 * 2, this.BB.center));
         }
