@@ -33,14 +33,15 @@ class Projectile {
 
     static rotationList = [];
 
-    constructor(game, x, y, radians, friendly, type) {
-        Object.assign(this, { game, x, y, radians, type });
+    constructor(game, x, y, radians, friendly, type, sourcePoint) {
+        Object.assign(this, { game, x, y, radians, type, sourcePoint });
         this.roundedDegrees = Math.round(toDegrees(this.radians));
         this.roundedRadians = toRadians(this.roundedDegrees);
-        this.loadSpritesheet();
+        this.spritesheet = ASSET_MANAGER.getAsset(PROJECTILES[this.type].spritesheet);
         this.friendlyProjectile = friendly;
         this.id = ++PARAMS.SHOT_ID;
-        this.damage = 25;
+        this.damage = 100;
+        this.passable = false;
         this.velocityConstant = 6;
         this.velocity = { x: Math.cos(this.roundedRadians) * this.velocityConstant, 
                           y: Math.sin(this.roundedRadians) * this.velocityConstant };
@@ -52,21 +53,14 @@ class Projectile {
         this.updateBB();
     };
 
-    loadSpritesheet() {
-        switch (this.type) {
-            case 0:
-                this.spritesheet = ASSET_MANAGER.getAsset("./sprites/projectiles/arrow.png");
-                break;
-            case 1: 
-                this.spritesheet = ASSET_MANAGER.getAsset("./sprites/projectiles/arrow.png");
-                break;
-        }
-    };
-
     loadAnimations() {
         if (!(Projectile.rotationList[this.type][this.roundedDegrees])) {
+            let flipCheck = this.roundedDegrees >= 90 && this.roundedDegrees < 270;
+            let spritesheet = flipCheck ? flipImage(this.spritesheet, 0, 0, 32, 32, true) : this.spritesheet;
             Projectile.rotationList[this.type][this.roundedDegrees] = 
-                rotateImage(this.spritesheet, 0, 0, 32, 32, this.roundedRadians, PARAMS.SCALE);
+                rotateImage(spritesheet, 0, 0, 32, 32, flipCheck ? -(Math.PI - this.roundedRadians) : this.roundedRadians, PARAMS.SCALE);
+            // Projectile.rotationList[this.type][this.roundedDegrees] = 
+            //     rotateImage(this.spritesheet, 0, 0, 32, 32, this.roundedRadians, PARAMS.SCALE);
         }
         this.animation = 
             new AnimationGroup(
@@ -91,9 +85,9 @@ class Projectile {
 
     updateBB() {
         this.BB = new BoundingBox(this.x, this.y, 32 * PARAMS.SCALE, 32 * PARAMS.SCALE);
-        let hitCenter = { x: this.BB.center.x + Math.cos(this.roundedRadians) * 16 * PARAMS.SCALE,
-                          y: this.BB.center.y + Math.sin(this.roundedRadians) * 16 * PARAMS.SCALE };
-        this.hitBB = new BoundingBox(hitCenter.x - 2 * PARAMS.SCALE, hitCenter.y - 2 * PARAMS.SCALE, 4 * PARAMS.SCALE, 6 * PARAMS.SCALE);
+        let hitCenter = { x: this.BB.center.x + Math.cos(this.roundedRadians) * 14 * PARAMS.SCALE,
+                          y: this.BB.center.y + Math.sin(this.roundedRadians) * 14 * PARAMS.SCALE };
+        this.hitBB = new BoundingBox(hitCenter.x - 2 * PARAMS.SCALE, hitCenter.y - 2 * PARAMS.SCALE, 4 * PARAMS.SCALE, 4 * PARAMS.SCALE);
     };
 
     draw(ctx) {

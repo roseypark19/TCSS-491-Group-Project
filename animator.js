@@ -73,9 +73,9 @@ class AnimationGroup {
     };
 
     setFrameDuration(duration) {
-        if (this.frameDuration !== duration) {
-            this.reset();
-        }
+        // if (this.frameDuration !== duration) {
+        //     this.reset();
+        // }
         this.frameDuration = duration;
     };
 };

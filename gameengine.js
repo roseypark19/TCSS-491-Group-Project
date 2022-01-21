@@ -19,8 +19,9 @@ class GameEngine {
         this.right = false;
         this.up = false;
         this.down = false;
-        this.specialR = false;
-        this.specialF = false;
+        this.special1 = false;
+        this.special2 = false;
+        this.special3 = false;
         this.clicked = false;
     };
 
@@ -67,11 +68,14 @@ class GameEngine {
                     direction = "down";
                     that.down = true;
                     break;
+                case "KeyQ":
+                    that.special1 = true;
+                    break;
                 case "KeyR":
-                    that.specialR = true;
+                    that.special2 = true;
                     break;
                 case "KeyF":
-                    that.specialF = true;
+                    that.special3 = true;
                     break;
             }
         }, false);
@@ -99,11 +103,14 @@ class GameEngine {
                     direction = "down";
                     that.down = false;
                     break;
+                case "KeyQ":
+                    that.special1 = false;
+                    break;
                 case "KeyR":
-                    that.specialR = false;
+                    that.special2 = false;
                     break;
                 case "KeyF":
-                    that.specialF = false;
+                    that.special3 = false;
                     break;
             }
         }, false);
@@ -158,7 +165,7 @@ class GameEngine {
             if (entity.hasOwnProperty("hp")) {
                 this.entities.splice(this.heroIndex, 0, entity);
                 this.heroIndex++;
-            } else if (entity.hasOwnProperty("friendlyProjectile")) {
+            } else if (entity.hasOwnProperty("friendlyProjectile") || entity.heroFollower) {
                 this.entities.splice(this.heroIndex + 1, 0, entity);
             } else {
                 this.entities.push(entity);
@@ -172,9 +179,11 @@ class GameEngine {
         if (entity.hasOwnProperty("hp")) {
             this.livingEntities.push(entity);
             this.livingCount++;
-        } else if (entity.collideable) {
+        }
+        if (entity.collideable) {
             this.collideableEntities.push(entity);
-        } else if (entity.hasOwnProperty("friendlyProjectile")) {
+        }
+        if (entity.hasOwnProperty("friendlyProjectile")) {
             this.projectileEntities.push(entity);
         }
     };
@@ -190,6 +199,7 @@ class GameEngine {
             }
         }
         this.camera.draw(this.ctx);
+        DruidBeam.elapsedTime = (DruidBeam.elapsedTime + this.clockTick) % (4 * 0.1);
     };
 
     update() {
@@ -237,9 +247,11 @@ class GameEngine {
         if (deletedEntity.hasOwnProperty("hp")) {
             this.livingCount--;
             this.removeFromEntityList(this.livingEntities, deletedEntity.id);
-        } else if (deletedEntity.collideable) {
+        }
+        if (deletedEntity.collideable) {
             this.removeFromEntityList(this.collideableEntities, deletedEntity.id);
-        } else if (deletedEntity.hasOwnProperty("friendlyProjectile")) {
+        }
+        if (deletedEntity.hasOwnProperty("friendlyProjectile")) {
             this.removeFromEntityList(this.projectileEntities, deletedEntity.id);
         }
     };
