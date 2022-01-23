@@ -9,6 +9,7 @@ class SceneManager {
     };
 
     clearEntities() {
+        this.game.heroIndex = undefined;
         this.game.entities.forEach(entity => entity.removeFromWorld = true);
     };
 
@@ -102,6 +103,7 @@ class SceneManager {
                                                    (pY + 3) * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE));
                 }
             });
+            
         }
             
 
