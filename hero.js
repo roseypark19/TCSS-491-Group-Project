@@ -124,6 +124,7 @@ class TinyHero {
 
     updateBB() {
         this.BB = new BoundingBox(this.x, this.y, 32 * this.scale, 32 * this.scale);
+        this.hitBB = new BoundingBox(this.x + 16 * this.scale, this.y + 16 * this.scale, 4 * this.scale, 4 * this.scale);
     };
     
     draw(ctx) {
@@ -134,6 +135,7 @@ class TinyHero {
             ctx.lineWidth = PARAMS.DEBUG_WIDTH;
             ctx.strokeStyle = PARAMS.DEBUG_COLOR;
             ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width, this.BB.height);
+            ctx.strokeRect(this.hitBB.x - this.game.camera.x, this.hitBB.y - this.game.camera.y, this.hitBB.width, this.hitBB.height);
         }
     };
 };

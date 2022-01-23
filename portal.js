@@ -2,20 +2,25 @@
 // this.buttonBB is the region that can be clicked to transition from level to level
 
 class Portal {
-    constructor(game, bbX, bbY, bbWidth, bbHeight, textX, textY, destinationLevel) {
-        Object.assign(this, {game, bbX, bbY, bbWidth, bbHeight, textX, textY, destinationLevel});
+    constructor(game, text, destinationLevel, bbX, bbY, bbWidth, bbHeight, textX, textY) {
+        Object.assign(this, {game, text, destinationLevel, bbX, bbY, bbWidth, bbHeight, textX, textY});
 
-        this.buttonX = (this.textX - 0.1) * PARAMS.BLOCKWIDTH * PARAMS.SCALE;
-        this.buttonY = (this.textY - 1.3) * PARAMS.BLOCKWIDTH * PARAMS.SCALE;
-        this.buttonWidth = 523;
+        this.buttonX = (this.textX - 3);
+        this.buttonY = (this.textY - 42);
+        this.buttonWidth = 35 * text.length;
+        if (text.includes("1") || text.includes("2")) { 
+            // numbers seem to cause weird problems.. this is a fix to make the width correct.
+            this.buttonWidth -= 30;
+        }
+ 
         this.buttonHeight = 55;
 
         this.showingButton = false;
         this.mouseBB = new BoundingBox(0, 0, 1, 1);
-        this.BB = new BoundingBox(bbX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
-                                  bbY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
-                                  bbWidth * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
-                                  bbHeight * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
+        this.BB = new BoundingBox(bbX, 
+                                  bbY, 
+                                  bbWidth, 
+                                  bbHeight);
         this.buttonBB = new BoundingBox(this.buttonX + this.game.camera.x,
                                         this.buttonY + this.game.camera.y,
                                         this.buttonWidth,
@@ -46,23 +51,23 @@ class Portal {
             ctx.save();
             ctx.font = 48 + 'px "silkscreennormal"';
             ctx.lineWidth = 10;
+            // TODO: FIGURE OUT IF SNOW BIOME TO MAKE TEXT BLACK OR SOMETHING
             ctx.fillStyle = "White";
             ctx.strokeStyle = "White"; 
             if (this.mouseBB.collide(this.buttonBB)) {
                 ctx.fillStyle = "LightGreen";
                 ctx.strokeStyle = "LightGreen"; 
             }
-            ctx.fillText("Enter Overworld", 
-                         this.textX * PARAMS.BLOCKWIDTH * PARAMS.SCALE - this.game.camera.x,
-                         this.textY * PARAMS.BLOCKWIDTH * PARAMS.SCALE - this.game.camera.y);
+            ctx.fillText(this.text, 
+                         this.textX - this.game.camera.x,
+                         this.textY - this.game.camera.y);
             ctx.strokeRect(this.buttonX - this.game.camera.x,
                            this.buttonY - this.game.camera.y,
                            this.buttonWidth,
                            this.buttonHeight);
             ctx.restore();
         }
-        
-        
+         
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width, this.BB.height);

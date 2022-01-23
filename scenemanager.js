@@ -12,7 +12,9 @@ class SceneManager {
         this.game.entities.forEach(entity => entity.removeFromWorld = true);
     };
 
-    loadLevel(level, isOverworld, isTown) {
+    loadLevel(level) {
+        let isOverworld = level == overworld;
+        let isTown = level == town;
         this.overworld = isOverworld;
         this.clearEntities();
         for (let i = 0; i < level.layer_names.length; i++) {
@@ -30,17 +32,14 @@ class SceneManager {
                     this.game.addEntity(props[1].topper(this.game, 252 * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE, 55.5 * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE - 2 * PARAMS.OVERWORLD_SCALE, true));
 
                 } else if (isTown) {
-                    // bases
                     town.props.forEach(prop => this.game.addEntity(props[prop.index].base(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered)));
                     this.hero = new Hero(this.game, 1250, 1100);
                     this.game.addEntity(this.hero);
-                    // toppers
                     town.props.forEach(prop => {
                         if (props[prop.index].topper) {
                             this.game.addEntity(props[prop.index].topper(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
                         }
                     });
-                    
  
                     // this.game.addEntity(new Ogre(this.game, 400, 350));
                     // this.game.addEntity(new Ogre(this.game, 200, 350));
@@ -87,8 +86,24 @@ class SceneManager {
             this.game.addEntity(new StatsShop(this.game));
             this.game.addEntity(new Dialogue(this.game, "Visit the shops to upgrade stats!", true, 34.5, 22, 33, 26, 3, 0.5)); // left bulletin board
             this.game.addEntity(new Dialogue(this.game, "Aim and attack with the mouse!", true, 41.5, 22, 40 , 26, 3, 0.5));   // right bulletin board
-            this.game.addEntity(new Portal(this.game, 40, 40, 5, 5, 35.5, 46, overworld));
+            this.game.addEntity(new Portal(this.game, "Enter Overworld", overworld, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 35.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 46 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+        } else if (isOverworld) {
+            // add the portals for level nodes
+            overworld.destinations.forEach(destination => {
+                if (destination.stoppable) {
+                    let pX = destination.origin.x;
+                    let pY = destination.origin.y;
+                    this.game.addEntity(new Portal(this.game, "Enter " + destination.levelName, destination.level, 
+                                                   pX * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE,
+                                                   pY * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE,
+                                                   PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE,
+                                                   PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE,
+                                                   (pX - ((10 + destination.levelName.length) / 2)) * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE,
+                                                   (pY + 3) * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE));
+                }
+            });
         }
+            
 
     };
 
