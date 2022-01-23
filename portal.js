@@ -4,6 +4,7 @@
 class Portal {
     constructor(game, text, destinationLevel, bbX, bbY, bbWidth, bbHeight, textX, textY) {
         Object.assign(this, {game, text, destinationLevel, bbX, bbY, bbWidth, bbHeight, textX, textY});
+        this.changeOnNextUpdate = false;
 
         this.buttonX = (this.textX - 3);
         this.buttonY = (this.textY - 42);
@@ -28,25 +29,30 @@ class Portal {
     }
 
     update() {
-        this.showingButton = this.game.camera.hero.hitBB.collide(this.BB);
-
-        this.buttonBB = new BoundingBox(this.buttonX,
-            this.buttonY,
-            this.buttonWidth,
-            this.buttonHeight);
-
-        if (this.game.mouse) {
-            this.mouseBB = new BoundingBox(this.game.mouse.x + this.game.camera.x, this.game.mouse.y + this.game.camera.y, 1, 1);
-        }
-
-        if (this.showingButton && this.game.clicked && this.game.click && this.mouseBB.collide(this.buttonBB)) {
-            this.mouseBB = new BoundingBox(0, 0, 1, 1);
-            this.game.click = null;
+        if (this.changeOnNextUpdate) {
             this.game.camera.travelTo(this.destinationLevel); 
+        } else {
+            this.showingButton = this.game.camera.hero.hitBB.collide(this.BB);
+
+            this.buttonBB = new BoundingBox(this.buttonX,
+                this.buttonY,
+                this.buttonWidth,
+                this.buttonHeight);
+    
+            if (this.game.mouse) {
+                this.mouseBB = new BoundingBox(this.game.mouse.x + this.game.camera.x, this.game.mouse.y + this.game.camera.y, 1, 1);
+            }
+    
+            if (this.showingButton && this.game.clicked && this.game.click && this.mouseBB.collide(this.buttonBB)) {
+                this.changeOnNextUpdate = true;
+                this.mouseBB = new BoundingBox(0, 0, 1, 1);
+                this.game.click = null;
+            }
         }
     }
 
     draw(ctx) {
+        
         if (this.showingButton) {
             ctx.save();
             ctx.font = 48 + 'px "silkscreennormal"';
@@ -54,7 +60,7 @@ class Portal {
             // TODO: FIGURE OUT IF SNOW BIOME TO MAKE TEXT BLACK OR SOMETHING
             ctx.fillStyle = "White";
             ctx.strokeStyle = "White"; 
-            if (this.mouseBB.collide(this.buttonBB)) {
+            if (!this.changeOnNextUpdate && this.mouseBB.collide(this.buttonBB)) {
                 ctx.fillStyle = "LightGreen";
                 ctx.strokeStyle = "LightGreen"; 
             }
@@ -65,6 +71,12 @@ class Portal {
                            this.buttonY - this.game.camera.y,
                            this.buttonWidth,
                            this.buttonHeight);
+            if (this.changeOnNextUpdate) {
+                ctx.fillStyle = 'rgba(0, 0, 0, .7)';
+                ctx.fillRect(0, 0, PARAMS.CANVAS_DIMENSION, PARAMS.CANVAS_DIMENSION);
+                ctx.fillStyle = 'White';
+                ctx.fillText("loading...", PARAMS.CANVAS_DIMENSION / 2 - 120, PARAMS.CANVAS_DIMENSION * 0.75);
+            }
             ctx.restore();
         }
          
