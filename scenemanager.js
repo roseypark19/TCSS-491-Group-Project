@@ -87,6 +87,7 @@ class SceneManager {
             this.game.addEntity(new StatsShop(this.game));
             this.game.addEntity(new Dialogue(this.game, "Visit the shops to upgrade stats!", true, 34.5, 22, 33, 26, 3, 0.5)); // left bulletin board
             this.game.addEntity(new Dialogue(this.game, "Aim and attack with the mouse!", true, 41.5, 22, 40 , 26, 3, 0.5));   // right bulletin board
+            this.game.addEntity(new Portal(this.game, 40, 40, 5, 5, 35.5, 46, overworld));
         }
 
     };
@@ -150,6 +151,11 @@ class SceneManager {
             this.y = this.hero.BB.center.y - midpoint.y;
         }
         
+    };
+
+    travelTo(level) {
+        this.clearEntities();
+        this.loadLevel(level, level == overworld, level == town);
     };
 
     updateAudio() {

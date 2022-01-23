@@ -35,17 +35,17 @@ class Dialogue {
 
     draw(ctx) {
         if (this.isShowing) {
-            // console.log("painting" + this.textCenterX + " " + this.textCenterY);
-            ctx.font = 40 + 'px "silkscreennormal"';
+            ctx.save();
+            ctx.font = 28 + 'px "silkscreenbold"';
             ctx.fillStyle = "White";
             ctx.strokeStyle = "White"; 
             ctx.textAlign = "center";
             ctx.fillText(this.text, this.textCenterX * PARAMS.BLOCKWIDTH * PARAMS.SCALE - this.game.camera.x, this.textCenterY * PARAMS.BLOCKWIDTH * PARAMS.SCALE - this.game.camera.y);
+            ctx.restore();
         }
 
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'Red';
-            console.log(this.BB)
             ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width, this.BB.height);
         }
     }
@@ -60,7 +60,7 @@ class Dialogue {
         this.isShowing = false;
         this.hasTimer = false;
     }
-    
+
     // shows text for given number of seconds
     showFor(numSeconds) {
         this.isShowing = true;
