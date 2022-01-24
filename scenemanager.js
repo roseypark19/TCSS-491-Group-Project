@@ -36,14 +36,7 @@ class SceneManager {
                 } else if (isTown) {
                     town.props.forEach(prop => this.game.addEntity(props[prop.index].base(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered)));
                     this.game.addEntity(new Portal(this.game, "Enter Overworld", overworld, 0, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 33 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 30 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    this.hero = new Hero(this.game, 36 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
-                    this.game.addEntity(this.hero);
-                    town.props.forEach(prop => {
-                        if (props[prop.index].topper) {
-                            this.game.addEntity(props[prop.index].topper(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
-                        }
-                    });
- 
+
                     // this.game.addEntity(new Ogre(this.game, 400, 350));
                     // this.game.addEntity(new Ogre(this.game, 200, 350));
                     // this.game.addEntity(new Ogre(this.game, 300, 350));
@@ -59,17 +52,27 @@ class SceneManager {
                     // this.game.addEntity(new DruidBeast(this.game, 400, 200, 2000, 0))
                     // // this.game.addEntity(new Minotaur(this.game, 400, 350, true));
                     // this.game.addEntity(new MotherSlime(this.game, 200, 350, true));
-                    // this.game.addEntity(new MotherSlime(this.game, 300, 350, true));
-                    // this.game.addEntity(new MotherSlime(this.game, 500, 350, true));
+                    // this.game.addEntity(new MotherSlime(this.agame, 300, 350, true));
+                    // this.game.addEntity(new MotherSlime(this.game, 400, 350, true));
                     // this.game.addEntity(new MotherSlime(this.game, 400, -450));
                     // this.game.addEntity(new MotherSlime(this.game, 200, -450));
                     // this.game.addEntity(new MotherSlime(this.game, 300, -450));
                     // this.game.addEntity(new MotherSlime(this.game, 500, -450));
 
-                    // this.game.addEntity(new Minotaur(this.game, 400, 550, true));
-                    // this.game.addEntity(new Minotaur(this.game, 400, 550, true));
-                    // this.game.addEntity(new Minotaur(this.game, 400, 550, true));
-                    // this.game.addEntity(new Minotaur(this.game, 400, 550, true));
+                    this.game.addEntity(new Minotaur(this.game, 400, 550, true));
+                    this.game.addEntity(new Minotaur(this.game, 450, 550, true));
+                    this.game.addEntity(new Minotaur(this.game, 500, 550, true));
+                    this.game.addEntity(new Minotaur(this.game, 550, 550, true));
+
+
+                    this.hero = new Hero(this.game, 36 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
+                    this.game.addEntity(this.hero);
+                    // toppers
+                    town.props.forEach(prop => {
+                        if (props[prop.index].topper) {
+                            this.game.addEntity(props[prop.index].topper(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
+                        }
+                    });
 
                 } else {
                     // add a regular hero -- to come later!

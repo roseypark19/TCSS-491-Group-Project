@@ -5,7 +5,7 @@ class Hen {
         this.BB = new BoundingBox(this.x, this.y, 1, 1); // for game engine paint radius
 
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/biomes/town/HenIdle.png");
-        this.animation = new AnimationGroup(this.spritesheet, 0, this.lookingRight ? 0 : 8, 8, 5, 19, 0.25, false, true);
+        this.animation = new AnimationGroup(this.spritesheet, 0, this.lookingRight ? 0 : 8, 8, 8, 19, 0.25, false, true);
     }
 
     update() {
@@ -26,7 +26,7 @@ class Chick {
         this.BB = new BoundingBox(this.x, this.y, 1, 1); // for game engine paint radius
 
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/biomes/town/ChickIdle.png");
-        this.animation = new AnimationGroup(this.spritesheet, 0, this.lookingRight ? 0 : 8, 8, 5, 19, 0.25, false, false);
+        this.animation = new AnimationGroup(this.spritesheet, 0, this.lookingRight ? 0 : 8, 8, 8, 19, 0.25, false, true);
     }
 
     update() {
