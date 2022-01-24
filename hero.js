@@ -183,9 +183,9 @@ class Hero {
 
         // types: 0 = longsword, 1 = war axe, 2 = whip, 3 = flail, 4 = slingshot, 5 = bow
 
-        this.spellType = 1; // 0 = wind, 1 = fire, 2 = ice, 3 = earth
+        this.spellType = 0; // 0 = wind, 1 = fire, 2 = ice, 3 = earth
 
-        this.velocityConstant = 8;
+        this.velocityConstant = 6;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
         this.velocity = { x : 0, y : 0 };
         this.updateBB();
@@ -493,8 +493,8 @@ class Hero {
                         //                         0.1, this.BB.center));
                         // } else {
                             this.game.addEntity(new Projectile(this.game, 
-                                                                this.x + PARAMS.SCALE * -8 * Math.cos(theta), 
-                                                                this.y + PARAMS.SCALE * -8 * Math.sin(theta), 
+                                                                this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(theta) * PARAMS.SCALE, 
+                                                                this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, 
                                                                 theta, true, WEAPONS[this.weapon.type].projectileType, this.BB.center));
                     }
                     

@@ -6,6 +6,7 @@ const PARAMS = {
     CANVAS_DIMENSION : 1000,
     SCALE : 4,
     OVERWORLD_SCALE: 6,
+    PROJECTILE_SCALE: 1,
     GUI_SCALE : 6,
     MMAP_SCALE: 0.4625,
     GAMEOVER: false,
