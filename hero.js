@@ -2,6 +2,7 @@ class TinyHero {
     constructor(game, destinations) {
         Object.assign(this, { game, destinations });
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/hero/tiny_hero.png");
+        this.id = ++PARAMS.LIFE_ID;
         this.facing = [0, 0]; // down, up, right, left
                               // 0, 1, 0, 1 
         this.state = 0; // idle, walking, shooting, charged, dead
@@ -12,6 +13,7 @@ class TinyHero {
         this.scale = PARAMS.SCALE / 1;
         this.targetIndex = 0;
         this.prevTargetIndex = 0;
+        this.hp = 0;
         this.x = this.destinations[this.targetIndex].originX - 16 * this.scale;
         this.y = this.destinations[this.targetIndex].originY - 16 * this.scale;
         this.target = this.destinations[this.targetIndex];
@@ -185,7 +187,7 @@ class Hero {
 
         // types: 0 = longsword, 1 = war axe, 2 = whip, 3 = flail, 4 = slingshot, 5 = bow
 
-        this.spellType = 0; // 0 = wind, 1 = fire, 2 = ice, 3 = earth
+        this.spellType = 3; // 0 = wind, 1 = fire, 2 = ice, 3 = earth
 
         this.velocityConstant = 6;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
@@ -494,10 +496,17 @@ class Hero {
                         //                         15,
                         //                         0.1, this.BB.center));
                         // } else {
+                            let type = WEAPONS[this.weapon.type].projectileType;
+                            let base_vel = PROJECTILES[type].velocity;
+                            let true_vel = { x: Math.cos(theta) * base_vel, y: Math.sin(theta) * base_vel };
+                            let proj_vel = { x: true_vel.x + (Math.sign(true_vel.x) === Math.sign(this.velocity.x) ? this.velocity.x: 0),
+                                             y: true_vel.y + (Math.sign(true_vel.y) === Math.sign(this.velocity.y) ? this.velocity.y: 0) };
                             this.game.addEntity(new Projectile(this.game, 
                                                                 this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(theta) * PARAMS.SCALE, 
                                                                 this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, 
-                                                                theta, true, WEAPONS[this.weapon.type].projectileType, this.BB.center));
+                                                                theta, true, type, this.BB.center, 
+                                                                /*PROJECTILES[type].velocity +*/ magnitude(proj_vel), 
+                                                                75));
                     }
                     
                 }

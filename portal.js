@@ -66,7 +66,7 @@ class Portal {
             // for loop prevents errors when the hero is not added to project... 
             // consider making these changes in the shops and other entities that interact with hero BB
             this.game.livingEntities.forEach(entity => {
-                if (entity instanceof Hero) {
+                if (entity instanceof Hero || entity instanceof TinyHero) {
                     this.showingButton = entity.hitBB.collide(this.BB);
                 }
             });    

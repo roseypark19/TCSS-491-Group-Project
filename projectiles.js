@@ -33,16 +33,16 @@ class Projectile {
 
     static rotationList = [];
 
-    constructor(game, x, y, radians, friendly, type, sourcePoint) {
-        Object.assign(this, { game, x, y, radians, type, sourcePoint });
+    constructor(game, x, y, radians, friendly, type, sourcePoint, velocity, damage) {
+        Object.assign(this, { game, x, y, radians, type, sourcePoint, damage });
         this.roundedDegrees = Math.round(toDegrees(this.radians));
         this.roundedRadians = toRadians(this.roundedDegrees);
         this.spritesheet = ASSET_MANAGER.getAsset(PROJECTILES[this.type].spritesheet);
         this.friendlyProjectile = friendly;
         this.id = ++PARAMS.SHOT_ID;
-        this.damage = 50;
+        // this.damage = damage;
         this.passable = false;
-        this.velocityConstant = 6;
+        this.velocityConstant = velocity;
         this.velocity = { x: Math.cos(this.roundedRadians) * this.velocityConstant, 
                           y: Math.sin(this.roundedRadians) * this.velocityConstant };
         this.lifetime = 1;

@@ -1356,6 +1356,7 @@ class DruidRoot {
         this.lifetime = 1.5;
         this.origLT = this.lifetime;
         this.hp = 0;
+        this.id = ++PARAMS.LIFE_ID;
         this.animation = new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 15, this.lifetime / 15, false, true);
         this.updateBB();
     }

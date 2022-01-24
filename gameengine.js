@@ -165,6 +165,7 @@ class GameEngine {
             if (entity.hasOwnProperty("hp")) {
                 this.entities.splice(this.heroIndex, 0, entity);
                 this.heroIndex++;
+                console.log("added: " + entity.constructor.name)
             } else if (entity.hasOwnProperty("friendlyProjectile") || entity.heroFollower) {
                 this.entities.splice(this.heroIndex + 1, 0, entity);
             } else {
@@ -172,13 +173,16 @@ class GameEngine {
             }
         } else {
             this.entities.push(entity);
-            if (entity instanceof Hero) {
+            if (entity instanceof Hero || entity instanceof TinyHero) {
                 this.heroIndex = this.entities.length - 1;
+                // console.log(entity.constructor.name)
+                console.log("added: " + entity.constructor.name)
             }
         }
         if (entity.hasOwnProperty("hp")) {
             this.livingEntities.push(entity);
             this.livingCount++;
+            // console.log("added: " + entity.constructor.name)
         }
         if (entity.collideable) {
             this.collideableEntities.push(entity);

@@ -27,8 +27,8 @@ const WEAPONS = {
 };
 
 const PROJECTILES = {
-    0: { spritesheet: "./sprites/projectiles/arrow.png" },
-    1: { spritesheet: "./sprites/projectiles/arrow.png" }
+    0: { spritesheet: "./sprites/projectiles/arrow.png", velocity: 6 },
+    1: { spritesheet: "./sprites/projectiles/arrow.png", velocity: 6 }
 };
 
 // returns a random integer between 0 and n-1
