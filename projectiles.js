@@ -40,7 +40,7 @@ class Projectile {
         this.spritesheet = ASSET_MANAGER.getAsset(PROJECTILES[this.type].spritesheet);
         this.friendlyProjectile = friendly;
         this.id = ++PARAMS.SHOT_ID;
-        this.damage = 100;
+        this.damage = 50;
         this.passable = false;
         this.velocityConstant = 6;
         this.velocity = { x: Math.cos(this.roundedRadians) * this.velocityConstant, 
