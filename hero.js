@@ -187,7 +187,7 @@ class Hero {
 
         // types: 0 = longsword, 1 = war axe, 2 = whip, 3 = flail, 4 = slingshot, 5 = bow
 
-        this.spellType = 3; // 0 = wind, 1 = fire, 2 = ice, 3 = earth
+        this.spellType = 0; // 0 = wind, 1 = fire, 2 = ice, 3 = earth
 
         this.velocityConstant = 6;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
@@ -478,12 +478,12 @@ class Hero {
                 this.state = 2;
                 if (this.shootTimer === 0) {
                     this.shootTimer = this.dexterity * this.shootFrames - this.game.clockTick;
-                    let vector = { x : mousePoint.x + this.game.camera.x - this.BB.center.x, 
-                                    y : mousePoint.y + this.game.camera.y - this.BB.center.y };
-                    let directionUnitVector = unitVector(vector);
-                    let range = WEAPONS[this.weapon.type].range;
-                    let projectileCenter = { x: this.BB.center.x + range * PARAMS.SCALE * directionUnitVector.x,
-                                                y: this.BB.center.y + range * PARAMS.SCALE * directionUnitVector.y };
+                    // let vector = { x : mousePoint.x + this.game.camera.x - this.BB.center.x, 
+                    //                 y : mousePoint.y + this.game.camera.y - this.BB.center.y };
+                    // let directionUnitVector = unitVector(vector);
+                    // let range = WEAPONS[this.weapon.type].range;
+                    // let projectileCenter = { x: this.BB.center.x + range * PARAMS.SCALE * directionUnitVector.x,
+                    //                             y: this.BB.center.y + range * PARAMS.SCALE * directionUnitVector.y };
                     if (this.shootFlag) {
                         // ASSET_MANAGER.playAsset("./audio/sword.mp3");
                         // if (this.weapon.type < 4) {

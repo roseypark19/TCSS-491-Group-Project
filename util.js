@@ -12,6 +12,8 @@ const PARAMS = {
     GAMEOVER: false,
     LIFE_ID: 0,
     SHOT_ID: 0,
+    COLLIDE_ID: 0,
+    NPC_ID: 0,
     LOW_HP_COLOR: "Red",
     MED_HP_COLOR: "Orange",
     HIGH_HP_COLOR: "Green"  
@@ -28,7 +30,10 @@ const WEAPONS = {
 
 const PROJECTILES = {
     0: { spritesheet: "./sprites/projectiles/arrow.png", velocity: 6 },
-    1: { spritesheet: "./sprites/projectiles/arrow.png", velocity: 6 }
+    1: { spritesheet: "./sprites/projectiles/arrow.png", velocity: 6 },
+    2: { spritesheet: "./sprites/projectiles/projectile_enemy_close_range.png", velocity: 4 },
+    3: { spritesheet: "./sprites/projectiles/projectile_slingshot.png", velocity: 6 },
+    4: { spritesheet: "./sprites/projectiles/Green_Arrow.png", velocity: 6 },
 };
 
 // returns a random integer between 0 and n-1

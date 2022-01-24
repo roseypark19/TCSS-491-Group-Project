@@ -44,7 +44,11 @@ ASSET_MANAGER.queueDownload("./sprites/enemies/druid_beast.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/druid_beam.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/druid.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/root.png");
-
+ASSET_MANAGER.queueDownload("./sprites/enemies/dwarf.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/dwarf_beard.png");
+ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_slingshot.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/cyclops.png");
+ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_enemy_close_range.png");
 
 ASSET_MANAGER.downloadAll(function () {
 

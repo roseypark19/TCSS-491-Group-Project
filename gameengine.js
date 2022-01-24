@@ -6,6 +6,7 @@ class GameEngine {
         this.livingEntities = [];
         this.collideableEntities = [];
         this.projectileEntities = [];
+        this.npcEntities = [];
         this.livingCount = 0;
         this.showOutlines = false;
         this.ctx = null;
@@ -162,10 +163,9 @@ class GameEngine {
     addEntity(entity) {
         // this.entities.push(entity);
         if (this.heroIndex !== undefined) {
-            if (entity.hasOwnProperty("hp")) {
+            if (entity.hasOwnProperty("hp") || entity.npc) {
                 this.entities.splice(this.heroIndex, 0, entity);
                 this.heroIndex++;
-                console.log("added: " + entity.constructor.name)
             } else if (entity.hasOwnProperty("friendlyProjectile") || entity.heroFollower) {
                 this.entities.splice(this.heroIndex + 1, 0, entity);
             } else {
@@ -175,20 +175,17 @@ class GameEngine {
             this.entities.push(entity);
             if (entity instanceof Hero || entity instanceof TinyHero) {
                 this.heroIndex = this.entities.length - 1;
-                // console.log(entity.constructor.name)
-                console.log("added: " + entity.constructor.name)
             }
         }
         if (entity.hasOwnProperty("hp")) {
             this.livingEntities.push(entity);
             this.livingCount++;
-            // console.log("added: " + entity.constructor.name)
-        }
-        if (entity.collideable) {
+        } else if (entity.collideable) {
             this.collideableEntities.push(entity);
-        }
-        if (entity.hasOwnProperty("friendlyProjectile")) {
+        } else if (entity.hasOwnProperty("friendlyProjectile")) {
             this.projectileEntities.push(entity);
+        } else if (entity.npc) {
+            this.npcEntities.push(entity);
         }
     };
 
@@ -257,12 +254,12 @@ class GameEngine {
         if (deletedEntity.hasOwnProperty("hp")) {
             this.livingCount--;
             this.removeFromEntityList(this.livingEntities, deletedEntity.id);
-        }
-        if (deletedEntity.collideable) {
+        } else if (deletedEntity.collideable) {
             this.removeFromEntityList(this.collideableEntities, deletedEntity.id);
-        }
-        if (deletedEntity.hasOwnProperty("friendlyProjectile")) {
+        } else if (deletedEntity.hasOwnProperty("friendlyProjectile")) {
             this.removeFromEntityList(this.projectileEntities, deletedEntity.id);
+        } else if (deletedEntity.npc) {
+            this.removeFromEntityList(this.npcEntities, deletedEntity.id);
         }
     };
 

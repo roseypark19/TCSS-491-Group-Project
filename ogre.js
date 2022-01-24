@@ -10,7 +10,7 @@ class Ogre {
         this.id = ++PARAMS.LIFE_ID;
         this.maxHp = 500;
         this.hp = this.maxHp;
-        this.minProximity = 2;
+        this.minProximity = 5;
         this.visionDistance = 400;
         this.attackDistance = 150;
         this.shotsTaken = [];

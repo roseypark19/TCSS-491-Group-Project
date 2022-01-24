@@ -1,8 +1,8 @@
-class Minotaur {
+class Cyclops {
 
     constructor(game, x, y) {
         Object.assign(this, { game, x, y });
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/minotaur.png");
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/cyclops.png");
         this.facing = [0, randomInt(2)]; // down, up, right, left
                                          // 0, 1, 0, 1 
         this.state = 0; // idle, walking, attacking, damaged, dead
@@ -35,9 +35,9 @@ class Minotaur {
     loadAnimations() {
         this.animations.push(new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 16, 0.3, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 64 * 32, 0, 32, 32, 6, this.walkSpeed, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 88 * 32, 0, 32, 32, 8, 0.075, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 120 * 32, 0, 32, 32, 4, 0.15, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 136 * 32, 0, 32, 32, 16, 0.15, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 88 * 32, 0, 32, 32, 4, 0.075, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 104 * 32, 0, 32, 32, 4, 0.15, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 120 * 32, 0, 32, 32, 14, 0.15, false, true));
     };
 
     updateBB() {
@@ -109,7 +109,7 @@ class Minotaur {
                         }   
                     }
                     if (this.deadTimer === 0 && this.hp <= 0) {
-                        this.deadTimer = 16 * 0.15 - this.game.clockTick;
+                        this.deadTimer = 14 * 0.15 - this.game.clockTick;
                         this.state = 4;
                         this.facing = [0, 0];
                         // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
@@ -140,7 +140,7 @@ class Minotaur {
                 this.charging = false;
             }
             if (this.deadTimer === 0 && this.hp <= 0) {
-                this.deadTimer = 16 * 0.15 - this.game.clockTick;
+                this.deadTimer = 14 * 0.15 - this.game.clockTick;
                 this.state = 4;
                 this.facing = [0, 0];
                 // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
@@ -234,15 +234,15 @@ class Minotaur {
                 this.velocity.y = 0;
 
                 if (!this.attackFlag && prevState !== 3) {
-                    this.attackTimer = 3 * 0.075 * 8;
+                    this.attackTimer = 3 * 0.075 * 4;
                 }
                 this.charging = false;
                 if (this.damagedTimer === 0 && this.attackTimer > 0) {
                     this.state = 2;
                 }
                 if (this.shootTimer === 0 && this.state === 2) {
-                    this.shootTimer = 0.075 * 8 - this.game.clockTick;
-                    let projectileCenter = { x: this.BB.center.x, y: this.BB.center.y };
+                    this.shootTimer = 0.075 * 4 - this.game.clockTick;
+                    // let projectileCenter = { x: this.BB.center.x, y: this.BB.center.y };
                     if (this.attackFlag) {
                         // this.game.addEntity(new DamageRegion(this.game, 
                         //                                      projectileCenter.x - 12 * PARAMS.SCALE, 
@@ -250,6 +250,15 @@ class Minotaur {
                         //                                      24 * PARAMS.SCALE, 
                         //                                      24 * PARAMS.SCALE, 
                         //                                      false, 100, 0.1));
+                        let theta = Math.atan2(this.chargeUnitVector.y, this.chargeUnitVector.x);
+                        if (theta < 0) {
+                            theta += 2 * Math.PI;
+                        }
+                        for (let i = theta - Math.PI / 8; i <= theta + Math.PI / 8; i += Math.PI / 8) {
+                            this.game.addEntity(new Projectile(this.game, 
+                                this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(i) * PARAMS.SCALE, 
+                                this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, 2, this.BB.center, PROJECTILES[2].velocity, 50));
+                        }
                     }
                 }
             } else if (this.chargeTimer === 0 && this.damagedTimer === 0) {
