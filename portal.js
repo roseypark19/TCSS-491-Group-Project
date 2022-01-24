@@ -2,9 +2,12 @@
 // this.buttonBB is the region that can be clicked to transition from level to level
 
 class Portal {
-    constructor(game, text, destinationLevel, bbX, bbY, bbWidth, bbHeight, textX, textY) {
-        Object.assign(this, {game, text, destinationLevel, bbX, bbY, bbWidth, bbHeight, textX, textY});
-        this.changeOnNextUpdate = false;
+    constructor(game, text, destinationLevel, portalTypeIndex, bbX, bbY, bbWidth, bbHeight, textX, textY) {
+        Object.assign(this, {game, text, destinationLevel, portalTypeIndex, bbX, bbY, bbWidth, bbHeight, textX, textY});
+        this.changeOnNextUpdate = false; // this is used so we can paint a loading screen before transitioning levels
+
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/ui/portals.png");
+        this.animation = new AnimationGroup(this.spritesheet, this.portalTypeIndex * 32 * 4, 0, 32, 32, 4, 0.15, false, true);
 
         this.buttonX = (this.textX - 3);
         this.buttonY = (this.textY - 42);
@@ -20,8 +23,8 @@ class Portal {
         this.mouseBB = new BoundingBox(0, 0, 1, 1);
         this.BB = new BoundingBox(bbX, 
                                   bbY, 
-                                  bbWidth, 
-                                  bbHeight);
+                                  PARAMS.SCALE / 2 * 32, 
+                                  PARAMS.SCALE / 2 * 32);
         this.buttonBB = new BoundingBox(this.buttonX + this.game.camera.x,
                                         this.buttonY + this.game.camera.y,
                                         this.buttonWidth,
@@ -52,7 +55,13 @@ class Portal {
     }
 
     draw(ctx) {
-        
+        if (this.portalTypeIndex >= 0) {
+            this.animation.drawFrame(this.game.clockTick, 
+                                    ctx, 
+                                    this.bbX - this.game.camera.x,
+                                    this.bbY - this.game.camera.y,
+                                    PARAMS.SCALE / 2);
+        }
         if (this.showingButton) {
             ctx.save();
             ctx.font = 48 + 'px "silkscreennormal"';

@@ -87,14 +87,15 @@ class SceneManager {
             this.game.addEntity(new StatsShop(this.game));
             this.game.addEntity(new Dialogue(this.game, "Visit the shops to upgrade stats!", true, 34.5, 22, 33, 26, 3, 0.5)); // left bulletin board
             this.game.addEntity(new Dialogue(this.game, "Aim and attack with the mouse!", true, 41.5, 22, 40 , 26, 3, 0.5));   // right bulletin board
-            this.game.addEntity(new Portal(this.game, "Enter Overworld", overworld, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 35.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 46 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+            this.game.addEntity(new Portal(this.game, "Enter Overworld", overworld, 5, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 33 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 30 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+            
         } else if (isOverworld) {
             // add the portals for level nodes
             overworld.destinations.forEach(destination => {
                 if (destination.stoppable) {
                     let pX = destination.origin.x;
                     let pY = destination.origin.y;
-                    this.game.addEntity(new Portal(this.game, "Enter " + destination.levelName, destination.level, 
+                    this.game.addEntity(new Portal(this.game, "Enter " + destination.levelName, destination.level, -1, 
                                                    pX * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE,
                                                    pY * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE,
                                                    PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE,

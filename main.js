@@ -10,6 +10,7 @@ ASSET_MANAGER.queueDownload("./audio/MaxLevelUpgrade.wav");
 // sprites
 ASSET_MANAGER.queueDownload("./sprites/hero/tiny_hero.png");
 ASSET_MANAGER.queueDownload("./sprites/hero/hero.png");
+ASSET_MANAGER.queueDownload("./sprites/ui/portals.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/overworld/props.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/overworld/structures.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/overworld/tiles.png");
