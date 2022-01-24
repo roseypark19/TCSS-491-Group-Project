@@ -1,17 +1,45 @@
+// need a separate class to put a loading screen on top of everything
+class LoadingScreen {
+    constructor(game, x, y) {
+        this.game = game;
+        this.BB = new BoundingBox(x, y, 1, 1);
+    }
+
+    update() {
+        console.log("updating")
+    }
+
+    draw(ctx) {
+        ctx.font = 48 + 'px "silkscreennormal"';
+        ctx.fillStyle = 'rgba(0, 0, 0, .7)';
+        ctx.fillRect(0, 0, PARAMS.CANVAS_DIMENSION, PARAMS.CANVAS_DIMENSION);
+        ctx.fillStyle = 'White';
+        ctx.fillText("loading...", PARAMS.CANVAS_DIMENSION / 2 - 120, PARAMS.CANVAS_DIMENSION * 0.75);
+    }
+}
+
+
+
 // this.BB is the region that activates the button
 // this.buttonBB is the region that can be clicked to transition from level to level
-
+// buttonWidth is the width of the rectangle drawn. Only meant to use if default alfo doesn't work
 class Portal {
-    constructor(game, text, destinationLevel, portalTypeIndex, bbX, bbY, bbWidth, bbHeight, textX, textY) {
-        Object.assign(this, {game, text, destinationLevel, portalTypeIndex, bbX, bbY, bbWidth, bbHeight, textX, textY});
-        this.changeOnNextUpdate = false; // this is used so we can paint a loading screen before transitioning levels
+    constructor(game, text, destinationLevel, portalTypeIndex, bbX, bbY, bbWidth, bbHeight, textX, textY, buttonWidth = -1) {
+        Object.assign(this, {game, text, destinationLevel, portalTypeIndex, bbX, bbY, bbWidth, bbHeight, textX, textY, buttonWidth});
+        this.changeOnNextUpdate = false; // this is used so we can add/paint a loading screen before transitioning levels
 
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/ui/portals.png");
         this.animation = new AnimationGroup(this.spritesheet, this.portalTypeIndex * 32 * 4, 0, 32, 32, 4, 0.15, false, true);
 
+        this.textIsBlack = text.includes("Snow");
+
         this.buttonX = (this.textX - 3);
         this.buttonY = (this.textY - 42);
-        this.buttonWidth = 35 * text.length;
+
+        if (this.buttonWidth < 0) {
+            this.buttonWidth = 35 * text.length;  
+        }
+
         if (text.includes("1") || text.includes("2")) { 
             // numbers seem to cause weird problems.. this is a fix to make the width correct.
             this.buttonWidth -= 30;
@@ -23,8 +51,8 @@ class Portal {
         this.mouseBB = new BoundingBox(0, 0, 1, 1);
         this.BB = new BoundingBox(bbX, 
                                   bbY, 
-                                  PARAMS.SCALE / 2 * 32, 
-                                  PARAMS.SCALE / 2 * 32);
+                                  bbWidth, 
+                                  bbHeight);
         this.buttonBB = new BoundingBox(this.buttonX + this.game.camera.x,
                                         this.buttonY + this.game.camera.y,
                                         this.buttonWidth,
@@ -48,6 +76,7 @@ class Portal {
     
             if (this.showingButton && this.game.clicked && this.game.click && this.mouseBB.collide(this.buttonBB)) {
                 this.changeOnNextUpdate = true;
+                this.game.addEntity(new LoadingScreen(this.game, this.game.camera.hero.BB.x, this.game.camera.hero.BB.y));
                 this.mouseBB = new BoundingBox(0, 0, 1, 1);
                 this.game.click = null;
             }
@@ -66,9 +95,15 @@ class Portal {
             ctx.save();
             ctx.font = 48 + 'px "silkscreennormal"';
             ctx.lineWidth = 10;
-            // TODO: FIGURE OUT IF SNOW BIOME TO MAKE TEXT BLACK OR SOMETHING
-            ctx.fillStyle = "White";
-            ctx.strokeStyle = "White"; 
+            // show black text on snow biome
+            if (this.textIsBlack) {
+                ctx.fillStyle = "DarkBlue";
+                ctx.strokeStyle = "DarkBlue"; 
+            } else {
+                ctx.fillStyle = "White";
+                ctx.strokeStyle = "White"; 
+            }
+            
             if (!this.changeOnNextUpdate && this.mouseBB.collide(this.buttonBB)) {
                 ctx.fillStyle = "LightGreen";
                 ctx.strokeStyle = "LightGreen"; 
@@ -80,12 +115,6 @@ class Portal {
                            this.buttonY - this.game.camera.y,
                            this.buttonWidth,
                            this.buttonHeight);
-            if (this.changeOnNextUpdate) {
-                ctx.fillStyle = 'rgba(0, 0, 0, .7)';
-                ctx.fillRect(0, 0, PARAMS.CANVAS_DIMENSION, PARAMS.CANVAS_DIMENSION);
-                ctx.fillStyle = 'White';
-                ctx.fillText("loading...", PARAMS.CANVAS_DIMENSION / 2 - 120, PARAMS.CANVAS_DIMENSION * 0.75);
-            }
             ctx.restore();
         }
          

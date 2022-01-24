@@ -4,6 +4,7 @@ class SceneManager {
         this.game.camera = this;
         this.x = 0;
         this.y = 0;
+        this.currentLevel = town;
         // this.loadLevel(overworld, true);
         this.loadLevel(town, false, true);
     };
@@ -34,7 +35,8 @@ class SceneManager {
 
                 } else if (isTown) {
                     town.props.forEach(prop => this.game.addEntity(props[prop.index].base(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered)));
-                    this.hero = new Hero(this.game, 1250, 1100);
+                    this.game.addEntity(new Portal(this.game, "Enter Overworld", overworld, 0, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 33 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 30 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    this.hero = new Hero(this.game, 36 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
                     this.game.addEntity(this.hero);
                     town.props.forEach(prop => {
                         if (props[prop.index].topper) {
@@ -87,7 +89,6 @@ class SceneManager {
             this.game.addEntity(new StatsShop(this.game));
             this.game.addEntity(new Dialogue(this.game, "Visit the shops to upgrade stats!", true, 34.5, 22, 33, 26, 3, 0.5)); // left bulletin board
             this.game.addEntity(new Dialogue(this.game, "Aim and attack with the mouse!", true, 41.5, 22, 40 , 26, 3, 0.5));   // right bulletin board
-            this.game.addEntity(new Portal(this.game, "Enter Overworld", overworld, 5, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 33 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 30 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
             
         } else if (isOverworld) {
             // add the portals for level nodes
@@ -101,7 +102,8 @@ class SceneManager {
                                                    PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE,
                                                    PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE,
                                                    (pX - ((10 + destination.levelName.length) / 2)) * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE,
-                                                   (pY + 3) * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE));
+                                                   (pY + 3) * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE,
+                                                   destination.buttonWidth));
                 }
             });
             
@@ -154,25 +156,26 @@ class SceneManager {
         PARAMS.DEBUG = document.getElementById("debug").checked;
         let midpoint = { x : PARAMS.CANVAS_DIMENSION / 2, y : PARAMS.CANVAS_DIMENSION / 2 };
 
-        
-        this.x = this.hero.BB.center.x - midpoint.x;
-
-        // this code restricts x, y camera based on the town
-        // if (this.hero.BB.center.x >= midpoint.x && this.hero.BB.center.x <= PARAMS.BLOCKWIDTH * PARAMS.SCALE * town.width - midpoint.x) {
-        //     this.x = this.hero.BB.center.x - midpoint.x;
-        // }
-        // if (this.hero.BB.center.y >= midpoint.y && this.hero.BB.center.y <= PARAMS.BLOCKWIDTH * PARAMS.SCALE * town.height - midpoint.y) {
-        //     this.y = this.hero.BB.center.y - midpoint.y;
-        // }
-
-        if (!this.overworld) {
-            this.y = this.hero.BB.center.y - midpoint.y;
+        if (this.currentLevel == town) {
+            // this code restricts x, y camera based on the town
+            if (this.hero.BB.center.x >= midpoint.x && this.hero.BB.center.x <= PARAMS.BLOCKWIDTH * PARAMS.SCALE * town.width - midpoint.x) {
+                this.x = this.hero.BB.center.x - midpoint.x;
+            }
+            if (this.hero.BB.center.y >= midpoint.y && this.hero.BB.center.y <= PARAMS.BLOCKWIDTH * PARAMS.SCALE * town.height - midpoint.y) {
+                this.y = this.hero.BB.center.y - midpoint.y;
+            }
+        } else {
+            this.x = this.hero.BB.center.x - midpoint.x;
+            if (!this.overworld) {
+                this.y = this.hero.BB.center.y - midpoint.y;
+            }
         }
+     
         
     };
 
     travelTo(level) {
-        this.clearEntities();
+        this.currentLevel = level;
         this.loadLevel(level, level == overworld, level == town);
     };
 
