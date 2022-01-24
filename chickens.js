@@ -1,8 +1,8 @@
 class Hen {
     constructor(game, x, y, lookingRight = true) {
         Object.assign(this, {game, x, y, lookingRight});
-        this.hp = 0;
-        this.id = ++PARAMS.LIFE_ID;
+        this.npc = true;
+        this.id = ++PARAMS.NPC_ID;
         this.BB = new BoundingBox(this.x, this.y, 1, 1); // for game engine paint radius
 
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/biomes/town/HenIdle.png");
@@ -23,8 +23,8 @@ class Chick {
     constructor(game, x, y, lookingRight = true) {
         Object.assign(this, {game, x, y, lookingRight});
         
-        this.hp = 0;
-        this.id = ++PARAMS.LIFE_ID;
+        this.npc = true;
+        this.id = ++PARAMS.NPC_ID;
         this.BB = new BoundingBox(this.x, this.y, 1, 1); // for game engine paint radius
 
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/biomes/town/ChickIdle.png");
