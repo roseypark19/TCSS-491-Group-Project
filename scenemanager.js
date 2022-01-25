@@ -47,7 +47,7 @@ class SceneManager {
                     // this.game.addEntity(new Ogre(this.game, 300, -350));
                     // this.game.addEntity(new Ogre(this.game, 500, -350));
 
-                    this.game.addEntity(new Druid(this.game, 900, 500, 6000, 0));
+                    // this.game.addEntity(new Druid(this.game, 900, 500, 6000, 0));
                     // this.game.addEntity(new DruidHound(this.game, 300, 200, 4000, 2000))
                     // this.game.addEntity(new DruidBeast(this.game, 400, 200, 2000, 0))
                     // // this.game.addEntity(new Minotaur(this.game, 400, 350, true));
@@ -59,15 +59,15 @@ class SceneManager {
                     // this.game.addEntity(new MotherSlime(this.game, 300, -450));
                     // this.game.addEntity(new MotherSlime(this.game, 500, -450));
 
-                    this.game.addEntity(new SwordedMinion(this.game, 400, 750));
-                    this.game.addEntity(new SwordedMinion(this.game, 450, 750));
-                    this.game.addEntity(new SwordedMinion(this.game, 500, 750));
-                    this.game.addEntity(new SwordedMinion(this.game, 550, 750));
+                    // this.game.addEntity(new SwordedMinion(this.game, 400, 750));
+                    // this.game.addEntity(new SwordedMinion(this.game, 450, 750));
+                    // this.game.addEntity(new SwordedMinion(this.game, 500, 750));
+                    // this.game.addEntity(new SwordedMinion(this.game, 550, 750));
 
-                    this.game.addEntity(new RangedMinion(this.game, 400, 550));
-                    this.game.addEntity(new RangedMinion(this.game, 450, 550));
-                    this.game.addEntity(new RangedMinion(this.game, 500, 550));
-                    this.game.addEntity(new RangedMinion(this.game, 550, 550));
+                    // this.game.addEntity(new RangedMinion(this.game, 400, 550));
+                    // this.game.addEntity(new RangedMinion(this.game, 450, 550));
+                    // this.game.addEntity(new RangedMinion(this.game, 500, 550));
+                    // this.game.addEntity(new RangedMinion(this.game, 550, 550));
 
 
                     this.hero = new Hero(this.game, 36 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
