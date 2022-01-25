@@ -250,7 +250,8 @@ class Cyclops {
                         //                                      24 * PARAMS.SCALE, 
                         //                                      24 * PARAMS.SCALE, 
                         //                                      false, 100, 0.1));
-                        let theta = Math.atan2(this.chargeUnitVector.y, this.chargeUnitVector.x);
+                        // let vector = { x: this.chargeOrigin.x - this.destination.x, y: this.chargeOrigin.y - this.destination.y };
+                        let theta = Math.atan2(this.movementUnitVector.y, this.movementUnitVector.x);
                         if (theta < 0) {
                             theta += 2 * Math.PI;
                         }
