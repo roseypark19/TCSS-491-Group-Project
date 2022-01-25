@@ -192,7 +192,7 @@ class Cyclops {
                         if (this.damagedTimer === 0 && this.frozenTimer === 0) {
                             if (!this.charging) {
                                 this.charging = true;
-                                this.chargeTimer = 1;
+                                this.chargeTimer = 1 - this.game.clockTick;
                                 this.chargeOrigin = null;
                                 // this.animations[1].setFrameDuration(this.walkSpeed);
                                 this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed * 3 : this.walkSpeed);
@@ -234,11 +234,18 @@ class Cyclops {
                 this.velocity.y = 0;
 
                 if (!this.attackFlag && prevState !== 3) {
-                    this.attackTimer = 3 * 0.075 * 4;
+                    this.attackTimer = 3 * 0.075 * 4 - this.game.clockTick;
+
                 }
                 this.charging = false;
                 if (this.damagedTimer === 0 && this.attackTimer > 0) {
                     this.state = 2;
+                } else if (this.attackTimer === 0) {
+                    this.movementUnitVector = undefined;
+                    if (this.confusedTimer > 0) {
+                        let randomTheta = toRadians(randomInt(361));
+                        this.confusionUnitVector = unitVector({ x: Math.cos(randomTheta), y: Math.sin(randomTheta) });
+                    }
                 }
                 if (this.shootTimer === 0 && this.state === 2) {
                     this.shootTimer = 0.075 * 4 - this.game.clockTick;
@@ -250,8 +257,9 @@ class Cyclops {
                         //                                      24 * PARAMS.SCALE, 
                         //                                      24 * PARAMS.SCALE, 
                         //                                      false, 100, 0.1));
-                        // let vector = { x: this.chargeOrigin.x - this.destination.x, y: this.chargeOrigin.y - this.destination.y };
-                        let theta = Math.atan2(this.movementUnitVector.y, this.movementUnitVector.x);
+                        let vector = this.confusedTimer === 0 ? { x: heroCenter.x - this.BB.center.x, y: heroCenter.y - this.BB.center.y } :
+                                                                this.confusionUnitVector;
+                        let theta = Math.atan2(vector.y, vector.x);
                         if (theta < 0) {
                             theta += 2 * Math.PI;
                         }
@@ -260,6 +268,8 @@ class Cyclops {
                                 this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(i) * PARAMS.SCALE, 
                                 this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, 2, this.BB.center, PROJECTILES[2].velocity, 50));
                         }
+                        this.facing[0] = vector.y >= 0 ? 0 : 1;
+                        this.facing[1] = vector.x >= 0 ? 0 : 1;
                     }
                 }
             } else if (this.chargeTimer === 0 && this.damagedTimer === 0) {

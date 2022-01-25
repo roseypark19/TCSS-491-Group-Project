@@ -192,7 +192,7 @@ class Minotaur {
                         if (this.damagedTimer === 0 && this.frozenTimer === 0) {
                             if (!this.charging) {
                                 this.charging = true;
-                                this.chargeTimer = 1;
+                                this.chargeTimer = 1 - this.game.clockTick;
                                 this.chargeOrigin = null;
                                 // this.animations[1].setFrameDuration(this.walkSpeed);
                                 this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed * 3 : this.walkSpeed);
@@ -234,11 +234,17 @@ class Minotaur {
                 this.velocity.y = 0;
 
                 if (!this.attackFlag && prevState !== 3) {
-                    this.attackTimer = 3 * 0.075 * 8;
+                    this.attackTimer = 3 * 0.075 * 8 - this.game.clockTick;
                 }
                 this.charging = false;
                 if (this.damagedTimer === 0 && this.attackTimer > 0) {
                     this.state = 2;
+                } else if (this.attackTimer === 0) {
+                    this.movementUnitVector = undefined;
+                    if (this.confusedTimer > 0) {
+                        let randomTheta = toRadians(randomInt(361));
+                        this.confusionUnitVector = unitVector({ x: Math.cos(randomTheta), y: Math.sin(randomTheta) });
+                    }
                 }
                 if (this.shootTimer === 0 && this.state === 2) {
                     this.shootTimer = 0.075 * 8 - this.game.clockTick;
