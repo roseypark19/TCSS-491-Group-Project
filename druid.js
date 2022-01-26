@@ -93,7 +93,7 @@ class DruidBird {
                         // 0, 1, 2, 3
         this.id = ++PARAMS.LIFE_ID;
         this.maxHp = 6000;
-        this.minProximity = 2;
+        this.minProximity = 5;
         this.visionDistance = 450;
         this.attackDistance = 250;
         this.shotsTaken = [];
@@ -431,7 +431,7 @@ class DruidHound {
                         // 0, 1, 2, 3, 4
         this.id = ++PARAMS.LIFE_ID;
         this.maxHp = 6000;
-        this.minProximity = 2;
+        this.minProximity = 5;
         this.visionDistance = 400;
         this.attackDistance = 250;
         this.shotsTaken = [];
@@ -1355,7 +1355,8 @@ class DruidRoot {
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/projectiles/root.png");
         this.lifetime = 1.5;
         this.origLT = this.lifetime;
-        this.hp = 0;
+        this.npc = true;
+        this.id = ++PARAMS.NPC_ID;
         this.animation = new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 15, this.lifetime / 15, false, true);
         this.updateBB();
     }

@@ -2,6 +2,7 @@ class TinyHero {
     constructor(game, destinations) {
         Object.assign(this, { game, destinations });
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/hero/tiny_hero.png");
+        this.id = ++PARAMS.LIFE_ID;
         this.facing = [0, 0]; // down, up, right, left
                               // 0, 1, 0, 1 
         this.state = 0; // idle, walking, shooting, charged, dead
@@ -13,6 +14,7 @@ class TinyHero {
         this.scale = PARAMS.SCALE / 1;
         this.targetIndex = 0;
         this.prevTargetIndex = 0;
+        this.hp = 0;
         this.x = this.destinations[this.targetIndex].originX - 16 * this.scale;
         this.y = this.destinations[this.targetIndex].originY - 16 * this.scale;
         this.target = this.destinations[this.targetIndex];
@@ -477,12 +479,12 @@ class Hero {
                 this.state = 2;
                 if (this.shootTimer === 0) {
                     this.shootTimer = this.dexterity * this.shootFrames - this.game.clockTick;
-                    let vector = { x : mousePoint.x + this.game.camera.x - this.BB.center.x, 
-                                    y : mousePoint.y + this.game.camera.y - this.BB.center.y };
-                    let directionUnitVector = unitVector(vector);
-                    let range = WEAPONS[this.weapon.type].range;
-                    let projectileCenter = { x: this.BB.center.x + range * PARAMS.SCALE * directionUnitVector.x,
-                                                y: this.BB.center.y + range * PARAMS.SCALE * directionUnitVector.y };
+                    // let vector = { x : mousePoint.x + this.game.camera.x - this.BB.center.x, 
+                    //                 y : mousePoint.y + this.game.camera.y - this.BB.center.y };
+                    // let directionUnitVector = unitVector(vector);
+                    // let range = WEAPONS[this.weapon.type].range;
+                    // let projectileCenter = { x: this.BB.center.x + range * PARAMS.SCALE * directionUnitVector.x,
+                    //                             y: this.BB.center.y + range * PARAMS.SCALE * directionUnitVector.y };
                     if (this.shootFlag) {
                         // ASSET_MANAGER.playAsset("./audio/sword.mp3");
                         // if (this.weapon.type < 4) {
@@ -495,10 +497,17 @@ class Hero {
                         //                         15,
                         //                         0.1, this.BB.center));
                         // } else {
+                            let type = WEAPONS[this.weapon.type].projectileType;
+                            let base_vel = PROJECTILES[type].velocity;
+                            let true_vel = { x: Math.cos(theta) * base_vel, y: Math.sin(theta) * base_vel };
+                            let proj_vel = { x: true_vel.x + (Math.sign(true_vel.x) === Math.sign(this.velocity.x) ? this.velocity.x: 0),
+                                             y: true_vel.y + (Math.sign(true_vel.y) === Math.sign(this.velocity.y) ? this.velocity.y: 0) };
                             this.game.addEntity(new Projectile(this.game, 
                                                                 this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(theta) * PARAMS.SCALE, 
                                                                 this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, 
-                                                                theta, true, WEAPONS[this.weapon.type].projectileType, this.BB.center));
+                                                                theta, true, type, this.BB.center, 
+                                                                /*PROJECTILES[type].velocity +*/ magnitude(proj_vel), 
+                                                                75));
                     }
                     
                 }
