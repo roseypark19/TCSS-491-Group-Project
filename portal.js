@@ -65,11 +65,14 @@ class Portal {
         } else {
             // for loop prevents errors when the hero is not added to project... 
             // consider making these changes in the shops and other entities that interact with hero BB
-            this.game.livingEntities.forEach(entity => {
-                if (entity instanceof Hero) {
-                    this.showingButton = entity.hitBB.collide(this.BB);
-                }
-            });    
+            console.log(this.game.livingEntities)
+            // this.game.livingEntities.forEach(entity => {
+            //     if (entity instanceof Hero || entity instanceof TinyHero) {
+            //         this.showingButton = entity.hitBB.collide(this.BB);
+            //         console.log("changing")
+            //     }
+            // });    
+            this.showingButton = this.game.camera.hero.hitBB.collide(this.BB);
 
             this.buttonBB = new BoundingBox(this.buttonX,
                 this.buttonY,
@@ -98,6 +101,7 @@ class Portal {
                                     PARAMS.SCALE / 2);
         }
         if (this.showingButton) {
+            
             ctx.save();
             ctx.font = 48 + 'px "silkscreennormal"';
             ctx.lineWidth = 10;

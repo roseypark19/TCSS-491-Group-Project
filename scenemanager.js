@@ -4,9 +4,8 @@ class SceneManager {
         this.game.camera = this;
         this.x = 0;
         this.y = 0;
-        this.currentLevel = town;
-        // this.loadLevel(overworld, true);
-        this.loadLevel(town, false, true);
+        this.currentLevel = snow1;
+        this.travelTo(snow1);
     };
 
     clearEntities() {
@@ -64,7 +63,6 @@ class SceneManager {
                     this.game.addEntity(new Minotaur(this.game, 500, 550, true));
                     this.game.addEntity(new Minotaur(this.game, 550, 550, true));
 
-
                     this.hero = new Hero(this.game, 36 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
                     this.game.addEntity(this.hero);
                     // toppers
@@ -74,6 +72,10 @@ class SceneManager {
                         }
                     });
 
+                } else if (this.currentLevel == snow1) {
+                    this.hero = new Hero(this.game, 17 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
+                                         64 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
+                    this.game.addEntity(this.hero); 
                 } else {
                     // add a regular hero -- to come later!
                 }
@@ -111,6 +113,7 @@ class SceneManager {
             });
             
         }
+        console.log(this.game.entities)
             
 
     };
@@ -159,12 +162,12 @@ class SceneManager {
         PARAMS.DEBUG = document.getElementById("debug").checked;
         let midpoint = { x : PARAMS.CANVAS_DIMENSION / 2, y : PARAMS.CANVAS_DIMENSION / 2 };
 
-        if (this.currentLevel == town) {
+        if (this.currentLevel != overworld) {
             // this code restricts x, y camera based on the town
-            if (this.hero.BB.center.x >= midpoint.x && this.hero.BB.center.x <= PARAMS.BLOCKWIDTH * PARAMS.SCALE * town.width - midpoint.x) {
+            if (this.hero.BB.center.x >= midpoint.x && this.hero.BB.center.x <= PARAMS.BLOCKWIDTH * PARAMS.SCALE * this.currentLevel.width - midpoint.x) {
                 this.x = this.hero.BB.center.x - midpoint.x;
             }
-            if (this.hero.BB.center.y >= midpoint.y && this.hero.BB.center.y <= PARAMS.BLOCKWIDTH * PARAMS.SCALE * town.height - midpoint.y) {
+            if (this.hero.BB.center.y >= midpoint.y && this.hero.BB.center.y <= PARAMS.BLOCKWIDTH * PARAMS.SCALE * this.currentLevel.height - midpoint.y) {
                 this.y = this.hero.BB.center.y - midpoint.y;
             }
         } else {
