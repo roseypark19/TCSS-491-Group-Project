@@ -526,27 +526,27 @@ const snow1 = {
     layer_names: ["ground", "collideable", "hero", "topper", "shadows"], 
 
     props: [
-        {index: 60, x: 21, y: 60, centered: false}, 
-        {index: 61, x: 23, y: 60, centered: false},
-        {index: 62, x: 25, y: 60, centered: false},
-        {index: 63, x: 27, y: 60, centered: false},
-        {index: 64, x: 29, y: 60, centered: false},
-        {index: 65, x: 31, y: 60, centered: false},
-        {index: 66, x: 33, y: 60, centered: false},
-        {index: 67, x: 35, y: 60, centered: false},
-        {index: 68, x: 37, y: 60, centered: false},
-        {index: 69, x: 21, y: 62, centered: false},
-        {index: 70, x: 23, y: 62, centered: false},
-        {index: 71, x: 25, y: 62, centered: false},
-        {index: 72, x: 27, y: 62, centered: false},
-        {index: 73, x: 29, y: 62, centered: false},
-        {index: 74, x: 31, y: 62, centered: false},
-        {index: 75, x: 30, y: 66, centered: false},
-        {index: 76, x: 32, y: 66, centered: false},
-        {index: 77, x: 34, y: 66, centered: false},
-        {index: 78, x: 38, y: 66, centered: false},
-        {index: 79, x: 41, y: 66, centered: false},
-        {index: 80, x: 44, y: 66, centered: false},
+        // {index: 60, x: 21, y: 60, centered: false}, 
+        // {index: 61, x: 23, y: 60, centered: false},
+        // {index: 62, x: 25, y: 60, centered: false},
+        // {index: 63, x: 27, y: 60, centered: false},
+        // {index: 64, x: 29, y: 60, centered: false},
+        // {index: 65, x: 31, y: 60, centered: false},
+        // {index: 66, x: 33, y: 60, centered: false},
+        // {index: 67, x: 35, y: 60, centered: false},
+        // {index: 68, x: 37, y: 60, centered: false},
+        // {index: 69, x: 21, y: 62, centered: false},
+        // {index: 70, x: 23, y: 62, centered: false},
+        // {index: 71, x: 25, y: 62, centered: false},
+        // {index: 72, x: 27, y: 62, centered: false},
+        // {index: 73, x: 29, y: 62, centered: false},
+        // {index: 74, x: 31, y: 62, centered: false},
+        // {index: 75, x: 30, y: 66, centered: false},
+        // {index: 76, x: 32, y: 66, centered: false},
+        // {index: 77, x: 34, y: 66, centered: false},
+        // {index: 78, x: 38, y: 66, centered: false},
+        // {index: 79, x: 41, y: 66, centered: false},
+        // {index: 80, x: 44, y: 66, centered: false},
        
         {index: 64, x: 2, y: 17, centered: false}, // water hole
         {index: 74, x: 1, y: 16, centered: false}, // water hole sign
@@ -617,10 +617,40 @@ const snow1 = {
         {index: 61, x: 13, y: 42, centered: false}, 
         {index: 61, x: 11, y: 32, centered: false}, 
         {index: 61, x: 7, y: 12, centered: false}, 
-
+        // dead bushes
+        {index: 62, x: 6, y: 51, centered: false}, 
+        {index: 62, x: 10, y: 73, centered: false}, 
+        // small rocks
+        {index: 67, x: 14, y: 48, centered: false}, 
+        // broken ice
+        {index: 68, x: 11, y: 26, centered: false}, 
+        // tall rock
+        {index: 75, x: 15, y: 71, centered: false}, 
         
-        
-
+    // bottom middle region
+        // logs 
+        {index: 66, x: 44, y: 66, centered: false},
+        {index: 65, x: 54, y: 66, centered: false},
+        // trees
+        {index: 81, x: 42, y: 59, centered: false}, 
+        {index: 81, x: 45, y: 61, centered: false}, 
+        {index: 81, x: 52.5, y: 61, centered: false}, 
+        {index: 81, x: 58.5, y: 60.5, centered: false}, 
+        {index: 81, x: 50, y: 62, centered: false}, 
+        {index: 81, x: 55, y: 59, centered: false}, 
+        {index: 81, x: 54.5, y: 62.5, centered: false},
+        // tall rocks
+        {index: 75, x: 57, y: 72, centered: false}, 
+        {index: 75, x: 69, y: 72, centered: false}, 
+        // medium rock
+        {index: 76, x: 28, y: 70, centered: false}, 
+        // larger ice 
+        {index: 79, x: 34, y: 43, centered: false}, 
+        // medium ice
+        {index: 80, x: 34, y: 52.5, centered: false}, 
+        // small flowers
+        {index: 60, x: 47, y: 67, centered: false}, 
+        {index: 60, x: 57.5, y: 64.5, centered: false}, 
 
 
 
