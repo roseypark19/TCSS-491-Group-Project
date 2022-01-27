@@ -300,7 +300,6 @@ const props = {
     },
 
 
-
     75: { // tall rock
         topX: 56,
         topY: 32,
@@ -372,7 +371,7 @@ const props = {
         shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/treesShadows.png", 40, 7, 23, 39, false, 81)
     },
 
-    82: { // straight tree partial snow
+    82: { // left tree partial snow
         topX: 42,
         topY: 49,
         width: 20,
@@ -383,7 +382,7 @@ const props = {
         shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/treesShadows.png", 42, 49, 20, 39, false, 82)
     },
 
-    83: { // straight tree partial snow
+    83: { // right tree partial snow
         topX: 42,
         topY: 89,
         width: 20,

@@ -368,8 +368,8 @@ class Hero {
             } 
         }
 
-        this.velocity.x = newVelX;
-        this.velocity.y = newVelY;
+        this.velocity.x = newVelX*2;
+        this.velocity.y = newVelY*2;
         this.x += this.velocity.x;
         this.y += this.velocity.y;
         this.updateBB();

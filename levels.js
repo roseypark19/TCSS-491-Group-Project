@@ -547,9 +547,94 @@ const snow1 = {
         {index: 78, x: 38, y: 66, centered: false},
         {index: 79, x: 41, y: 66, centered: false},
         {index: 80, x: 44, y: 66, centered: false},
-        {index: 81, x: 10, y: 60, centered: false},
-        {index: 82, x: 7, y: 60, centered: false},
-        {index: 83, x: 13, y: 60, centered: false}
+       
+        {index: 64, x: 2, y: 17, centered: false}, // water hole
+        {index: 74, x: 1, y: 16, centered: false}, // water hole sign
+
+        // greeting snowman and sign
+        {index: 73, x: 20, y: 57, centered: false}, 
+        {index: 74, x: 21.5, y: 57.25, centered: false}, 
+
+
+    // below river
+        // trees
+        {index: 81, x: -1, y: 83, centered: false}, 
+        {index: 81, x: 2, y: 79, centered: false}, 
+        {index: 81, x: 5, y: 80, centered: false}, 
+        {index: 81, x: 8, y: 80, centered: false}, 
+        {index: 81, x: 13, y: 81, centered: false}, 
+        {index: 81, x: 79, y: 78, centered: false}, 
+        {index: 81, x: 84, y: 79, centered: false}, 
+        {index: 81, x: 90, y: 80, centered: false}, 
+        {index: 81, x: 52, y: 78, centered: false}, 
+        {index: 81, x: 66, y: 80, centered: false}, 
+        {index: 81, x: 69, y: 80, centered: false}, 
+        {index: 81, x: 59, y: 79, centered: false}, 
+        {index: 81, x: 27, y: 78, centered: false}, 
+        {index: 81, x: 37, y: 79, centered: false},
+        {index: 66, x: 44, y: 81, centered: false}, 
+        {index: 81, x: 42, y: 77, centered: false}, 
+        {index: 66, x: 111, y: 83.5, centered: false},  // fallen log on right
+        {index: 81, x: 112, y: 78, centered: false}, 
+        {index: 81, x: 113, y: 79, centered: false},
+        {index: 81, x: 106, y: 80, centered: false}, 
+        {index: 81, x: 109, y: 81, centered: false},  
+        // logs on ground
+        {index: 65, x: 25, y: 83, centered: false}, 
+        {index: 65, x: 88, y: 83.5, centered: false}, 
+        // flowers
+        {index: 60, x: 22, y: 83, centered: false}, 
+        {index: 60, x: 50, y: 82, centered: false}, 
+        {index: 60, x: 77, y: 82, centered: false}, 
+        // grass
+        {index: 63, x: 101, y: 83, centered: false}, 
+        {index: 63, x: 35, y: 83, centered: false}, 
+        {index: 63, x: 80, y: 83, centered: false},         // bush
+        {index: 61, x: 31, y: 82, centered: false}, 
+        {index: 61, x: 55, y: 82, centered: false}, 
+        {index: 61, x: 97, y: 84, centered: false}, 
+
+
+    // near spawn
+        // {index: 81, x: 26, y: 45, centered: false}, 
+        // {index: 81, x: 28, y: 38, centered: false}, 
+        // {index: 81, x: 24, y: 40, centered: false}, 
+        // {index: 81, x: 29, y: 50, centered: false}, 
+
+    // everything left of spawn (top to bottom)
+        // trees
+        {index: 81, x: 6, y: 29, centered: false}, 
+        {index: 81, x: 9, y: 39, centered: false},
+        {index: 81, x: -.5, y: 69.5, centered: false},
+        {index: 81, x: 1.5, y: 64, centered: false},
+        {index: 81, x: 5, y: 62.5, centered: false}, 
+        // grass
+        {index: 63, x: 11, y: 13, centered: false}, 
+        {index: 63, x: 10, y: 34, centered: false}, 
+        {index: 63, x: 15, y: 25, centered: false}, 
+        {index: 63, x: 7, y: 43, centered: false}, 
+        // bushes
+        {index: 61, x: 13, y: 42, centered: false}, 
+        {index: 61, x: 11, y: 32, centered: false}, 
+        {index: 61, x: 7, y: 12, centered: false}, 
+
+        
+        
+
+
+
+
+
+
+
+
+
+        // middle shrine 
+        {index: 73, x: 56.8, y: 30, centered: false}, 
+        {index: 63, x: 55.3, y: 29, centered: false}, 
+        {index: 63, x: 58.5, y: 31.5, centered: false}, 
+        {index: 60, x: 59, y: 29, centered: false}, 
+        {index: 60, x: 56, y: 33, centered: false}, 
     ],
 
     ground: {
