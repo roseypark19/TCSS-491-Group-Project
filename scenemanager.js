@@ -78,9 +78,21 @@ class SceneManager {
                     });
 
                 } else if (this.currentLevel == snow1) {
+                    // paint bottom of trees that aren't collidable
+                    this.currentLevel.props.forEach(prop => {
+                        if (props[prop.index].bottomNotCollidable) {
+                            this.game.addEntity(props[prop.index].bottomNotCollidable(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
+                        }
+                    });
+
+                    this.addPropBases();
+                    
                     this.hero = new Hero(this.game, 17 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
                                          64 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
                     this.game.addEntity(this.hero); 
+
+                    this.addPropToppers();
+                    this.addPropShadows();
                 } else {
                     // add a regular hero -- to come later!
                 }
@@ -118,10 +130,29 @@ class SceneManager {
             });
             
         }
-        console.log(this.game.entities)
-            
-
     };
+
+    addPropBases() {
+        this.currentLevel.props.forEach(prop => {
+            if (props[prop.index].base) {
+                this.game.addEntity(props[prop.index].base(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
+            }
+        });
+    }
+    addPropToppers() {
+        this.currentLevel.props.forEach(prop => {
+            if (props[prop.index].topper) {
+                this.game.addEntity(props[prop.index].topper(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
+            }
+        });
+    }
+    addPropShadows() {
+        this.currentLevel.props.forEach(prop => {
+            if (props[prop.index].shadow) {
+                this.game.addEntity(props[prop.index].shadow(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
+            }
+        });
+    }
 
     createDestinations(level) {
         let destinations = [];

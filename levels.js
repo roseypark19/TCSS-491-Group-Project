@@ -525,6 +525,33 @@ const snow1 = {
     height: 85,
     layer_names: ["ground", "collideable", "hero", "topper", "shadows"], 
 
+    props: [
+        {index: 60, x: 21, y: 60, centered: false}, 
+        {index: 61, x: 23, y: 60, centered: false},
+        {index: 62, x: 25, y: 60, centered: false},
+        {index: 63, x: 27, y: 60, centered: false},
+        {index: 64, x: 29, y: 60, centered: false},
+        {index: 65, x: 31, y: 60, centered: false},
+        {index: 66, x: 33, y: 60, centered: false},
+        {index: 67, x: 35, y: 60, centered: false},
+        {index: 68, x: 37, y: 60, centered: false},
+        {index: 69, x: 21, y: 62, centered: false},
+        {index: 70, x: 23, y: 62, centered: false},
+        {index: 71, x: 25, y: 62, centered: false},
+        {index: 72, x: 27, y: 62, centered: false},
+        {index: 73, x: 29, y: 62, centered: false},
+        {index: 74, x: 31, y: 62, centered: false},
+        {index: 75, x: 30, y: 66, centered: false},
+        {index: 76, x: 32, y: 66, centered: false},
+        {index: 77, x: 34, y: 66, centered: false},
+        {index: 78, x: 38, y: 66, centered: false},
+        {index: 79, x: 41, y: 66, centered: false},
+        {index: 80, x: 44, y: 66, centered: false},
+        {index: 81, x: 10, y: 60, centered: false},
+        {index: 82, x: 7, y: 60, centered: false},
+        {index: 83, x: 13, y: 60, centered: false}
+    ],
+
     ground: {
         data: [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,54,54,54,54,54,54,54,54,54,54,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,
             -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,54,-1,54,54,54,54,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,527,
