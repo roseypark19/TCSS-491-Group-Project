@@ -87,12 +87,19 @@ class SceneManager {
 
                     this.addPropBases();
                     
-                    this.hero = new Hero(this.game, 17 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
-                                         64 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
+                    this.hero = new Hero(this.game, 50 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
+                                         40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
                     this.game.addEntity(this.hero); 
 
                     this.addPropToppers();
                     this.addPropShadows();
+
+                    this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
                 } else {
                     // add a regular hero -- to come later!
                 }
@@ -183,7 +190,7 @@ class SceneManager {
                                            scale,
                                            property.collideable);
                     if (property.hasOwnProperty("custom_animations") && 
-                        property.custom_animations.hasOwnProperty(spriteCode)) {
+                            property.custom_animations.hasOwnProperty(spriteCode)) {
                         let animData = property.custom_animations[spriteCode];
                         tile.alterTileAnimation(animData.frameCount, animData.frameDuration, animData.framePadding);
                     }

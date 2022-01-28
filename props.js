@@ -231,7 +231,7 @@ const props = {
         base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/propsAndShadows.png", 2, 25, 13, 6, false, 66)
     },
 
-    67: { // snow mall rock
+    67: { // snow small rock
         topX: 40,
         topY: 40,
         width: 8,
