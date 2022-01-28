@@ -84,22 +84,20 @@ class SceneManager {
                             this.game.addEntity(props[prop.index].bottomNotCollidable(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
                         }
                     });
+                    // coward portal
+                    this.game.addEntity(new Portal(this.game, "Leave Snow 1", overworld, 5, 16.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 63.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 11.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 67 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 440));
+                    // leaving portal
+                    this.game.addEntity(new Portal(this.game, "Complete Snow 1", overworld, 2, 96 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 65 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 89 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 71 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 545));
 
                     this.addPropBases();
                     
-                    this.hero = new Hero(this.game, 50 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
-                                         40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
+                    this.hero = new Hero(this.game, 15.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
+                                         60 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
                     this.game.addEntity(this.hero); 
 
                     this.addPropToppers();
                     this.addPropShadows();
 
-                    this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
                 } else {
                     // add a regular hero -- to come later!
                 }
@@ -136,6 +134,15 @@ class SceneManager {
                 }
             });
             
+        } else if (this.currentLevel == snow1) {
+            this.game.addEntity(new Dialogue(this.game, "It's a hole!", true, 4, 15.5, 1, 17, 1, 1, true)); // upper left sign
+            this.game.addEntity(new Dialogue(this.game, "Welcome to snow 1!", true, 19.5, 56.5, 21, 58, 2, 1, true)); // upper left sign
+            // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+            // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+            // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+            // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+            // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+            // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
         }
     };
 

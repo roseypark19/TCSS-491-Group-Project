@@ -463,7 +463,25 @@ const snow1 = {
         imageHeight: 38, 
         collideable: false,
         spritesheet: "./sprites/biomes/snow/tiles.png",
-        custom_animations: {}
+        custom_animations: {
+            122: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            123: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            124: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            172: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            173: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            174: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            222: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            223: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            224: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            272: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            273: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            274: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            326: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            327: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            328: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+
+
+        }
     },
 
     collideable: {

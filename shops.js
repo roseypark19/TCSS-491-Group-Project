@@ -37,8 +37,8 @@ class WeaponsShop {
         this.TEXT_BOX_Y_OFFSET = 135; // y offset for each category box
 
         // x, y position for open shop button
-        this.ENTER_TEXT_X = 201.5 * PARAMS.BLOCKWIDTH;
-        this.ENTER_TEXT_Y = 116.5 * PARAMS.BLOCKWIDTH;
+        this.ENTER_TEXT_X = 50.3 * PARAMS.BLOCKWIDTH * PARAMS.SCALE;
+        this.ENTER_TEXT_Y = 29.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE;
         
         // y values for text for each weapon
         this.SWORD_TEXT_Y = this.TEXT_Y_INITIAL + (0 * this.TEXT_BOX_Y_OFFSET);
@@ -117,7 +117,7 @@ class WeaponsShop {
 
     addBBs() {
         this.BB = new BoundingBox(51 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 27 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 32 * PARAMS.BLOCKWIDTH, 13 * PARAMS.BLOCKWIDTH);
-        this.openShopBB = new BoundingBox(this.ENTER_TEXT_X - this.game.camera.x - 9, this.ENTER_TEXT_Y - this.game.camera.y, 350, 50);
+        this.openShopBB = new BoundingBox(this.ENTER_TEXT_X, this.ENTER_TEXT_Y, 350, 50);
 
         this.mouseBB = new BoundingBox(0, 0, 1, 1);  
         this.shopMouseBB = new BoundingBox(0, 0, 1, 1);  
@@ -940,6 +940,8 @@ class WeaponsShop {
             } else {
                 ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width, this.BB.height);
                 ctx.strokeRect(this.openShopBB.x - this.game.camera.x, this.openShopBB.y - this.game.camera.y, this.openShopBB.width, this.openShopBB.height);
+                console.log(this.openShopBB);
+                console.log(this.shopMouseBB)
             }
            
         }
@@ -987,7 +989,7 @@ class StatsShop {
 
         // x, y position for open shop button
         this.ENTER_TEXT_X = 14.3 * PARAMS.BLOCKWIDTH * PARAMS.SCALE;
-        this.ENTER_TEXT_Y = 39 * PARAMS.BLOCKWIDTH * PARAMS.SCALE;
+        this.ENTER_TEXT_Y = 39.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE;
         
         // y values for text for each weapon
         this.SPEED_TEXT_Y = this.TEXT_Y_INITIAL + (0 * this.TEXT_BOX_Y_OFFSET);
@@ -1051,7 +1053,7 @@ class StatsShop {
 
     addBBs() {
         this.BB = new BoundingBox(16 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 32 * PARAMS.BLOCKWIDTH, 13 * PARAMS.BLOCKWIDTH);
-        this.openShopBB = new BoundingBox(this.ENTER_TEXT_X - this.game.camera.x - 9, this.ENTER_TEXT_Y - this.game.camera.y, 350, 50);
+        this.openShopBB = new BoundingBox(this.ENTER_TEXT_X, this.ENTER_TEXT_Y, 350, 50);
 
         this.mouseBB = new BoundingBox(0, 0, 1, 1);  
         this.shopMouseBB = new BoundingBox(0, 0, 1, 1);  
