@@ -5,58 +5,36 @@ const snow1 = {
     layer_names: ["ground", "collideable", "hero", "topper", "shadows"], 
 
     props: [
-        // {index: 60, x: 21, y: 60, centered: false}, 
-        // {index: 61, x: 23, y: 60, centered: false},
-        // {index: 62, x: 25, y: 60, centered: false},
-        // {index: 63, x: 27, y: 60, centered: false},
-        // {index: 64, x: 29, y: 60, centered: false},
-        // {index: 65, x: 31, y: 60, centered: false},
-        // {index: 66, x: 33, y: 60, centered: false},
-        // {index: 67, x: 35, y: 60, centered: false},
-        // {index: 68, x: 37, y: 60, centered: false},
-        // {index: 69, x: 21, y: 62, centered: false},
-        // {index: 70, x: 23, y: 62, centered: false},
-        // {index: 71, x: 25, y: 62, centered: false},
-        // {index: 72, x: 27, y: 62, centered: false},
-        // {index: 73, x: 29, y: 62, centered: false},
-        // {index: 74, x: 31, y: 62, centered: false},
-        // {index: 75, x: 30, y: 66, centered: false},
-        // {index: 76, x: 32, y: 66, centered: false},
-        // {index: 77, x: 34, y: 66, centered: false},
-        // {index: 78, x: 38, y: 66, centered: false},
-        // {index: 79, x: 41, y: 66, centered: false},
-        // {index: 80, x: 44, y: 66, centered: false},
-       
+    // ice in top left       
         {index: 64, x: 2, y: 17, centered: false}, // water hole
         {index: 74, x: 1, y: 16, centered: false}, // water hole sign
 
-        // greeting snowman and sign
+    // greeting snowman and sign
         {index: 73, x: 20, y: 57, centered: false}, 
         {index: 74, x: 21.5, y: 57.25, centered: false}, 
-
 
     // below river
         // trees
         {index: 81, x: -1, y: 83, centered: false}, 
-        {index: 81, x: 2, y: 79, centered: false}, 
-        {index: 81, x: 5, y: 80, centered: false}, 
+        {index: 82, x: 2, y: 79, centered: false}, 
+        {index: 85, x: 5, y: 80, centered: false}, 
         {index: 81, x: 8, y: 80, centered: false}, 
         {index: 81, x: 13, y: 81, centered: false}, 
         {index: 81, x: 79, y: 78, centered: false}, 
         {index: 81, x: 84, y: 79, centered: false}, 
-        {index: 81, x: 90, y: 80, centered: false}, 
+        {index: 82, x: 90, y: 80, centered: false}, 
         {index: 81, x: 52, y: 78, centered: false}, 
-        {index: 81, x: 66, y: 80, centered: false}, 
-        {index: 81, x: 69, y: 80, centered: false}, 
-        {index: 81, x: 59, y: 79, centered: false}, 
+        {index: 83, x: 66, y: 80, centered: false}, 
+        {index: 84, x: 69, y: 80, centered: false}, 
+        {index: 83, x: 59, y: 79, centered: false}, 
         {index: 81, x: 27, y: 78, centered: false}, 
-        {index: 81, x: 37, y: 79, centered: false},
+        {index: 82, x: 37, y: 79, centered: false},
         {index: 66, x: 44, y: 81, centered: false}, 
         {index: 81, x: 42, y: 77, centered: false}, 
         {index: 66, x: 111, y: 83.5, centered: false},  // fallen log on right
         {index: 81, x: 112, y: 78, centered: false}, 
         {index: 81, x: 113, y: 79, centered: false},
-        {index: 81, x: 106, y: 80, centered: false}, 
+        {index: 82, x: 106, y: 80, centered: false}, 
         {index: 81, x: 109, y: 81, centered: false},  
         // logs on ground
         {index: 65, x: 25, y: 83, centered: false}, 
@@ -68,23 +46,16 @@ const snow1 = {
         // grass
         {index: 63, x: 101, y: 83, centered: false}, 
         {index: 63, x: 35, y: 83, centered: false}, 
-        {index: 63, x: 80, y: 83, centered: false},         // bush
+        {index: 63, x: 80, y: 83, centered: false},
         {index: 61, x: 31, y: 82, centered: false}, 
         {index: 61, x: 55, y: 82, centered: false}, 
         {index: 61, x: 97, y: 84, centered: false}, 
 
-
-    // near spawn
-        // {index: 81, x: 26, y: 45, centered: false}, 
-        // {index: 81, x: 28, y: 38, centered: false}, 
-        // {index: 81, x: 24, y: 40, centered: false}, 
-        // {index: 81, x: 29, y: 50, centered: false}, 
-
     // everything left of spawn (top to bottom)
         // trees
         {index: 81, x: 6, y: 29, centered: false}, 
-        {index: 81, x: 9, y: 39, centered: false},
-        {index: 81, x: -.5, y: 69.5, centered: false},
+        {index: 82, x: 9, y: 39, centered: false},
+        {index: 82, x: -.5, y: 69.5, centered: false},
         {index: 81, x: 1.5, y: 64, centered: false},
         {index: 81, x: 5, y: 62.5, centered: false}, 
         // grass
@@ -113,19 +84,18 @@ const snow1 = {
         {index: 65, x: 25, y: 46, centered: false},
         {index: 66, x: 23, y: 46.75, centered: false},
         // trees
-        {index: 81, x: 42, y: 59, centered: false}, 
-        {index: 81, x: 45, y: 61, centered: false}, 
-        {index: 81, x: 52.5, y: 61, centered: false}, 
-        {index: 81, x: 58.5, y: 60.5, centered: false}, 
-        {index: 81, x: 50, y: 62, centered: false}, 
+        {index: 81, x: 42, y: 59, centered: false},  
+        {index: 82, x: 45, y: 61, centered: false}, 
+        {index: 84, x: 52.5, y: 61, centered: false}, 
+        {index: 85, x: 58.5, y: 60.5, centered: false}, 
+        {index: 82, x: 50, y: 62, centered: false}, 
         {index: 81, x: 55, y: 59, centered: false}, 
         {index: 81, x: 54.5, y: 62.5, centered: false},
         {index: 81, x: 35, y: 56, centered: false},
         {index: 81, x: 23, y: 40, centered: false},
-        {index: 81, x: 21, y: 43, centered: false},
-        {index: 81, x: 26, y: 44, centered: false},
-        
-        {index: 81, x: 23, y: 50, centered: false},
+        {index: 82, x: 21, y: 43, centered: false},
+        {index: 83, x: 26, y: 44, centered: false}, 
+        {index: 84, x: 23, y: 50, centered: false},
         {index: 81, x: 26, y: 52, centered: false},
         {index: 81, x: 20, y: 47, centered: false},
         // tall rocks
@@ -214,8 +184,6 @@ const snow1 = {
         {index: 75, x: 43, y: 34, centered: false},
         {index: 76, x: 47, y: 38, centered: false},
         {index: 75, x: 52, y: 38.5, centered: false},
-        
-
 
     // upper right snowman area
         // snowmen
@@ -239,19 +207,18 @@ const snow1 = {
     // upper right beside snowman area 
         // trees
         {index: 81, x: 109, y: 9, centered: false},
-        {index: 81, x: 112, y: 10, centered: false},
-        {index: 81, x: 108, y: 12, centered: false},
+        {index: 82, x: 112, y: 10, centered: false},
+        {index: 82, x: 108, y: 12, centered: false},
         {index: 81, x: 111, y: 14, centered: false},
-        {index: 81, x: 108, y: 20, centered: false},
+        {index: 82, x: 108, y: 20, centered: false},
         {index: 81, x: 112, y: 21, centered: false},
-        {index: 81, x: 114, y: 17, centered: false},
-        {index: 81, x: 110, y: 23, centered: false},
+        {index: 82, x: 114, y: 17, centered: false},
         {index: 81, x: 110, y: 23, centered: false},
         {index: 81, x: 108, y: 25, centered: false},
-        {index: 81, x: 112, y: 27, centered: false},
-        {index: 81, x: 109, y: 30, centered: false},
+        {index: 82, x: 112, y: 27, centered: false},
+        {index: 82, x: 109, y: 30, centered: false},
         {index: 81, x: 111, y: 33, centered: false},
-        {index: 81, x: 105, y: 33, centered: false},
+        {index: 84, x: 105, y: 33, centered: false},
         {index: 81, x: 107, y: 37, centered: false},
         // dead bush
         {index: 62, x: 111, y: 20, centered: false},
@@ -267,14 +234,14 @@ const snow1 = {
     // left of snowman area
         // trees
         {index: 81, x: 66, y: 8, centered: false},
-        {index: 81, x: 68, y: 10, centered: false},
+        {index: 82, x: 68, y: 10, centered: false},
         {index: 81, x: 72, y: 8, centered: false},
         {index: 81, x: 71, y: 14, centered: false},
-        {index: 81, x: 75, y: 12, centered: false},
+        {index: 82, x: 75, y: 12, centered: false},
         {index: 81, x: 77, y: 16, centered: false},
-        {index: 81, x: 77, y: 20, centered: false},
+        {index: 82, x: 77, y: 20, centered: false},
         {index: 81, x: 72, y: 19, centered: false},
-        {index: 81, x: 74, y: 23, centered: false},
+        {index: 82, x: 74, y: 23, centered: false},
         {index: 81, x: 77, y: 26, centered: false},
         // grass
         {index: 63, x: 65, y: 24, centered: false},
@@ -284,24 +251,24 @@ const snow1 = {
 
     // right side
         // tree
-        {index: 81, x: 95.5, y: 60, centered: false},
+        {index: 82, x: 95.5, y: 60, centered: false},
         {index: 81, x: 107, y: 46, centered: false},
-        {index: 81, x: 109, y: 41, centered: false},
+        {index: 85, x: 109, y: 41, centered: false},
         {index: 81, x: 109, y: 49, centered: false},
-        {index: 81, x: 106, y: 53, centered: false},
+        {index: 83, x: 106, y: 53, centered: false},
         {index: 81, x: 113, y: 54, centered: false},
-        {index: 81, x: 113, y: 61, centered: false},
+        {index: 83, x: 113, y: 61, centered: false},
         {index: 81, x: 110, y: 57, centered: false},
-        {index: 81, x: 108, y: 64, centered: false},
+        {index: 82, x: 108, y: 64, centered: false},
         {index: 81, x: 112, y: 67, centered: false},
-        {index: 81, x: 105, y: 68, centered: false},
+        {index: 82, x: 105, y: 68, centered: false},
         {index: 81, x: 101, y: 36, centered: false},
-        {index: 81, x: 90, y: 32, centered: false},
-        {index: 81, x: 97, y: 33, centered: false},
+        {index: 82, x: 90, y: 32, centered: false},
+        {index: 82, x: 97, y: 33, centered: false},
         {index: 81, x: 99, y: 48, centered: false},
         {index: 81, x: 86, y: 50, centered: false},
-        {index: 81, x: 89, y: 56, centered: false},
-        {index: 81, x: 78, y: 61, centered: false},
+        {index: 82, x: 89, y: 56, centered: false},
+        {index: 82, x: 78, y: 61, centered: false},
         {index: 81, x: 86, y: 66, centered: false},
         // grass
         {index: 63, x: 94, y: 43, centered: false},
@@ -332,9 +299,9 @@ const snow1 = {
     // right of pond
         // trees
         {index: 81, x: 63, y: 54, centered: false},
-        {index: 81, x: 60, y: 57, centered: false},
-        {index: 81, x: 67, y: 61, centered: false},
-        {index: 81, x: 69, y: 53, centered: false},
+        {index: 84, x: 60, y: 57, centered: false},
+        {index: 82, x: 67, y: 61, centered: false},
+        {index: 85, x: 69, y: 53, centered: false},
         {index: 81, x: 73, y: 58, centered: false},
         // bush
         {index: 61, x: 64, y: 63, centered: false},
@@ -370,6 +337,68 @@ const snow1 = {
         {index: 63, x: 58.5, y: 31.5, centered: false}, 
         {index: 60, x: 59, y: 29, centered: false}, 
         {index: 60, x: 56, y: 33, centered: false}, 
+    ],
+
+    topper_props: [
+        // left of spawn
+        {index: 60, x: 9.5, y: 59, centered: false}, 
+        {index: 60, x: 8.5, y: 55, centered: false}, 
+        
+        // left middle structure
+        {index: 63, x: 4.5, y: 42, centered: true},
+        {index: 61, x: 3.5, y: 39, centered: true},
+        {index: 62, x: 5.5, y: 38, centered: true},
+        {index: 60, x: 11, y: 38, centered: true},
+
+        // middle left bigger structure
+        {index: 61, x: 21, y: 31, centered: false},
+        {index: 81.5, x: 25, y: 27, centered: false},
+        {index: 63, x: 22, y: 28, centered: false},
+        {index: 61, x: 32, y: 24.5, centered: false},
+        {index: 62, x: 37, y: 26, centered: false},
+
+        // upper small
+        {index: 62, x: 55, y: 13, centered: true},
+
+        // above
+        {index: 82.5, x: 2, y: -3, centered: false},
+        {index: 82.5, x: 12, y: -2.5, centered: false},
+        {index: 82.5, x: 25, y: -2.5, centered: false},
+        {index: 82.5, x: 21, y: -3, centered: false},
+        {index: 82.5, x: 29, y: -3, centered: false},
+        {index: 82.5, x: 7, y: -3, centered: false},
+        {index: 82.5, x: 55, y: -3, centered: false},
+        {index: 82.5, x: 44, y: -3, centered: false},
+        {index: 82.5, x: 60, y: -3, centered: false},
+        {index: 82.5, x: 65, y: -3, centered: false},
+        {index: 82.5, x: 73, y: -2.5, centered: false},
+        {index: 82.5, x: 77, y: -3, centered: false},
+        {index: 82.5, x: 81, y: -3, centered: false},
+        {index: 82.5, x: 86, y: -2.5, centered: false},
+        {index: 82.5, x: 90, y: -2.5, centered: false},
+        {index: 82.5, x: 95, y: -3, centered: false},
+        {index: 82.5, x: 100, y: -2.5, centered: false},
+        {index: 82.5, x: 105, y: -3, centered: false},
+        {index: 82.5, x: 110, y: -3, centered: false},
+        {index: 82.5, x: 115, y: -3, centered: false},
+        {index: 82.5, x: 70, y: 0, centered: false},
+        {index: 82.5, x: 75, y: 0, centered: false},
+        {index: 82.5, x: 93, y: 0, centered: false},
+        {index: 82.5, x: 108, y: 0, centered: false},
+
+        {index: 62, x: 1, y: 2, centered: false},
+        {index: 62, x: 10, y: 2, centered: false},
+        {index: 62, x: 29, y: 2, centered: false},
+        {index: 62, x: 34, y: 1, centered: false},
+        {index: 62, x: 63, y: 3, centered: false},
+        {index: 62, x: 34, y: 1, centered: false},
+        {index: 62, x: 84, y: 3, centered: false},
+        {index: 63, x: 6, y: 2, centered: false},
+        {index: 63, x: 23, y: 2, centered: false},
+        {index: 63, x: 80, y: 2, centered: false},
+        {index: 63, x: 68, y: 2, centered: false},
+        {index: 63, x: 102, y: 3.25, centered: false},
+        {index: 63, x: 114, y: 42, centered: false},
     ],
 
     ground: {
@@ -479,8 +508,6 @@ const snow1 = {
             326: { frameCount: 2, frameDuration: 1, framePadding: 24 },
             327: { frameCount: 2, frameDuration: 1, framePadding: 24 },
             328: { frameCount: 2, frameDuration: 1, framePadding: 24 },
-
-
         }
     },
 
@@ -798,32 +825,6 @@ const snow1 = {
         imageHeight: 38, 
         collideable: false,
         spritesheet: "./sprites/biomes/snow/shadows.png",
-        custom_animations: {}
-    },
-}
-
-
-
-const plains1 = {
-    width: 115,
-    height: 85,
-    layer_names: ["ground", "bounding", "hero", "topper", "shadows"],
-    
-    ground: {
-        data: [], 
-        imageWidth : 50, 
-        imageHeight: 38, 
-        collideable: false,
-        spritesheet: "./sprites/biomes/snow/tiles.png",
-        custom_animations: {}
-    },
-
-    bounding: {
-        data: [], 
-        imageWidth : 50, 
-        imageHeight: 38, 
-        collideable: false,
-        spritesheet: "./sprites/biomes/snow/tiles.png",
         custom_animations: {}
     },
 }

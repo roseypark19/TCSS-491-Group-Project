@@ -174,7 +174,7 @@ const props = {
 
 
 
-
+// snow props
     60: { // snow small flowers
         topX: 9,
         topY: 10,
@@ -191,7 +191,7 @@ const props = {
         base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/propsAndShadows.png", 24, 17, 7, 7, false, 61)
     },
 
-    62: { // smow dead bush
+    62: { // snow dead bush
         topX: 24,
         topY: 24,
         width: 8,
@@ -371,28 +371,78 @@ const props = {
         shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/treesShadows.png", 40, 7, 23, 39, false, 81)
     },
 
-    82: { // left tree partial snow
+    81.5: { // straight tree partial snow
+        topX: 41,
+        topY: 7,
+        width: 23,
+        height: 39,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 41, 7, 23, 39, true, 81.5),
+    },
+
+    82: { // straight tree lots of snow
+        topX: 73,
+        topY: 7,
+        width: 23,
+        height: 39,
+        bottomNotCollidable: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 73, 39, 23, 7, false, 82),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 79, 40, 6, 5, true, 82),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 73, 7, 23, 33, false, 82),
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/treesShadows.png", 71, 7, 23, 39, false, 82)
+    },
+
+    82.5:{ // straight tree (topper props)
+        topX: 73,
+        topY: 7,
+        width: 23,
+        height: 39,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 73, 7, 23, 39, false, 82.5),
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/treesShadows.png", 71, 7, 23, 39, false, 82.5)
+    },
+
+    83: { // left tree partial snow
         topX: 42,
         topY: 49,
         width: 20,
         height: 39,
-        bottomNotCollidable: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 42, 81, 20, 7, false, 82),
-        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 50, 81, 5, 5, true, 82),
-        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 42, 49, 20, 32, false, 82),
-        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/treesShadows.png", 42, 49, 20, 39, false, 82)
+        bottomNotCollidable: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 42, 81, 20, 7, false, 83),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 50, 81, 5, 5, true, 83),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 42, 49, 20, 32, false, 83),
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/treesShadows.png", 42, 49, 20, 39, false, 83)
     },
 
-    83: { // right tree partial snow
+    84: { // left tree lots of snow
+        topX: 74,
+        topY: 49,
+        width: 20,
+        height: 39,
+        bottomNotCollidable: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 74, 81, 20, 7, false, 84),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 82, 81, 5, 5, true, 84),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 74, 49, 20, 32, false, 84),
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/treesShadows.png", 74, 49, 20, 39, false, 84)
+    },
+
+    85: { // right tree partial snow
         topX: 42,
         topY: 89,
         width: 20,
         height: 39,
-        bottomNotCollidable: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 42, 120, 20, 7, false, 83),
-        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 50, 120, 5, 5, true, 83),
-        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 42, 89, 20, 32, false, 83),
-        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/treesShadows.png", 42, 89, 20, 39, false, 83)
+        bottomNotCollidable: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 42, 120, 20, 7, false, 85),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 50, 120, 5, 5, true, 85),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 42, 89, 20, 32, false, 85),
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/treesShadows.png", 42, 89, 20, 39, false, 85)
     },
 
+    86: { // right tree partial snow
+        topX: 74,
+        topY: 89,
+        width: 20,
+        height: 39,
+        bottomNotCollidable: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 74, 120, 20, 7, false, 86),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 82, 120, 5, 5, true, 86),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 74, 89, 20, 32, false, 86),
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/treesShadows.png", 74, 89, 20, 39, false, 86)
+    },
+// snow topper props
 
 
 };

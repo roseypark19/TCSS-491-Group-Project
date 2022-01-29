@@ -20,6 +20,7 @@ ASSET_MANAGER.queueDownload("./sprites/biomes/snow/propsNoShadows.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/snow/trees.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/snow/treesShadows.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/snow/tiles.png");
+ASSET_MANAGER.queueDownload("./sprites/biomes/snow/penguin.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/snow/shadows.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/town/props.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/town/shadows.png");
