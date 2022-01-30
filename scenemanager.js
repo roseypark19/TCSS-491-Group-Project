@@ -172,6 +172,23 @@ class SceneManager {
                     this.game.addEntity(props[prop.index].shadow(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
                 }
             });
+        } else if (this.currentLevel == snow2) {
+            let penguins = [
+                {x: 23, y: 3, facingRight: true},
+                {x: 45, y: 1, facingRight: true},
+                {x: 57, y: 2, facingRight: false},
+                {x: 97, y: 1, facingRight: true},
+                {x: 101, y: 1, facingRight: false},
+                {x: 84, y: 11, facingRight: true},
+                {x: 107, y: 30, facingRight: false},
+                {x: 109, y: 76, facingRight: false},
+                {x: 67, y: 22, facingRight: true},
+                {x: 95, y: 48, facingRight: false},
+            ];
+            penguins.forEach(p => this.game.addEntity(new Penguin(this.game, p.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, p.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, p.facingRight)));
+            this.game.addEntity(new Dialogue(this.game, "Beware of Ice!", true, 89.5, 41.5, 89, 42, 1, 1, true)); // ice sign
+            this.game.addEntity(new Dialogue(this.game, "The water is warm!", true, 12.5, 69, 3, 68, 1, 1, true)); // lake sign
+            this.game.addEntity(new Dialogue(this.game, "Welcome!", true, 44.5, 48, 47.5, 48.5, 1, 1, true)); // welcome!   
         }
     };
 
