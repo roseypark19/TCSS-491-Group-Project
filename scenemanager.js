@@ -4,8 +4,7 @@ class SceneManager {
         this.game.camera = this;
         this.x = 0;
         this.y = 0;
-        this.currentLevel = snow1;
-        this.travelTo(snow1);
+        this.travelTo(snow2);
     };
 
     clearEntities() {
@@ -98,9 +97,19 @@ class SceneManager {
                     this.addPropToppers();
                     this.addPropShadows();
 
-                } else {
-                    // add a regular hero -- to come later!
-                }
+                } else if (this.currentLevel == snow2) {
+                    this.currentLevel.props.forEach(prop => {
+                        if (props[prop.index].bottomNotCollidable) {
+                            this.game.addEntity(props[prop.index].bottomNotCollidable(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
+                        }
+                    });
+                    this.addPropBases();
+                    this.hero = new Hero(this.game, snow2.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
+                        snow2.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
+                    this.game.addEntity(this.hero);
+                    this.addPropToppers();
+                    this.addPropShadows(); 
+                } 
             } else {
                 this.loadLayer(level[layer_name], level, isOverworld);
             }
