@@ -827,8 +827,8 @@ const snow1 = {
 const snow2 = {
     width: 115,
     height: 90,
-    heroX: 9, // 42.5,
-    heroY: 27, //54.5,
+    heroX: 42.5,
+    heroY: 53.5,
 
     layer_names: ["ground", "collideable", "hero", "topper", "shadows"], 
 
@@ -910,6 +910,12 @@ const snow2 = {
         {index: 64, x: 102, y: 83, centered: false},
         // sign
         {index: 74, x: 89, y: 42, centered: false},
+        // dead bush
+        {index: 62, x: 76, y: 17, centered: false},
+        {index: 62, x: 85, y: 25, centered: false},
+        {index: 62, x: 113, y: 15, centered: false},
+        {index: 62, x: 87, y: 72, centered: false},
+        {index: 62, x: 107, y: 56, centered: false},
 
     // rock vane
         // small rocks
@@ -993,6 +999,13 @@ const snow2 = {
         {index: 63, x: 16, y: 30, centered: false},
 
     // left middle area
+        // logs
+        {index: 66, x: 32, y: 37, centered: false},
+        {index: 66, x: 10, y: 36, centered: false},
+        {index: 66, x: 15, y: 41, centered: false},
+        // {index: 66, x: , y: , centered: false},
+        // {index: 66, x: , y: , centered: false},
+        // {index: 66, x: , y: , centered: false},
         // trees
         {index: 81, x: 4, y: 25, centered: false},
         {index: 82, x: 2, y: 31, centered: false},
@@ -1011,13 +1024,69 @@ const snow2 = {
         {index: 84, x: 24, y: 40, centered: false},
         {index: 81, x: 29, y: 35, centered: false},
         {index: 85, x: 22, y: 34, centered: false},
+        // grass
+        {index: 63, x: 9, y: 41, centered: false},
+        {index: 63, x: 29, y: 44, centered: false},
+        {index: 63, x: 32, y: 32, centered: false},
+        {index: 63, x: 42, y: 24, centered: false},
+// {index: 82, x: , y: , centered: false},
+        // snowman
+        {index: 71, x: 16, y: 32, centered: false},
+
+    // bottom forest
+        {index: 82, x: 57, y: 64, centered: false},
+        {index: 82, x: 60, y: 60, centered: false},
+        {index: 82, x: 60, y: 68, centered: false},
+        {index: 82, x: 62, y: 63, centered: false},
+        {index: 82, x: 66, y: 66, centered: false},
+        {index: 82, x: 69, y: 72, centered: false},
+        {index: 82, x: 75, y: 70, centered: false},
+        {index: 82, x: 66, y: 78, centered: false},
+        {index: 82, x: 76, y: 79, centered: false},
+        {index: 82, x: 68, y: 81, centered: false},
+        {index: 82, x: 80, y: 83, centered: false},
+        {index: 82, x: 60, y: 78, centered: false},
+        {index: 82, x: 63, y: 82, centered: false},
+        {index: 82, x: 68, y: 87, centered: false},
+        {index: 82, x: 75, y: 86, centered: false},
+        {index: 82, x: 41, y: 66, centered: false},
+        {index: 82, x: 45, y: 67, centered: false},
+        {index: 82, x: 51, y: 66, centered: false},
+        {index: 82, x: 46, y: 78, centered: false},
+        {index: 82, x: 37, y: 87, centered: false},
+        // grass
+        {index: 63, x: 77, y: 77, centered: false},
+        {index: 63, x: 75, y: 69, centered: false},
+        {index: 63, x: 64, y: 75, centered: false},
+        {index: 63, x: 65, y: 62, centered: false},
+        {index: 63, x: 58, y: 49, centered: false},
+        {index: 63, x: 60, y: 86, centered: false},
+        // bushes
+        {index: 61, x: 53, y: 76, centered: false},
+        {index: 61, x: 45, y: 86, centered: false},
+        {index: 61, x: 62, y: 55, centered: false},
         
-
-        // {index: 82, x: , y: , centered: false},
-
-
-
-    // right ice
+    // bottom left area
+        // trees
+        {index: 82, x: 3, y: 52, centered: false},
+        {index: 82, x: 0, y: 53.5, centered: false},
+        {index: 82, x: 2, y: 61, centered: false},
+        {index: 82, x: 6, y: 71, centered: false},
+        {index: 82, x: 12, y: 87, centered: false},
+        {index: 82, x: 23, y: 82, centered: false},
+        // sign, snowman
+        {index: 74, x: 3, y: 68, centered: false},
+        {index: 71, x: 4.5, y: 68.25, centered: false},
+        // rocks
+        {index: 77, x: 24, y: 65, centered: false},
+        {index: 77, x: 11, y: 63, centered: false},
+        {index: 76, x: 22, y: 72, centered: false},
+        {index: 76, x: 9, y: 56, centered: false},
+        {index: 75, x: 25, y: 59, centered: false},
+        // dead bush
+        {index: 62, x: 5, y: 63, centered: false},
+        {index: 62, x: 26, y: 84, centered: false},
+        {index: 62, x: 49, y: 81, centered: false},
     ],
     
     ground: {

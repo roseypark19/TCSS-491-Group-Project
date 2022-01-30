@@ -104,6 +104,10 @@ class SceneManager {
                         }
                     });
                     this.addPropBases();
+                    // coward portal
+                    this.game.addEntity(new Portal(this.game, "Leave Snow 2", overworld, 5, 43.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 55.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 38 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 59.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 445));
+                    // leaving portal
+                    this.game.addEntity(new Portal(this.game, "Complete Snow 2", overworld, 2, 8.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 9.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 4.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 21 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 545));
                     this.hero = new Hero(this.game, snow2.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
                         snow2.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
                     this.game.addEntity(this.hero);
