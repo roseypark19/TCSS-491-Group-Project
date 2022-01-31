@@ -4,9 +4,7 @@ class SceneManager {
         this.game.camera = this;
         this.x = 0;
         this.y = 0;
-        this.currentLevel = town;
-        // this.loadLevel(overworld, true);
-        this.loadLevel(town, false, true);
+        this.travelTo(snow2);
     };
 
     clearEntities() {
@@ -79,8 +77,7 @@ class SceneManager {
                     // this.game.addEntity(new RangedMinion(this.game, 500, 550));
                     // this.game.addEntity(new RangedMinion(this.game, 550, 550));
 
-
-                    this.hero = new Hero(this.game, 59 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 547 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
+                    this.hero = new Hero(this.game, 36 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
                     this.game.addEntity(this.hero);
                     // toppers
                     // town.props.forEach(prop => {
@@ -89,9 +86,44 @@ class SceneManager {
                     //     }
                     // });
 
-                } else {
-                    // add a regular hero -- to come later!
-                }
+                } else if (this.currentLevel == snow1) {
+                    // paint bottom of trees that aren't collidable
+                    this.currentLevel.props.forEach(prop => {
+                        if (props[prop.index].bottomNotCollidable) {
+                            this.game.addEntity(props[prop.index].bottomNotCollidable(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
+                        }
+                    });
+                    // coward portal
+                    this.game.addEntity(new Portal(this.game, "Leave Snow 1", overworld, 5, 16.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 63.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 11.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 67 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 440));
+                    // leaving portal
+                    this.game.addEntity(new Portal(this.game, "Complete Snow 1", overworld, 2, 96 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 65 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 89 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 71 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 545));
+
+                    this.addPropBases();
+                    
+                    this.hero = new Hero(this.game, 15.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
+                                         60 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
+                    this.game.addEntity(this.hero); 
+
+                    this.addPropToppers();
+                    this.addPropShadows();
+
+                } else if (this.currentLevel == snow2) {
+                    this.currentLevel.props.forEach(prop => {
+                        if (props[prop.index].bottomNotCollidable) {
+                            this.game.addEntity(props[prop.index].bottomNotCollidable(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
+                        }
+                    });
+                    this.addPropBases();
+                    // coward portal
+                    this.game.addEntity(new Portal(this.game, "Leave Snow 2", overworld, 5, 43.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 55.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 38 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 59.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 445));
+                    // leaving portal
+                    this.game.addEntity(new Portal(this.game, "Complete Snow 2", overworld, 2, 8.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 9.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 4.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 21 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 545));
+                    this.hero = new Hero(this.game, snow2.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
+                        snow2.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
+                    this.game.addEntity(this.hero);
+                    this.addPropToppers();
+                    this.addPropShadows(); 
+                } 
             } else {
                 this.loadLayer(level[layer_name], level, isOverworld);
             }
@@ -125,10 +157,72 @@ class SceneManager {
                 }
             });
             
+        } else if (this.currentLevel == snow1) {
+            this.game.addEntity(new Dialogue(this.game, "It's a hole!", true, 4, 15.5, 1, 17, 1, 1, true)); // upper left sign
+            this.game.addEntity(new Dialogue(this.game, "Welcome to snow 1!", true, 19.5, 56.5, 21, 58, 2, 1, true)); // upper left sign
+            this.game.addEntity(new Penguin(this.game, 52 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 50 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true));
+            this.game.addEntity(new Penguin(this.game, 41.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 50 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true));
+            this.game.addEntity(new Penguin(this.game, 48 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 46 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false));
+            this.game.addEntity(new Penguin(this.game, 36 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 45 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true));
+            this.game.addEntity(new Penguin(this.game, 50 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 55 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true));
+            this.game.addEntity(new Penguin(this.game, 57 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 45 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false));
+            this.game.addEntity(new Penguin(this.game, 1.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false));
+            // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+            // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+            // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+            // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+            // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+            this.currentLevel.topper_props.forEach(prop => {
+                if (props[prop.index].base) {
+                    this.game.addEntity(props[prop.index].base(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
+                }
+            });
+            this.currentLevel.topper_props.forEach(prop => {
+                if (props[prop.index].shadow) {
+                    this.game.addEntity(props[prop.index].shadow(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
+                }
+            });
+        } else if (this.currentLevel == snow2) {
+            let penguins = [
+                {x: 23, y: 3, facingRight: true},
+                {x: 45, y: 1, facingRight: true},
+                {x: 57, y: 2, facingRight: false},
+                {x: 97, y: 1, facingRight: true},
+                {x: 101, y: 1, facingRight: false},
+                {x: 84, y: 11, facingRight: true},
+                {x: 107, y: 30, facingRight: false},
+                {x: 109, y: 76, facingRight: false},
+                {x: 67, y: 22, facingRight: true},
+                {x: 95, y: 48, facingRight: false},
+            ];
+            penguins.forEach(p => this.game.addEntity(new Penguin(this.game, p.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, p.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, p.facingRight)));
+            this.game.addEntity(new Dialogue(this.game, "Beware of Ice!", true, 89.5, 41.5, 89, 42, 1, 1, true)); // ice sign
+            this.game.addEntity(new Dialogue(this.game, "The water is warm!", true, 12.5, 69, 3, 68, 1, 1, true)); // lake sign
+            this.game.addEntity(new Dialogue(this.game, "Welcome!", true, 44.5, 48, 47.5, 48.5, 1, 1, true)); // welcome!   
         }
-            
-
     };
+
+    addPropBases() {
+        this.currentLevel.props.forEach(prop => {
+            if (props[prop.index].base) {
+                this.game.addEntity(props[prop.index].base(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
+            }
+        });
+    }
+    addPropToppers() {
+        this.currentLevel.props.forEach(prop => {
+            if (props[prop.index].topper) {
+                this.game.addEntity(props[prop.index].topper(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
+            }
+        });
+    }
+    addPropShadows() {
+        this.currentLevel.props.forEach(prop => {
+            if (props[prop.index].shadow) {
+                this.game.addEntity(props[prop.index].shadow(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
+            }
+        });
+    }
 
     createDestinations(level) {
         let destinations = [];
@@ -159,7 +253,7 @@ class SceneManager {
                                            scale,
                                            property.collideable);
                     if (property.hasOwnProperty("custom_animations") && 
-                        property.custom_animations.hasOwnProperty(spriteCode)) {
+                            property.custom_animations.hasOwnProperty(spriteCode)) {
                         let animData = property.custom_animations[spriteCode];
                         tile.alterTileAnimation(animData.frameCount, animData.frameDuration, animData.framePadding);
                     }
@@ -174,12 +268,12 @@ class SceneManager {
         PARAMS.DEBUG = document.getElementById("debug").checked;
         let midpoint = { x : PARAMS.CANVAS_DIMENSION / 2, y : PARAMS.CANVAS_DIMENSION / 2 };
 
-        if (this.currentLevel == town) {
+        if (this.currentLevel != overworld) {
             // this code restricts x, y camera based on the town
-            if (this.hero.BB.center.x >= midpoint.x && this.hero.BB.center.x <= PARAMS.BLOCKWIDTH * PARAMS.SCALE * town.width - midpoint.x) {
+            if (this.hero.BB.center.x >= midpoint.x && this.hero.BB.center.x <= PARAMS.BLOCKWIDTH * PARAMS.SCALE * this.currentLevel.width - midpoint.x) {
                 this.x = this.hero.BB.center.x - midpoint.x;
             }
-            if (this.hero.BB.center.y >= midpoint.y && this.hero.BB.center.y <= PARAMS.BLOCKWIDTH * PARAMS.SCALE * town.height - midpoint.y) {
+            if (this.hero.BB.center.y >= midpoint.y && this.hero.BB.center.y <= PARAMS.BLOCKWIDTH * PARAMS.SCALE * this.currentLevel.height - midpoint.y) {
                 this.y = this.hero.BB.center.y - midpoint.y;
             }
         } else {

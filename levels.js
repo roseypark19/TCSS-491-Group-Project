@@ -49,12 +49,6 @@ const town = {
 
     ],
         
-      
-
-
-
-
-
     ground: {
         data: [258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,
             258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,
@@ -572,14 +566,14 @@ const overworld = {
         { origin: {x: 145.5, y: 56}, neighbors: {prev: {x: 0, y: 1}, next: {x: 1, y: 0}}, stoppable: false},
         { origin: {x: 164.5, y: 56}, neighbors: {prev: {x: -1, y: 0}, next: {x: 0, y: 1}}, stoppable: false},
         { origin: {x: 164.5, y: 59}, neighbors: {prev: {x: 0, y: -1}, next: {x: 1, y: 0}}, stoppable: false},
-        { origin: {x: 169.5, y: 59}, neighbors: {prev: {x: -1, y: 0}, next: {x: 1, y: 0}}, stoppable: true, levelName: "Snow 1", level: town, buttonWidth: 450},
+        { origin: {x: 169.5, y: 59}, neighbors: {prev: {x: -1, y: 0}, next: {x: 1, y: 0}}, stoppable: true, levelName: "Snow 1", level: snow1, buttonWidth: 450},
         { origin: {x: 173.5, y: 59}, neighbors: {prev: {x: -1, y: 0}, next: {x: 0, y: -1}}, stoppable: false},
         { origin: {x: 173.5, y: 52}, neighbors: {prev: {x: 0, y: 1}, next: {x: -1, y: 0}}, stoppable: false},
         { origin: {x: 171.5, y: 52}, neighbors: {prev: {x: 1, y: 0}, next: {x: 0, y: -1}}, stoppable: false},
         { origin: {x: 171.5, y: 45}, neighbors: {prev: {x: 0, y: 1}, next: {x: 1, y: 0}}, stoppable: false},
         { origin: {x: 176.5, y: 45}, neighbors: {prev: {x: -1, y: 0}, next: {x: 0, y: 1}}, stoppable: false},
         { origin: {x: 176.5, y: 59}, neighbors: {prev: {x: 0, y: -1}, next: {x: 1, y: 0}}, stoppable: false},
-        { origin: {x: 185.5, y: 59}, neighbors: {prev: {x: -1, y: 0}, next: {x: 1, y: 0}}, stoppable: true, levelName: "Snow 2", level: town, buttonWidth: 450},
+        { origin: {x: 185.5, y: 59}, neighbors: {prev: {x: -1, y: 0}, next: {x: 1, y: 0}}, stoppable: true, levelName: "Snow 2", level: snow2, buttonWidth: 450},
         { origin: {x: 189.5, y: 59}, neighbors: {prev: {x: -1, y: 0}, next: {x: 0, y: -1}}, stoppable: false},
         { origin: {x: 189.5, y: 56}, neighbors: {prev: {x: 0, y: 1}, next: {x: 1, y: 0}}, stoppable: false},
         { origin: {x: 203.5, y: 56}, neighbors: {prev: {x: -1, y: 0}, next: {x: 0, y: -1}}, stoppable: false},

@@ -7,6 +7,7 @@ class TinyHero {
                               // 0, 1, 0, 1 
         this.state = 0; // idle, walking, shooting, charged, dead
                         // 0, 1, 2, 3, 4
+        this.hp = 0;
         this.velocityConstant = 8;
         this.velocity = { x : 0, y : 0 };
         this.animations = [];
@@ -543,7 +544,7 @@ class Hero {
     updateBB() {
         this.BB = new BoundingBox(this.x, this.y, 32 * PARAMS.SCALE, 32 * PARAMS.SCALE);
         this.hitBB = new BoundingBox(this.x + 12 * PARAMS.SCALE, this.y + 12 * PARAMS.SCALE, 8 * PARAMS.SCALE, 8 * PARAMS.SCALE);
-        this.collisionBB = new BoundingBox(this.hitBB.x, this.hitBB.y + 4 * PARAMS.SCALE, 8 * PARAMS.SCALE, 4 * PARAMS.SCALE);
+        this.collisionBB = new BoundingBox(this.hitBB.x, this.hitBB.y + 4 * PARAMS.SCALE, 8 * PARAMS.SCALE, 6 * PARAMS.SCALE);
     };
     
     draw(ctx) {
