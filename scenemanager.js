@@ -34,13 +34,13 @@ class SceneManager {
                     this.game.addEntity(props[1].topper(this.game, 252 * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE, 55.5 * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE - 2 * PARAMS.OVERWORLD_SCALE, true));
 
                 } else if (isTown) {
-                    town.props.forEach(prop => this.game.addEntity(props[prop.index].base(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered)));
-                    this.game.addEntity(new Portal(this.game, "Enter Overworld", overworld, 0, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 33 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 30 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    // town.props.forEach(prop => this.game.addEntity(props[prop.index].base(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered)));
+                    // this.game.addEntity(new Portal(this.game, "Enter Overworld", overworld, 0, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 33 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 30 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
 
-                    this.game.addEntity(new Cyclops(this.game, 400, 350));
-                    this.game.addEntity(new Cyclops(this.game, 200, 350));
-                    this.game.addEntity(new Cyclops(this.game, 300, 350));
-                    this.game.addEntity(new Cyclops(this.game, 500, 350));
+                    // this.game.addEntity(new Cyclops(this.game, 400, 350));
+                    // this.game.addEntity(new Cyclops(this.game, 200, 350));
+                    // this.game.addEntity(new Cyclops(this.game, 300, 350));
+                    // this.game.addEntity(new Cyclops(this.game, 500, 350));
 
                     // this.game.addEntity(new Ogre(this.game, 400, -350));
                     // this.game.addEntity(new Ogre(this.game, 200, -350));
@@ -59,10 +59,20 @@ class SceneManager {
                     // this.game.addEntity(new MotherSlime(this.game, 300, -450));
                     // this.game.addEntity(new MotherSlime(this.game, 500, -450));
 
-                    // this.game.addEntity(new SwordedMinion(this.game, 400, 750));
-                    // this.game.addEntity(new SwordedMinion(this.game, 450, 750));
-                    // this.game.addEntity(new SwordedMinion(this.game, 500, 750));
-                    // this.game.addEntity(new SwordedMinion(this.game, 550, 750));
+                    this.game.addEntity(new PolarBear(this.game, 59 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 547 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    this.game.addEntity(new PolarBear(this.game, 65 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 547 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    this.game.addEntity(new PolarBear(this.game, 54 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 547 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    this.game.addEntity(new PolarBear(this.game, 49 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 547 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+
+                    this.game.addEntity(new Yeti(this.game, 59 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 547 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    this.game.addEntity(new Yeti(this.game, 65 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 547 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    this.game.addEntity(new Yeti(this.game, 54 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 547 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    this.game.addEntity(new Yeti(this.game, 49 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 547 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+
+                    this.game.addEntity(new Snowman(this.game, 59 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 547 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    this.game.addEntity(new Snowman(this.game, 65 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 547 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    this.game.addEntity(new Snowman(this.game, 54 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 547 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    this.game.addEntity(new Snowman(this.game, 49 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 547 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
 
                     // this.game.addEntity(new RangedMinion(this.game, 400, 550));
                     // this.game.addEntity(new RangedMinion(this.game, 450, 550));
@@ -70,14 +80,14 @@ class SceneManager {
                     // this.game.addEntity(new RangedMinion(this.game, 550, 550));
 
 
-                    this.hero = new Hero(this.game, 36 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
+                    this.hero = new Hero(this.game, 59 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 547 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
                     this.game.addEntity(this.hero);
                     // toppers
-                    town.props.forEach(prop => {
-                        if (props[prop.index].topper) {
-                            this.game.addEntity(props[prop.index].topper(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
-                        }
-                    });
+                    // town.props.forEach(prop => {
+                    //     if (props[prop.index].topper) {
+                    //         this.game.addEntity(props[prop.index].topper(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
+                    //     }
+                    // });
 
                 } else {
                     // add a regular hero -- to come later!

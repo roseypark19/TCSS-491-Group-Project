@@ -6,7 +6,7 @@ const PARAMS = {
     CANVAS_DIMENSION : 1000,
     SCALE : 4,
     OVERWORLD_SCALE: 6,
-    PROJECTILE_SCALE: 1,
+    PROJECTILE_SCALE: 1.2,
     GUI_SCALE : 6,
     MMAP_SCALE: 0.4625,
     GAMEOVER: false,
@@ -19,21 +19,33 @@ const PARAMS = {
     HIGH_HP_COLOR: "Green"  
 };
 
+const PROJECTILE_LIFETIMES = {
+    short: 0.5,
+    mid: 1,
+    long: 1.5
+};
+
 const WEAPONS = {
-    0 : { base_damage: 50, base_dexterity: 0.1, range: 6, projectileType: 0 },
-    1 : { base_damage: 75, base_dexterity: 0.125, range: 6, projectileType: 0 },
-    2 : { base_damage: 40, base_dexterity: 0.065, range: 14, projectileType: 0 },
-    3 : { base_damage: 65, base_dexterity: 0.085, range: 14, projectileType: 0 },
-    4 : { base_damage: 30, base_dexterity: 0.045, projectileType: 1 },
-    5 : { base_damage: 55, base_dexterity: 0.065, projectileType: 0 },
+    0 : { base_damage: 50, base_dexterity: 0.175, range: 6, projectileType: 2 },
+    1 : { base_damage: 75, base_dexterity: 0.2, range: 6, projectileType: 3 },
+    2 : { base_damage: 40, base_dexterity: 0.125, range: 14, projectileType: 4 },
+    3 : { base_damage: 65, base_dexterity: 0.15, range: 14, projectileType: 5 },
+    4 : { base_damage: 30, base_dexterity: 0.075, projectileType: 1 },
+    5 : { base_damage: 55, base_dexterity: 0.1, projectileType: 0 },
 };
 
 const PROJECTILES = {
-    0: { spritesheet: "./sprites/projectiles/arrow.png", velocity: 6 },
-    1: { spritesheet: "./sprites/projectiles/arrow.png", velocity: 6 },
-    2: { spritesheet: "./sprites/projectiles/projectile_enemy_close_range.png", velocity: 4 },
-    3: { spritesheet: "./sprites/projectiles/projectile_slingshot.png", velocity: 6 },
-    4: { spritesheet: "./sprites/projectiles/Green_Arrow.png", velocity: 6 },
+    0: { spritesheet: "./sprites/projectiles/arrow.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.long },
+    1: { spritesheet: "./sprites/projectiles/projectile_slingshot.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.long },
+    2: { spritesheet: "./sprites/projectiles/projectile_sword1.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.short },
+    3: { spritesheet: "./sprites/projectiles/projectile_axe.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.short },
+    4: { spritesheet: "./sprites/projectiles/projectile_whip.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
+    5: { spritesheet: "./sprites/projectiles/projectile_flail.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
+    6: { spritesheet: "./sprites/projectiles/projectile_enemy_close_range.png", velocity: 4, lifetime: PROJECTILE_LIFETIMES.short },
+    7: { spritesheet: "./sprites/projectiles/projectile_slingshot.png", velocity: 4, lifetime: PROJECTILE_LIFETIMES.long },
+    8: { spritesheet: "./sprites/projectiles/Green_Arrow.png", velocity: 4, lifetime: PROJECTILE_LIFETIMES.long },
+    9: { spritesheet: "./sprites/projectiles/projectile_sword2.png", velocity: 4, lifetime: PROJECTILE_LIFETIMES.short },
+    10: { spritesheet: "./sprites/projectiles/snowball.png", velocity: 4, lifetime: PROJECTILE_LIFETIMES.long },
 };
 
 // returns a random integer between 0 and n-1
