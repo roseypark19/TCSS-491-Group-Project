@@ -190,7 +190,7 @@ class Hero {
 
         this.spellType = 0; // 0 = wind, 1 = fire, 2 = ice, 3 = earth
 
-        this.velocityConstant = 6*3;
+        this.velocityConstant = 6;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
         this.velocity = { x : 0, y : 0 };
         this.updateBB();
