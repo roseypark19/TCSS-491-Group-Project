@@ -106,11 +106,7 @@ class SceneManager {
                     this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2));
 
                 } else if (this.currentLevel == snow2) {
-                    this.currentLevel.props.forEach(prop => {
-                        if (props[prop.index].bottomNotCollidable) {
-                            this.game.addEntity(props[prop.index].bottomNotCollidable(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
-                        }
-                    });
+                    this.addNonCollidablePropBases();
                     this.addPropBases();
                     // coward portal
                     this.game.addEntity(new Portal(this.game, "Leave Snow 2", overworld, 5, 43.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 55.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 38 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 59.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 445));
@@ -218,6 +214,13 @@ class SceneManager {
         this.currentLevel.props.forEach(prop => {
             if (props[prop.index].shadow) {
                 this.game.addEntity(props[prop.index].shadow(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
+            }
+        });
+    }
+    addNonCollidablePropBases() {
+        this.currentLevel.props.forEach(prop => {
+            if (props[prop.index].bottomNotCollidable) {
+                this.game.addEntity(props[prop.index].bottomNotCollidable(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
             }
         });
     }

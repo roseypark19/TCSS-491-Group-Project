@@ -328,9 +328,6 @@ const snow1 = {
         
         {index: 62, x: 66, y: 52, centered: false},
 
-
-
-         
         // middle shrine 
         {index: 73, x: 56.8, y: 30, centered: false}, 
         {index: 63, x: 55.3, y: 29, centered: false}, 
