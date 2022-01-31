@@ -98,6 +98,7 @@ class Portal {
                                     PARAMS.SCALE / 2);
         }
         if (this.showingButton) {
+            
             ctx.save();
             ctx.font = 48 + 'px "silkscreennormal"';
             ctx.lineWidth = 10;
