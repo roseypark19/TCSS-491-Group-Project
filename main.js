@@ -27,7 +27,6 @@ ASSET_MANAGER.queueDownload("./sprites/biomes/town/shadows.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/town/tiles.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/town/HenIdle.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/town/ChickIdle.png");
-ASSET_MANAGER.queueDownload("./sprites/projectiles/arrow.png");
 ASSET_MANAGER.queueDownload("./sprites/ui/weapon_icons.png");
 ASSET_MANAGER.queueDownload("./sprites/ui/stats_icons.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/earth_beam.png");
@@ -54,9 +53,26 @@ ASSET_MANAGER.queueDownload("./sprites/enemies/druid.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/root.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/dwarf.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/dwarf_beard.png");
-ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_slingshot.png");
+
 ASSET_MANAGER.queueDownload("./sprites/enemies/cyclops.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/yeti.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/polarbear.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/snowman.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/trasgo.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_enemy_close_range.png");
+
+ASSET_MANAGER.queueDownload("./sprites/projectiles/snowball.png");
+ASSET_MANAGER.queueDownload("./sprites/projectiles/arrow.png");
+ASSET_MANAGER.queueDownload("./sprites/projectiles/Green_Arrow.png");
+ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_slingshot.png");
+ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_sword1.png");
+ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_axe.png");
+ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_sword2.png");
+ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_whip.png");
+ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_flail.png");
+
+ASSET_MANAGER.queueDownload("./sprites/biomes/castle/tiles.png");
+ASSET_MANAGER.queueDownload("./sprites/biomes/castle/carpet.png");
 
 ASSET_MANAGER.downloadAll(function () {
 

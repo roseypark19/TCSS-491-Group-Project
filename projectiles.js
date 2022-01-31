@@ -33,8 +33,8 @@ class Projectile {
 
     static rotationList = [];
 
-    constructor(game, x, y, radians, friendly, type, sourcePoint, velocity, damage) {
-        Object.assign(this, { game, x, y, radians, type, sourcePoint, damage });
+    constructor(game, x, y, radians, friendly, type, sourcePoint, damage, scale = PARAMS.PROJECTILE_SCALE) {
+        Object.assign(this, { game, x, y, radians, type, sourcePoint, damage, scale });
         this.roundedDegrees = Math.round(toDegrees(this.radians));
         this.roundedRadians = toRadians(this.roundedDegrees);
         this.spritesheet = ASSET_MANAGER.getAsset(PROJECTILES[this.type].spritesheet);
@@ -42,10 +42,10 @@ class Projectile {
         this.id = ++PARAMS.SHOT_ID;
         // this.damage = damage;
         this.passable = false;
-        this.velocityConstant = velocity;
+        this.velocityConstant = PROJECTILES[this.type].velocity;
         this.velocity = { x: Math.cos(this.roundedRadians) * this.velocityConstant, 
                           y: Math.sin(this.roundedRadians) * this.velocityConstant };
-        this.lifetime = 1;
+        this.lifetime = PROJECTILES[this.type].lifetime;
         if (!(Projectile.rotationList[this.type])) {
             Projectile.rotationList[this.type] = [];
         }
@@ -58,11 +58,11 @@ class Projectile {
             let flipCheck = this.roundedDegrees >= 90 && this.roundedDegrees < 270;
             let spritesheet = flipCheck ? flipImage(this.spritesheet, 0, 0, 32, 32, true) : this.spritesheet;
             Projectile.rotationList[this.type][this.roundedDegrees] = 
-                rotateImage(spritesheet, 0, 0, 32, 32, flipCheck ? -(Math.PI - this.roundedRadians) : this.roundedRadians, PARAMS.PROJECTILE_SCALE);
+                rotateImage(spritesheet, 0, 0, 32, 32, flipCheck ? -(Math.PI - this.roundedRadians) : this.roundedRadians, this.scale);
         }
         this.animation = 
             new AnimationGroup(
-                Projectile.rotationList[this.type][this.roundedDegrees], 0, 0, 32 * PARAMS.PROJECTILE_SCALE, 32 * PARAMS.PROJECTILE_SCALE, 1, 1, false, true);
+                Projectile.rotationList[this.type][this.roundedDegrees], 0, 0, 32 * this.scale, 32 * this.scale, 1, 1, false, true);
     };
 
     update() {
@@ -82,10 +82,8 @@ class Projectile {
     };
 
     updateBB() {
-        this.BB = new BoundingBox(this.x, this.y, 32 * PARAMS.PROJECTILE_SCALE, 32 * PARAMS.PROJECTILE_SCALE);
-        // let hitCenter = { x: this.BB.center.x + Math.cos(this.roundedRadians) * 14 * PARAMS.SCALE,
-        //                   y: this.BB.center.y + Math.sin(this.roundedRadians) * 14 * PARAMS.SCALE };
-        this.hitBB = new BoundingBox(this.BB.center.x - 2 * PARAMS.PROJECTILE_SCALE, this.BB.center.y - 2 * PARAMS.PROJECTILE_SCALE, 4 * PARAMS.PROJECTILE_SCALE, 4 * PARAMS.PROJECTILE_SCALE);
+        this.BB = new BoundingBox(this.x, this.y, 32 * this.scale, 32 * this.scale);
+        this.hitBB = new BoundingBox(this.BB.center.x - 2 * this.scale, this.BB.center.y - 2 * this.scale, 4 * this.scale, 4 * this.scale);
     };
 
     draw(ctx) {

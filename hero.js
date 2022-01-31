@@ -184,7 +184,7 @@ class Hero {
         // this.abilityData = [{ x: 32, y: 0, button: "R"}, { x: 64, y: 0, button: "F"}];
         this.spriteCenter = 15.5;
 
-        this.weapon = { type: 5, attack: 75, dexterity: 8 }; 
+        this.weapon = { type: 2, attack: 75, dexterity: 8 }; 
 
         // types: 0 = longsword, 1 = war axe, 2 = whip, 3 = flail, 4 = slingshot, 5 = bow
 
@@ -479,35 +479,17 @@ class Hero {
                 this.state = 2;
                 if (this.shootTimer === 0) {
                     this.shootTimer = this.dexterity * this.shootFrames - this.game.clockTick;
-                    // let vector = { x : mousePoint.x + this.game.camera.x - this.BB.center.x, 
-                    //                 y : mousePoint.y + this.game.camera.y - this.BB.center.y };
-                    // let directionUnitVector = unitVector(vector);
-                    // let range = WEAPONS[this.weapon.type].range;
-                    // let projectileCenter = { x: this.BB.center.x + range * PARAMS.SCALE * directionUnitVector.x,
-                    //                             y: this.BB.center.y + range * PARAMS.SCALE * directionUnitVector.y };
                     if (this.shootFlag) {
-                        // ASSET_MANAGER.playAsset("./audio/sword.mp3");
-                        // if (this.weapon.type < 4) {
-                        //     this.game.addEntity(new DamageRegion(this.game, 
-                        //                         projectileCenter.x - 8 * PARAMS.SCALE,
-                        //                         projectileCenter.y - 8 * PARAMS.SCALE,
-                        //                         this.BB.width / 2,
-                        //                         this.BB.height / 2,
-                        //                         true,
-                        //                         15,
-                        //                         0.1, this.BB.center));
-                        // } else {
-                            let type = WEAPONS[this.weapon.type].projectileType;
-                            let base_vel = PROJECTILES[type].velocity;
-                            let true_vel = { x: Math.cos(theta) * base_vel, y: Math.sin(theta) * base_vel };
-                            let proj_vel = { x: true_vel.x + (Math.sign(true_vel.x) === Math.sign(this.velocity.x) ? this.velocity.x: 0),
-                                             y: true_vel.y + (Math.sign(true_vel.y) === Math.sign(this.velocity.y) ? this.velocity.y: 0) };
-                            this.game.addEntity(new Projectile(this.game, 
-                                                                this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(theta) * PARAMS.SCALE, 
-                                                                this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, 
-                                                                theta, true, type, this.BB.center, 
-                                                                /*PROJECTILES[type].velocity +*/ magnitude(proj_vel), 
-                                                                75));
+                        let type = WEAPONS[this.weapon.type].projectileType;
+                        let base_vel = PROJECTILES[type].velocity;
+                        let true_vel = { x: Math.cos(theta) * base_vel, y: Math.sin(theta) * base_vel };
+                        let proj_vel = { x: true_vel.x + (Math.sign(true_vel.x) === Math.sign(this.velocity.x) ? this.velocity.x: 0),
+                                            y: true_vel.y + (Math.sign(true_vel.y) === Math.sign(this.velocity.y) ? this.velocity.y: 0) };
+                        this.game.addEntity(new Projectile(this.game, 
+                                                            this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(theta) * PARAMS.SCALE, 
+                                                            this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, 
+                                                            theta, true, type, this.BB.center, 
+                                                            75));
                     }
                     
                 }

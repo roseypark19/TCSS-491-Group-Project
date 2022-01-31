@@ -1,8 +1,8 @@
-class Cyclops {
+class Yeti {
 
     constructor(game, x, y) {
         Object.assign(this, { game, x, y });
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/cyclops.png");
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/yeti.png");
         this.facing = [0, randomInt(2)]; // down, up, right, left
                                          // 0, 1, 0, 1 
         this.state = 0; // idle, walking, attacking, damaged, dead
@@ -10,15 +10,14 @@ class Cyclops {
         this.id = ++PARAMS.LIFE_ID;
         this.maxHp = 500;
         this.hp = this.maxHp;
-        this.minProximity = 32 * 1.5;
+        this.minProximity = 5;
         this.visionDistance = 400;
+        this.attackDistance = 150;
         this.shotsTaken = [];
         this.shootTimer = 0;
-        this.attackTimer = 0;
+        this.shootFlag = false;
         this.damagedTimer = 0;
         this.deadTimer = 0;
-        this.chargeTimer = 0;
-        this.charging = false;
         this.frozenTimer = 0;
         this.slowedTimer = 0;
         this.burningTimer = 0;
@@ -35,15 +34,15 @@ class Cyclops {
     loadAnimations() {
         this.animations.push(new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 16, 0.3, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 64 * 32, 0, 32, 32, 6, this.walkSpeed, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 88 * 32, 0, 32, 32, 4, 0.075, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 88 * 32, 0, 32, 32, 4, 0.12, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 104 * 32, 0, 32, 32, 4, 0.15, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 120 * 32, 0, 32, 32, 14, 0.15, false, true));
     };
 
     updateBB() {
         this.BB = new BoundingBox(this.x, this.y, 32 * PARAMS.SCALE, 32 * PARAMS.SCALE);
-        this.hitBB = new BoundingBox(this.x + 11 * PARAMS.SCALE, this.y + 8 * PARAMS.SCALE, 10 * PARAMS.SCALE, 12 * PARAMS.SCALE);
-        this.collisionBB = new BoundingBox(this.hitBB.x, this.hitBB.y + 6 * PARAMS.SCALE, 10 * PARAMS.SCALE, 8 * PARAMS.SCALE);
+        this.hitBB = new BoundingBox(this.x + 11 * PARAMS.SCALE, this.y + 10 * PARAMS.SCALE, 10 * PARAMS.SCALE, 10 * PARAMS.SCALE);
+        this.collisionBB = new BoundingBox(this.hitBB.x, this.hitBB.y + 5 * PARAMS.SCALE, this.hitBB.width, this.hitBB.height / 2 + 2 * PARAMS.SCALE);
     };
 
     update() {
@@ -59,8 +58,6 @@ class Cyclops {
         this.shootTimer = Math.max(0, this.shootTimer - this.game.clockTick);
         this.damagedTimer = Math.max(0, this.damagedTimer - this.game.clockTick);
         this.deadTimer = Math.max(0, this.deadTimer - this.game.clockTick);
-        this.chargeTimer = Math.max(0, this.chargeTimer - this.game.clockTick);
-        this.attackTimer = Math.max(0, this.attackTimer - this.game.clockTick);
 
         this.frozenTimer = Math.max(0, this.frozenTimer - this.game.clockTick);
         this.slowedTimer = Math.max(0, this.slowedTimer - this.game.clockTick);
@@ -76,14 +73,12 @@ class Cyclops {
                         this.shotsTaken.push(entity.id);
                     } else {
                         entity.removeFromWorld = true;
-                    }  
-                    this.hit = true; 
+                    }   
+                    this.hit = true;  
                     this.frozenTimer = 0;
                     if (this.damagedTimer === 0 && this.deadTimer === 0) {
                         this.damagedTimer = 0.6 - this.game.clockTick;
                         this.state = 3;
-                        this.charging = false;
-                        this.attackTimer = 0;
                         this.hitUnitVector = prevState === 0 ? { x: 0, y: 0 } : 
                                                                unitVector({ x: this.hitBB.center.x - entity.sourcePoint.x, y: this.hitBB.center.y - entity.sourcePoint.y });
                     }
@@ -127,7 +122,7 @@ class Cyclops {
             this.velocity.y = this.hitUnitVector.y * this.velocityConstant / 2;
             this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
             this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
-            this.movementUnitVector = undefined;
+            this.randomPos = undefined;
         }
 
         if (this.state !== 4 && this.burningTimer > 0 && this.burnDamageTimer === 0) {
@@ -137,7 +132,6 @@ class Cyclops {
             if (this.damagedTimer === 0) {
                 this.damagedTimer = 0.6 - this.game.clockTick;
                 this.state = 3;
-                this.charging = false;
             }
             if (this.deadTimer === 0 && this.hp <= 0) {
                 this.deadTimer = 14 * 0.15 - this.game.clockTick;
@@ -152,18 +146,20 @@ class Cyclops {
             this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
         }
 
-        let heroCenter = null;
+        this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed * 3 : this.walkSpeed);
 
+        let heroCenter;
         if (this.state !== 4) {
+            let center = this.BB.center;
             this.game.livingEntities.forEach(entity => {
                 if (entity instanceof Hero) {
                     heroCenter = entity.BB.center;
-                    let dist = distance(this.BB.center, heroCenter);
-
-                    if (dist <= this.visionDistance || this.charging) {
-                        if ((this.movementUnitVector === undefined || (this.confusedTimer === 0 && distance(heroCenter, this.destination) > this.minProximity)) && this.damagedTimer === 0) {
-                            let center = this.BB.center;
-                            let vector = { x : heroCenter.x - center.x, y : heroCenter.y - center.y };
+                    let dist = distance(center, heroCenter);
+                    if (dist <= this.visionDistance) {
+                        let vector = { x : heroCenter.x - center.x, y : heroCenter.y - center.y };
+                        let heroDirectionUnitVector = unitVector(vector);
+                        let movementDirectionUnitVector = heroDirectionUnitVector;
+                        if ((this.randomPos === undefined || distance(this.randomPos, heroCenter) > 0.75 * this.attackDistance) && this.damagedTimer === 0) {
                             let angle = Math.atan2(-vector.y, -vector.x);
                             if (angle < 0) {
                                 angle += 2 * Math.PI;
@@ -171,35 +167,64 @@ class Cyclops {
                             let degrees = Math.round(toDegrees(angle));
                             let randomDegree = randomInt(181);
                             degrees = randomDegree >= 90 ? degrees + randomDegree - 90 : degrees - randomDegree;
-                            let radians = toRadians(degrees)
+                            let radians = toRadians(degrees);
                             let posUnitVector = unitVector({ x: Math.cos(radians), y: Math.sin(radians) });
-                            let randomDist = randomInt(Math.round(this.minProximity * 0.5)) + Math.round(this.minProximity * 0.25);
-                            if (this.confusedTimer > 0) {
-                                randomDist = randomInt(Math.round(this.visionDistance * 0.5)) + Math.round(this.visionDistance * 0.5);
-                                this.destination = { x: center.x + randomDist * this.confusionUnitVector.x, 
-                                                     y: center.y + randomDist * this.confusionUnitVector.y };
-                            } else {
-                                this.destination = { x: heroCenter.x + randomDist * posUnitVector.x, 
-                                                     y: heroCenter.y + randomDist * posUnitVector.y };
+                            let randomDist = randomInt(Math.round(this.attackDistance * 0.5)) + Math.round(this.attackDistance * 0.25);
+                            this.randomPos = { x: heroCenter.x + randomDist * posUnitVector.x, 
+                                               y: heroCenter.y + randomDist * posUnitVector.y };
+                            this.randomPosUnitVector = unitVector({ x: this.randomPos.x - center.x, y: this.randomPos.y - center.y });
+                        }     
+                        if (dist <= this.attackDistance && this.frozenTimer === 0) {       
+                            if (this.damagedTimer === 0) {
+                                this.state = 2;
                             }
-                            this.movementUnitVector = unitVector({ x: this.destination.x - center.x, y: this.destination.y - center.y });            
+                            if (this.shootTimer === 0 && this.state === 2) {
+                                this.shootTimer = 0.12 * 4 - this.game.clockTick;
+                                let projectileCenter = { x: this.BB.center.x + 4 * PARAMS.SCALE * heroDirectionUnitVector.x,
+                                                         y: this.BB.center.y + 4 * PARAMS.SCALE * heroDirectionUnitVector.y };
+                                if (this.shootFlag) {
+                                    // this.game.addEntity(new DamageRegion(this.game, 
+                                    //                                      projectileCenter.x - 4 * PARAMS.SCALE, 
+                                    //                                      projectileCenter.y - 4 * PARAMS.SCALE, 
+                                    //                                      8 * PARAMS.SCALE, 
+                                    //                                      8 * PARAMS.SCALE, 
+                                    //                                      false, 75, 0.1));
+                                }
+                            }
+                        } else if (this.damagedTimer === 0 && this.frozenTimer === 0) {
+                            this.state = 1;
+                        }
+                        if (this.randomPos !== undefined) {
+                            movementDirectionUnitVector = this.randomPosUnitVector;
+                            dist = distance(center, this.randomPos);
+                        }
+                        if (dist > this.minProximity && this.damagedTimer === 0 && this.frozenTimer === 0) {
+                            if (this.confusedTimer > 0) {
+                                this.velocity.x = this.confusionUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
+                                this.velocity.y = this.confusionUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
+                            } else {
+                                this.velocity.x = movementDirectionUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
+                                this.velocity.y = movementDirectionUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
+                            }  
                         }
                         if (this.damagedTimer === 0 && this.frozenTimer === 0) {
-                            if (!this.charging) {
-                                this.charging = true;
-                                this.chargeTimer = 1 - this.game.clockTick;
-                                this.chargeOrigin = null;
-                                this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed * 3 : this.walkSpeed);
-                            }
-                            this.state = 1;
-                            this.velocity.x = this.movementUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
-                            this.velocity.y = this.movementUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
+                            if (this.randomPos !== undefined && this.state === 2) {
+                                if (this.confusedTimer > 0) {
+                                    this.facing[0] = this.confusionUnitVector.y >= 0 ? 0 : 1;
+                                    this.facing[1] = this.confusionUnitVector.x >= 0 ? 0 : 1;
+                                } else {
+                                    this.facing[0] = heroDirectionUnitVector.y >= 0 ? 0 : 1;
+                                    this.facing[1] = heroDirectionUnitVector.x >= 0 ? 0 : 1;
+                                }
+                            } else {
+                                this.facing[0] = this.velocity.y >= 0 ? 0 : 1;
+                                this.facing[1] = this.velocity.x >= 0 ? 0 : 1;
+                            }  
                         }
-                    } else if (this.damagedTimer === 0 && this.attackTimer === 0 && this.frozenTimer === 0) {
-                        this.charging = false;
+                    } else if (this.damagedTimer === 0 && this.frozenTimer === 0) {
                         this.state = 0;
                         this.facing[0] = 0;
-                        this.movementUnitVector = undefined;
+                        this.randomPos = undefined;
                         this.confusedTimer = 0;
                     }
                 }
@@ -210,67 +235,7 @@ class Cyclops {
             }
         }
 
-        if (this.state === 1 || (this.state !== 4 && this.attackTimer > 0) && this.frozenTimer === 0) {
-            let interestPt = this.confusedTimer > 0 && this.state !== 0 ? this.destination : heroCenter;
-            if ((distance(this.BB.center, interestPt) <= this.minProximity && !this.chargeOrigin) || 
-                (this.chargeOrigin && distance(this.chargeOrigin, this.BB.center) > this.chargeDistance) ||
-                this.attackTimer > 0) {
-
-                this.velocity.x = 0;
-                this.velocity.y = 0;
-
-                if (!this.attackFlag && prevState !== 3) {
-                    this.attackTimer = 3 * 0.075 * 4 - this.game.clockTick;
-
-                }
-                this.charging = false;
-                if (this.damagedTimer === 0 && this.attackTimer > 0) {
-                    this.state = 2;
-                } else if (this.attackTimer === 0) {
-                    this.movementUnitVector = undefined;
-                    if (this.confusedTimer > 0) {
-                        let randomTheta = toRadians(randomInt(361));
-                        this.confusionUnitVector = unitVector({ x: Math.cos(randomTheta), y: Math.sin(randomTheta) });
-                    }
-                }
-                if (this.shootTimer === 0 && this.state === 2) {
-                    this.shootTimer = 0.075 * 4 - this.game.clockTick;
-                    if (this.attackFlag) {
-                        let vector = this.confusedTimer === 0 ? { x: heroCenter.x - this.BB.center.x, y: heroCenter.y - this.BB.center.y } :
-                                                                this.confusionUnitVector;
-                        let theta = Math.atan2(vector.y, vector.x);
-                        if (theta < 0) {
-                            theta += 2 * Math.PI;
-                        }
-                        for (let i = theta - Math.PI / 8; i <= theta + Math.PI / 8; i += Math.PI / 8) {
-                            this.game.addEntity(new Projectile(this.game, 
-                                this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(i) * PARAMS.SCALE, 
-                                this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, 6, this.BB.center, 50));
-                        }
-                        this.facing[0] = vector.y >= 0 ? 0 : 1;
-                        this.facing[1] = vector.x >= 0 ? 0 : 1;
-                    }
-                }
-            } else if (this.chargeTimer === 0 && this.damagedTimer === 0) {
-                if (!this.chargeOrigin) {
-                    this.chargeOrigin = this.BB.center;
-                    this.chargeDistance = distance(this.destination, this.chargeOrigin);
-                    this.chargeUnitVector = unitVector({ x: this.destination.x - this.BB.center.x, y: this.destination.y - this.BB.center.y });
-                }
-
-                this.velocity.x = this.chargeUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant * 4 / 3 : this.velocityConstant * 4);
-                this.velocity.y = this.chargeUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant * 4 / 3 : this.velocityConstant * 4);
-
-                this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed / (4/3) : this.walkSpeed / 4);
-                this.facing[0] = this.velocity.y >= 0 ? 0 : 1;
-                this.facing[1] = this.velocity.x >= 0 ? 0 : 1;
-            } else {
-                this.facing[0] = this.velocity.y >= 0 ? 0 : 1;
-                this.facing[1] = this.velocity.x >= 0 ? 0 : 1;
-            }
-        }
-
-        this.attackFlag = this.state === 2;
+        this.shootFlag = this.state === 2;
 
         this.x += this.velocity.x;
         this.y += this.velocity.y;
@@ -286,7 +251,6 @@ class Cyclops {
 
         if (collisionList.length > 0) {
             this.collisionFlag = true;
-            this.charging = false;
             collisionList.sort((boundary1, boundary2) => distance(this.collisionBB.center, boundary1.BB.center) -
                                                          distance(this.collisionBB.center, boundary2.BB.center));
             let velCopy = { x: this.velocity.x, y: this.velocity.y };
@@ -297,12 +261,11 @@ class Cyclops {
                 }
             }
             if (!this.validateRegionalTrajectory(heroCenter, velCopy)) {
-                this.movementUnitVector = undefined;
+                this.randomPos = undefined;
             }  
         } else if (this.collisionFlag) {
             this.collisionFlag = false;
-            this.movementUnitVector = undefined;
-            this.charging = false;
+            this.randomPos = undefined;
         }
 
         if (this.state !== prevState) {
@@ -311,7 +274,7 @@ class Cyclops {
     };
 
     validateRegionalTrajectory(heroCenter, trajectory) {
-        return circleCollide({ x: heroCenter.x, y: heroCenter.y, radius: this.minProximity }, 
+        return circleCollide({ x: heroCenter.x, y: heroCenter.y, radius: 0.75 * this.attackDistance }, 
             { pt1: this.BB.center, pt2: { x: this.BB.center.x + trajectory.x, y: this.BB.center.y + trajectory.y }}) !== false;
     };
 

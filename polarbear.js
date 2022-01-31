@@ -1,8 +1,8 @@
-class Cyclops {
+class PolarBear {
 
     constructor(game, x, y) {
         Object.assign(this, { game, x, y });
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/cyclops.png");
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/polarbear.png");
         this.facing = [0, randomInt(2)]; // down, up, right, left
                                          // 0, 1, 0, 1 
         this.state = 0; // idle, walking, attacking, damaged, dead
@@ -33,11 +33,11 @@ class Cyclops {
     };
 
     loadAnimations() {
-        this.animations.push(new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 16, 0.3, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 64 * 32, 0, 32, 32, 6, this.walkSpeed, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 88 * 32, 0, 32, 32, 4, 0.075, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 104 * 32, 0, 32, 32, 4, 0.15, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 120 * 32, 0, 32, 32, 14, 0.15, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 19, 0.3, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 76 * 32, 0, 32, 32, 6, this.walkSpeed, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 100 * 32, 0, 32, 32, 5, 0.075, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 120 * 32, 0, 32, 32, 4, 0.15, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 136 * 32, 0, 32, 32, 24, 0.15, false, true));
     };
 
     updateBB() {
@@ -109,7 +109,7 @@ class Cyclops {
                         }   
                     }
                     if (this.deadTimer === 0 && this.hp <= 0) {
-                        this.deadTimer = 14 * 0.15 - this.game.clockTick;
+                        this.deadTimer = 24 * 0.15 - this.game.clockTick;
                         this.state = 4;
                         this.facing = [0, 0];
                         // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
@@ -140,7 +140,7 @@ class Cyclops {
                 this.charging = false;
             }
             if (this.deadTimer === 0 && this.hp <= 0) {
-                this.deadTimer = 14 * 0.15 - this.game.clockTick;
+                this.deadTimer = 24 * 0.15 - this.game.clockTick;
                 this.state = 4;
                 this.facing = [0, 0];
                 // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
@@ -220,7 +220,7 @@ class Cyclops {
                 this.velocity.y = 0;
 
                 if (!this.attackFlag && prevState !== 3) {
-                    this.attackTimer = 3 * 0.075 * 4 - this.game.clockTick;
+                    this.attackTimer = 3 * 0.075 * 5 - this.game.clockTick;
 
                 }
                 this.charging = false;
@@ -234,7 +234,7 @@ class Cyclops {
                     }
                 }
                 if (this.shootTimer === 0 && this.state === 2) {
-                    this.shootTimer = 0.075 * 4 - this.game.clockTick;
+                    this.shootTimer = 0.075 * 5 - this.game.clockTick;
                     if (this.attackFlag) {
                         let vector = this.confusedTimer === 0 ? { x: heroCenter.x - this.BB.center.x, y: heroCenter.y - this.BB.center.y } :
                                                                 this.confusionUnitVector;

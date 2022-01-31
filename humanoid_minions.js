@@ -1,7 +1,22 @@
 class SwordedMinion {
-    constructor(game, x, y) {
-        Object.assign(this, { game, x, y });
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/dwarf_beard.png");
+    constructor(game, x, y, type) {
+        Object.assign(this, { game, x, y, type });
+
+        switch(this.type) {
+            case 0:
+                this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/dwarf_beard.png");
+                break;
+            case 1:
+                this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/orc.png");
+                break;
+            case 2:
+                this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/trasgo.png");
+                break;
+            case 3:
+                this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/goblin.png");
+                break;
+        }
+        
         this.facing = [0, randomInt(2)]; // down, up, right, left
                                          // 0, 1, 0, 1 
         this.state = 0; // idle, walking, attacking, damaged, dead
@@ -41,7 +56,7 @@ class SwordedMinion {
     updateBB() {
         this.BB = new BoundingBox(this.x, this.y, 32 * PARAMS.SCALE, 32 * PARAMS.SCALE);
         this.hitBB = new BoundingBox(this.x + 12 * PARAMS.SCALE, this.y + 12 * PARAMS.SCALE, 8 * PARAMS.SCALE, 8 * PARAMS.SCALE);
-        this.collisionBB = new BoundingBox(this.hitBB.x, this.hitBB.y + 4 * PARAMS.SCALE, 8 * PARAMS.SCALE, 4 * PARAMS.SCALE);
+        this.collisionBB = new BoundingBox(this.hitBB.x, this.hitBB.y + 4 * PARAMS.SCALE, 8 * PARAMS.SCALE, 6 * PARAMS.SCALE);
     };
 
     update() {
@@ -182,12 +197,6 @@ class SwordedMinion {
                                 let projectileCenter = { x: this.BB.center.x + 4 * PARAMS.SCALE * heroDirectionUnitVector.x,
                                                          y: this.BB.center.y + 4 * PARAMS.SCALE * heroDirectionUnitVector.y };
                                 if (this.shootFlag) {
-                                    // this.game.addEntity(new DamageRegion(this.game, 
-                                    //                                      projectileCenter.x - 4 * PARAMS.SCALE, 
-                                    //                                      projectileCenter.y - 4 * PARAMS.SCALE, 
-                                    //                                      8 * PARAMS.SCALE, 
-                                    //                                      8 * PARAMS.SCALE, 
-                                    //                                      false, 75, 0.1));
                                     let vector = this.confusedTimer === 0 ? heroDirectionUnitVector : this.confusionUnitVector;
                                     let theta = Math.atan2(vector.y, vector.x);
                                     if (theta < 0) {
@@ -195,7 +204,7 @@ class SwordedMinion {
                                     }
                                     this.game.addEntity(new Projectile(this.game, 
                                                                        this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(theta) * PARAMS.SCALE, 
-                                                                       this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, theta, false, 2, this.BB.center, PROJECTILES[2].velocity, 50));
+                                                                       this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, theta, false, 9, this.BB.center, 50));
                                 }
                             }
                         } else if (this.damagedTimer === 0 && this.frozenTimer === 0) {
@@ -513,8 +522,6 @@ class RangedMinion {
                             let degrees = toDegrees(arrowTheta);
                             if (this.damagedTimer === 0) {
                                 this.state = 2;
-                                // this.velocity.x = 0;
-                                // this.velocity.y = 0;
                                 if (degrees <= 45 || degrees >= 315) {
                                     this.facing = [0, 0];
                                 } else if (degrees > 45 && degrees < 135) {
@@ -527,17 +534,10 @@ class RangedMinion {
                             }
                             if (this.shootTimer === 0 && this.state === 2) {
                                 this.shootTimer = 0.06 * 8 - this.game.clockTick;
-
                                 if (this.shootFlag) {
-                                    // this.game.addEntity(new DamageRegion(this.game, 
-                                    //                                      projectileCenter.x - 4 * PARAMS.SCALE, 
-                                    //                                      projectileCenter.y - 4 * PARAMS.SCALE, 
-                                    //                                      8 * PARAMS.SCALE, 
-                                    //                                      8 * PARAMS.SCALE, 
-                                    //                                      false, 75, 0.1));
                                     this.game.addEntity(new Projectile(this.game, 
                                         this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(arrowTheta) * PARAMS.SCALE, 
-                                        this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(arrowTheta) * PARAMS.SCALE, arrowTheta, false, 3, this.BB.center, PROJECTILES[3].velocity, 50));
+                                        this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(arrowTheta) * PARAMS.SCALE, arrowTheta, false, 8, this.BB.center, 50));
                                 }
                             }
                         } else if (this.damagedTimer === 0 && this.frozenTimer === 0) {
@@ -557,19 +557,8 @@ class RangedMinion {
                             }  
                         }
                         if (this.damagedTimer === 0 && this.frozenTimer === 0 && this.state !== 2) {
-                            // if (this.randomPos !== undefined && this.state === 2) {
-                                // if (this.confusedTimer > 0) {
-                                //     this.facing[0] = this.confusionUnitVector.y >= 0 ? 0 : 1;
-                                //     this.facing[1] = this.confusionUnitVector.x >= 0 ? 0 : 1;
-                                // } 
-                                // else {
-                                //     this.facing[0] = heroDirectionUnitVector.y >= 0 ? 0 : 1;
-                                //     this.facing[1] = heroDirectionUnitVector.x >= 0 ? 0 : 1;
-                                // }
-                            // } else {
                                 this.facing[0] = this.velocity.y >= 0 ? 0 : 1;
                                 this.facing[1] = this.velocity.x >= 0 ? 0 : 1;
-                            // }  
                         }
                     } else if (this.damagedTimer === 0 && this.frozenTimer === 0) {
                         this.state = 0;

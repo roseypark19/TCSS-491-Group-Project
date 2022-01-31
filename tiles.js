@@ -62,15 +62,18 @@ class MapTile {
 
 class PropTile {
     constructor(game, x, y, spritePath, spriteX, spriteY, offsetX, offsetY, width, height, collideable, scale = PARAMS.SCALE) {
-        Object.assign(this, {game, x, y, spritePath, spriteX, spriteY, offsetX, offsetY, width, height, scale, collideable});
+        Object.assign(this, {game, spritePath, spriteX, spriteY, width, height, scale, collideable});
         
+        this.x = x + offsetX * this.scale;
+        this.y = y + offsetY * this.scale;
+
         if (this.collideable) {
             this.id = ++PARAMS.COLLIDE_ID;
         }
         
         this.animator = new AnimationGroup(ASSET_MANAGER.getAsset(this.spritePath), 
                                            spriteX, spriteY, width, height, 1, 1, false, true);
-        this.BB = new BoundingBox(this.x + this.offsetX * this.scale, this.y + this.offsetY * this.scale, 
+        this.BB = new BoundingBox(this.x, this.y, 
                                   this.width * this.scale, this.height * this.scale);       
     };
 
@@ -98,8 +101,8 @@ class PropTile {
     // };
 
     draw(ctx) {
-        this.animator.drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x + this.offsetX * this.scale, 
-                                                          this.y - this.game.camera.y + this.offsetY * this.scale, this.scale);
+        this.animator.drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, 
+                                                          this.y - this.game.camera.y, this.scale);
         if (this.collideable && PARAMS.DEBUG) {
             ctx.strokeStyle = PARAMS.DEBUG_COLOR;
             ctx.lineWidth = PARAMS.DEBUG_WIDTH;
