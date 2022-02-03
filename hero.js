@@ -484,7 +484,7 @@ class Hero {
                         let base_vel = PROJECTILES[type].velocity;
                         let true_vel = { x: Math.cos(theta) * base_vel, y: Math.sin(theta) * base_vel };
                         let proj_vel = { x: true_vel.x + (Math.sign(true_vel.x) === Math.sign(this.velocity.x) ? this.velocity.x: 0),
-                                            y: true_vel.y + (Math.sign(true_vel.y) === Math.sign(this.velocity.y) ? this.velocity.y: 0) };
+                                         y: true_vel.y + (Math.sign(true_vel.y) === Math.sign(this.velocity.y) ? this.velocity.y: 0) };
                         this.game.addEntity(new Projectile(this.game, 
                                                             this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(theta) * PARAMS.SCALE, 
                                                             this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, 
@@ -509,6 +509,11 @@ class Hero {
         }
 
         this.shootFlag = this.state === 2;
+
+        if (PARAMS.DEBUG === true && this.game.clicked) {
+            let point = {x: this.game.click.x + this.game.camera.x, y: this.game.click.y + this.game.camera.y};
+            console.log(`{index: replaceme, x: ${Math.floor((point.x + 16 * (PARAMS.SCALE / 1))/32) + 0.5}, y: ${Math.floor((point.y + 16 * (PARAMS.SCALE / 1))/32) + 0.5}, centered: true},`);
+        }
 
         // collision detection and resolve
         let collisionList = [];
