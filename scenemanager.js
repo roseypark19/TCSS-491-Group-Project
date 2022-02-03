@@ -117,12 +117,14 @@ class SceneManager {
                     this.addPropToppers();
                     this.addPropShadows(); 
                 } else if (this.currentLevel == castle) {
+                    console.log("entered!")
                     this.hero = new Hero(this.game, castle.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
                         castle.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
                     this.game.addEntity(this.hero);
                 }
             } else {
                 this.loadLayer(level[layer_name], level, isOverworld);
+                console.log(layer_name)
             }
         }
 
@@ -282,9 +284,6 @@ class SceneManager {
             }
         } else {
             this.x = this.hero.BB.center.x - midpoint.x;
-            if (!this.overworld) {
-                this.y = this.hero.BB.center.y - midpoint.y;
-            }
         }
      
         

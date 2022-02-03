@@ -1,8 +1,8 @@
 const castle = { 
     width: 115, 
     height: 276,
-    heroX: 56,
-    heroY: 268,
+    heroX: 55.5,
+    heroY: 258,
     layer_names: ["floor", "carpet", "carpet_corners", "wall_base", "hero", "wall_topper", "overbars"], 
 
 
