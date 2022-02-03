@@ -624,16 +624,6 @@ const props = {
         height: 8,
         base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 136, 24, 8, 8, false, 113),
     },
-
-
-
-
-
-
-
-
-
-
     114: { // medium bush
         topX: 105,
         topY: 46,
