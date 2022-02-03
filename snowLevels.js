@@ -5,6 +5,48 @@ const snow1 = {
     layer_names: ["ground", "collideable", "hero", "topper", "shadows"], 
 
     props: [
+
+        {index: 90, x: 21, y: 62, centered: false},
+        {index: 91, x: 23, y: 62, centered: false},
+        {index: 92, x: 25, y: 62, centered: false},
+        {index: 93, x: 27, y: 62, centered: false},
+        {index: 94, x: 30, y: 62, centered: false},
+        {index: 95, x: 33, y: 62, centered: false},
+        {index: 96, x: 34, y: 62, centered: false},
+        {index: 97, x: 36, y: 62, centered: false},
+        {index: 98, x: 38, y: 62, centered: false},
+        {index: 99, x: 40, y: 62, centered: false},
+        {index: 100, x: 21, y: 65, centered: false},
+        {index: 101, x: 23, y: 65, centered: false},
+        {index: 102, x: 25, y: 65, centered: false},
+        {index: 103, x: 27, y: 65, centered: false},
+        {index: 104, x: 29, y: 65, centered: false},
+        {index: 105, x: 31, y: 65, centered: false},
+        {index: 106, x: 33, y: 65, centered: false},
+        {index: 107, x: 35, y: 65, centered: false},
+        {index: 108, x: 37, y: 65, centered: false},
+        {index: 109, x: 39, y: 65, centered: false},
+        {index: 110, x: 41, y: 65, centered: false},
+        {index: 111, x: 43, y: 65, centered: false},
+        {index: 112, x: 25, y: 68, centered: false},
+        {index: 113, x: 27, y: 68, centered: false},
+        {index: 114, x: 29, y: 68, centered: false},
+
+        {index: 116, x: 32, y: 68, centered: false},
+        {index: 117, x: 35, y: 68, centered: false},
+        {index: 118, x: 38, y: 68, centered: false},
+        {index: 119, x: 42, y: 68, centered: false},
+
+        {index: 120, x: 45, y: 68, centered: false},
+        {index: 121, x: 48, y: 68, centered: false},
+        {index: 122, x: 51, y: 68, centered: false},
+        {index: 123, x: 54, y: 68, centered: false},
+
+
+
+
+
+
     // ice in top left       
         {index: 64, x: 2, y: 17, centered: false}, // water hole
         {index: 74, x: 1, y: 16, centered: false}, // water hole sign
@@ -1084,6 +1126,8 @@ const snow2 = {
         {index: 62, x: 5, y: 63, centered: false},
         {index: 62, x: 26, y: 84, centered: false},
         {index: 62, x: 49, y: 81, centered: false},
+
+       
     ],
     
     ground: {

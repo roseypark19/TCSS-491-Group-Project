@@ -428,7 +428,298 @@ const props = {
         topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/trees.png", 74, 89, 20, 32, false, 86),
         shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/snow/treesShadows.png", 74, 89, 20, 39, false, 86)
     },
-// snow topper props
 
+// desert props
+    90: { // small rock left point
+        topX: 8,
+        topY: 9,
+        width: 8,
+        height: 7,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 8, 9, 8, 7, false, 90),
+    },
+
+    91: { // small rock right point
+        topX: 8,
+        topY: 17,
+        width: 8,
+        height: 7,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 8, 17, 8, 7, false, 91),
+    },
+
+    92: { // small rock left point
+        topX: 9,
+        topY: 27,
+        width: 7,
+        height: 5,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 9, 27, 7, 5, false, 92),
+    },
+
+    93: { // animal left
+        topX: 24,
+        topY: 10,
+        width: 16,
+        height: 6,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 24, 10, 16, 6, false, 93),
+    },
+
+    94: { // animal right
+        topX: 24,
+        topY: 26,
+        width: 16,
+        height: 6,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 24, 26, 16, 6, false, 94),
+    },
+
+    95: { // bush 1
+        topX: 49,
+        topY: 11,
+        width: 5,
+        height: 8,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 49, 11, 5, 8, false, 95),
+    },
+    
+    96: { // bush 2
+        topX: 50,
+        topY: 20,
+        width: 6,
+        height: 8,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 50, 20, 6, 8, false, 96),
+    },
+
+    97: { // bush 3
+        topX: 49,
+        topY: 16,
+        width: 7,
+        height: 7,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 49, 16, 7, 7, false, 97),
+    },
+
+    98: { // grass 1
+        topX: 57,
+        topY: 10,
+        width: 5,
+        height: 5,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 57, 10, 5, 5, false, 98),
+    },
+
+    99: { // grass 2
+        topX: 58,
+        topY: 17,
+        width: 4,
+        height: 6,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 58, 17, 4, 6, false, 99),
+    },
+
+    100: { // grass 3
+        topX: 57,
+        topY: 24,
+        width: 7,
+        height: 8,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 57, 24, 7, 8, false, 100),
+    },
+
+    101: { // short cacti 1
+        topX: 88,
+        topY: 11,
+        width: 8,
+        height: 5,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 88, 11, 8, 5, false, 101),
+    },
+
+    102: { // short cacti 2
+        topX: 88,
+        topY: 24,
+        width: 8,
+        height: 8,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 88, 24, 8, 8, false, 102),
+    },
+
+    103: { // normal cacti 1
+        topX: 72,
+        topY: 8,
+        width: 8,
+        height: 8,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 72, 8, 8, 8, false, 103),
+        // topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 72, 8, 8, 4, false, 103),
+    },
+
+    104: { // normal cacti 1
+        topX: 72,
+        topY: 16,
+        width: 8,
+        height: 8,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 72, 16, 8, 8, false, 104),
+        // topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 72, 16, 8, 4, false, 104),
+    },
+
+    105: { // normal cacti 1
+        topX: 72,
+        topY: 24,
+        width: 8,
+        height: 8,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 72, 24, 8, 8, false, 105),
+        // topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 72, 24, 8, 4, false, 105),
+    },
+
+    106: { // small bush with flowers 1
+        topX: 104,
+        topY: 8,
+        width: 8,
+        height: 8,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 104, 8, 8, 8, false, 106),
+    },
+
+    107: { // small bush with flowers 2
+        topX: 112,
+        topY: 8,
+        width: 8,
+        height: 8,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 112, 8, 8, 8, false, 107),
+    },
+
+    108: { // small bush no flowers 1
+        topX: 104,
+        topY: 24,
+        width: 8,
+        height: 8,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 104, 24, 8, 8, false, 108),
+    },
+
+    109: { // small bush no flowers 2
+        topX: 112,
+        topY: 24,
+        width: 8,
+        height: 8,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 112, 24, 8, 8, false, 109),
+    },
+
+    110: { // small light green cacti with flowers 1
+        topX: 128,
+        topY: 8,
+        width: 8,
+        height: 8,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 128, 8, 8, 8, false, 110),
+    },
+
+    111: { // small light green cacti with flowers 2
+        topX: 136,
+        topY: 8,
+        width: 8,
+        height: 8,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 136, 8, 8, 8, false, 111),
+    },
+
+    112: { // small light green cacti without flowers 1
+        topX: 128,
+        topY: 24,
+        width: 8,
+        height: 8,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 128, 24, 8, 8, false, 112),
+    },
+
+    113: { // small light green cacti without flowers 2
+        topX: 136,
+        topY: 24,
+        width: 8,
+        height: 8,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 136, 24, 8, 8, false, 113),
+    },
+
+
+
+
+
+
+
+
+
+
+    114: { // medium bush
+        topX: 105,
+        topY: 46,
+        width: 14,
+        height: 9,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 105, 46, 14, 9, false, 114),
+    },
+
+    116: { // medium rock
+        topX: 8,
+        topY: 47,
+        width: 16,
+        height: 9,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 8, 51, 16, 5, true, 116),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 8, 47, 16, 4, false, 116),
+    },
+
+    117: { // large rock
+        topX: 8,
+        topY: 57,
+        width: 15,
+        height: 15,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 8, 67, 15, 5, true, 117),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 8, 57, 15, 10, false, 117),
+    },
+
+    118: { // large bush
+        topX: 104,
+        topY: 56,
+        width: 16,
+        height: 16,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 104, 67, 16, 5, true, 118),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 104, 56, 16, 11, false, 118),
+    },
+
+    119: { // straight tree
+        topX: 48,
+        topY: 40,
+        width: 16,
+        height: 16,
+        // bottomNotCollidable: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 48, 51, 16, 5, false, 119),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 54, 51, 4, 5, true, 119),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 48, 40, 16, 11, false, 119),
+    },
+
+    120: { // left tree
+        topX: 48,
+        topY: 56,
+        width: 16,
+        height: 16,
+        bottomNotCollidable: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 48, 56, 16, 6, false, 120),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 56, 66, 4, 6, true, 120),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 48, 56, 16, 11, false, 120),
+    },
+
+    121: { // right tree
+        topX: 48,
+        topY: 73,
+        width: 16,
+        height: 16,
+        bottomNotCollidable: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 48, 73, 16, 6, false, 121),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 49, 82, 8, 6, true, 121),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 48, 73, 16, 11, false, 121),
+    },
+
+    122: { // straight tree
+        topX: 72,
+        topY: 40,
+        width: 15,
+        height: 16,
+        bottomNotCollidable: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 72, 50, 15, 5, false, 122),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 76, 50, 5, 6, true, 122),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 72, 40, 15, 10, false, 122),
+    },
+
+    123: { // straight tree
+        topX: 72,
+        topY: 56,
+        width: 15,
+        height: 16,
+        bottomNotCollidable: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 72, 66, 16, 5, false, 123),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 72, 66, 13, 6, true, 123),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 72, 56, 16, 10, false, 123),
+    },
+
+    
+    
 
 };

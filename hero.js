@@ -188,7 +188,7 @@ class Hero {
 
         // types: 0 = longsword, 1 = war axe, 2 = whip, 3 = flail, 4 = slingshot, 5 = bow
 
-        this.spellType = 0; // 0 = wind, 1 = fire, 2 = ice, 3 = earth
+        this.spellType = 1; // 0 = wind, 1 = fire, 2 = ice, 3 = earth
 
         this.velocityConstant = 6;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
