@@ -4,7 +4,7 @@ class SceneManager {
         this.game.camera = this;
         this.x = 0;
         this.y = 0;
-        this.travelTo(desert2);
+        this.travelTo(desert1);
     };
 
     clearEntities() {
