@@ -4,7 +4,7 @@ class SceneManager {
         this.game.camera = this;
         this.x = 0;
         this.y = 0;
-        this.travelTo(desert1);
+        this.travelTo(desert2);
     };
 
     clearEntities() {
@@ -118,12 +118,19 @@ class SceneManager {
                     this.addPropToppers();
                     this.addPropShadows(); 
                 } else  {
+                    
                     this.addPropBases();
+                    // coward portal
+                    this.game.addEntity(new Portal(this.game, "Leave " + this.currentLevel.levelName, overworld, 5, this.currentLevel.cowardPortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxWidth));
+                    // leaving portal
+                    this.game.addEntity(new Portal(this.game, "Complete " + this.currentLevel.levelName, overworld, this.currentLevel.portalIndex, this.currentLevel.completePortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxWidth));
+
                     this.hero = new Hero(this.game, this.currentLevel.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
                             this.currentLevel.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
                         this.game.addEntity(this.hero);
                     this.addPropToppers();
                     this.addPropShadows(); 
+
                 }
             } else {
                 this.loadLayer(level[layer_name], level, isOverworld);

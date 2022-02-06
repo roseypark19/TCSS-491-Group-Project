@@ -1,4 +1,20 @@
 const desert1 = {
+    levelName: "Desert 1",
+    portalIndex: 2,
+    cowardPortal: {
+        x: 62.5,
+        y: 38.5,
+        boxWidth: 485,
+        boxX: 56.5,
+        boxY: 43,
+    },
+    completePortal: {
+        x: 35.5,
+        y: 14,
+        boxWidth: 585,
+        boxX: 28,
+        boxY: 25,
+    },
     width: 115,
     height: 90,
     heroX: 63,
@@ -816,6 +832,22 @@ const desert1 = {
 }
 
 const desert2 = {
+    levelName: "Desert 2",
+    portalIndex: 1,
+    cowardPortal: {
+        x: 30.5,
+        y: 56.5,
+        boxWidth: 490,
+        boxX: 25,
+        boxY: 61,
+    },
+    completePortal: {
+        x: 92.5,
+        y: 20,
+        boxWidth: 590,
+        boxX: 85,
+        boxY: 24,
+    },
     width: 115,
     height: 90,
     heroX: 29,
