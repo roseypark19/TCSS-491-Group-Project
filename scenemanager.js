@@ -4,7 +4,7 @@ class SceneManager {
         this.game.camera = this;
         this.x = 0;
         this.y = 0;
-        this.travelTo(snow1);
+        this.travelTo(desert2);
     };
 
     clearEntities() {
@@ -117,7 +117,14 @@ class SceneManager {
                     this.game.addEntity(this.hero);
                     this.addPropToppers();
                     this.addPropShadows(); 
-                } 
+                } else  {
+                    this.addPropBases();
+                    this.hero = new Hero(this.game, this.currentLevel.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
+                            this.currentLevel.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
+                        this.game.addEntity(this.hero);
+                    this.addPropToppers();
+                    this.addPropShadows(); 
+                }
             } else {
                 this.loadLayer(level[layer_name], level, isOverworld);
             }

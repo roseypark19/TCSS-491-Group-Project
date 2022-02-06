@@ -543,7 +543,7 @@ const props = {
         // topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 72, 8, 8, 4, false, 103),
     },
 
-    104: { // normal cacti 1
+    104: { // normal cacti 2
         topX: 72,
         topY: 16,
         width: 8,
@@ -552,7 +552,7 @@ const props = {
         // topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 72, 16, 8, 4, false, 104),
     },
 
-    105: { // normal cacti 1
+    105: { // normal cacti 3
         topX: 72,
         topY: 24,
         width: 8,
@@ -689,7 +689,7 @@ const props = {
         topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 48, 73, 16, 11, false, 121),
     },
 
-    122: { // straight tree
+    122: { // large cacti 1
         topX: 72,
         topY: 40,
         width: 15,
@@ -699,7 +699,7 @@ const props = {
         topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/desert/props.png", 72, 40, 15, 10, false, 122),
     },
 
-    123: { // straight tree
+    123: { // large cacti 2
         topX: 72,
         topY: 56,
         width: 15,
