@@ -117,14 +117,17 @@ class SceneManager {
                     this.addPropToppers();
                     this.addPropShadows(); 
                 } else if (this.currentLevel == castle) {
-                    console.log("entered!")
+                    this.addPropBases();
+                    this.addNonCollidablePropBases();
+                    this.addPropShadows();
                     this.hero = new Hero(this.game, castle.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
                         castle.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
                     this.game.addEntity(this.hero);
+                    this.game.addEntity(new Flame(this.game, this.hero.x, this.hero.y - 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 1));
+                    this.addPropToppers();
                 }
             } else {
                 this.loadLayer(level[layer_name], level, isOverworld);
-                console.log(layer_name)
             }
         }
 
@@ -203,32 +206,59 @@ class SceneManager {
 
     addPropBases() {
         this.currentLevel.props.forEach(prop => {
-            if (props[prop.index].base) {
-                this.game.addEntity(props[prop.index].base(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
+            let index = prop.index;
+            if (props[index].base) {
+                let tile = props[index].base(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered);
+                this.game.addEntity(tile);
+                if (props[index].customAnim) {
+                    let animData = props[index].customAnim;
+                    tile.alterTileAnimation(animData.frameCount, animData.frameDuration, animData.framePadding);
+                }
             }
         });
-    }
+    };
+
     addPropToppers() {
         this.currentLevel.props.forEach(prop => {
-            if (props[prop.index].topper) {
-                this.game.addEntity(props[prop.index].topper(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
+            let index = prop.index;
+            if (props[index].topper) {
+                let tile = props[index].topper(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered);
+                this.game.addEntity(tile);
+                if (props[index].customAnim) {
+                    let animData = props[index].customAnim;
+                    tile.alterTileAnimation(animData.frameCount, animData.frameDuration, animData.framePadding);
+                }
             }
         });
-    }
+    };
+
     addPropShadows() {
         this.currentLevel.props.forEach(prop => {
-            if (props[prop.index].shadow) {
-                this.game.addEntity(props[prop.index].shadow(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
+            let index = prop.index;
+            if (props[index].shadow) {
+                let tile = props[index].shadow(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered);
+                this.game.addEntity(tile);
+                if (props[index].customAnim) {
+                    let animData = props[index].customAnim;
+                    tile.alterTileAnimation(animData.frameCount, animData.frameDuration, animData.framePadding);
+                }
             }
         });
-    }
+    };
+
     addNonCollidablePropBases() {
         this.currentLevel.props.forEach(prop => {
-            if (props[prop.index].bottomNotCollidable) {
-                this.game.addEntity(props[prop.index].bottomNotCollidable(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
+            let index = prop.index;
+            if (props[index].bottomNotCollidable) {
+                let tile = props[index].bottomNotCollidable(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered);
+                this.game.addEntity(tile);
+                if (props[index].customAnim) {
+                    let animData = props[index].customAnim;
+                    tile.alterTileAnimation(animData.frameCount, animData.frameDuration, animData.framePadding);
+                }
             }
         });
-    }
+    };
 
     createDestinations(level) {
         let destinations = [];

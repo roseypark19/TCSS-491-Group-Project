@@ -7,13 +7,13 @@ class SwordedMinion {
                 this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/dwarf_beard.png");
                 break;
             case 1:
-                this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/orc.png");
+                this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/orc_wild.png");
                 break;
             case 2:
                 this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/trasgo.png");
                 break;
             case 3:
-                this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/goblin.png");
+                this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/goblins.png");
                 break;
         }
         
@@ -50,7 +50,7 @@ class SwordedMinion {
         this.animations.push(new AnimationGroup(this.spritesheet, 64 * 32, 0, 32, 32, 4, this.walkSpeed, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 80 * 32, 0, 32, 32, 4, 0.12, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 96 * 32, 0, 32, 32, 4, 0.15, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 112 * 32, 0, 32, 32, 11, 0.15, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 112 * 32, 0, 32, 32, 12, 0.15, false, true));
     };
 
     updateBB() {
@@ -118,7 +118,7 @@ class SwordedMinion {
                         }   
                     }
                     if (this.deadTimer === 0 && this.hp <= 0) {
-                        this.deadTimer = 11 * 0.15 - this.game.clockTick;
+                        this.deadTimer = 12 * 0.15 - this.game.clockTick;
                         this.state = 4;
                         this.facing = [0, 0];
                         // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
@@ -338,9 +338,19 @@ class SwordedMinion {
 
 
 class RangedMinion {
-    constructor(game, x, y) {
-        Object.assign(this, { game, x, y });
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/dwarf.png");
+    constructor(game, x, y, type) {
+        Object.assign(this, { game, x, y, type });
+        switch(this.type) {
+            case 0:
+                this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/dwarf.png");
+                break;
+            case 1:
+                this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/orc.png");
+                break;
+            case 2:
+                this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/goblins.png");
+                break;
+        }
         this.facing = [0, randomInt(2)]; // down, up, right, left
                                          // 0, 1, 0, 1 
         this.state = 0; // idle, walking, attacking, damaged, dead
@@ -372,9 +382,9 @@ class RangedMinion {
     loadAnimations() {
         this.animations.push(new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 16, 0.2, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 64 * 32, 0, 32, 32, 4, this.walkSpeed, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 123 * 32, 0, 32, 32, 8, 0.06, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 124 * 32, 0, 32, 32, 8, 0.04, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 96 * 32, 0, 32, 32, 4, 0.15, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 112 * 32, 0, 32, 32, 11, 0.15, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 112 * 32, 0, 32, 32, 12, 0.15, false, true));
     };
 
     updateBB() {
@@ -442,7 +452,7 @@ class RangedMinion {
                         }   
                     }
                     if (this.deadTimer === 0 && this.hp <= 0) {
-                        this.deadTimer = 11 * 0.15 - this.game.clockTick;
+                        this.deadTimer = 12 * 0.15 - this.game.clockTick;
                         this.state = 4;
                         this.facing = [0, 0];
                         // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
@@ -472,7 +482,7 @@ class RangedMinion {
                 this.state = 3;
             }
             if (this.deadTimer === 0 && this.hp <= 0) {
-                this.deadTimer = 11 * 0.15 - this.game.clockTick;
+                this.deadTimer = 12 * 0.15 - this.game.clockTick;
                 this.state = 4;
                 this.facing = [0, 0];
                 // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
@@ -533,7 +543,7 @@ class RangedMinion {
                                 }
                             }
                             if (this.shootTimer === 0 && this.state === 2) {
-                                this.shootTimer = 0.06 * 8 - this.game.clockTick;
+                                this.shootTimer = 0.04 * 8 - this.game.clockTick;
                                 if (this.shootFlag) {
                                     this.game.addEntity(new Projectile(this.game, 
                                         this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(arrowTheta) * PARAMS.SCALE, 

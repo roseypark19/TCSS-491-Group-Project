@@ -20,9 +20,9 @@ const PARAMS = {
 };
 
 const PROJECTILE_LIFETIMES = {
-    short: 0.5,
-    mid: 1,
-    long: 1.5
+    short: 0.75,
+    mid: 1.25,
+    long: 1.75
 };
 
 const WEAPONS = {

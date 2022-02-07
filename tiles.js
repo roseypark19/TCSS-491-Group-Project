@@ -77,6 +77,20 @@ class PropTile {
                                   this.width * this.scale, this.height * this.scale);       
     };
 
+    alterTileAnimation(frameCount, frameDuration, framePadding = 0) {
+        let anim = this.animator;
+        this.animator = 
+            new AnimationGroup(ASSET_MANAGER.getAsset(this.spritePath), 
+                this.spriteX, this.spriteY, this.width, this.height, frameCount, frameDuration, anim.reverse, anim.loop, framePadding);
+    };
+
+    updateElapsedTime() {
+        this.animator.elapsedTime += this.game.clockTick;
+        if (this.animator.isDone()) {
+            this.animator.reset();
+        }
+    };
+
     update() { };
 
     // drawMmap(ctx) {

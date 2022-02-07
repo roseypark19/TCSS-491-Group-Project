@@ -56,9 +56,19 @@ ASSET_MANAGER.queueDownload("./sprites/enemies/dwarf_beard.png");
 
 ASSET_MANAGER.queueDownload("./sprites/enemies/cyclops.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/yeti.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/wargo.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/centaur.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/troll.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/rhino.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/polarbear.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/snowman.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/trasgo.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/orc.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/orc_wild.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/goblins.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/zombie.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/giant_toad.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/livingfire.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_enemy_close_range.png");
 
 ASSET_MANAGER.queueDownload("./sprites/projectiles/snowball.png");
@@ -73,6 +83,9 @@ ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_flail.png");
 
 ASSET_MANAGER.queueDownload("./sprites/biomes/castle/tiles.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/castle/carpet.png");
+ASSET_MANAGER.queueDownload("./sprites/biomes/castle/props.png");
+ASSET_MANAGER.queueDownload("./sprites/biomes/castle/props_shadows.png");
+ASSET_MANAGER.queueDownload("./sprites/biomes/castle/torches.png");
 
 ASSET_MANAGER.downloadAll(function () {
 

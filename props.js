@@ -431,4 +431,242 @@ const props = {
 // snow topper props
 
 
+
+
+
+
+// castle props
+    150: { // red banner flag
+        topX: 8,
+        topY: 8,
+        width: 8,
+        height: 15,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 8, 8, 8, 15, false, 150),
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 7, 8, 8, 15, false, 150)
+    },
+
+    151: { // gold guard face right
+        topX: 104,
+        topY: 76,
+        width: 8,
+        height: 12,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 104, 84, 8, 4, true, 151),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 104, 76, 8, 8, false, 151),
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 103, 85, 1, 3, false, 151)
+    },
+
+    152: { // gold guard face forward
+        topX: 72,
+        topY: 76,
+        width: 8,
+        height: 12,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 72, 83, 8, 5, true, 152),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 72, 76, 8, 7, false, 152),
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 71, 84, 1, 4, false, 152)
+    },
+
+    153: { // colored dinner table leaf
+        topX: 216,
+        topY: 72,
+        width: 8,
+        height: 24,
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 216, 72, 8, 5, false, 153),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 216, 77, 8, 15, true, 153),
+        bottomNotCollidable: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 216, 72, 8, 24, false, 153),
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 216, 93, 1, 3, false, 153)
+    },
+
+    154: { // dinner table left
+        topX: 208,
+        topY: 80,
+        width: 8,
+        height: 8,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 213, 80, 3, 8, true, 154),
+        bottomNotCollidable: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 208, 80, 5, 8, false, 154),
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 207, 85, 1, 3, false, 154)
+    },
+
+    155: { // dinner table right
+        topX: 224,
+        topY: 80,
+        width: 8,
+        height: 8,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 224, 80, 3, 8, true, 155),
+        bottomNotCollidable: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 227, 80, 5, 8, false, 155)
+    },
+
+    156: { // floor torch
+        topX: 2,
+        topY: 0,
+        width: 11,
+        height: 20,
+        customAnim: {frameCount: 8, frameDuration: 0.1, framePadding: 5},
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/torches.png", 6, 16, 3, 3, true, 156),
+        bottomNotCollidable: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/torches.png", 2, 15, 11, 5, false, 156),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/torches.png", 2, 0, 11, 15, false, 156),
+    },
+
+    157: { // chest closed
+        topX: 80,
+        topY: 18,
+        width: 8,
+        height: 6,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 79, 22, 1, 2, false, 157),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 80, 18, 8, 6, false, 157),
+    },
+
+    158: { // chest open
+        topX: 96,
+        topY: 14,
+        width: 8,
+        height: 10,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 95, 22, 1, 2, false, 158),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 96, 14, 8, 10, false, 158),
+    },
+
+    159: { // wall shield
+        topX: 9,
+        topY: 58,
+        width: 6,
+        height: 10,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 8, 58, 6, 10, false, 159),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 9, 58, 6, 10, false, 159),
+    },
+
+    160: { // wall axe
+        topX: 17,
+        topY: 58,
+        width: 7,
+        height: 10,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 16, 58, 7, 10, false, 160),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 17, 58, 7, 10, false, 160),
+    },
+
+    161: { // wall swords
+        topX: 27,
+        topY: 58,
+        width: 10,
+        height: 10,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 26, 58, 10, 10, false, 161),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 27, 58, 10, 10, false, 161),
+    },
+
+    162: { // wall swords
+        topX: 44,
+        topY: 58,
+        width: 10,
+        height: 10,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 43, 58, 10, 10, false, 162),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 44, 58, 10, 10, false, 162),
+    },
+
+    163: { // wall deer facing right
+        topX: 12,
+        topY: 82,
+        width: 14,
+        height: 14,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 11, 87, 4, 9, false, 163),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 12, 82, 14, 14, false, 163),
+    },
+
+    164: { // wall deer facing left
+        topX: 38,
+        topY: 82,
+        width: 14,
+        height: 14,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 43, 90, 4, 6, false, 164),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 38, 82, 14, 14, false, 164),
+    },
+
+    165: { // wall bear facing right
+        topX: 11,
+        topY: 110,
+        width: 12,
+        height: 10,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 10, 110, 4, 10, false, 165),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 11, 110, 12, 10, false, 165),
+    },
+
+    166: { // wall bear facing left
+        topX: 41,
+        topY: 110,
+        width: 12,
+        height: 10,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 43, 118, 2, 2, false, 166),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 41, 110, 12, 10, false, 166),
+    },
+
+    167: { // gold guard face up
+        topX: 88,
+        topY: 76,
+        width: 8,
+        height: 12,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 88, 83, 8, 5, true, 167),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 88, 76, 8, 7, false, 167),
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 87, 84, 1, 4, false, 167)
+    },
+
+    168: { // gold guard face left
+        topX: 120,
+        topY: 76,
+        width: 8,
+        height: 12,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 120, 83, 8, 5, true, 168),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 120, 76, 8, 7, false, 168),
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 119, 85, 1, 3, false, 168)
+    },
+
+    169: { // wall torch
+        topX: 2,
+        topY: 48,
+        width: 11,
+        height: 20,
+        customAnim: {frameCount: 8, frameDuration: 0.1, framePadding: 5},
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/torches.png", 2, 48, 11, 20, false, 169)
+    },
+
+    170: { // chair face forward
+        topX: 89,
+        topY: 56,
+        width: 6,
+        height: 8,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 88, 61, 1, 3, false, 170),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 89, 56, 6, 8, false, 170),
+    },
+
+    171: { // chair face right
+        topX: 105,
+        topY: 56,
+        width: 6,
+        height: 8,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 104, 61, 1, 3, false, 171),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 105, 56, 6, 8, false, 171),
+    },
+
+    172: { // chair face left
+        topX: 121,
+        topY: 56,
+        width: 6,
+        height: 8,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 120, 61, 1, 3, false, 172),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 121, 56, 6, 8, false, 172),
+    },
+
+    173: { // checkered banner flag
+        topX: 24,
+        topY: 8,
+        width: 8,
+        height: 15,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 24, 8, 8, 15, false, 173),
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 23, 8, 8, 15, false, 173)
+    },
+
+    174: { // gold checkered banner flag
+        topX: 40,
+        topY: 8,
+        width: 8,
+        height: 15,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 40, 8, 8, 15, false, 174),
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 39, 8, 8, 15, false, 174)
+    },
 };
