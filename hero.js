@@ -188,9 +188,9 @@ class Hero {
 
         // types: 0 = longsword, 1 = war axe, 2 = whip, 3 = flail, 4 = slingshot, 5 = bow
 
-        this.spellType = 0; // 0 = wind, 1 = fire, 2 = ice, 3 = earth
+        this.spellType = 1; // 0 = wind, 1 = fire, 2 = ice, 3 = earth
 
-        this.velocityConstant = 6;
+        this.velocityConstant = 6*2;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
         this.velocity = { x : 0, y : 0 };
         this.updateBB();
@@ -290,8 +290,14 @@ class Hero {
     };
     
     update() {
-        let prevState = this.state;
 
+        if (PARAMS.DEBUG === true && this.game.clicked) {
+            console.log(`{index: replaceme, x: ${(this.x + 16 * (PARAMS.SCALE / 1))/32}, y: ${(this.y + 16 * (PARAMS.SCALE / 1))/32}, centered: true},`);
+            
+        }
+        
+        let prevState = this.state;
+        
         if (this.state !== 4) {
             this.hp = Math.min(this.maxHp, this.hp + this.game.clockTick / 1 * 15);
             this.mp = Math.min(this.maxMp, this.mp + this.game.clockTick / 1 * 15);

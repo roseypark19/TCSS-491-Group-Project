@@ -4,7 +4,7 @@ class SceneManager {
         this.game.camera = this;
         this.x = 0;
         this.y = 0;
-        this.travelTo(snow1);
+        this.travelTo(desert1);
     };
 
     clearEntities() {
@@ -32,6 +32,31 @@ class SceneManager {
                     this.game.addEntity(props[1].topper(this.game, 252 * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE, 55.5 * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE - 2 * PARAMS.OVERWORLD_SCALE, true));
 
                 } else if (isTown) {
+                    this.addPropBases();
+                    this.game.addEntity(new Portal(this.game, "Enter Overworld", overworld, 0, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 33 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 30 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    this.hero = new Hero(this.game, 36 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
+                    this.game.addEntity(this.hero);
+                    this.addPropToppers();
+
+                } else {
+                    // generic hero and prop placement used for most levels 
+                    // (see levels json for data for each level)
+                    
+                    this.addNonCollidablePropBases();
+                    this.addPropBases();
+                    // coward portal
+                    this.game.addEntity(new Portal(this.game, "Leave " + this.currentLevel.levelName, overworld, 5, this.currentLevel.cowardPortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxWidth));
+                    // leaving portal
+                    this.game.addEntity(new Portal(this.game, "Complete " + this.currentLevel.levelName, overworld, this.currentLevel.portalIndex, this.currentLevel.completePortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxWidth));
+                    // hero
+                    this.hero = new Hero(this.game, this.currentLevel.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
+                            this.currentLevel.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
+                    this.game.addEntity(this.hero);
+                    this.addPropToppers();
+                    this.addPropShadows(); 
+
+                }
+
                     // this.game.addEntity(new Cyclops(this.game, 400, 350));
                     // this.game.addEntity(new Cyclops(this.game, 200, 350));
                     // this.game.addEntity(new Cyclops(this.game, 300, 350));
@@ -58,66 +83,62 @@ class SceneManager {
                     // this.game.addEntity(new RangedMinion(this.game, 450, 550));
                     // this.game.addEntity(new RangedMinion(this.game, 500, 550));
                     // this.game.addEntity(new RangedMinion(this.game, 550, 550));
-                    this.addPropBases();
-                    this.game.addEntity(new Portal(this.game, "Enter Overworld", overworld, 0, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 33 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 30 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    this.hero = new Hero(this.game, 36 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
-                    this.game.addEntity(this.hero);
-                    this.addPropToppers();
+                   
 
-                } else if (this.currentLevel == snow1) {
-                    // paint bottom of trees that aren't collidable
-                    this.currentLevel.props.forEach(prop => {
-                        if (props[prop.index].bottomNotCollidable) {
-                            this.game.addEntity(props[prop.index].bottomNotCollidable(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
-                        }
-                    });
+                // } else if (this.currentLevel == snow1) {
+                    // // paint bottom of trees that aren't collidable
+                    // this.currentLevel.props.forEach(prop => {
+                    //     if (props[prop.index].bottomNotCollidable) {
+                    //         this.game.addEntity(props[prop.index].bottomNotCollidable(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
+                    //     }
+                    // });
                     // coward portal
-                    this.game.addEntity(new Portal(this.game, "Leave Snow 1", overworld, 5, 16.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 63.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 11.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 67 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 440));
+                    // this.game.addEntity(new Portal(this.game, "Leave Snow 1", overworld, 5, 16.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 63.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 11.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 67 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 440));
                     // leaving portal
-                    this.game.addEntity(new Portal(this.game, "Complete Snow 1", overworld, 2, 96 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 65 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 89 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 71 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 545));
+                    // this.game.addEntity(new Portal(this.game, "Complete Snow 1", overworld, 2, 96 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 65 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 89 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 71 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 545));
 
-                    this.addPropBases();
+                    // this.a/ddPropBases();
                     
-                    this.hero = new Hero(this.game, 15.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
-                                         60 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
-                    this.game.addEntity(this.hero); 
+                    // this.hero = new Hero(this.game, 15.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
+                    //                      60 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
+                    // this.game.addEntity(this.hero); 
 
-                    this.addPropToppers();
-                    this.addPropShadows();
+                    // this.addPropToppers();
+                    // this.addPropShadows();
 
-                    this.game.addEntity(new PolarBear(this.game, 10 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    this.game.addEntity(new PolarBear(this.game, 10 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    this.game.addEntity(new PolarBear(this.game, 10 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    // this.game.addEntity(new PolarBear(this.game, 10 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 30 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    // this.game.addEntity(new PolarBear(this.game, 10 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    // this.game.addEntity(new PolarBear(this.game, 10 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    // this.game.addEntity(new PolarBear(this.game, 10 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    // // this.game.addEntity(new PolarBear(this.game, 10 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 30 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
                     
 
-                    this.game.addEntity(new Yeti(this.game, 20 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    this.game.addEntity(new Yeti(this.game, 20 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    this.game.addEntity(new Yeti(this.game, 20 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    this.game.addEntity(new Yeti(this.game, 20 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    // this.game.addEntity(new Yeti(this.game, 20 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    // this.game.addEntity(new Yeti(this.game, 20 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    // this.game.addEntity(new Yeti(this.game, 20 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    // this.game.addEntity(new Yeti(this.game, 20 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
 
-                    this.game.addEntity(new Snowman(this.game, 10 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    this.game.addEntity(new Snowman(this.game, 13 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    this.game.addEntity(new Snowman(this.game, 16 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    this.game.addEntity(new Snowman(this.game, 19 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    // this.game.addEntity(new Snowman(this.game, 10 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    // this.game.addEntity(new Snowman(this.game, 13 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    // this.game.addEntity(new Snowman(this.game, 16 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    // this.game.addEntity(new Snowman(this.game, 19 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
 
-                    this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2));
-                    this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2));
-                    this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2));
+                    // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2));
+                    // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2));
+                    // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 40 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2));
 
-                } else if (this.currentLevel == snow2) {
-                    this.addNonCollidablePropBases();
-                    this.addPropBases();
-                    // coward portal
-                    this.game.addEntity(new Portal(this.game, "Leave Snow 2", overworld, 5, 43.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 55.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 38 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 59.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 445));
-                    // leaving portal
-                    this.game.addEntity(new Portal(this.game, "Complete Snow 2", overworld, 2, 8.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 9.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 4.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 21 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 545));
-                    this.hero = new Hero(this.game, snow2.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
-                        snow2.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
-                    this.game.addEntity(this.hero);
-                    this.addPropToppers();
-                    this.addPropShadows(); 
-                } 
+                // } else if (this.currentLevel == snow2) {
+                //     this.addNonCollidablePropBases();
+                //     this.addPropBases();
+                //     // coward portal
+                //     this.game.addEntity(new Portal(this.game, "Leave Snow 2", overworld, 5, 43.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 55.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 38 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 59.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 445));
+                //     // leaving portal
+                //     this.game.addEntity(new Portal(this.game, "Complete Snow 2", overworld, 2, 8.25 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 9.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 4.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 21 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 545));
+                //     this.hero = new Hero(this.game, snow2.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
+                //         snow2.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
+                //     this.game.addEntity(this.hero);
+                //     this.addPropToppers();
+                //     this.addPropShadows(); 
+                
             } else {
                 this.loadLayer(level[layer_name], level, isOverworld);
             }
