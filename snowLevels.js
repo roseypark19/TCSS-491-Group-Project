@@ -1,10 +1,31 @@
 
 const snow1 = {
+    levelName: "Snow 1",
+    portalIndex: 2,
+    cowardPortal: {
+        x: 16.5,
+        y: 63.5,
+        boxWidth: 440,
+        boxX: 11.5 ,
+        boxY: 67,
+    },
+    completePortal: {
+        x: 96,
+        y: 65,
+        boxWidth: 545,
+        boxX: 89,
+        boxY: 71,
+    },
+
+
     width: 115,
     height: 85,
+    heroX: 15.5,
+    heroY: 60,
     layer_names: ["ground", "collideable", "hero", "topper", "shadows"], 
 
     props: [
+
     // ice in top left       
         {index: 64, x: 2, y: 17, centered: false}, // water hole
         {index: 74, x: 1, y: 16, centered: false}, // water hole sign
@@ -822,6 +843,24 @@ const snow1 = {
 }
 
 const snow2 = {
+    levelName: "Snow 2",
+    portalIndex: 2,
+    cowardPortal: {
+        x: 43.5,
+        y: 55.5,
+        boxWidth: 445,
+        boxX: 39,
+        boxY: 59.25,
+    },
+    completePortal: {
+        x: 8.25,
+        y: 9.5,
+        boxWidth: 545,
+        boxX: 4.5,
+        boxY: 21,
+    },
+
+
     width: 115,
     height: 90,
     heroX: 42.5,
@@ -1084,6 +1123,8 @@ const snow2 = {
         {index: 62, x: 5, y: 63, centered: false},
         {index: 62, x: 26, y: 84, centered: false},
         {index: 62, x: 49, y: 81, centered: false},
+
+       
     ],
     
     ground: {
