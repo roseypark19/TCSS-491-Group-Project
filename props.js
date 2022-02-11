@@ -950,4 +950,250 @@ const props = {
         base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props.png", 40, 8, 8, 15, false, 174),
         shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/castle/props_shadows.png", 39, 8, 8, 15, false, 174)
     },
+
+
+
+
+    200: { // small bush 1
+        topX: 8,
+        topY: 8,
+        width: 8,
+        height: 7,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 8, 8, 8, 7, false, 200), 
+    },
+
+    201: { // small bush 2
+        topX: 25,
+        topY: 9,
+        width: 6,
+        height: 6,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 25, 9, 6, 6, false, 201), 
+    },
+
+    202: { // small bush 3
+        topX: 41,
+        topY: 10,
+        width: 5,
+        height: 5,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 41, 10, 5, 5, false, 202), 
+    },
+
+    203: { // small flower 1
+        topX: 72,
+        topY: 8,
+        width: 8,
+        height: 7,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 72, 8, 8, 7, false, 203), 
+    },
+
+    204: { // small flower 2
+        topX: 89,
+        topY: 8,
+        width: 7,
+        height: 8,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 89, 8, 7, 8, false, 204), 
+    },
+
+    205: { // small spinny 1
+        topX: 7,
+        topY: 32,
+        width: 8,
+        height: 7,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 7, 32, 8, 7, false, 205), 
+    },
+
+    206: { // small spinny 2
+        topX: 24,
+        topY: 32,
+        width: 8,
+        height: 7,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 24, 32, 8, 7, false, 206), 
+    },
+
+    207: { // small spinny 3
+        topX: 40,
+        topY: 33,
+        width: 7,
+        height: 6,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 40, 33, 7, 6, false, 207), 
+    },
+
+    208: { // small spinny 4
+        topX: 57,
+        topY: 33,
+        width: 6,
+        height: 6,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 57, 33, 6, 6, false, 208), 
+    },
+
+    209: { // small rock 1
+        topX: 7,
+        topY: 80,
+        width: 8,
+        height: 7,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 7, 80, 8, 7, false, 209), 
+    },
+
+    210: { // small rock 2
+        topX: 23,
+        topY: 81,
+        width: 8,
+        height: 5,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 23, 81, 8, 5, false, 210), 
+    },
+
+    211: { // small rock 3
+        topX: 41,
+        topY: 82,
+        width: 6,
+        height: 3,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 41, 82, 6, 3, false, 211), 
+    },
+
+    212: { // medium rock
+        topX: 55,
+        topY: 80,
+        width: 17,
+        height: 7,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 55, 80, 17, 7, false, 212), 
+    },
+
+    213: { // large rock
+        topX: 78,
+        topY: 74,
+        width: 18,
+        height: 13,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 78, 79, 18, 8, true, 213), 
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 78, 74, 18, 5, false, 213), 
+    },
+
+    214: { // flower 1
+        topX: 9,
+        topY: 130,
+        width: 7,
+        height: 13,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 9, 139, 7, 4, true, 214),    
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 9, 130, 7, 9, false, 214),    
+    },
+
+    215: { // flower 2
+        topX: 25,
+        topY: 128,
+        width: 7,
+        height: 15,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 25, 139, 7, 4, true, 215),    
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 25, 128, 7, 11, false, 215),    
+    },
+
+    216: { // flower 3
+        topX: 40,
+        topY: 121,
+        width: 8,
+        height: 22,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 40, 135, 8, 6, true, 216),  
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 40, 121, 8, 16, false, 216),    
+    },
+
+    217: { // flower 4
+        topX: 56,
+        topY: 130,
+        width: 8,
+        height: 13,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 56, 139, 8, 4, true, 217),    
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 56, 130, 8, 9, false, 217),    
+    },
+
+    218: { // flower 5
+        topX: 70,
+        topY: 128,
+        width: 9,
+        height: 15,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 70, 139, 9, 4, true, 218),    
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 70, 128, 9, 11, false, 218),    
+    },
+
+
+    219: { // large spinny 1 (large vine?)
+        topX: 70,
+        topY: 24,
+        width: 10,
+        height: 15,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 70, 35, 10, 4, true, 219),    
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 70, 24, 10, 11, false, 219),    
+    },
+
+    220: { // large spinny 2 (large vine?)
+        topX: 86,
+        topY: 24,
+        width: 10,
+        height: 15,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 86, 35, 10, 4, true, 220),    
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 86, 24, 10, 11, false, 220),    
+    },
+
+
+    221: { // stump 1
+        topX: 10,
+        topY: 176,
+        width: 11,
+        height: 15,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 10, 185, 11, 4, true, 221),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 10, 176, 11, 9, false, 221),    
+    },
+
+    222: { // stump 2
+        topX: 34,
+        topY: 178,
+        width: 11,
+        height: 13,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 34, 187, 11, 4, true, 222),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 34, 178, 11, 9, false, 222),
+    },
+
+    223: { // fallen log 1
+        topX: 57,
+        topY: 178,
+        width: 14,
+        height: 11,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 57, 178, 14, 11, false, 223),
+
+    },
+
+    224: { // fallen log 2
+        topX: 80,
+        topY: 179,
+        width: 15,
+        height: 11,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 80, 179, 15, 11, false, 224),
+
+    },
+
+    225: { // main tree stump
+        topX: 112,
+        topY: 178,
+        width: 16,
+        height: 12,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 112, 184, 16, 6, true, 225),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 112, 178, 16, 6, false, 225),
+
+    },
+   
+    226: { // egg?
+        topX: 113,
+        topY: 200,
+        width: 7,
+        height: 6,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/props.png", 113, 200, 7, 6, false, 226),
+    },
+
+    227: { // big tree
+        topX: 103,
+        topY: 123,
+        width: 41,
+        height: 43,
+        bottomNotCollidable: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/propsNoShadows.png", 103, 123, 41, 43, false, 227),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/propsNoShadows.png", 123, 158, 6, 6, true, 227),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/propsNoShadows.png", 103, 123, 41, 36, false, 227),
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/swamp/propsShadows.png", 103, 123, 41, 43, false, 227),
+    },
 };
