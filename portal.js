@@ -80,7 +80,8 @@ class Portal {
                 this.mouseBB = new BoundingBox(this.game.mouse.x + this.game.camera.x, this.game.mouse.y + this.game.camera.y, 1, 1);
             }
     
-            if (this.showingButton && this.game.clicked && this.game.click && this.mouseBB.collide(this.buttonBB)) {
+            // check for valid button press of travel button
+            if (this.showingButton && this.game.clicked && this.game.click && this.mouseBB.collide(this.buttonBB) ) { //&& isLevelUnlocked(this.destinationLevel)
                 this.changeOnNextUpdate = true;
                 this.game.addEntity(new LoadingScreen(this.game, this.game.camera.hero.BB.x, this.game.camera.hero.BB.y));
                 this.mouseBB = new BoundingBox(0, 0, 1, 1);

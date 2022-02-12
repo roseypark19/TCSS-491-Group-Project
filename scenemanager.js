@@ -69,10 +69,11 @@ class SceneManager {
             } else {
                 this.loadLayer(level[layer_name], level, isOverworld);
             }
-        }
+        } // end of environment layer loop
+        // do things after main terrain has been added
 
         // loads the shops for the town at the end
-        if (isTown) {
+        if (level == town) {
             this.game.addEntity(new Hen(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true));
             this.game.addEntity(new Hen(this.game, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 16 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false));
             this.game.addEntity(new Chick(this.game, 34 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true));
@@ -82,7 +83,7 @@ class SceneManager {
             this.game.addEntity(new Dialogue(this.game, "Visit the shops to upgrade stats!", true, 34.5, 22, 33, 26, 3, 0.5)); // left bulletin board
             this.game.addEntity(new Dialogue(this.game, "Aim and attack with the mouse!", true, 41.5, 22, 40 , 26, 3, 0.5));   // right bulletin board
             
-        } else if (isOverworld) {
+        } else if (level == overworld) {
             // add the portals for level nodes
             overworld.destinations.forEach(destination => {
                 if (destination.stoppable) {

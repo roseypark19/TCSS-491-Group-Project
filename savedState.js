@@ -216,4 +216,6 @@ function resetGame() {
 
 loadGame();
 
-resetGame(); // REMOVE THIS LINE TO NOT RESET EVERY TIME
+resetGame(); // REMOVE THIS LINE TO NOT RESET EVERY TIME PAGE IS RELOADED
+
+
