@@ -63,9 +63,11 @@ class Portal {
     update() {
         if (this.changeOnNextUpdate) {
             // this IF statement will increment and save
-            // the unlocked levels state if it makes sense to do so
+            // the unlocked levels state if it makes sense to do
             if (this.isACompletePortal && isFinalUnlockedDungeon(this.game.camera.currentLevel)) {
-                saveState.numLevelsCompleted++;
+                saveState.numLevelsCompleted++;    
+            }
+            if (this.isACompletePortal) {
                 saveGame(saveState);
                 loadGame();
             }

@@ -218,9 +218,9 @@ class SceneManager {
                 
             // this IF will stop adding destinations 
             // if the next dungeon locked
-            if (dest.level != undefined && isFinalUnlockedDungeon(dest.level)) { 
-                break;                    
-            }
+            // if (dest.level != undefined && isFinalUnlockedDungeon(dest.level)) { 
+            //     break;                    
+            // }
         }
         return destinations;
     };
