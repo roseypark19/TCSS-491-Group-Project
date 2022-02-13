@@ -4,7 +4,7 @@ class SceneManager {
         this.game.camera = this;
         this.x = 0;
         this.y = 0;
-        this.travelTo(desert2);
+        this.travelTo(titleScreen);
     };
 
     clearEntities() {
@@ -47,6 +47,11 @@ class SceneManager {
                     this.game.addEntity(this.hero);
                     this.game.addEntity(new Flame(this.game, this.hero.x, this.hero.y - 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 1));
                     this.addPropToppers();
+                } else if (this.currentLevel == titleScreen) {
+                    // do nothing lol
+                    this.hero = new Hero(this.game, this.currentLevel.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
+                        this.currentLevel.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
+                    this.game.addEntity(this.hero);
                 } else {
                     // generic hero and prop placement used for most levels 
                     // (see levels json for data for each level)
@@ -142,6 +147,8 @@ class SceneManager {
             this.game.addEntity(new Dialogue(this.game, "Beware of Ice!", true, 89.5, 41.5, 89, 42, 1, 1, true)); // ice sign
             this.game.addEntity(new Dialogue(this.game, "The water is warm!", true, 12.5, 69, 3, 68, 1, 1, true)); // lake sign
             this.game.addEntity(new Dialogue(this.game, "Welcome!", true, 44.5, 48, 47.5, 48.5, 1, 1, true)); // welcome!   
+        } else if (this.currentLevel == titleScreen) {
+            this.game.addEntity(new TitleScreen(this.game));
         }
     };
 
