@@ -4,7 +4,7 @@ class SceneManager {
         this.game.camera = this;
         this.x = 0;
         this.y = 0;
-        this.travelTo(titleScreen);
+        this.travelTo(snow1);
     };
 
     clearEntities() {
@@ -100,6 +100,7 @@ class SceneManager {
                                                    PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE,
                                                    (pX - ((10 + destination.levelName.length) / 2)) * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE,
                                                    (pY + 3) * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE,
+            
                                                    destination.buttonWidth));
                 }
             });
@@ -119,6 +120,7 @@ class SceneManager {
             // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
             // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
             // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+
             this.currentLevel.topper_props.forEach(prop => {
                 if (props[prop.index].base) {
                     this.game.addEntity(props[prop.index].base(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
@@ -149,6 +151,8 @@ class SceneManager {
         } else if (this.currentLevel == titleScreen) {
             this.game.addEntity(new TitleScreen(this.game));
         }
+
+        this.loadEnemies();
     };
 
     addPropBases() {
@@ -253,6 +257,25 @@ class SceneManager {
         }
     };
 
+    loadEnemies() {
+        console.log("here" );
+        console.log(this.currentLevel.enemies);
+        if (this.currentLevel.enemies != undefined) {
+            this.currentLevel.enemies.forEach(enemy => {
+                switch (enemy.type) {
+                    case PolarBear:
+                        this.game.addEntity(new PolarBear(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case Yeti:
+                        this.game.addEntity(new Yeti(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case Snowman:
+                        this.game.addEntity(new Snowman(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                }
+            });
+        }
+    }
 
     update() {
         PARAMS.DEBUG = document.getElementById("debug").checked;
