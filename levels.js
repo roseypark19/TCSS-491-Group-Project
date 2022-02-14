@@ -1152,3 +1152,10 @@ const overworld = {
 
 
 };
+
+
+const titleScreen = {
+    heroX: 14,
+    heroY: 16,
+    layer_names: ['hero']
+}; 
