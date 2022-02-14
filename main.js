@@ -90,6 +90,16 @@ ASSET_MANAGER.queueDownload("./sprites/biomes/castle/props.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/castle/props_shadows.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/castle/torches.png");
 
+ASSET_MANAGER.queueDownload("./sprites/ui/bars.png");
+ASSET_MANAGER.queueDownload("./sprites/ui/bars_shadows.png");
+ASSET_MANAGER.queueDownload("./sprites/ui/frames.png");
+ASSET_MANAGER.queueDownload("./sprites/ui/frames_shadows.png");
+ASSET_MANAGER.queueDownload("./sprites/ui/icons.png");
+
+ASSET_MANAGER.queueDownload("./sprites/hero/spells.png");
+
+ASSET_MANAGER.queueDownload("./sprites/items/coin.png");
+
 ASSET_MANAGER.downloadAll(function () {
 
 	let canvas = document.getElementById('gameWorld');

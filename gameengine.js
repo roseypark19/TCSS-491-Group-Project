@@ -24,6 +24,7 @@ class GameEngine {
         this.special2 = false;
         this.special3 = false;
         this.clicked = false;
+        this.spellChange = false;
     };
 
     init(ctx) { // called after the page has loaded
@@ -78,6 +79,9 @@ class GameEngine {
                 case "KeyF":
                     that.special3 = true;
                     break;
+                case "KeyX":
+                    that.spellChange = true;
+                    break;
             }
         }, false);
 
@@ -112,6 +116,9 @@ class GameEngine {
                     break;
                 case "KeyF":
                     that.special3 = false;
+                    break;
+                case "KeyX":
+                    that.spellChange = false;
                     break;
             }
         }, false);
@@ -190,16 +197,23 @@ class GameEngine {
     };
 
     draw() {
+        let cameraDrawn = false;
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         for (let i = 0; i < this.entities.length; i++) {
             if (Math.abs(this.camera.hero.BB.center.x - this.entities[i].BB.center.x) <= PARAMS.CANVAS_DIMENSION * (this.camera.overworld ? 0.75 : 1) &&
                 Math.abs(this.camera.hero.BB.center.y - this.entities[i].BB.center.y) <= PARAMS.CANVAS_DIMENSION * (this.camera.overworld ? 0.75 : 1)) {
+                if (this.entities[i] instanceof WeaponsShop || this.entities[i] instanceof StatsShop) {
+                    this.camera.draw(this.ctx);
+                    cameraDrawn = true;
+                }
                 this.entities[i].draw(this.ctx);
             } else if (this.entities[i].updateElapsedTime) {
                 this.entities[i].updateElapsedTime();
             }
         }
-        this.camera.draw(this.ctx);
+        if (!cameraDrawn) {
+            this.camera.draw(this.ctx);
+        }
         DruidBeam.elapsedTime = (DruidBeam.elapsedTime + this.clockTick) % (4 * 0.1);
     };
 

@@ -148,6 +148,7 @@ class Hero {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y });
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/hero/hero.png");
+        this.coinCount = 0;
         this.facing = [0, 0]; // down, up, right, left
                               // 0, 1, 0, 1 
         this.state = 0; // idle, walking, shooting, damaged, dead, 
@@ -176,21 +177,21 @@ class Hero {
         this.ability3Flag = false;
         this.ability3Cooldown = 0;
 
-        this.ability1Cost = 0;
-        this.ability2Cost = 0;
-        this.ability3Cost = 0;
+        this.ability1Cost = 50;
+        this.ability2Cost = 50;
+        this.ability3Cost = 50;
 
-        // this.abilitySpritesheet = ASSET_MANAGER.getAsset("./sprites/barbarian/abilities.png");
-        // this.abilityData = [{ x: 32, y: 0, button: "R"}, { x: 64, y: 0, button: "F"}];
+        this.abilitySpritesheet = ASSET_MANAGER.getAsset("./sprites/hero/spells.png");
+        this.abilityData = [{ x: 0, y: 0, button: "Q"}, { x: 32, y: 0, button: "R"}, { x: 64, y: 0, button: "F"}];
         this.spriteCenter = 15.5;
 
         this.weapon = { type: 2, attack: 75, dexterity: 8 }; 
 
         // types: 0 = longsword, 1 = war axe, 2 = whip, 3 = flail, 4 = slingshot, 5 = bow
 
-        this.spellType = 1; // 0 = wind, 1 = fire, 2 = ice, 3 = earth
+        this.spellType = 3; // 0 = wind, 1 = fire, 2 = ice, 3 = earth
 
-        this.velocityConstant = 6*2;
+        this.velocityConstant = 6;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
         this.velocity = { x : 0, y : 0 };
         this.updateBB();
@@ -345,6 +346,19 @@ class Hero {
                     }
                 }
             });
+        }
+
+        if (this.state !== 4) {
+            if (this.game.spellChange && !this.spellChangeFlag) {
+                this.spellChangeFlag = true;
+                this.spellType = (this.spellType + 1) % 4;
+                this.ability1Timer = 0;
+                this.ability2Timer = 0;
+                this.ability3Timer = 0;
+                this.loadAnimations();
+            } else if (!this.game.spellChange) {
+                this.spellChangeFlag = false;
+            }
         }
 
         if (this.state !== 4 && !this.game.camera.title && !PARAMS.GAMEOVER) {
@@ -538,6 +552,18 @@ class Hero {
                     this.updateBB();
                 }
             }
+        }
+
+        // check for coins
+        if (this.state !== 4) {
+            this.game.npcEntities.forEach(entity => {
+                if (entity instanceof Coin && this.collisionBB.collide(entity.collisionBB)) {
+                    this.coinCount += entity.value;
+                    entity.removeFromWorld = true;
+                    console.log("colliding!")
+                    // play coin sound
+                }
+            });
         }
 
         if (this.state !== prevState) {

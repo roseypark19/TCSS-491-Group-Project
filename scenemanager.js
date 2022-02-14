@@ -4,7 +4,7 @@ class SceneManager {
         this.game.camera = this;
         this.x = 0;
         this.y = 0;
-        this.travelTo(desert1);
+        this.travelTo(desert2);
     };
 
     clearEntities() {
@@ -43,7 +43,7 @@ class SceneManager {
                     this.addNonCollidablePropBases();
                     this.addPropShadows();
                     this.hero = new Hero(this.game, castle.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
-                        castle.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
+                                         castle.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
                     this.game.addEntity(this.hero);
                     this.game.addEntity(new Flame(this.game, this.hero.x, this.hero.y - 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 1));
                     this.addPropToppers();
@@ -59,8 +59,14 @@ class SceneManager {
                     this.game.addEntity(new Portal(this.game, "Complete " + this.currentLevel.levelName, overworld, this.currentLevel.portalIndex, this.currentLevel.completePortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxWidth));
                     // hero
                     this.hero = new Hero(this.game, this.currentLevel.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
-                            this.currentLevel.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
+                                         this.currentLevel.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
                     this.game.addEntity(this.hero);
+                    this.game.addEntity(new Cyclops(this.game, this.hero.x + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.hero.y + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    this.game.addEntity(new Cyclops(this.game, this.hero.x + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.hero.y + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    this.game.addEntity(new Cyclops(this.game, this.hero.x + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.hero.y + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    this.game.addEntity(new Cyclops(this.game, this.hero.x + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.hero.y + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    this.game.addEntity(new Cyclops(this.game, this.hero.x + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.hero.y + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    this.game.addEntity(new Cyclops(this.game, this.hero.x + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.hero.y + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
                     this.addPropToppers();
                     this.addPropShadows(); 
 
@@ -141,6 +147,12 @@ class SceneManager {
             this.game.addEntity(new Dialogue(this.game, "Beware of Ice!", true, 89.5, 41.5, 89, 42, 1, 1, true)); // ice sign
             this.game.addEntity(new Dialogue(this.game, "The water is warm!", true, 12.5, 69, 3, 68, 1, 1, true)); // lake sign
             this.game.addEntity(new Dialogue(this.game, "Welcome!", true, 44.5, 48, 47.5, 48.5, 1, 1, true)); // welcome!   
+        }
+
+        // add stats and ability displays
+        if (!isOverworld) {
+            this.statsDisplay = new StatsDisplay(this.game, 0, 20);
+            this.abilityDisplay = new AbilityDisplay(this.game, 20, PARAMS.CANVAS_DIMENSION - abilityDisplayDimension() - 20);
         }
     };
 
@@ -269,6 +281,131 @@ class SceneManager {
     };
 
     draw(ctx) { 
+        if (this.currentLevel !== overworld) {
+            this.statsDisplay.draw(ctx);
+            this.abilityDisplay.draw(ctx);
+        }
+    };
+};
 
+class StatsDisplay {
+
+    constructor(game, x, y) {
+        Object.assign(this, { game, x, y });
+        this.flickerTimer = 0;
+        this.flickerFlag = false;
+        this.hpMpSprite = ASSET_MANAGER.getAsset("./sprites/ui/icons.png");
+        this.barSprite = ASSET_MANAGER.getAsset("./sprites/ui/bars.png");
+        this.barShadowSprite = ASSET_MANAGER.getAsset("./sprites/ui/bars_shadows.png");
+        this.frameSprite = ASSET_MANAGER.getAsset("./sprites/ui/frames.png");
+        this.frameShadowSprite = ASSET_MANAGER.getAsset("./sprites/ui/frames_shadows.png");
+    };
+
+    draw(ctx) {
+
+        this.flickerTimer = Math.max(0, this.flickerTimer - this.game.clockTick);
+        const dimension = statsDisplayDimension();
+        const hero = this.game.camera.hero;
+
+        // frame shadow
+        ctx.drawImage(this.frameShadowSprite, 47 + 25 + 8, 159, 17, 12.5, this.x, this.y, 17 * PARAMS.GUI_SCALE, dimension / 2);
+        ctx.drawImage(this.frameShadowSprite, 47 + 25 + 8, 159 + 25 + 12.5, 17, 12.5, this.x, this.y + dimension / 2, 17 * PARAMS.GUI_SCALE, dimension / 2);
+
+        // hp bar shadow
+        ctx.drawImage(this.barShadowSprite, 87, 36, 17, 7, this.x + 10 * PARAMS.GUI_SCALE, this.y + 5 * PARAMS.GUI_SCALE, 17 * PARAMS.GUI_SCALE, 7 * PARAMS.GUI_SCALE);
+        ctx.drawImage(this.barShadowSprite, 87 + 9, 36, 16, 7, this.x + (10 + 17) * PARAMS.GUI_SCALE, this.y + 5 * PARAMS.GUI_SCALE, 16 * PARAMS.GUI_SCALE, 7 * PARAMS.GUI_SCALE);
+        ctx.drawImage(this.barShadowSprite, 87 + 9, 36, 16, 7, this.x + (10 + 33) * PARAMS.GUI_SCALE, this.y + 5 * PARAMS.GUI_SCALE, 16 * PARAMS.GUI_SCALE, 7 * PARAMS.GUI_SCALE);
+        ctx.drawImage(this.barShadowSprite, 87 + 17, 36, 17, 7, this.x + (10 + 49) * PARAMS.GUI_SCALE, this.y + 5 * PARAMS.GUI_SCALE, 17 * PARAMS.GUI_SCALE, 7 * PARAMS.GUI_SCALE);
+
+        // mp bar shadow
+        ctx.drawImage(this.barShadowSprite, 87, 36, 17, 7, this.x + 10 * PARAMS.GUI_SCALE, this.y + 13 * PARAMS.GUI_SCALE, 17 * PARAMS.GUI_SCALE, 7 * PARAMS.GUI_SCALE);
+        ctx.drawImage(this.barShadowSprite, 87 + 9, 36, 16, 7, this.x + (10 + 17) * PARAMS.GUI_SCALE, this.y + 13 * PARAMS.GUI_SCALE, 16 * PARAMS.GUI_SCALE, 7 * PARAMS.GUI_SCALE);
+        ctx.drawImage(this.barShadowSprite, 87 + 9, 36, 16, 7, this.x + (10 + 33) * PARAMS.GUI_SCALE, this.y + 13 * PARAMS.GUI_SCALE, 16 * PARAMS.GUI_SCALE, 7 * PARAMS.GUI_SCALE);
+        ctx.drawImage(this.barShadowSprite, 87 + 17, 36, 17, 7, this.x + (10 + 49) * PARAMS.GUI_SCALE, this.y + 13 * PARAMS.GUI_SCALE, 17 * PARAMS.GUI_SCALE, 7 * PARAMS.GUI_SCALE);
+
+        // frame and icons
+        ctx.drawImage(this.frameSprite, 48 + 32, 160, 16, 12, this.x, this.y + PARAMS.GUI_SCALE, dimension - 9 * PARAMS.GUI_SCALE, (dimension - 2 * PARAMS.GUI_SCALE) / 2);
+        ctx.drawImage(this.frameSprite, 48 + 32, 160 + 36, 16, 12, this.x, this.y + dimension / 2, dimension - 9 * PARAMS.GUI_SCALE, (dimension - 2 * PARAMS.GUI_SCALE) / 2);
+        ctx.drawImage(this.hpMpSprite, 41, 57, 7, 7, this.x + 3 * PARAMS.GUI_SCALE,
+                                                     this.y + 5 * PARAMS.GUI_SCALE,
+                                                     7 * PARAMS.GUI_SCALE, 7 * PARAMS.GUI_SCALE);
+        ctx.drawImage(this.hpMpSprite, 41, 65, 7, 7, this.x + 3 * PARAMS.GUI_SCALE,
+                                                     this.y + 13 * PARAMS.GUI_SCALE,
+                                                     7 * PARAMS.GUI_SCALE, 7 * PARAMS.GUI_SCALE);
+                    
+        // hp bar
+        if (hero.hp / hero.maxHp * 100 > 25) {
+            this.flickerFlag = false;
+        }
+        if (hero.hp / hero.maxHp * 100 <= 25 && this.flickerTimer === 0) {
+            this.flickerTimer = 0.25;
+            this.flickerFlag = !this.flickerFlag;
+        }
+
+        ctx.fillStyle = this.flickerFlag ? rgb(228, 84, 110) : rgb(198, 27, 58);
+        ctx.fillRect(this.x + 13 * PARAMS.GUI_SCALE, this.y + 7 * PARAMS.GUI_SCALE, 60 * hero.hp / hero.maxHp * PARAMS.GUI_SCALE, 3 * PARAMS.GUI_SCALE);
+
+        ctx.drawImage(this.barSprite, 88, 37, 16, 5, this.x + 11 * PARAMS.GUI_SCALE, this.y + 6 * PARAMS.GUI_SCALE, 16 * PARAMS.GUI_SCALE, 5 * PARAMS.GUI_SCALE);
+        ctx.drawImage(this.barSprite, 88 + 8, 37, 16, 5, this.x + (11 + 16) * PARAMS.GUI_SCALE, this.y + 6 * PARAMS.GUI_SCALE, 16 * PARAMS.GUI_SCALE, 5 * PARAMS.GUI_SCALE);
+        ctx.drawImage(this.barSprite, 88 + 8, 37, 16, 5, this.x + (11 + 32) * PARAMS.GUI_SCALE, this.y + 6 * PARAMS.GUI_SCALE, 16 * PARAMS.GUI_SCALE, 5 * PARAMS.GUI_SCALE);
+        ctx.drawImage(this.barSprite, 88 + 16, 37, 16, 5, this.x + (11 + 48) * PARAMS.GUI_SCALE, this.y + 6 * PARAMS.GUI_SCALE, 16 * PARAMS.GUI_SCALE, 5 * PARAMS.GUI_SCALE);
+
+        // mp bar
+        ctx.fillStyle = rgb(101, 219, 241);
+        ctx.fillRect(this.x + 13 * PARAMS.GUI_SCALE, this.y + 15 * PARAMS.GUI_SCALE, 60 * hero.mp / hero.maxMp * PARAMS.GUI_SCALE, 3 * PARAMS.GUI_SCALE);
+
+        ctx.drawImage(this.barSprite, 88, 37, 16, 5, this.x + 11 * PARAMS.GUI_SCALE, this.y + 14 * PARAMS.GUI_SCALE, 16 * PARAMS.GUI_SCALE, 5 * PARAMS.GUI_SCALE);
+        ctx.drawImage(this.barSprite, 88 + 8, 37, 16, 5, this.x + (11 + 16) * PARAMS.GUI_SCALE, this.y + 14 * PARAMS.GUI_SCALE, 16 * PARAMS.GUI_SCALE, 5 * PARAMS.GUI_SCALE);
+        ctx.drawImage(this.barSprite, 88 + 8, 37, 16, 5, this.x + (11 + 32) * PARAMS.GUI_SCALE, this.y + 14 * PARAMS.GUI_SCALE, 16 * PARAMS.GUI_SCALE, 5 * PARAMS.GUI_SCALE);
+        ctx.drawImage(this.barSprite, 88 + 16, 37, 16, 5, this.x + (11 + 48) * PARAMS.GUI_SCALE, this.y + 14 * PARAMS.GUI_SCALE, 16 * PARAMS.GUI_SCALE, 5 * PARAMS.GUI_SCALE);      
+    };
+};
+
+class AbilityDisplay {
+
+    constructor(game, x, y) {
+        Object.assign(this, { game, x, y });
+        this.frameSprite = ASSET_MANAGER.getAsset("./sprites/ui/frames.png");
+        this.frameShadowSprite = ASSET_MANAGER.getAsset("./sprites/ui/frames_shadows.png");
+    };
+
+    draw(ctx) {
+
+        const dimension = abilityDisplayDimension();
+        const hero = this.game.camera.hero;
+        const spacing = 10;
+
+        // frame shadow
+        ctx.drawImage(this.frameShadowSprite, 47, 239, 5, 18, this.x, this.y, 5 * PARAMS.GUI_SCALE, dimension);
+        let x = this.x + 5 * PARAMS.GUI_SCALE;
+        for (let i = 0; i < hero.abilityData.length; i++) {
+            ctx.drawImage(this.frameShadowSprite, 50, 239, spacing, 18, x, this.y, spacing * PARAMS.GUI_SCALE, dimension);
+            x += spacing * PARAMS.GUI_SCALE;
+        }
+        ctx.drawImage(this.frameShadowSprite, 92, 239, 5, 18, x, this.y, 5 * PARAMS.GUI_SCALE, dimension);
+
+        // frame
+        ctx.drawImage(this.frameSprite, 48, 128, 4, 16, this.x + PARAMS.GUI_SCALE, this.y + PARAMS.GUI_SCALE, 4 * PARAMS.GUI_SCALE, 16 * PARAMS.GUI_SCALE);
+        x = this.x + 5 * PARAMS.GUI_SCALE;
+        for (let i = 0; i < hero.abilityData.length; i++) {
+            ctx.drawImage(this.frameSprite, 52, 128, spacing, 16, x, this.y + PARAMS.GUI_SCALE, spacing * PARAMS.GUI_SCALE, 16 * PARAMS.GUI_SCALE);
+            x += spacing * PARAMS.GUI_SCALE;
+        }
+        ctx.drawImage(this.frameSprite, 92, 128, 4, 16, x, this.y + PARAMS.GUI_SCALE, 4 * PARAMS.GUI_SCALE, 16 * PARAMS.GUI_SCALE);
+
+        // ability icons and buttons
+        const drawScale = PARAMS.GUI_SCALE - 4;
+        x = this.x + (5 + spacing / 2) * PARAMS.GUI_SCALE;
+        let y = this.y + dimension / 2;
+        ctx.fillStyle = ctx.strokeStyle = "Black";
+        ctx.font = 20 + 'px "silkscreenbold"';
+        for (let i = 0; i < hero.abilityData.length; i++) {
+            let data = hero.abilityData[i];
+            ctx.drawImage(hero.abilitySpritesheet, data.x + 96 * hero.spellType, data.y, 32, 32, 
+                          x - 16 * drawScale, y - hero.spriteCenter * drawScale, 32 * drawScale, 32 * drawScale);
+            ctx.fillText(data.button, x + 3 * drawScale, y + 10 * drawScale);
+            ctx.strokeText(data.button, x + 3 * drawScale, y + 10 * drawScale);
+            x += spacing * PARAMS.GUI_SCALE;
+        }
     };
 };
