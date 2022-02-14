@@ -258,8 +258,6 @@ class SceneManager {
     };
 
     loadEnemies() {
-        console.log("here" );
-        console.log(this.currentLevel.enemies);
         if (this.currentLevel.enemies != undefined) {
             this.currentLevel.enemies.forEach(enemy => {
                 switch (enemy.type) {
@@ -271,6 +269,9 @@ class SceneManager {
                         break;
                     case Snowman:
                         this.game.addEntity(new Snowman(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case SwordedMinion:
+                        this.game.addEntity(new SwordedMinion(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.minionType));
                         break;
                 }
             });

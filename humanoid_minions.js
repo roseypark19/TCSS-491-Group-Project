@@ -1,6 +1,7 @@
 class SwordedMinion {
     constructor(game, x, y, type) {
         Object.assign(this, { game, x, y, type });
+        console.log("here2")
 
         switch(this.type) {
             case 0:
