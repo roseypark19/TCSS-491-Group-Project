@@ -593,7 +593,7 @@ const overworld = {
         { origin: {x: 259.5, y: 55}, neighbors: {prev: {x: -1, y: 0}, next: {x: 0, y: 1}}, stoppable: false},
         { origin: {x: 259.5, y: 62}, neighbors: {prev: {x: 0, y: -1}, next: {x: 1, y: 0}}, stoppable: false},
         { origin: {x: 264.5, y: 62}, neighbors: {prev: {x: -1, y: 0}, next: {x: 0, y: -1}}, stoppable: false},
-        { origin: {x: 264.5, y: 59}, neighbors: {prev: {x: 0, y: 1}, next: {x: 0, y: 0}}, stoppable: true, levelName: "Castle", level: town},
+        { origin: {x: 264.5, y: 59}, neighbors: {prev: {x: 0, y: 1}, next: {x: 0, y: 0}}, stoppable: true, levelName: "Castle", level: castle},
     ],
 
     sea_level: {
