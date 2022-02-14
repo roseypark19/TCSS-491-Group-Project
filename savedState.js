@@ -1,4 +1,8 @@
-const saveState = {
+let saveState = {
+    firstCutsceneFinished: null
+};
+
+const initialState = {
     firstCutsceneFinished: false,
     gameFinished: false,   // if boss is complete
     numLevelsCompleted: 1, // 1 - 9
@@ -49,3 +53,119 @@ const saveState = {
     },
 
 };
+
+// saves the game based on the savestate obj given
+function saveGame(obj) {
+    const storage = window.localStorage;
+    storage.setItem("firstCutsceneFinished", obj.firstCutsceneFinished);
+    storage.setItem("gameFinished", obj.gameFinished);
+    storage.setItem("numLevelsCompleted", obj.numLevelsCompleted);
+    storage.setItem("currency", obj.currency);
+    storage.setItem("numSpellsUnlocked", obj.numSpellsUnlocked);
+
+    storage.setItem("heroStats0", obj.heroStats[0]);
+    storage.setItem("heroStats1", obj.heroStats[1]);
+    storage.setItem("heroStats2", obj.heroStats[2]);
+    storage.setItem("heroStats3", obj.heroStats[3]);
+    storage.setItem("heroStats4", obj.heroStats[4]);
+    storage.setItem("heroStats5", obj.heroStats[5]);
+    
+    storage.setItem("weapons0bought", obj.weapons[0].bought);
+    storage.setItem("weapons0attack", obj.weapons[0].attack);
+    storage.setItem("weapons0dexterity", obj.weapons[0].dexterity);
+    
+    storage.setItem("weapons1bought", obj.weapons[1].bought);
+    storage.setItem("weapons1attack", obj.weapons[1].attack);
+    storage.setItem("weapons1dexterity", obj.weapons[1].dexterity);
+
+    storage.setItem("weapons2bought", obj.weapons[2].bought);
+    storage.setItem("weapons2attack", obj.weapons[2].attack);
+    storage.setItem("weapons2dexterity", obj.weapons[2].dexterity);
+
+    storage.setItem("weapons3bought", obj.weapons[3].bought);
+    storage.setItem("weapons3attack", obj.weapons[3].attack);
+    storage.setItem("weapons3dexterity", obj.weapons[3].dexterity);
+
+    storage.setItem("weapons4bought", obj.weapons[4].bought);
+    storage.setItem("weapons4attack", obj.weapons[4].attack);
+    storage.setItem("weapons4dexterity", obj.weapons[4].dexterity);
+
+    storage.setItem("weapons5bought", obj.weapons[5].bought);
+    storage.setItem("weapons5attack", obj.weapons[5].attack);
+    storage.setItem("weapons5dexterity", obj.weapons[5].dexterity);
+}
+
+// sets saveState to the saved state (or default if no save exists)
+function loadGame() {
+    const storage = window.localStorage;
+    saveState = {
+        firstCutsceneFinished: storage.getItem("firstCutsceneFinished"),
+        gameFinished: storage.getItem("gameFinished"),   
+        numLevelsCompleted: storage.getItem("numLevelsCompleted"), 
+        currency: storage.getItem("currency"),
+        
+        numSpellsUnlocked: storage.getItem("numSpellsUnlocked"), 
+    
+        heroStats: { 
+            0: storage.getItem("heroStats0"),
+            1: storage.getItem("heroStats1"),
+            2: storage.getItem("heroStats2"),
+            3: storage.getItem("heroStats3"),
+            4: storage.getItem("heroStats4"),
+            5: storage.getItem("heroStats5")
+        },
+    
+        weapons: { 
+            0 : { // sword
+                "bought": storage.getItem("weapons0bought"),
+                "attack": storage.getItem("weapons0attack"),
+                "dexterity": storage.getItem("weapons0dexterity")
+            },
+            1 : { // axe
+                "bought": storage.getItem("weapons1bought"),
+                "attack": storage.getItem("weapons1attack"),
+                "dexterity": storage.getItem("weapons1dexterity")
+            },
+            2 : { // whip
+                "bought": storage.getItem("weapons2bought"),
+                "attack": storage.getItem("weapons2attack"),
+                "dexterity": storage.getItem("weapons2dexterity")
+            },
+            3 : { // flail
+                "bought": storage.getItem("weapons3bought"),
+                "attack": storage.getItem("weapons3attack"),
+                "dexterity": storage.getItem("weapons3dexterity")
+            },
+            4 : { // slingshot
+                "bought": storage.getItem("weapons4bought"),
+                "attack": storage.getItem("weapons4attack"),
+                "dexterity": storage.getItem("weapons4dexterity")
+            },
+            5 : { // bow
+                "bought": storage.getItem("weapons5bought"),
+                "attack": storage.getItem("weapons5attack"),
+                "dexterity": storage.getItem("weapons5dexterity")
+            }
+        },
+    
+    };
+    
+    // set a default if first load
+    if (saveState.firstCutsceneFinished == null) {
+
+        saveGame(initialState);
+        loadGame();
+    }
+}
+
+// sets save state to default
+function resetGame() {
+    saveGame(initialState);
+    loadGame();
+}
+
+loadGame();
+
+resetGame(); // REMOVE THIS LINE TO NOT RESET EVERY TIME PAGE IS RELOADED
+
+

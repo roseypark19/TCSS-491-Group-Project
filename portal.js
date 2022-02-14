@@ -23,9 +23,10 @@ class LoadingScreen {
 // this.BB is the region that activates the button
 // this.buttonBB is the region that can be clicked to transition from level to level
 // buttonWidth is the width of the rectangle drawn. Only meant to use if default alfo doesn't work
+// isACompletePortal value true will mean that when traveled through, the unlocked levels int is incremented and the saveState will be saved
 class Portal {
-    constructor(game, text, destinationLevel, portalTypeIndex, bbX, bbY, bbWidth, bbHeight, textX, textY, buttonWidth = -1) {
-        Object.assign(this, {game, text, destinationLevel, portalTypeIndex, bbX, bbY, bbWidth, bbHeight, textX, textY, buttonWidth});
+    constructor(game, text, destinationLevel, portalTypeIndex, bbX, bbY, bbWidth, bbHeight, textX, textY, buttonWidth = -1, isACompletePortal = false) {
+        Object.assign(this, {game, text, destinationLevel, portalTypeIndex, bbX, bbY, bbWidth, bbHeight, textX, textY, buttonWidth, isACompletePortal});
         this.changeOnNextUpdate = false; // this is used so we can add/paint a loading screen before transitioning levels
 
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/ui/portals.png");
@@ -61,7 +62,17 @@ class Portal {
 
     update() {
         if (this.changeOnNextUpdate) {
+            // this IF statement will increment and save
+            // the unlocked levels state if it makes sense to do
+            if (this.isACompletePortal && isFinalUnlockedDungeon(this.game.camera.currentLevel)) {
+                saveState.numLevelsCompleted++;    
+            }
+            if (this.isACompletePortal) {
+                saveGame(saveState);
+                loadGame();
+            }
             this.game.camera.travelTo(this.destinationLevel); 
+
         } else {
             // for loop prevents errors when the hero is not added to project... 
             // consider making these changes in the shops and other entities that interact with hero BB
@@ -80,7 +91,8 @@ class Portal {
                 this.mouseBB = new BoundingBox(this.game.mouse.x + this.game.camera.x, this.game.mouse.y + this.game.camera.y, 1, 1);
             }
     
-            if (this.showingButton && this.game.clicked && this.game.click && this.mouseBB.collide(this.buttonBB)) {
+            // check for valid button press of travel button
+            if (this.showingButton && this.game.clicked && this.game.click && this.mouseBB.collide(this.buttonBB) ) { //&& isLevelUnlocked(this.destinationLevel)
                 this.changeOnNextUpdate = true;
                 this.game.addEntity(new LoadingScreen(this.game, this.game.camera.hero.BB.x, this.game.camera.hero.BB.y));
                 this.mouseBB = new BoundingBox(0, 0, 1, 1);

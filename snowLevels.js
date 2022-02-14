@@ -24,6 +24,14 @@ const snow1 = {
     heroY: 60,
     layer_names: ["ground", "collideable", "hero", "topper", "shadows"], 
 
+    // Not working: trasgo
+    enemies: [
+        {type: PolarBear, x: 20, y: 20},
+        {type: Yeti, x: 20, y: 20},
+        {type: SwordedMinion, minionType: 2, x: 20, y: 20},
+        {type: Snowman, x: 20, y: 20}
+    ],
+
     props: [
 
     // ice in top left       

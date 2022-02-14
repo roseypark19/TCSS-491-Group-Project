@@ -4,7 +4,7 @@ class SceneManager {
         this.game.camera = this;
         this.x = 0;
         this.y = 0;
-        this.travelTo(desert2);
+        this.travelTo(snow1);
     };
 
     clearEntities() {
@@ -47,6 +47,11 @@ class SceneManager {
                     this.game.addEntity(this.hero);
                     this.game.addEntity(new Flame(this.game, this.hero.x, this.hero.y - 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 1));
                     this.addPropToppers();
+                } else if (this.currentLevel == titleScreen) {
+                    // do nothing lol
+                    this.hero = new Hero(this.game, this.currentLevel.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
+                        this.currentLevel.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
+                    this.game.addEntity(this.hero);
                 } else {
                     // generic hero and prop placement used for most levels 
                     // (see levels json for data for each level)
@@ -56,29 +61,23 @@ class SceneManager {
                     // coward portal
                     this.game.addEntity(new Portal(this.game, "Leave " + this.currentLevel.levelName, overworld, 5, this.currentLevel.cowardPortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxWidth));
                     // leaving portal
-                    this.game.addEntity(new Portal(this.game, "Complete " + this.currentLevel.levelName, overworld, this.currentLevel.portalIndex, this.currentLevel.completePortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxWidth));
+                    this.game.addEntity(new Portal(this.game, "Complete " + this.currentLevel.levelName, overworld, this.currentLevel.portalIndex, this.currentLevel.completePortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxWidth, true));
                     // hero
                     this.hero = new Hero(this.game, this.currentLevel.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
                                          this.currentLevel.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
                     this.game.addEntity(this.hero);
-                    this.game.addEntity(new Cyclops(this.game, this.hero.x + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.hero.y + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    this.game.addEntity(new Cyclops(this.game, this.hero.x + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.hero.y + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    this.game.addEntity(new Cyclops(this.game, this.hero.x + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.hero.y + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    this.game.addEntity(new Cyclops(this.game, this.hero.x + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.hero.y + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    this.game.addEntity(new Cyclops(this.game, this.hero.x + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.hero.y + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    this.game.addEntity(new Cyclops(this.game, this.hero.x + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.hero.y + 5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
                     this.addPropToppers();
                     this.addPropShadows(); 
-
                 }
                 
             } else {
                 this.loadLayer(level[layer_name], level, isOverworld);
             }
-        }
+        } // end of environment layer loop
+        // do things after main terrain has been added
 
         // loads the shops for the town at the end
-        if (isTown) {
+        if (level == town) {
             this.game.addEntity(new Hen(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true));
             this.game.addEntity(new Hen(this.game, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 16 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false));
             this.game.addEntity(new Chick(this.game, 34 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true));
@@ -88,7 +87,7 @@ class SceneManager {
             this.game.addEntity(new Dialogue(this.game, "Visit the shops to upgrade stats!", true, 34.5, 22, 33, 26, 3, 0.5)); // left bulletin board
             this.game.addEntity(new Dialogue(this.game, "Aim and attack with the mouse!", true, 41.5, 22, 40 , 26, 3, 0.5));   // right bulletin board
             
-        } else if (isOverworld) {
+        } else if (level == overworld) {
             // add the portals for level nodes
             overworld.destinations.forEach(destination => {
                 if (destination.stoppable) {
@@ -101,6 +100,7 @@ class SceneManager {
                                                    PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE,
                                                    (pX - ((10 + destination.levelName.length) / 2)) * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE,
                                                    (pY + 3) * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE,
+            
                                                    destination.buttonWidth));
                 }
             });
@@ -120,6 +120,7 @@ class SceneManager {
             // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
             // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
             // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+
             this.currentLevel.topper_props.forEach(prop => {
                 if (props[prop.index].base) {
                     this.game.addEntity(props[prop.index].base(this.game, prop.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, prop.centered));
@@ -147,8 +148,12 @@ class SceneManager {
             this.game.addEntity(new Dialogue(this.game, "Beware of Ice!", true, 89.5, 41.5, 89, 42, 1, 1, true)); // ice sign
             this.game.addEntity(new Dialogue(this.game, "The water is warm!", true, 12.5, 69, 3, 68, 1, 1, true)); // lake sign
             this.game.addEntity(new Dialogue(this.game, "Welcome!", true, 44.5, 48, 47.5, 48.5, 1, 1, true)); // welcome!   
+        } else if (this.currentLevel == titleScreen) {
+            this.game.addEntity(new TitleScreen(this.game));
         }
-
+        
+        this.loadEnemies();
+      
         // add stats and ability displays
         if (!isOverworld) {
             this.statsDisplay = new StatsDisplay(this.game, 0, 20);
@@ -213,12 +218,19 @@ class SceneManager {
     };
 
     createDestinations(level) {
+
         let destinations = [];
         for (let i = 0; i < level.destinations.length; i++) {
             let dest = level.destinations[i];
             destinations.push({originX: dest.origin.x * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE, 
                                originY: dest.origin.y * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE, 
                                neighbors: dest.neighbors, stoppable: dest.stoppable});
+                
+            // this IF will stop adding destinations 
+            // if the next dungeon locked
+            // if (dest.level != undefined && isFinalUnlockedDungeon(dest.level)) { 
+            //     break;                    
+            // }
         }
         return destinations;
     };
@@ -251,6 +263,26 @@ class SceneManager {
         }
     };
 
+    loadEnemies() {
+        if (this.currentLevel.enemies != undefined) {
+            this.currentLevel.enemies.forEach(enemy => {
+                switch (enemy.type) {
+                    case PolarBear:
+                        this.game.addEntity(new PolarBear(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case Yeti:
+                        this.game.addEntity(new Yeti(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case Snowman:
+                        this.game.addEntity(new Snowman(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case SwordedMinion:
+                        this.game.addEntity(new SwordedMinion(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.minionType));
+                        break;
+                }
+            });
+        }
+    }
 
     update() {
         PARAMS.DEBUG = document.getElementById("debug").checked;

@@ -365,7 +365,10 @@ class WeaponsShop {
                         this.playUpgradeSound();
                     }
                 }
-            }
+            } 
+            
+            // save game to ensure if something was bought it is saved
+            saveGame(saveState);
             
             this.game.click = null;
 
@@ -1192,6 +1195,9 @@ class StatsShop {
                     this.playUpgradeSound();
                 }
             }
+
+            // save game to ensure if something was bought it is saved
+            saveGame(saveState);
 
             this.game.click = null;
 
