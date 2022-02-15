@@ -68,6 +68,7 @@ class Portal {
                 saveState.numLevelsCompleted++;    
             }
             if (this.isACompletePortal) {
+                saveState.currency += this.game.camera.hero.currencyCount;
                 saveGame(saveState);
                 loadGame();
             }

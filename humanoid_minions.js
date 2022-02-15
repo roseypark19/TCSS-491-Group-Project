@@ -249,6 +249,7 @@ class SwordedMinion {
         } else {
             if (this.deadTimer === 0) {
                 this.removeFromWorld = true;
+                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 1));
             }
         }
 
@@ -582,6 +583,7 @@ class RangedMinion {
         } else {
             if (this.deadTimer === 0) {
                 this.removeFromWorld = true;
+                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 1));
             }
         }
 

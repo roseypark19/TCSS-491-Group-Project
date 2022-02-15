@@ -37,7 +37,7 @@ class Snowman {
                     if (this.state === 0) {
                         this.state = 1;
                         this.facing = [0, 0];
-                        this.activationTimer = 5 * 0.2 - this.game.clockTick;
+                        this.activationTimer = 5 * 0.1 - this.game.clockTick;
                     } else if (this.activationTimer === 0) {
                         let heroCenter = entity.BB.center;
                         this.state = 2;

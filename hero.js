@@ -148,7 +148,7 @@ class Hero {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y });
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/hero/hero.png");
-        this.coinCount = 0;
+        this.currencyCount = 0;
         this.facing = [0, 0]; // down, up, right, left
                               // 0, 1, 0, 1 
         this.state = 0; // idle, walking, shooting, damaged, dead, 
@@ -189,7 +189,7 @@ class Hero {
 
         // types: 0 = longsword, 1 = war axe, 2 = whip, 3 = flail, 4 = slingshot, 5 = bow
 
-        this.spellType = 3; // 0 = wind, 1 = fire, 2 = ice, 3 = earth
+        this.spellType = 1; // 0 = wind, 1 = fire, 2 = ice, 3 = earth
 
         this.velocityConstant = 6;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
@@ -558,9 +558,8 @@ class Hero {
         if (this.state !== 4) {
             this.game.npcEntities.forEach(entity => {
                 if (entity instanceof Coin && this.collisionBB.collide(entity.collisionBB)) {
-                    this.coinCount += entity.value;
+                    this.currencyCount += entity.value;
                     entity.removeFromWorld = true;
-                    console.log("colliding!")
                     // play coin sound
                 }
             });
