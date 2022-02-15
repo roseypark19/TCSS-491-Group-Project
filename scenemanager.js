@@ -158,6 +158,7 @@ class SceneManager {
         if (!isOverworld) {
             this.statsDisplay = new StatsDisplay(this.game, 0, 20);
             this.abilityDisplay = new AbilityDisplay(this.game, 20, PARAMS.CANVAS_DIMENSION - abilityDisplayDimension() - 20);
+            this.currencyDisplay = new CurrencyDisplay(this.game, 0, 175);
         }
     };
 
@@ -316,6 +317,7 @@ class SceneManager {
         if (this.currentLevel !== overworld) {
             this.statsDisplay.draw(ctx);
             this.abilityDisplay.draw(ctx);
+            this.currencyDisplay.draw(ctx);
         }
     };
 };
@@ -439,5 +441,23 @@ class AbilityDisplay {
             ctx.strokeText(data.button, x + 3 * drawScale, y + 10 * drawScale);
             x += spacing * PARAMS.GUI_SCALE;
         }
+    };
+};
+
+class CurrencyDisplay {
+
+    constructor(game, x, y) {
+        Object.assign(this, {game, x, y});
+        this.scale = PARAMS.GUI_SCALE - 2;
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/items/coin.png");
+        this.animation = new AnimationGroup(this.spritesheet, 0, 0, 16, 16, 14, 0.06, false, true);
+    };
+
+    draw(ctx) {
+        this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, this.scale);
+        ctx.fillStyle = ctx.strokeStyle = "Black";
+        ctx.font = 10 * (this.scale - 1) + 'px "silkscreenbold"';
+        ctx.fillText(saveState.currency + this.game.camera.hero.currencyCount, this.x + 16 * this.scale, this.y + 10.5 * this.scale);
+        ctx.strokeText(saveState.currency + this.game.camera.hero.currencyCount, this.x + 16 * this.scale, this.y + 10.5 * this.scale);
     };
 };
