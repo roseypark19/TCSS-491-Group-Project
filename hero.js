@@ -185,7 +185,7 @@ class Hero {
         this.abilityData = [{ x: 0, y: 0, button: "Q"}, { x: 32, y: 0, button: "R"}, { x: 64, y: 0, button: "F"}];
         this.spriteCenter = 15.5;
 
-        this.weapon = { type: 2, attack: 75, dexterity: 8 }; 
+        this.weapon = { type: 2, attack: 5, dexterity: 0 }; 
 
         // types: 0 = longsword, 1 = war axe, 2 = whip, 3 = flail, 4 = slingshot, 5 = bow
 

@@ -38,7 +38,7 @@ class SwordedMinion {
         this.burningTimer = 0;
         this.burnDamageTimer = 0;
         this.confusedTimer = 0;
-        this.velocityConstant = 3;
+        this.velocityConstant = 4;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
         this.velocity = { x: 0, y: 0 };
         this.animations = [];
@@ -50,7 +50,7 @@ class SwordedMinion {
         this.animations.push(new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 16, 0.2, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 64 * 32, 0, 32, 32, 4, this.walkSpeed, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 80 * 32, 0, 32, 32, 4, 0.12, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 96 * 32, 0, 32, 32, 4, 0.15, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 96 * 32, 0, 32, 32, 4, 0.075, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 112 * 32, 0, 32, 32, 12, 0.15, false, true));
     };
 
@@ -92,8 +92,8 @@ class SwordedMinion {
                     this.hit = true;  
                     this.frozenTimer = 0;
                     if (this.damagedTimer === 0 && this.deadTimer === 0) {
-                        this.damagedTimer = 0.6 - this.game.clockTick;
-                        this.state = 3;
+                        // this.damagedTimer = 0.3 - this.game.clockTick;
+                        // this.state = 3;
                         this.hitUnitVector = prevState === 0 ? { x: 0, y: 0 } : 
                                                                unitVector({ x: this.hitBB.center.x - entity.sourcePoint.x, y: this.hitBB.center.y - entity.sourcePoint.y });
                     }
@@ -132,20 +132,20 @@ class SwordedMinion {
             this.hit = false;
         }
 
-        if (this.state !== 4 && this.damagedTimer > 0 && this.hit) {
-            this.velocity.x = this.hitUnitVector.x * this.velocityConstant / 2;
-            this.velocity.y = this.hitUnitVector.y * this.velocityConstant / 2;
-            this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
-            this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
-            this.randomPos = undefined;
-        }
+        // if (this.state !== 4 && this.damagedTimer > 0 && this.hit) {
+        //     this.velocity.x = this.hitUnitVector.x * this.velocityConstant / 2;
+        //     this.velocity.y = this.hitUnitVector.y * this.velocityConstant / 2;
+        //     this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
+        //     this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
+        //     this.randomPos = undefined;
+        // }
 
         if (this.state !== 4 && this.burningTimer > 0 && this.burnDamageTimer === 0) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp -= 25;
             // play damaged sound
             if (this.damagedTimer === 0) {
-                this.damagedTimer = 0.6 - this.game.clockTick;
+                this.damagedTimer = 0.3 - this.game.clockTick;
                 this.state = 3;
             }
             if (this.deadTimer === 0 && this.hp <= 0) {

@@ -36,7 +36,7 @@ class PolarBear {
         this.animations.push(new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 19, 0.3, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 76 * 32, 0, 32, 32, 6, this.walkSpeed, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 100 * 32, 0, 32, 32, 5, 0.075, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 120 * 32, 0, 32, 32, 4, 0.15, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 120 * 32, 0, 32, 32, 4, 0.075, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 136 * 32, 0, 32, 32, 24, 0.15, false, true));
     };
 
@@ -80,10 +80,10 @@ class PolarBear {
                     this.hit = true; 
                     this.frozenTimer = 0;
                     if (this.damagedTimer === 0 && this.deadTimer === 0) {
-                        this.damagedTimer = 0.6 - this.game.clockTick;
-                        this.state = 3;
-                        this.charging = false;
-                        this.attackTimer = 0;
+                        // this.damagedTimer = 0.3 - this.game.clockTick;
+                        // this.state = 3;
+                        // this.charging = false;
+                        // this.attackTimer = 0;
                         this.hitUnitVector = prevState === 0 ? { x: 0, y: 0 } : 
                                                                unitVector({ x: this.hitBB.center.x - entity.sourcePoint.x, y: this.hitBB.center.y - entity.sourcePoint.y });
                     }
@@ -122,20 +122,20 @@ class PolarBear {
             this.hit = false;
         }
 
-        if (this.state !== 4 && this.damagedTimer > 0 && this.hit) {
-            this.velocity.x = this.hitUnitVector.x * this.velocityConstant / 2;
-            this.velocity.y = this.hitUnitVector.y * this.velocityConstant / 2;
-            this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
-            this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
-            this.movementUnitVector = undefined;
-        }
+        // if (this.state !== 4 && this.damagedTimer > 0 && this.hit) {
+        //     this.velocity.x = this.hitUnitVector.x * this.velocityConstant / 2;
+        //     this.velocity.y = this.hitUnitVector.y * this.velocityConstant / 2;
+        //     this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
+        //     this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
+        //     this.movementUnitVector = undefined;
+        // }
 
         if (this.state !== 4 && this.burningTimer > 0 && this.burnDamageTimer === 0) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp -= 25;
             // play damaged sound
             if (this.damagedTimer === 0) {
-                this.damagedTimer = 0.6 - this.game.clockTick;
+                this.damagedTimer = 0.3 - this.game.clockTick;
                 this.state = 3;
                 this.charging = false;
             }

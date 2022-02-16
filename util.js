@@ -41,11 +41,11 @@ const PROJECTILES = {
     3: { spritesheet: "./sprites/projectiles/projectile_axe.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.short },
     4: { spritesheet: "./sprites/projectiles/projectile_whip.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
     5: { spritesheet: "./sprites/projectiles/projectile_flail.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
-    6: { spritesheet: "./sprites/projectiles/projectile_enemy_close_range.png", velocity: 4, lifetime: PROJECTILE_LIFETIMES.short },
-    7: { spritesheet: "./sprites/projectiles/projectile_slingshot.png", velocity: 4, lifetime: PROJECTILE_LIFETIMES.long },
-    8: { spritesheet: "./sprites/projectiles/Green_Arrow.png", velocity: 4, lifetime: PROJECTILE_LIFETIMES.long },
-    9: { spritesheet: "./sprites/projectiles/projectile_sword2.png", velocity: 4, lifetime: PROJECTILE_LIFETIMES.short },
-    10: { spritesheet: "./sprites/projectiles/snowball.png", velocity: 4, lifetime: PROJECTILE_LIFETIMES.long },
+    6: { spritesheet: "./sprites/projectiles/projectile_enemy_close_range.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.short },
+    7: { spritesheet: "./sprites/projectiles/projectile_slingshot.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.long },
+    8: { spritesheet: "./sprites/projectiles/Green_Arrow.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.long },
+    9: { spritesheet: "./sprites/projectiles/projectile_sword2.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.short },
+    10: { spritesheet: "./sprites/projectiles/snowball.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.long },
 };
 
 // returns a random integer between 0 and n-1

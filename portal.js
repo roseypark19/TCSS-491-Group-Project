@@ -72,7 +72,6 @@ class Portal {
                 saveGame(saveState);
                 loadGame();
             }
-            this.game.camera.portalFlag = false;
             this.game.camera.travelTo(this.destinationLevel); 
 
         } else {

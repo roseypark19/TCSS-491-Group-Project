@@ -310,8 +310,6 @@ class SceneManager {
         let heroDead = this.hero.hp <= 0;
         if (PARAMS.GAMEOVER) {
             if (heroDead && this.elapsed === 4) {
-                PARAMS.GAMEOVER = false;
-                this.elapsed = 0;
                 this.travelTo(overworld);
             } else if (!heroDead && !this.portalFlag && this.currentLevel !== town) {
                 this.portalFlag = true;
@@ -325,6 +323,9 @@ class SceneManager {
     };
 
     travelTo(level) {
+        PARAMS.GAMEOVER = false;
+        this.portalFlag = false;
+        this.elapsed = 0;
         this.currentLevel = level;
         this.loadLevel(level, level == overworld, level == town);
     };
@@ -350,7 +351,7 @@ class SceneManager {
                 // this.statsDisplay.draw(ctx);
                 // this.abilityDisplay.draw(ctx);
                 // this.mmap.draw(ctx);
-            } else if (this.hero.hp <= 0) {
+            } else if (this.hero.hp <= 0 && this.currentLevel !== overworld) {
                 ctx.fillStyle = "Red";
                 ctx.font = 5 * PARAMS.BLOCKWIDTH + 'px "silkscreenbold"';
                 ctx.fillText("YOU DIED", 
