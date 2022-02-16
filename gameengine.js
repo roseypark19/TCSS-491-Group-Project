@@ -131,8 +131,10 @@ class GameEngine {
             switch (e.code) {
                 case "KeyI":
                     that.inventoryPressed = !that.inventoryPressed;
+                    break;
                 case "KeyC":
                     that.weaponChange = true;
+                    break;
             }
         });
 

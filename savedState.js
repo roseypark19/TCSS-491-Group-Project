@@ -2,6 +2,14 @@ let saveState = {
     firstCutsceneFinished: null
 };
 
+function toBoolean(str) {
+    if (str == "true") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 const initialState = {
     firstCutsceneFinished: false,
     gameFinished: false,   // if boss is complete
@@ -21,7 +29,7 @@ const initialState = {
 
     weapons: { 
         0 : { // sword
-            "bought": false,
+            "bought": true,
             "attack": 0,
             "dexterity": 0
         },
@@ -61,7 +69,6 @@ function saveGame(obj) {
     storage.setItem("gameFinished", obj.gameFinished);
     storage.setItem("numLevelsCompleted", obj.numLevelsCompleted);
     storage.setItem("currency", obj.currency);
-    console.log(obj.currency)
     storage.setItem("numSpellsUnlocked", obj.numSpellsUnlocked);
 
     storage.setItem("heroStats0", obj.heroStats[0]);
@@ -118,32 +125,32 @@ function loadGame() {
     
         weapons: { 
             0 : { // sword
-                "bought": storage.getItem("weapons0bought"),
+                "bought": toBoolean(storage.getItem("weapons0bought")),
                 "attack": storage.getItem("weapons0attack"),
                 "dexterity": storage.getItem("weapons0dexterity")
             },
             1 : { // axe
-                "bought": storage.getItem("weapons1bought"),
+                "bought": toBoolean(storage.getItem("weapons1bought")),
                 "attack": storage.getItem("weapons1attack"),
                 "dexterity": storage.getItem("weapons1dexterity")
             },
             2 : { // whip
-                "bought": storage.getItem("weapons2bought"),
+                "bought": toBoolean(storage.getItem("weapons2bought")),
                 "attack": storage.getItem("weapons2attack"),
                 "dexterity": storage.getItem("weapons2dexterity")
             },
             3 : { // flail
-                "bought": storage.getItem("weapons3bought"),
+                "bought": toBoolean(storage.getItem("weapons3bought")),
                 "attack": storage.getItem("weapons3attack"),
                 "dexterity": storage.getItem("weapons3dexterity")
             },
             4 : { // slingshot
-                "bought": storage.getItem("weapons4bought"),
+                "bought": toBoolean(storage.getItem("weapons4bought")),
                 "attack": storage.getItem("weapons4attack"),
                 "dexterity": storage.getItem("weapons4dexterity")
             },
             5 : { // bow
-                "bought": storage.getItem("weapons5bought"),
+                "bought": toBoolean(storage.getItem("weapons5bought")),
                 "attack": storage.getItem("weapons5attack"),
                 "dexterity": storage.getItem("weapons5dexterity")
             }
@@ -170,3 +177,4 @@ loadGame();
 resetGame(); // REMOVE THIS LINE TO NOT RESET EVERY TIME PAGE IS RELOADED
 
 
+// console.log(saveState.weapons[0].bought);

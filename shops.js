@@ -456,7 +456,7 @@ class WeaponsShop {
             this.setSmallFont(ctx);
             ctx.fillText("It's what you get when you start", this.TEXT_X + this.DESCRIPTION_OFFSET_X, this.SWORD_TEXT_Y + this.DESCRIPTION_OFFSET_Y);
             ctx.strokeRect(this.BOX_X, this.SWORD_BOX_Y, this.BOX_WIDTH, this.BOX_HEIGHT);
-            
+
             if (saveState.weapons[0].bought) {
                 // bought the weapon, so show damage and dexterity upgrade stuff
                 if (swordDmgMax) {
