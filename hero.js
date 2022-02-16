@@ -564,8 +564,10 @@ class Hero {
                 this.weapon = this.weaponData[this.weaponIndex];
                 this.loadAnimations();
                 this.game.weaponChange = false;
-
-
+                this.ability1Timer = 0;
+                this.ability2Timer = 0;
+                this.ability3Timer = 0;
+                this.shootTimer = 0;
         }
 
         // check for coins

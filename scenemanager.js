@@ -4,7 +4,6 @@ class SceneManager {
         this.game.camera = this;
         this.x = 0;
         this.y = 0;
-        this.travelTo(plains1);
         this.elapsed = 0;
         this.travelTo(titleScreen);
     };
@@ -338,8 +337,6 @@ class SceneManager {
         } else {
             this.x = this.hero.BB.center.x - midpoint.x;
         }
-
-
         let heroDead = this.hero.hp <= 0;
         if (PARAMS.GAMEOVER) {
             if (heroDead && this.elapsed === 4) {
@@ -351,7 +348,6 @@ class SceneManager {
                 this.game.addEntity(portal);
             } 
         }
-        
     };
 
     travelTo(level) {
@@ -378,6 +374,7 @@ class SceneManager {
                 this.abilityDisplay.draw(ctx);
             } 
             this.currencyDisplay.draw(ctx);
+
         }
 
         if (PARAMS.GAMEOVER) {
@@ -529,7 +526,6 @@ class AbilityDisplay {
     };
 };
 
-
 class WeaponsDisplay {
 
     constructor(game, x, y) {
@@ -573,7 +569,6 @@ class WeaponsDisplay {
         }
 
     };
-
 };
 
 class CurrencyDisplay {
