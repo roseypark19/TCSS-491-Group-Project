@@ -4,7 +4,7 @@ class Snowman {
         Object.assign(this, {game, x, y});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/snowman.png");
         this.npc = true;
-        this.visionDistance = 450;
+        this.visionDistance = 350;
         this.state = 0; // idle, activating, shooting
         this.facing = [0, randomInt(2)];
         this.activationTimer = 0;
@@ -60,8 +60,8 @@ class Snowman {
                             this.shootTimer = 0.08 * 10 - this.game.clockTick;
                             if (this.shootFlag) {
                                 this.game.addEntity(new Projectile(this.game, 
-                                    this.BB.center.x - 16 * PARAMS.SCALE + 4 * Math.cos(snowballTheta) * PARAMS.SCALE, 
-                                    this.BB.center.y - 16 * PARAMS.SCALE + 4 * Math.sin(snowballTheta) * PARAMS.SCALE, snowballTheta, false, 10, this.BB.center, 25, PARAMS.SCALE));
+                                    this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE * 1.75 + 4 * Math.cos(snowballTheta) * PARAMS.PROJECTILE_SCALE * 1.75, 
+                                    this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE * 1.75 + 4 * Math.sin(snowballTheta) * PARAMS.PROJECTILE_SCALE * 1.75, snowballTheta, false, 10, this.BB.center, 25, PARAMS.PROJECTILE_SCALE * 1.75));
                             }
                         }
                     }
@@ -73,6 +73,14 @@ class Snowman {
                 }
             }
         });
+
+        if (PARAMS.GAMEOVER) {
+            this.facing[0] = 0;
+            this.state = 0;
+            this.shootTimer = 0;
+            this.activationTimer = 0;
+        }
+
         this.shootFlag = this.state === 2;
 
         if (this.state !== prevState) {

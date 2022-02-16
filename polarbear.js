@@ -8,7 +8,7 @@ class PolarBear {
         this.state = 0; // idle, walking, attacking, damaged, dead
                         // 0, 1, 2, 3, 4
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 500;
+        this.maxHp = 800;
         this.hp = this.maxHp;
         this.minProximity = 32 * 1.5;
         this.visionDistance = 400;
@@ -33,24 +33,24 @@ class PolarBear {
     };
 
     loadAnimations() {
-        this.animations.push(new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 19, 0.3, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 19, 0.15, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 76 * 32, 0, 32, 32, 6, this.walkSpeed, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 100 * 32, 0, 32, 32, 5, 0.075, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 120 * 32, 0, 32, 32, 4, 0.15, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 136 * 32, 0, 32, 32, 24, 0.15, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 120 * 32, 0, 32, 32, 4, 0.075, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 136 * 32, 0, 32, 32, 24, 0.12, false, true));
     };
 
     updateBB() {
         this.BB = new BoundingBox(this.x, this.y, 32 * PARAMS.SCALE, 32 * PARAMS.SCALE);
-        this.hitBB = new BoundingBox(this.x + 11 * PARAMS.SCALE, this.y + 8 * PARAMS.SCALE, 10 * PARAMS.SCALE, 12 * PARAMS.SCALE);
-        this.collisionBB = new BoundingBox(this.hitBB.x, this.hitBB.y + 6 * PARAMS.SCALE, 10 * PARAMS.SCALE, 8 * PARAMS.SCALE);
+        this.hitBB = new BoundingBox(this.x + 8 * PARAMS.SCALE, this.y + 8 * PARAMS.SCALE, 16 * PARAMS.SCALE, 12 * PARAMS.SCALE);
+        this.collisionBB = new BoundingBox(this.hitBB.x, this.hitBB.y + 6 * PARAMS.SCALE, 16 * PARAMS.SCALE, 8 * PARAMS.SCALE);
     };
 
     update() {
 
         let prevState = this.state;
         this.originalCollisionBB = this.collisionBB;
-        if (this.burningTimer === 0 && this.burnDamageTimer === 0) {
+        if (this.burningTimer === 0 && this.burnDamageTimer === 0 && this.attackTimer === 0 && !this.charging) {
             this.facing[0] = 0;
         } 
         this.velocity.x = 0;
@@ -80,15 +80,15 @@ class PolarBear {
                     this.hit = true; 
                     this.frozenTimer = 0;
                     if (this.damagedTimer === 0 && this.deadTimer === 0) {
-                        this.damagedTimer = 0.6 - this.game.clockTick;
-                        this.state = 3;
-                        this.charging = false;
-                        this.attackTimer = 0;
+                        // this.damagedTimer = 0.3 - this.game.clockTick;
+                        // this.state = 3;
+                        // this.charging = false;
+                        // this.attackTimer = 0;
                         this.hitUnitVector = prevState === 0 ? { x: 0, y: 0 } : 
                                                                unitVector({ x: this.hitBB.center.x - entity.sourcePoint.x, y: this.hitBB.center.y - entity.sourcePoint.y });
                     }
                     this.hp -= entity.damage;
-                    // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_hit.mp3");
+                    ASSET_MANAGER.playAsset("./audio/minotaur_ogre_hit.mp3");
                     if (entity.elemental) {
                         switch(entity.type) {
                             case 0: // wind
@@ -109,10 +109,10 @@ class PolarBear {
                         }   
                     }
                     if (this.deadTimer === 0 && this.hp <= 0) {
-                        this.deadTimer = 24 * 0.15 - this.game.clockTick;
+                        this.deadTimer = 24 * 0.12 - this.game.clockTick;
                         this.state = 4;
                         this.facing = [0, 0];
-                        // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
+                        ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
                     }
                 }
             });
@@ -122,35 +122,35 @@ class PolarBear {
             this.hit = false;
         }
 
-        if (this.state !== 4 && this.damagedTimer > 0 && this.hit) {
-            this.velocity.x = this.hitUnitVector.x * this.velocityConstant / 2;
-            this.velocity.y = this.hitUnitVector.y * this.velocityConstant / 2;
-            this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
-            this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
-            this.movementUnitVector = undefined;
-        }
+        // if (this.state !== 4 && this.damagedTimer > 0 && this.hit) {
+        //     this.velocity.x = this.hitUnitVector.x * this.velocityConstant / 2;
+        //     this.velocity.y = this.hitUnitVector.y * this.velocityConstant / 2;
+        //     this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
+        //     this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
+        //     this.movementUnitVector = undefined;
+        // }
 
         if (this.state !== 4 && this.burningTimer > 0 && this.burnDamageTimer === 0) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp -= 25;
-            // play damaged sound
+            ASSET_MANAGER.playAsset("./audio/minotaur_ogre_hit.mp3");
             if (this.damagedTimer === 0) {
-                this.damagedTimer = 0.6 - this.game.clockTick;
+                this.damagedTimer = 0.3 - this.game.clockTick;
                 this.state = 3;
                 this.charging = false;
             }
             if (this.deadTimer === 0 && this.hp <= 0) {
-                this.deadTimer = 24 * 0.15 - this.game.clockTick;
+                this.deadTimer = 24 * 0.12 - this.game.clockTick;
                 this.state = 4;
                 this.facing = [0, 0];
-                // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
+                ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
             }
         }
 
-        if (this.state !== 4 && this.damagedTimer === 0 && this.frozenTimer > 0) {
-            this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
-            this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
-        }
+        // if (this.state !== 4 && this.damagedTimer === 0 && this.frozenTimer > 0) {
+        //     this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
+        //     this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
+        // }
 
         let heroCenter = null;
 
@@ -160,7 +160,7 @@ class PolarBear {
                     heroCenter = entity.BB.center;
                     let dist = distance(this.BB.center, heroCenter);
 
-                    if (dist <= this.visionDistance || this.charging) {
+                    if ((dist <= this.visionDistance || this.charging) & !PARAMS.GAMEOVER) {
                         if ((this.movementUnitVector === undefined || (this.confusedTimer === 0 && distance(heroCenter, this.destination) > this.minProximity)) && this.damagedTimer === 0) {
                             let center = this.BB.center;
                             let vector = { x : heroCenter.x - center.x, y : heroCenter.y - center.y };
@@ -207,7 +207,7 @@ class PolarBear {
         } else {
             if (this.deadTimer === 0) {
                 this.removeFromWorld = true;
-                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 1));
+                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 15));
             }
         }
 
@@ -246,7 +246,7 @@ class PolarBear {
                         for (let i = theta - Math.PI / 8; i <= theta + Math.PI / 8; i += Math.PI / 8) {
                             this.game.addEntity(new Projectile(this.game, 
                                 this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(i) * PARAMS.SCALE, 
-                                this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, 6, this.BB.center, 50));
+                                this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, 13, this.BB.center, 100));
                         }
                         this.facing[0] = vector.y >= 0 ? 0 : 1;
                         this.facing[1] = vector.x >= 0 ? 0 : 1;
@@ -259,10 +259,10 @@ class PolarBear {
                     this.chargeUnitVector = unitVector({ x: this.destination.x - this.BB.center.x, y: this.destination.y - this.BB.center.y });
                 }
 
-                this.velocity.x = this.chargeUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant * 4 / 3 : this.velocityConstant * 4);
-                this.velocity.y = this.chargeUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant * 4 / 3 : this.velocityConstant * 4);
+                this.velocity.x = this.chargeUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant * 3 / 3 : this.velocityConstant * 3);
+                this.velocity.y = this.chargeUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant * 3 / 3 : this.velocityConstant * 3);
 
-                this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed / (4/3) : this.walkSpeed / 4);
+                this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed / (3/3) : this.walkSpeed / 3);
                 this.facing[0] = this.velocity.y >= 0 ? 0 : 1;
                 this.facing[1] = this.velocity.x >= 0 ? 0 : 1;
             } else {

@@ -8,7 +8,7 @@ class TinyHero {
         this.state = 0; // idle, walking, shooting, charged, dead
                         // 0, 1, 2, 3, 4
         this.hp = 0;
-        this.velocityConstant = 8;
+        this.velocityConstant = 10;
         this.velocity = { x : 0, y : 0 };
         this.animations = [];
         this.scale = PARAMS.SCALE / 1;
@@ -156,7 +156,7 @@ class Hero {
                         // explosion cast, explosion hold, explosion launch, shield casting
                         // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 100000;
+        this.maxHp = 500;
         this.maxMp = 1000;
         this.mp = this.maxMp;
         this.hp = this.maxHp;
@@ -177,15 +177,15 @@ class Hero {
         this.ability3Flag = false;
         this.ability3Cooldown = 0;
 
-        this.ability1Cost = 50;
-        this.ability2Cost = 50;
+        this.ability1Cost = 150;
+        this.ability2Cost = 250;
         this.ability3Cost = 50;
 
         this.abilitySpritesheet = ASSET_MANAGER.getAsset("./sprites/hero/spells.png");
         this.abilityData = [{ x: 0, y: 0, button: "Q"}, { x: 32, y: 0, button: "R"}, { x: 64, y: 0, button: "F"}];
         this.spriteCenter = 15.5;
 
-        this.weapon = { type: 2, attack: 75, dexterity: 8 }; 
+        this.weapon = { type: 2, attack: 5, dexterity: 0 }; 
 
         // types: 0 = longsword, 1 = war axe, 2 = whip, 3 = flail, 4 = slingshot, 5 = bow
 
@@ -332,17 +332,17 @@ class Hero {
                         this.state = 3;
                     }
                     entity.removeFromWorld = true;
-                    if (this.ability2Timer === 0 && this.ability1Timer === 0) {
-                        this.hp -= entity.damage;
-                        // ASSET_MANAGER.playAsset("./audio/hero_hit.mp3");
-                    }
+                    // if (this.ability2Timer === 0 && this.ability1Timer === 0) {
+                    this.hp -= entity.damage;
+                    ASSET_MANAGER.playAsset("./audio/hero_hit.mp3");
+                    // }
                     if (this.deadTimer === 0 && this.hp <= 0) {
                         this.deadTimer = 12 * 0.1 - this.game.clockTick;
                         this.state = 4;
                         this.facing = [0, 0];
                         PARAMS.GAMEOVER = true;
-                        // ASSET_MANAGER.pauseBackgroundMusic();
-                        // ASSET_MANAGER.playAsset("./audio/hero_death.mp3");
+                        ASSET_MANAGER.pauseBackgroundMusic();
+                        ASSET_MANAGER.playAsset("./audio/hero_death.mp3");
                     }
                 }
             });
@@ -361,7 +361,7 @@ class Hero {
             }
         }
 
-        if (this.state !== 4 && !this.game.camera.title && !PARAMS.GAMEOVER) {
+        if (this.state !== 4 && !this.game.camera.title) {
             if (this.game.right) {
                 newVelX += this.velocityConstant;
                 this.facing[1] = 0;
@@ -394,7 +394,7 @@ class Hero {
         this.y += this.velocity.y;
         this.updateBB();
 
-        if (this.state !== 4 && !this.game.camera.title && !PARAMS.GAMEOVER) {
+        if (this.state !== 4 && !this.game.camera.title) {
 
             if (this.game.special1 && this.ability1Cooldown === 0 && this.ability1Timer === 0 && this.ability2Timer === 0 && this.mp >= this.ability1Cost) {
                 this.state = 5;
@@ -503,13 +503,16 @@ class Hero {
                         let type = WEAPONS[this.weapon.type].projectileType;
                         let base_vel = PROJECTILES[type].velocity;
                         let true_vel = { x: Math.cos(theta) * base_vel, y: Math.sin(theta) * base_vel };
-                        let proj_vel = { x: true_vel.x + (Math.sign(true_vel.x) === Math.sign(this.velocity.x) ? this.velocity.x: 0),
-                                         y: true_vel.y + (Math.sign(true_vel.y) === Math.sign(this.velocity.y) ? this.velocity.y: 0) };
-                        this.game.addEntity(new Projectile(this.game, 
-                                                            this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(theta) * PARAMS.SCALE, 
-                                                            this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, 
-                                                            theta, true, type, this.BB.center, 
-                                                            75));
+                        let proj_vel = { x: true_vel.x + (Math.sign(true_vel.x) === Math.sign(this.velocity.x) ? this.velocity.x / 2 : 0),
+                                         y: true_vel.y + (Math.sign(true_vel.y) === Math.sign(this.velocity.y) ? this.velocity.y / 2 : 0) };
+                        let projectile = new Projectile(this.game, 
+                                                        this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(theta) * PARAMS.SCALE, 
+                                                        this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, 
+                                                        theta, true, type, this.BB.center, 
+                                                        75);
+                        projectile.velocity = proj_vel;
+                        this.game.addEntity(projectile);
+                        ASSET_MANAGER.playAsset("./audio/sword.mp3");
                     }
                     
                 }
@@ -560,7 +563,7 @@ class Hero {
                 if (entity instanceof Coin && this.collisionBB.collide(entity.collisionBB)) {
                     this.currencyCount += entity.value;
                     entity.removeFromWorld = true;
-                    // play coin sound
+                    ASSET_MANAGER.playAsset("./audio/coin.wav");
                 }
             });
         }

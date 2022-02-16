@@ -17,6 +17,7 @@ const snow1 = {
         boxY: 71,
     },
 
+    music: "./audio/snow_levels.mp3",
 
     width: 115,
     height: 85,
@@ -44,8 +45,6 @@ const snow1 = {
     ],
 
     enemies: [
-        // {type: PolarBear, x: 20, y: 20},
-        // {type: Yeti, x: 20, y: 20},
         {type: SwordedMinion, minionType: 2, x: 4.5, y: 11.5},
         {type: SwordedMinion, minionType: 2, x: 10.5, y: 11.5},
         {type: SwordedMinion, minionType: 2, x: 20.5, y: 11.5},
@@ -921,6 +920,7 @@ const snow2 = {
         boxY: 21,
     },
 
+    music: "./audio/snow_levels.mp3",
 
     width: 115,
     height: 90,
