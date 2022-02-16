@@ -73,6 +73,14 @@ class Snowman {
                 }
             }
         });
+
+        if (PARAMS.GAMEOVER) {
+            this.facing[0] = 0;
+            this.state = 0;
+            this.shootTimer = 0;
+            this.activationTimer = 0;
+        }
+
         this.shootFlag = this.state === 2;
 
         if (this.state !== prevState) {

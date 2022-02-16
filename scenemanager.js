@@ -4,6 +4,7 @@ class SceneManager {
         this.game.camera = this;
         this.x = 0;
         this.y = 0;
+        this.elapsed = 0;
         this.travelTo(snow1);
     };
 
@@ -61,7 +62,7 @@ class SceneManager {
                     // coward portal
                     this.game.addEntity(new Portal(this.game, "Leave " + this.currentLevel.levelName, overworld, 5, this.currentLevel.cowardPortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxWidth));
                     // leaving portal
-                    this.game.addEntity(new Portal(this.game, "Complete " + this.currentLevel.levelName, overworld, this.currentLevel.portalIndex, this.currentLevel.completePortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxWidth, true));
+                    // this.game.addEntity(new Portal(this.game, "Complete " + this.currentLevel.levelName, overworld, this.currentLevel.portalIndex, this.currentLevel.completePortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxWidth, true));
                     // hero
                     this.hero = new Hero(this.game, this.currentLevel.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
                                          this.currentLevel.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
@@ -286,6 +287,11 @@ class SceneManager {
     }
 
     update() {
+
+        if (PARAMS.GAMEOVER) {
+            this.elapsed = Math.min(4, this.elapsed + this.game.clockTick);
+        }
+
         PARAMS.DEBUG = document.getElementById("debug").checked;
         let midpoint = { x : PARAMS.CANVAS_DIMENSION / 2, y : PARAMS.CANVAS_DIMENSION / 2 };
 
@@ -299,6 +305,20 @@ class SceneManager {
             }
         } else {
             this.x = this.hero.BB.center.x - midpoint.x;
+        }
+
+        let heroDead = this.hero.hp <= 0;
+        if (PARAMS.GAMEOVER) {
+            if (heroDead && this.elapsed === 4) {
+                PARAMS.GAMEOVER = false;
+                this.elapsed = 0;
+                this.travelTo(overworld);
+            } else if (!heroDead && !this.portalFlag && this.currentLevel !== town) {
+                this.portalFlag = true;
+                let portal = new Portal(this.game, "Complete " + this.currentLevel.levelName, overworld, this.currentLevel.portalIndex, this.currentLevel.completePortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxWidth, true);
+                portal.npc = true;
+                this.game.addEntity(portal);
+            } 
         }
      
         
@@ -319,6 +339,30 @@ class SceneManager {
             this.abilityDisplay.draw(ctx);
             this.currencyDisplay.draw(ctx);
         }
+
+        if (PARAMS.GAMEOVER) {
+            if (this.hero.hp > 0 && this.elapsed < 4 && this.currentLevel !== town) {
+                ctx.fillStyle = rgb(255, 215, 0);
+                ctx.font = 5 * PARAMS.BLOCKWIDTH + 'px "silkscreenbold"';
+                ctx.fillText("LEVEL COMPLETE", 
+                             this.hero.BB.center.x - this.x - 5.5 * 5 * PARAMS.BLOCKWIDTH, 
+                             this.hero.BB.top - this.y);
+                // this.statsDisplay.draw(ctx);
+                // this.abilityDisplay.draw(ctx);
+                // this.mmap.draw(ctx);
+            } else if (this.hero.hp <= 0) {
+                ctx.fillStyle = "Red";
+                ctx.font = 5 * PARAMS.BLOCKWIDTH + 'px "silkscreenbold"';
+                ctx.fillText("YOU DIED", 
+                             this.hero.BB.center.x - this.x - 3.5 * 5 * PARAMS.BLOCKWIDTH, 
+                             this.hero.BB.top - this.y);
+            }
+        } 
+        // else {
+        //     this.statsDisplay.draw(ctx);
+        //     this.abilityDisplay.draw(ctx);
+        //     this.mmap.draw(ctx);
+        // } 
     };
 };
 
@@ -377,7 +421,7 @@ class StatsDisplay {
         }
 
         ctx.fillStyle = this.flickerFlag ? rgb(228, 84, 110) : rgb(198, 27, 58);
-        ctx.fillRect(this.x + 13 * PARAMS.GUI_SCALE, this.y + 7 * PARAMS.GUI_SCALE, 60 * hero.hp / hero.maxHp * PARAMS.GUI_SCALE, 3 * PARAMS.GUI_SCALE);
+        ctx.fillRect(this.x + 13 * PARAMS.GUI_SCALE, this.y + 7 * PARAMS.GUI_SCALE, 60 * Math.max(0, hero.hp) / hero.maxHp * PARAMS.GUI_SCALE, 3 * PARAMS.GUI_SCALE);
 
         ctx.drawImage(this.barSprite, 88, 37, 16, 5, this.x + 11 * PARAMS.GUI_SCALE, this.y + 6 * PARAMS.GUI_SCALE, 16 * PARAMS.GUI_SCALE, 5 * PARAMS.GUI_SCALE);
         ctx.drawImage(this.barSprite, 88 + 8, 37, 16, 5, this.x + (11 + 16) * PARAMS.GUI_SCALE, this.y + 6 * PARAMS.GUI_SCALE, 16 * PARAMS.GUI_SCALE, 5 * PARAMS.GUI_SCALE);
@@ -432,7 +476,7 @@ class AbilityDisplay {
         x = this.x + (5 + spacing / 2) * PARAMS.GUI_SCALE;
         let y = this.y + dimension / 2;
         ctx.fillStyle = ctx.strokeStyle = "Black";
-        ctx.font = 20 + 'px "silkscreenbold"';
+        ctx.font = 20 + 'px "silkscreennormal"';
         for (let i = 0; i < hero.abilityData.length; i++) {
             let data = hero.abilityData[i];
             ctx.drawImage(hero.abilitySpritesheet, data.x + 96 * hero.spellType, data.y, 32, 32, 
@@ -457,7 +501,7 @@ class CurrencyDisplay {
         this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, this.scale);
         ctx.fillStyle = ctx.strokeStyle = "Black";
         ctx.font = 10 * (this.scale - 1) + 'px "silkscreenbold"';
-        ctx.fillText(saveState.currency + this.game.camera.hero.currencyCount, this.x + 16 * this.scale, this.y + 10.5 * this.scale);
-        ctx.strokeText(saveState.currency + this.game.camera.hero.currencyCount, this.x + 16 * this.scale, this.y + 10.5 * this.scale);
+        ctx.fillText(parseInt(saveState.currency) + this.game.camera.hero.currencyCount, this.x + 16 * this.scale, this.y + 10.5 * this.scale);
+        ctx.strokeText(parseInt(saveState.currency) + this.game.camera.hero.currencyCount, this.x + 16 * this.scale, this.y + 10.5 * this.scale);
     };
 };
