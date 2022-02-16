@@ -1,7 +1,6 @@
 class SwordedMinion {
     constructor(game, x, y, type) {
         Object.assign(this, { game, x, y, type });
-        console.log("here2")
 
         switch(this.type) {
             case 0:
@@ -23,7 +22,7 @@ class SwordedMinion {
         this.state = 0; // idle, walking, attacking, damaged, dead
                         // 0, 1, 2, 3, 4
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 500;
+        this.maxHp = 400;
         this.hp = this.maxHp;
         this.minProximity = 5;
         this.visionDistance = 400;
@@ -38,7 +37,7 @@ class SwordedMinion {
         this.burningTimer = 0;
         this.burnDamageTimer = 0;
         this.confusedTimer = 0;
-        this.velocityConstant = 3;
+        this.velocityConstant = 4;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
         this.velocity = { x: 0, y: 0 };
         this.animations = [];
@@ -50,7 +49,7 @@ class SwordedMinion {
         this.animations.push(new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 16, 0.2, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 64 * 32, 0, 32, 32, 4, this.walkSpeed, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 80 * 32, 0, 32, 32, 4, 0.12, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 96 * 32, 0, 32, 32, 4, 0.15, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 96 * 32, 0, 32, 32, 4, 0.075, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 112 * 32, 0, 32, 32, 12, 0.15, false, true));
     };
 
@@ -92,13 +91,13 @@ class SwordedMinion {
                     this.hit = true;  
                     this.frozenTimer = 0;
                     if (this.damagedTimer === 0 && this.deadTimer === 0) {
-                        this.damagedTimer = 0.6 - this.game.clockTick;
-                        this.state = 3;
+                        // this.damagedTimer = 0.3 - this.game.clockTick;
+                        // this.state = 3;
                         this.hitUnitVector = prevState === 0 ? { x: 0, y: 0 } : 
                                                                unitVector({ x: this.hitBB.center.x - entity.sourcePoint.x, y: this.hitBB.center.y - entity.sourcePoint.y });
                     }
                     this.hp -= entity.damage;
-                    // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_hit.mp3");
+                    ASSET_MANAGER.playAsset("./audio/trasgo_hit.mp3");
                     if (entity.elemental) {
                         switch(entity.type) {
                             case 0: // wind
@@ -122,44 +121,44 @@ class SwordedMinion {
                         this.deadTimer = 12 * 0.15 - this.game.clockTick;
                         this.state = 4;
                         this.facing = [0, 0];
-                        // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
+                        ASSET_MANAGER.playAsset("./audio/trasgo_death.mp3");
                     }
                 }
             });
         }
 
-        if (this.hit && this.damagedTimer === 0) {
-            this.hit = false;
-        }
+        // if (this.hit && this.damagedTimer === 0) {
+        //     this.hit = false;
+        // }
 
-        if (this.state !== 4 && this.damagedTimer > 0 && this.hit) {
-            this.velocity.x = this.hitUnitVector.x * this.velocityConstant / 2;
-            this.velocity.y = this.hitUnitVector.y * this.velocityConstant / 2;
-            this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
-            this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
-            this.randomPos = undefined;
-        }
+        // if (this.state !== 4 && this.damagedTimer > 0 && this.hit) {
+        //     this.velocity.x = this.hitUnitVector.x * this.velocityConstant / 2;
+        //     this.velocity.y = this.hitUnitVector.y * this.velocityConstant / 2;
+        //     this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
+        //     this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
+        //     this.randomPos = undefined;
+        // }
 
         if (this.state !== 4 && this.burningTimer > 0 && this.burnDamageTimer === 0) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp -= 25;
-            // play damaged sound
+            ASSET_MANAGER.playAsset("./audio/trasgo_hit.mp3");
             if (this.damagedTimer === 0) {
-                this.damagedTimer = 0.6 - this.game.clockTick;
+                this.damagedTimer = 0.3 - this.game.clockTick;
                 this.state = 3;
             }
             if (this.deadTimer === 0 && this.hp <= 0) {
                 this.deadTimer = 11 * 0.15 - this.game.clockTick;
                 this.state = 4;
                 this.facing = [0, 0];
-                // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
+                ASSET_MANAGER.playAsset("./audio/trasgo_death.mp3");
             }
         }
 
-        if (this.state !== 4 && this.damagedTimer === 0 && this.frozenTimer > 0) {
-            this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
-            this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
-        }
+        // if (this.state !== 4 && this.damagedTimer === 0 && this.frozenTimer > 0) {
+        //     this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
+        //     this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
+        // }
 
         this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed * 3 : this.walkSpeed);
 
@@ -170,7 +169,7 @@ class SwordedMinion {
                 if (entity instanceof Hero) {
                     heroCenter = entity.BB.center;
                     let dist = distance(center, heroCenter);
-                    if (dist <= this.visionDistance) {
+                    if (dist <= this.visionDistance && !PARAMS.GAMEOVER) {
                         let vector = { x : heroCenter.x - center.x, y : heroCenter.y - center.y };
                         let heroDirectionUnitVector = unitVector(vector);
                         let movementDirectionUnitVector = heroDirectionUnitVector;
@@ -249,6 +248,7 @@ class SwordedMinion {
         } else {
             if (this.deadTimer === 0) {
                 this.removeFromWorld = true;
+                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 5));
             }
         }
 
@@ -582,6 +582,7 @@ class RangedMinion {
         } else {
             if (this.deadTimer === 0) {
                 this.removeFromWorld = true;
+                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 1));
             }
         }
 

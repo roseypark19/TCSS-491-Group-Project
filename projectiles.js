@@ -40,7 +40,6 @@ class Projectile {
         this.spritesheet = ASSET_MANAGER.getAsset(PROJECTILES[this.type].spritesheet);
         this.friendlyProjectile = friendly;
         this.id = ++PARAMS.SHOT_ID;
-        // this.damage = damage;
         this.passable = false;
         this.velocityConstant = PROJECTILES[this.type].velocity;
         this.velocity = { x: Math.cos(this.roundedRadians) * this.velocityConstant, 
@@ -83,7 +82,7 @@ class Projectile {
 
     updateBB() {
         this.BB = new BoundingBox(this.x, this.y, 32 * this.scale, 32 * this.scale);
-        this.hitBB = new BoundingBox(this.BB.center.x - 2 * this.scale, this.BB.center.y - 2 * this.scale, 4 * this.scale, 4 * this.scale);
+        this.hitBB = new BoundingBox(this.BB.center.x + Math.cos(this.radians) * 10 * PARAMS.PROJECTILE_SCALE - 4 * this.scale, this.BB.center.y + Math.sin(this.radians) * 10 * PARAMS.PROJECTILE_SCALE - 4 * this.scale, 8 * this.scale, 8 * this.scale);
     };
 
     draw(ctx) {

@@ -61,6 +61,7 @@ function saveGame(obj) {
     storage.setItem("gameFinished", obj.gameFinished);
     storage.setItem("numLevelsCompleted", obj.numLevelsCompleted);
     storage.setItem("currency", obj.currency);
+    console.log(obj.currency)
     storage.setItem("numSpellsUnlocked", obj.numSpellsUnlocked);
 
     storage.setItem("heroStats0", obj.heroStats[0]);
@@ -102,7 +103,7 @@ function loadGame() {
         firstCutsceneFinished: storage.getItem("firstCutsceneFinished"),
         gameFinished: storage.getItem("gameFinished"),   
         numLevelsCompleted: storage.getItem("numLevelsCompleted"), 
-        currency: storage.getItem("currency"),
+        currency: parseInt(storage.getItem("currency")),
         
         numSpellsUnlocked: storage.getItem("numSpellsUnlocked"), 
     

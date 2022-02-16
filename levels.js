@@ -1,6 +1,7 @@
 const town = { 
     width: 70, 
     height: 70,
+    music: "./audio/town.mp3",
     layer_names: ["ground", "bricks", "brick_shadows", "collideable", "hero", "roofs", "roof_shadows"], 
 
 
@@ -525,6 +526,8 @@ const overworld = {
     width: 316,
 
     height: 111,
+
+    music: "./audio/overworld.mp3",
 
     layer_names: ["sea_level", "path",  "props", "hero", "structures"],
 

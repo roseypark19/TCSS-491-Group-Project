@@ -5,6 +5,8 @@ class SceneManager {
         this.x = 0;
         this.y = 0;
         this.travelTo(plains1);
+        this.elapsed = 0;
+        this.travelTo(titleScreen);
     };
 
     clearEntities() {
@@ -62,7 +64,7 @@ class SceneManager {
                     // coward portal
                     this.game.addEntity(new Portal(this.game, "Leave " + this.currentLevel.levelName, overworld, 5, this.currentLevel.cowardPortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxWidth));
                     // leaving portal
-                    this.game.addEntity(new Portal(this.game, "Complete " + this.currentLevel.levelName, overworld, this.currentLevel.portalIndex, this.currentLevel.completePortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxWidth, true));
+                    // this.game.addEntity(new Portal(this.game, "Complete " + this.currentLevel.levelName, overworld, this.currentLevel.portalIndex, this.currentLevel.completePortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxWidth, true));
                     // hero
                     this.hero = new Hero(this.game, this.currentLevel.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
                                          this.currentLevel.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
@@ -116,6 +118,11 @@ class SceneManager {
             this.game.addEntity(new Penguin(this.game, 50 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 55 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true));
             this.game.addEntity(new Penguin(this.game, 57 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 45 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false));
             this.game.addEntity(new Penguin(this.game, 1.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false));
+            
+            this.currentLevel.coins.forEach(coin => {
+                this.game.addEntity(new Coin(this.game, coin.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, coin.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, coin.value));
+            });
+            
             // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
             // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
             // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
@@ -133,6 +140,10 @@ class SceneManager {
                 }
             });
         } else if (this.currentLevel == snow2) {
+            this.currentLevel.coins.forEach(coin => {
+                this.game.addEntity(new Coin(this.game, coin.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, coin.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, coin.value));
+            });
+            
             let penguins = [
                 {x: 23, y: 3, facingRight: true},
                 {x: 45, y: 1, facingRight: true},
@@ -170,6 +181,16 @@ class SceneManager {
             this.statsDisplay = new StatsDisplay(this.game, 0, 20);
             this.weaponsDisplay = new WeaponsDisplay(this.game, 20, PARAMS.CANVAS_DIMENSION - 20);
             this.abilityDisplay = new AbilityDisplay(this.game, 20, PARAMS.CANVAS_DIMENSION - abilityDisplayDimension() - 20);
+            this.currencyDisplay = new CurrencyDisplay(this.game, 0, 175);
+        }
+
+        ASSET_MANAGER.pauseBackgroundMusic();
+
+        if (level.music) {
+            
+            ASSET_MANAGER.autoRepeat(level.music);
+            ASSET_MANAGER.playAsset(level.music);
+
         }
     };
 
@@ -297,7 +318,13 @@ class SceneManager {
     }
 
     update() {
+
+        if (PARAMS.GAMEOVER) {
+            this.elapsed = Math.min(4, this.elapsed + this.game.clockTick);
+        }
+
         PARAMS.DEBUG = document.getElementById("debug").checked;
+        this.updateAudio();
         let midpoint = { x : PARAMS.CANVAS_DIMENSION / 2, y : PARAMS.CANVAS_DIMENSION / 2 };
 
         if (this.currentLevel != overworld) {
@@ -311,27 +338,71 @@ class SceneManager {
         } else {
             this.x = this.hero.BB.center.x - midpoint.x;
         }
-        
+
+
+        let heroDead = this.hero.hp <= 0;
+        if (PARAMS.GAMEOVER) {
+            if (heroDead && this.elapsed === 4) {
+                this.travelTo(overworld);
+            } else if (!heroDead && !this.portalFlag && this.currentLevel !== town && this.currentLevel !== titleScreen) {
+                this.portalFlag = true;
+                let portal = new Portal(this.game, "Complete " + this.currentLevel.levelName, overworld, this.currentLevel.portalIndex, this.currentLevel.completePortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxWidth, true);
+                portal.npc = true;
+                this.game.addEntity(portal);
+            } 
+        }
         
     };
 
     travelTo(level) {
+        PARAMS.GAMEOVER = false;
+        this.portalFlag = false;
+        this.elapsed = 0;
         this.currentLevel = level;
         this.loadLevel(level, level == overworld, level == town);
     };
 
     updateAudio() {
-
+        // audio volume
+        var mute = document.getElementById("mute").checked;
+        var volume = document.getElementById("volume").value;
+        ASSET_MANAGER.muteAudio(mute);
+        ASSET_MANAGER.adjustVolume(volume);
     };
 
     draw(ctx) { 
-        if (this.currentLevel !== overworld) {
+        if (this.currentLevel !== overworld && this.currentLevel !== titleScreen) {
             this.statsDisplay.draw(ctx);
             if (this.game.inventoryPressed) {
                 this.weaponsDisplay.draw(ctx);
                 this.abilityDisplay.draw(ctx);
             } 
+            this.currencyDisplay.draw(ctx);
         }
+
+        if (PARAMS.GAMEOVER) {
+            if (this.hero.hp > 0 && this.elapsed < 4 && this.currentLevel !== town && this.currentLevel !== titleScreen) {
+                ctx.fillStyle = rgb(255, 215, 0);
+                ctx.font = 5 * PARAMS.BLOCKWIDTH + 'px "silkscreenbold"';
+                ctx.fillText("LEVEL COMPLETE", 
+                             this.hero.BB.center.x - this.x - 5.5 * 5 * PARAMS.BLOCKWIDTH, 
+                             this.hero.BB.top - this.y);
+                // this.statsDisplay.draw(ctx);
+                // this.abilityDisplay.draw(ctx);
+                // this.mmap.draw(ctx);
+            } else if (this.hero.hp <= 0 && this.currentLevel !== overworld) {
+                ctx.fillStyle = "Red";
+                ctx.font = 5 * PARAMS.BLOCKWIDTH + 'px "silkscreenbold"';
+                ctx.fillText("YOU DIED", 
+                             this.hero.BB.center.x - this.x - 3.5 * 5 * PARAMS.BLOCKWIDTH, 
+                             this.hero.BB.top - this.y);
+            }
+        } 
+        // else {
+        //     this.statsDisplay.draw(ctx);
+        //     this.abilityDisplay.draw(ctx);
+        //     this.mmap.draw(ctx);
+        // } 
     };
 };
 
@@ -390,7 +461,7 @@ class StatsDisplay {
         }
 
         ctx.fillStyle = this.flickerFlag ? rgb(228, 84, 110) : rgb(198, 27, 58);
-        ctx.fillRect(this.x + 13 * PARAMS.GUI_SCALE, this.y + 7 * PARAMS.GUI_SCALE, 60 * hero.hp / hero.maxHp * PARAMS.GUI_SCALE, 3 * PARAMS.GUI_SCALE);
+        ctx.fillRect(this.x + 13 * PARAMS.GUI_SCALE, this.y + 7 * PARAMS.GUI_SCALE, 60 * Math.max(0, hero.hp) / hero.maxHp * PARAMS.GUI_SCALE, 3 * PARAMS.GUI_SCALE);
 
         ctx.drawImage(this.barSprite, 88, 37, 16, 5, this.x + 11 * PARAMS.GUI_SCALE, this.y + 6 * PARAMS.GUI_SCALE, 16 * PARAMS.GUI_SCALE, 5 * PARAMS.GUI_SCALE);
         ctx.drawImage(this.barSprite, 88 + 8, 37, 16, 5, this.x + (11 + 16) * PARAMS.GUI_SCALE, this.y + 6 * PARAMS.GUI_SCALE, 16 * PARAMS.GUI_SCALE, 5 * PARAMS.GUI_SCALE);
@@ -446,7 +517,7 @@ class AbilityDisplay {
         x = this.x + (5 + spacing / 2) * PARAMS.GUI_SCALE;
         let y = this.y + dimension / 2;
         ctx.fillStyle = ctx.strokeStyle = "Black";
-        ctx.font = 20 + 'px "silkscreenbold"';
+        ctx.font = 20 + 'px "silkscreennormal"';
         for (let i = 0; i < hero.abilityData.length; i++) {
             let data = hero.abilityData[i];
             ctx.drawImage(hero.abilitySpritesheet, data.x + 96 * hero.spellType, data.y, 32, 32, 
@@ -501,5 +572,24 @@ class WeaponsDisplay {
             y -= 5.75 * spacing;
         }
 
+    };
+
+};
+
+class CurrencyDisplay {
+
+    constructor(game, x, y) {
+        Object.assign(this, {game, x, y});
+        this.scale = PARAMS.GUI_SCALE - 2;
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/items/coin.png");
+        this.animation = new AnimationGroup(this.spritesheet, 0, 0, 16, 16, 14, 0.06, false, true);
+    };
+
+    draw(ctx) {
+        this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, this.scale);
+        ctx.fillStyle = ctx.strokeStyle = "Black";
+        ctx.font = 10 * (this.scale - 1) + 'px "silkscreenbold"';
+        ctx.fillText(saveState.currency + this.game.camera.hero.currencyCount, this.x + 16 * this.scale, this.y + 10.5 * this.scale);
+        ctx.strokeText(saveState.currency + this.game.camera.hero.currencyCount, this.x + 16 * this.scale, this.y + 10.5 * this.scale);
     };
 };
