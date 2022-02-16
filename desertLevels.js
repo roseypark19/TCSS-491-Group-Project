@@ -1,6 +1,6 @@
 const desert1 = {
     levelName: "Desert 1",
-    portalIndex: 2,
+    portalIndex: 1,
     cowardPortal: {
         x: 62.5,
         y: 38.5,
