@@ -66,6 +66,8 @@ ASSET_MANAGER.queueDownload("./sprites/projectiles/fire_beam.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/ice_beam.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/plains/props.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/plains/props_shadows.png");
+ASSET_MANAGER.queueDownload("./sprites/biomes/plains/tiles.png");
+ASSET_MANAGER.queueDownload("./sprites/biomes/plains/tiles_shadows.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/ogre.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/minotaur.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/slime_blue.png");
