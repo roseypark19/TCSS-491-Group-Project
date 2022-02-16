@@ -313,7 +313,7 @@ class Minotaur {
                     this.updateBB();
                 }
             }
-            if (!this.validateRegionalTrajectory(heroCenter, velCopy)) {
+            if (heroCenter && !this.validateRegionalTrajectory(heroCenter, velCopy)) {
                 this.movementUnitVector = undefined;
             }  
         } else if (this.collisionFlag) {
