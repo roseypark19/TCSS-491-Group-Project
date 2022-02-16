@@ -359,7 +359,7 @@ class DruidBird {
                     this.updateBB();
                 }
             }
-            if (!this.validateRegionalTrajectory(heroCenter, velCopy)) {
+            if (heroCenter && !this.validateRegionalTrajectory(heroCenter, velCopy)) {
                 this.randomPos = undefined;
             }  
         } else if (this.collisionFlag) {
@@ -698,7 +698,7 @@ class DruidHound {
                     this.updateBB();
                 }
             }
-            if (!this.validateRegionalTrajectory(heroCenter, velCopy)) {
+            if (heroCenter && !this.validateRegionalTrajectory(heroCenter, velCopy)) {
                 this.randomPos = undefined;
             }  
         } else if (this.collisionFlag) {
@@ -1061,7 +1061,7 @@ class DruidBeast {
                     this.updateBB();
                 }
             }
-            if (!this.validateRegionalTrajectory(heroCenter, velCopy)) {
+            if (heroCenter && !this.validateRegionalTrajectory(heroCenter, velCopy)) {
                 this.movementUnitVector = undefined;
             }  
         } else if (this.collisionFlag) {
