@@ -4,7 +4,7 @@ class SceneManager {
         this.game.camera = this;
         this.x = 0;
         this.y = 0;
-        this.travelTo(snow1);
+        this.travelTo(plains1);
     };
 
     clearEntities() {
@@ -47,7 +47,8 @@ class SceneManager {
                     this.game.addEntity(this.hero);
                     this.game.addEntity(new Flame(this.game, this.hero.x, this.hero.y - 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 1));
                     this.addPropToppers();
-                } else if (this.currentLevel == titleScreen) {
+
+                }  else if (this.currentLevel == titleScreen) {
                     // do nothing lol
                     this.hero = new Hero(this.game, this.currentLevel.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
                         this.currentLevel.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
@@ -104,7 +105,7 @@ class SceneManager {
                                                    destination.buttonWidth));
                 }
             });
-            
+
         } else if (this.currentLevel == snow1) {
             this.game.addEntity(new Dialogue(this.game, "It's a hole!", true, 4, 15.5, 1, 17, 1, 1, true)); // upper left sign
             this.game.addEntity(new Dialogue(this.game, "Welcome to snow 1!", true, 19.5, 56.5, 21, 58, 2, 1, true)); // upper left sign
@@ -152,11 +153,22 @@ class SceneManager {
             this.game.addEntity(new TitleScreen(this.game));
         }
         
+        if (this.currentLevel == plains1) {
+            this.x = 4;
+            this.y = 2;
+        }
+
+        if (this.currentLevel == plains2) {
+            this.x = 2;
+            this.y = 1880;
+        }
+
         this.loadEnemies();
       
         // add stats and ability displays
         if (!isOverworld) {
             this.statsDisplay = new StatsDisplay(this.game, 0, 20);
+            this.weaponsDisplay = new WeaponsDisplay(this.game, 20, PARAMS.CANVAS_DIMENSION - 20);
             this.abilityDisplay = new AbilityDisplay(this.game, 20, PARAMS.CANVAS_DIMENSION - abilityDisplayDimension() - 20);
         }
     };
@@ -299,7 +311,7 @@ class SceneManager {
         } else {
             this.x = this.hero.BB.center.x - midpoint.x;
         }
-     
+        
         
     };
 
@@ -315,7 +327,10 @@ class SceneManager {
     draw(ctx) { 
         if (this.currentLevel !== overworld) {
             this.statsDisplay.draw(ctx);
-            this.abilityDisplay.draw(ctx);
+            if (this.game.inventoryPressed) {
+                this.weaponsDisplay.draw(ctx);
+                this.abilityDisplay.draw(ctx);
+            } 
         }
     };
 };
@@ -406,7 +421,8 @@ class AbilityDisplay {
         const dimension = abilityDisplayDimension();
         const hero = this.game.camera.hero;
         const spacing = 10;
-
+    
+       // console.log(this.y);
         // frame shadow
         ctx.drawImage(this.frameShadowSprite, 47, 239, 5, 18, this.x, this.y, 5 * PARAMS.GUI_SCALE, dimension);
         let x = this.x + 5 * PARAMS.GUI_SCALE;
@@ -439,5 +455,51 @@ class AbilityDisplay {
             ctx.strokeText(data.button, x + 3 * drawScale, y + 10 * drawScale);
             x += spacing * PARAMS.GUI_SCALE;
         }
+    };
+};
+
+
+class WeaponsDisplay {
+
+    constructor(game, x, y) {
+        Object.assign(this, { game, x, y });
+        this.frameSprite = ASSET_MANAGER.getAsset("./sprites/ui/frames.png");
+        this.frameShadowSprite = ASSET_MANAGER.getAsset("./sprites/ui/frames_shadows.png");
+    };
+
+    draw(ctx) {
+
+        const hero = this.game.camera.hero;
+        const spacing = 12;
+        let x = this.x + 141.5 * PARAMS.GUI_SCALE;
+      
+        // frame shadow
+        ctx.drawImage(this.frameShadowSprite, 15, 316, 18, 5, x, this.y - 2.45 * spacing, 18 * PARAMS.GUI_SCALE, PARAMS.GUI_SCALE * 5);
+        let y = this.y - 4.65 * PARAMS.GUI_SCALE;
+        for (let i = 0; i < hero.weaponData.length; i++) {
+            ctx.drawImage(this.frameShadowSprite, 15, 297, 18, spacing, x, y - 5.75 * spacing,  18.05 * PARAMS.GUI_SCALE, PARAMS.GUI_SCALE * 11.5);
+            y -= 5.75 * spacing;
+        }
+        ctx.drawImage(this.frameShadowSprite, 15, 271, 18, 5, x, y - spacing * 2.5, 18 * PARAMS.GUI_SCALE, PARAMS.GUI_SCALE * 5);
+
+        // frame
+        ctx.drawImage(this.frameSprite, 16, 204, 16, 4, x + PARAMS.GUI_SCALE, this.y - 2.45 * spacing, 16 * PARAMS.GUI_SCALE, PARAMS.GUI_SCALE * 4);
+        y = this.y - 4.65 * PARAMS.GUI_SCALE;
+        for (let i = 0; i < hero.weaponData.length; i++) {
+            ctx.drawImage(this.frameSprite, 16, 192, 18, spacing, x + PARAMS.GUI_SCALE, y - 5.75 * spacing,  18.05 * PARAMS.GUI_SCALE, PARAMS.GUI_SCALE * 11.5);
+            y -= 5.75 * spacing;
+        }
+        ctx.drawImage(this.frameSprite, 16, 160, 16, 4, x + PARAMS.GUI_SCALE, y - spacing * 2 , 16 * PARAMS.GUI_SCALE, PARAMS.GUI_SCALE * 4);
+       
+       // the icons
+        const drawScale = PARAMS.GUI_SCALE;
+        x = x + 32;
+        y = this.y - 6.75 * spacing;
+        for (let i = 0; i < hero.weaponData.length; i++) {
+            let data = hero.weaponData[i];
+            ctx.drawImage(hero.weaponSpritesheet, data.x , data.y, 12, 12, x, y, 8 * PARAMS.GUI_SCALE, 8* PARAMS.GUI_SCALE);
+            y -= 5.75 * spacing;
+        }
+
     };
 };

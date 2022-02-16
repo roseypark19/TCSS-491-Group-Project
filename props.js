@@ -31,6 +31,7 @@ const props = {
         base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/overworld/structures.png", 69, 140, 22, 4, false, 2, PARAMS.OVERWORLD_SCALE),
         topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/overworld/structures.png", 69, 144, 22, 4, false, 2, PARAMS.OVERWORLD_SCALE)
     },
+    
 
     10 : { // plains naked tree
         topX: 155,
@@ -154,9 +155,339 @@ const props = {
         base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/town/props.png", 146, 136, 12, 11, true, 23)
     },
 
+    29 : { // Apple
+        topX: 159,
+        topY: 55,
+        width: 3,
+        height: 3,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 159, 55, 3, 3, false, 29),
+   
+    },
 
 
+    30 : { // Vertical stone wall
+        topX: 64,
+        topY: 32,
+        width: 8,
+        height: 48,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 64, 32, 8, 48, true, 30),
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props_shadows.png", 62, 37, 2, 42, false, 30),
+   
+    },
 
+    
+    31 : { //stone pile w/ mud base
+        topX: 2,
+        topY: 72,
+        width: 51,
+        height: 24,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 2, 72, 51, 8, true, 31),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 2, 40, 51, 16, false, 31)    
+    },
+    
+    32 : { // 1 stone block (flat)
+        topX: 131,
+        topY: 21,
+        width: 6,
+        height: 10,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props_shadows.png", 130, 26, 1, 3, false, 33),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 131, 25, 10, 4, true, 33),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 131, 21, 10, 4, false, 33) 
+    },
+   
+    33 : { // 1 stone block (flat)
+        topX: 117,
+        topY: 16,
+        width: 6,
+        height: 13,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props_shadows.png", 115, 21, 2, 7, false, 33),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 117, 21, 6, 7, true, 33),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 117, 16, 6, 5, false, 33) 
+    },
+    
+    34 : { // 1 stone block (flat)
+        topX: 99,
+        topY: 20,
+        width: 10,
+        height: 9,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props_shadows.png", 97, 23, 2, 5, false, 34),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 99, 25, 10, 4, true, 34),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 99, 16, 11, 9, false, 34) 
+    },
+    
+    35 : { // medium stone stack (2 stones) right
+        topX: 82,
+        topY: 16,
+        width: 11,
+        height: 13,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props_shadows.png", 80, 21, 3, 7, false, 35),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 83, 25, 10, 4, true, 35),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 82, 16, 11, 9, false, 35) 
+    },
+    
+    36 : { // medium stone stack (2 stones) left
+        topX: 67,
+        topY: 16,
+        width: 11,
+        height: 13,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props_shadows.png", 65, 21, 3, 7, false, 36),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 67, 25, 10, 4, true, 36),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 67, 16, 11, 9, false, 36) 
+    },
+    
+    
+    37 : { // medium stone stack (3 stones)
+        topX: 50,
+        topY: 12,
+        width: 11,
+        height: 17,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props_shadows.png", 47, 18, 4, 9, false, 37),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 50, 25, 11, 4, true, 37), 
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 50, 12, 11, 13, false, 37) 
+    },
+    
+    
+    38 : { // tall stone stack 3
+        topX: 34,
+        topY: 4,
+        width: 13,
+        height: 25,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props_shadows.png", 31, 17, 6, 10, false, 38),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 35, 25, 11, 4, true, 38),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 34, 4, 13, 21, false, 38) 
+    },
+    
+    
+    39 : { // tall Stone stack 2
+        topX: 19,
+        topY: 4,
+        width: 10,
+        height: 25,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props_shadows.png", 5, 17, 5, 10, false, 39),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 19, 25, 11, 4, true, 39),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 19, 4, 11, 21, false, 39) 
+    },
+
+    40 : { // tall Stone stack 1
+        topX: 3,
+        topY: 4,
+        width: 10,
+        height: 25,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props_shadows.png", 0, 17, 3, 10, false, 40),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 3, 24, 10, 4, true, 40),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 3, 4, 10, 20, false, 40) 
+    },
+
+    // 40 : { // tall willow with water 
+    //     topX: 121,
+    //     topY: 65,
+    //     width: 6,
+    //     height: 14,
+    //     shadowDiffX: 0,
+    //     shadowDiffY: 0,
+    //     shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props_shadows.png", 113, 65, 6, 12, false, 41),
+    //     base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 124, 76, 1, 1, true, 41),
+    //     topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 113, 65, 6, 10, false, 41) 
+    // },
+    
+    
+    41 : { // tall willow w/out water
+        topX: 113,
+        topY: 65,
+        width: 6,
+        height: 12,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props_shadows.png", 113, 65, 6, 12, false, 41),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 115, 76, 1, 1, true, 41),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 113, 65, 6, 11, false, 41) 
+    },
+
+
+    42 : { // willow stalk right
+        topX: 109,
+        topY: 75,
+        width: 3,
+        height: 4,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props_shadows.png", 109, 75, 3, 4, false, 42),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 109, 75, 3, 4, false, 42)
+    },
+
+
+    43 : { // willow stalk left
+        topX: 105,
+        topY: 75,
+        width: 3,
+        height: 4,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props_shadows.png", 105, 75, 3, 4, false, 43),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 105, 75, 3, 4, false, 43)
+    },
+
+    44 : { // small green willow right
+        topX: 101,
+        topY: 75,
+        width: 2,
+        height: 3,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props_shadows.png", 101, 75, 2, 3, false, 44),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 101, 75, 2, 3, false, 44)
+    },
+    
+    45 : { // small green willow left
+        topX: 97,
+        topY: 74,
+        width: 2,
+        height: 3,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props_shadows.png", 97, 74, 2, 3, false, 45),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 97, 74, 2, 3, false, 45)
+    },
+
+    46 : { // white flower
+        topX: 92,
+        topY: 74,
+        width: 3,
+        height: 5,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props_shadows.png", 92, 74, 3, 5, false, 46),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 92, 74, 3, 5, false, 46)
+    },
+
+    47 : { // purple flower
+        topX: 81,
+        topY: 73,
+        width: 7,
+        height: 6,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props_shadows.png", 81, 73, 7, 6, false, 47),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 81, 73, 7, 6, false, 47)
+    },
+   
+    48 : { // red flower
+        topX: 74,
+        topY: 73,
+        width: 3,
+        height: 6,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props_shadows.png", 74, 73, 3, 6, false, 48),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 74, 73, 3, 6, false, 48)
+    },
+   
+    49 : { // Tree with apples
+        topX: 155,
+        topY: 35,
+        width: 21,
+        height: 25,
+        shadow: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props_shadows.png", 153, 50, 10, 10, false, 49),
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 161, 55, 10, 5, true, 49),
+        topper: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 155, 35, 21, 20, false, 49) 
+    },
+
+
+    50 : { // small weed left
+        topX: 74,
+        topY: 52,
+        width: 4,
+        height: 4,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 74, 52, 4, 4, false, 50)
+    },
+
+    51 : { // small weed connected
+        topX: 80,
+        topY: 51,
+        width: 4,
+        height: 4,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 80, 51, 7, 5, false, 51)
+    },
+
+    52 : { // small weed right
+        topX: 89,
+        topY: 52,
+        width: 4,
+        height: 4,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 89, 52, 2, 3, false, 52)
+    },
+
+
+    53 : { // weeds short
+        topX: 97,
+        topY: 48,
+        width: 7,
+        height: 8,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 97, 48, 7, 8, false, 53),
+
+    },
+
+    54 : { // weeds short 2
+        topX: 106,
+        topY: 47,
+        width: 5,
+        height: 9,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 106, 47, 5, 9, false, 54),
+    },
+
+    55 : { // tall weeds 1
+        topX: 113,
+        topY: 38,
+        width: 6,
+        height: 18,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 113, 38, 6, 18, true, 55),
+    },
+
+    56 : { // tall weeds 2
+        topX: 123,
+        topY: 38,
+        width: 12,
+        height: 18,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 123, 38, 12, 18, false, 56),
+    },
+
+    57 : { // tall weeds 2
+        topX: 139,
+        topY: 38,
+        width: 10,
+        height: 18,
+        shadowDiffX: 0,
+        shadowDiffY: 0,
+        base: (game, x, y, centered) => genProp(game, x, y, centered, "./sprites/biomes/plains/props.png", 139, 38, 10, 18, false, 56),
+    },
 
 
 
