@@ -50,7 +50,7 @@ class Cyclops {
 
         let prevState = this.state;
         this.originalCollisionBB = this.collisionBB;
-        if (this.burningTimer === 0 && this.burnDamageTimer === 0) {
+        if (this.burningTimer === 0 && this.burnDamageTimer === 0 && !this.charging) {
             this.facing[0] = 0;
         } 
         this.velocity.x = 0;
@@ -77,16 +77,7 @@ class Cyclops {
                     } else {
                         entity.removeFromWorld = true;
                     }  
-                    this.hit = true; 
                     this.frozenTimer = 0;
-                    if (this.damagedTimer === 0 && this.deadTimer === 0) {
-                        this.damagedTimer = 0.6 - this.game.clockTick;
-                        this.state = 3;
-                        this.charging = false;
-                        this.attackTimer = 0;
-                        this.hitUnitVector = prevState === 0 ? { x: 0, y: 0 } : 
-                                                               unitVector({ x: this.hitBB.center.x - entity.sourcePoint.x, y: this.hitBB.center.y - entity.sourcePoint.y });
-                    }
                     this.hp -= entity.damage;
                     // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_hit.mp3");
                     if (entity.elemental) {
@@ -118,19 +109,7 @@ class Cyclops {
             });
         }
 
-        if (this.hit && this.damagedTimer === 0) {
-            this.hit = false;
-        }
-
-        if (this.state !== 4 && this.damagedTimer > 0 && this.hit) {
-            this.velocity.x = this.hitUnitVector.x * this.velocityConstant / 2;
-            this.velocity.y = this.hitUnitVector.y * this.velocityConstant / 2;
-            this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
-            this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
-            this.movementUnitVector = undefined;
-        }
-
-        if (this.state !== 4 && this.burningTimer > 0 && this.burnDamageTimer === 0) {
+        if (this.state !== 4 && this.burningTimer > 0 && this.burnDamageTimer === 0 && !PARAMS.GAMEOVER) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp -= 25;
             // play damaged sound
@@ -145,11 +124,6 @@ class Cyclops {
                 this.facing = [0, 0];
                 // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
             }
-        }
-
-        if (this.state !== 4 && this.damagedTimer === 0 && this.frozenTimer > 0) {
-            this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
-            this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
         }
 
         let heroCenter = null;
