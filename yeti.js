@@ -8,11 +8,11 @@ class Yeti {
         this.state = 0; // idle, walking, attacking, damaged, dead
                         // 0, 1, 2, 3, 4
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 500;
+        this.maxHp = 600;
         this.hp = this.maxHp;
         this.minProximity = 5;
-        this.visionDistance = 400;
-        this.attackDistance = 150;
+        this.visionDistance = 600;
+        this.attackDistance = 300;
         this.shotsTaken = [];
         this.shootTimer = 0;
         this.shootFlag = false;
@@ -34,8 +34,8 @@ class Yeti {
     loadAnimations() {
         this.animations.push(new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 16, 0.3, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 64 * 32, 0, 32, 32, 6, this.walkSpeed, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 88 * 32, 0, 32, 32, 4, 0.12, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 104 * 32, 0, 32, 32, 4, 0.15, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 88 * 32, 0, 32, 32, 4, 0.18, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 104 * 32, 0, 32, 32, 4, 0.075, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 120 * 32, 0, 32, 32, 14, 0.15, false, true));
     };
 
@@ -77,13 +77,13 @@ class Yeti {
                     this.hit = true;  
                     this.frozenTimer = 0;
                     if (this.damagedTimer === 0 && this.deadTimer === 0) {
-                        this.damagedTimer = 0.6 - this.game.clockTick;
-                        this.state = 3;
+                        // this.damagedTimer = 0.3 - this.game.clockTick;
+                        // this.state = 3;
                         this.hitUnitVector = prevState === 0 ? { x: 0, y: 0 } : 
                                                                unitVector({ x: this.hitBB.center.x - entity.sourcePoint.x, y: this.hitBB.center.y - entity.sourcePoint.y });
                     }
                     this.hp -= entity.damage;
-                    // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_hit.mp3");
+                    ASSET_MANAGER.playAsset("./audio/minotaur_ogre_hit.mp3");
                     if (entity.elemental) {
                         switch(entity.type) {
                             case 0: // wind
@@ -107,7 +107,7 @@ class Yeti {
                         this.deadTimer = 14 * 0.15 - this.game.clockTick;
                         this.state = 4;
                         this.facing = [0, 0];
-                        // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
+                        ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
                     }
                 }
             });
@@ -117,34 +117,34 @@ class Yeti {
             this.hit = false;
         }
 
-        if (this.state !== 4 && this.damagedTimer > 0 && this.hit) {
-            this.velocity.x = this.hitUnitVector.x * this.velocityConstant / 2;
-            this.velocity.y = this.hitUnitVector.y * this.velocityConstant / 2;
-            this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
-            this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
-            this.randomPos = undefined;
-        }
+        // if (this.state !== 4 && this.damagedTimer > 0 && this.hit) {
+        //     this.velocity.x = this.hitUnitVector.x * this.velocityConstant / 2;
+        //     this.velocity.y = this.hitUnitVector.y * this.velocityConstant / 2;
+        //     this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
+        //     this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
+        //     this.randomPos = undefined;
+        // }
 
         if (this.state !== 4 && this.burningTimer > 0 && this.burnDamageTimer === 0) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp -= 25;
-            // play damaged sound
+            ASSET_MANAGER.playAsset("./audio/minotaur_ogre_hit.mp3");
             if (this.damagedTimer === 0) {
-                this.damagedTimer = 0.6 - this.game.clockTick;
+                this.damagedTimer = 0.3 - this.game.clockTick;
                 this.state = 3;
             }
             if (this.deadTimer === 0 && this.hp <= 0) {
                 this.deadTimer = 14 * 0.15 - this.game.clockTick;
                 this.state = 4;
                 this.facing = [0, 0];
-                // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
+                ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
             }
         }
 
-        if (this.state !== 4 && this.damagedTimer === 0 && this.frozenTimer > 0) {
-            this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
-            this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
-        }
+        // if (this.state !== 4 && this.damagedTimer === 0 && this.frozenTimer > 0) {
+        //     this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
+        //     this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
+        // }
 
         this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed * 3 : this.walkSpeed);
 
@@ -155,7 +155,7 @@ class Yeti {
                 if (entity instanceof Hero) {
                     heroCenter = entity.BB.center;
                     let dist = distance(center, heroCenter);
-                    if (dist <= this.visionDistance) {
+                    if (dist <= this.visionDistance && !PARAMS.GAMEOVER) {
                         let vector = { x : heroCenter.x - center.x, y : heroCenter.y - center.y };
                         let heroDirectionUnitVector = unitVector(vector);
                         let movementDirectionUnitVector = heroDirectionUnitVector;
@@ -179,16 +179,15 @@ class Yeti {
                                 this.state = 2;
                             }
                             if (this.shootTimer === 0 && this.state === 2) {
-                                this.shootTimer = 0.12 * 4 - this.game.clockTick;
+                                this.shootTimer = 0.18 * 4 - this.game.clockTick;
                                 let projectileCenter = { x: this.BB.center.x + 4 * PARAMS.SCALE * heroDirectionUnitVector.x,
                                                          y: this.BB.center.y + 4 * PARAMS.SCALE * heroDirectionUnitVector.y };
                                 if (this.shootFlag) {
-                                    // this.game.addEntity(new DamageRegion(this.game, 
-                                    //                                      projectileCenter.x - 4 * PARAMS.SCALE, 
-                                    //                                      projectileCenter.y - 4 * PARAMS.SCALE, 
-                                    //                                      8 * PARAMS.SCALE, 
-                                    //                                      8 * PARAMS.SCALE, 
-                                    //                                      false, 75, 0.1));
+                                    for (let i = 0; i < 2 * Math.PI; i += Math.PI / 4) {
+                                        this.game.addEntity(new Projectile(this.game, 
+                                            this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(i) * PARAMS.SCALE, 
+                                            this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, 11, this.BB.center, 75));
+                                    }
                                 }
                             }
                         } else if (this.damagedTimer === 0 && this.frozenTimer === 0) {
@@ -232,6 +231,7 @@ class Yeti {
         } else {
             if (this.deadTimer === 0) {
                 this.removeFromWorld = true;
+                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 10));
             }
         }
 

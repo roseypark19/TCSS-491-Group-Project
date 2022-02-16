@@ -215,7 +215,7 @@ class GameEngine {
         for (let i = 0; i < this.entities.length; i++) {
             if (Math.abs(this.camera.hero.BB.center.x - this.entities[i].BB.center.x) <= PARAMS.CANVAS_DIMENSION * (this.camera.overworld ? 0.75 : 1) &&
                 Math.abs(this.camera.hero.BB.center.y - this.entities[i].BB.center.y) <= PARAMS.CANVAS_DIMENSION * (this.camera.overworld ? 0.75 : 1)) {
-                if (this.entities[i] instanceof WeaponsShop || this.entities[i] instanceof StatsShop) {
+                if (this.entities[i] instanceof WeaponsShop || this.entities[i] instanceof StatsShop && this.entities[i].enteredShop) {
                     this.camera.draw(this.ctx);
                     cameraDrawn = true;
                 }
@@ -235,9 +235,9 @@ class GameEngine {
         for (let i = 0; i < entitiesCount; i++) {
             let entity = this.entities[i];
             
-            if (PARAMS.GAMEOVER && ((!(entity instanceof Hero) && entity.hasOwnProperty("hp")) || entity.hasOwnProperty("friendlyProjectile"))) {
-                entity.removeFromWorld = true;
-            }
+            // if (PARAMS.GAMEOVER && /*((!(entity instanceof Hero) && entity.hasOwnProperty("hp")) ||*/ entity.hasOwnProperty("friendlyProjectile") && !entity.friendlyProjectile) {
+            //     entity.removeFromWorld = true;
+            // }
 
             if (!entity.removeFromWorld) {
                 entity.update();
@@ -256,19 +256,13 @@ class GameEngine {
             }
         }
 
-        // audio volume
-        var mute = document.getElementById("mute").checked;
-        var volume = document.getElementById("volume").value;
-        ASSET_MANAGER.muteAudio(mute);
-        ASSET_MANAGER.adjustVolume(volume);
-
         // GAME OVER LOGIC -- to be implemented at a later time
 
-        // if (!PARAMS.GAMEOVER && this.livingCount === 1 && this.camera.hero.hp > 0) {
-        //     PARAMS.GAMEOVER = true;
-        //     ASSET_MANAGER.pauseBackgroundMusic();
-        //     ASSET_MANAGER.playAsset("./audio/victory.mp3");
-        // }
+        if (!PARAMS.GAMEOVER && this.livingCount === 1 && this.camera.hero.hp > 0 && this.camera.currentLevel !== town) {
+            PARAMS.GAMEOVER = true;
+            ASSET_MANAGER.pauseBackgroundMusic();
+            ASSET_MANAGER.playAsset("./audio/victory.mp3");
+        }
     };
 
     loop() {
