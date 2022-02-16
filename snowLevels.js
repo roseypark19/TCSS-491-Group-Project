@@ -25,6 +25,25 @@ const snow1 = {
     heroY: 60,
     layer_names: ["ground", "collideable", "hero", "topper", "shadows"], 
 
+    coins: [
+        {x: 39.5, y: 6.75 , value: 10},
+        {x: 39.5, y: 4 , value: 10},
+        {x: 39.5, y: 5.5 , value: 10},
+        {x: 40.5, y: 4 , value: 10},
+        {x: 40.5, y: 5.5 , value: 10},
+        {x: 41.5, y: 4 , value: 10},
+        {x: 41.5, y: 5.5 , value: 10},
+        {x: 42.5, y: 4 , value: 10},
+        {x: 42.5, y: 5.5 , value: 10},
+        {x: 43.5, y: 4 , value: 10},
+        {x: 43.5, y: 5.5 , value: 10},
+        {x: 44.5, y: 4 , value: 10},
+        {x: 44.5, y: 5.5 , value: 10},
+        {x: 45.5, y: 4 , value: 10},
+        {x: 45.5, y: 5.5 , value: 10},
+        // {x: , y: , value: 10},
+    ],
+
     enemies: [
         {type: SwordedMinion, minionType: 2, x: 4.5, y: 11.5},
         {type: SwordedMinion, minionType: 2, x: 10.5, y: 11.5},
@@ -42,6 +61,8 @@ const snow1 = {
 
         {type: PolarBear, x: 33.5, y: 27.5},
         {type: PolarBear, x: 86.5, y: 18.5},
+        {type: PolarBear, x: 68.5, y: 29.5},
+        {type: PolarBear, x: 95.5, y: 65.5},
         
         {type: Yeti, x: 3.5, y: 21.5},
 
@@ -908,6 +929,66 @@ const snow2 = {
 
     layer_names: ["ground", "collideable", "hero", "topper", "shadows"], 
 
+    coins: [
+        {x: 2.5, y: 42.5, value: 10},
+        {x: 2.5, y: 43.5, value: 10},
+        {x: 2.5, y: 44.5, value: 10},
+        {x: 2.5, y: 45.5, value: 10},
+        {x: 2.5, y: 46.5, value: 10},
+        {x: 2.5, y: 47.5, value: 10},
+        {x: 2.5, y: 48.5, value: 10},
+        {x: 2.5, y: 49.5, value: 10},
+        {x: 2.5, y: 50.5, value: 10},
+        {x: 2.5, y: 51.5, value: 10},
+    ],
+
+    enemies: [
+        // {type: PolarBear, x: 20, y: 20},
+        // {type: Yeti, x: 20, y: 20},
+        {type: SwordedMinion, minionType: 2, x: 1.5, y: 58.5},
+        {type: SwordedMinion, minionType: 2, x: 9.5, y: 66.5},
+        {type: SwordedMinion, minionType: 2, x: 8.5, y: 76.5},
+        {type: SwordedMinion, minionType: 2, x: 10.5, y: 56.5},
+        {type: SwordedMinion, minionType: 2,  x: 14.5, y: 85.5},
+        {type: SwordedMinion, minionType: 2, x: 21.5, y: 56.5},
+        {type: SwordedMinion, minionType: 2, x: 27.5, y: 64.5},
+        {type: SwordedMinion, minionType: 2,  x: 28.5, y: 75.5},
+        {type: SwordedMinion, minionType: 2, x: 11.5, y: 39.5},
+        {type: SwordedMinion, minionType: 2, x: 24.5, y: 38.5},
+        {type: SwordedMinion, minionType: 2, x: 9.5, y: 29.5},
+        {type: SwordedMinion, minionType: 2, x: 2.5, y: 15.5}, 
+        {type: SwordedMinion, minionType: 2, x: 86.5, y: 12.5},
+        {type: SwordedMinion, minionType: 2, x: 84.5, y: 12.5},
+        {type: SwordedMinion, minionType: 2, x: 82.5, y: 12.5},
+        {type: SwordedMinion, minionType: 2, x: 90.5, y: 87.5},
+        {type: SwordedMinion, minionType: 2, x: 88.5, y: 87.5},
+        
+        {type: PolarBear, x: 17.5, y: 83.5},
+        {type: PolarBear, x: 76.5, y: 65.5},
+        {type: PolarBear, x: 109.5, y: 58.5},
+        {type: PolarBear, x: 107.5, y: 16.5},
+        {type: PolarBear, x: 66.5, y: 18.5},
+        {type: PolarBear, x: 21.5, y: 9.5},
+             
+        {type: Yeti, x: 40.5, y: 72.5},
+        {type: Yeti, x: 61.5, y: 66.5},
+        {type: Yeti, x: 63.5, y: 80.5},
+        {type: Yeti, x: 36.5, y: 29.5},
+        {type: Yeti, x: 10.5, y: 7.5},
+        {type: Yeti, x: 60.5, y: 19.5},
+        {type: Yeti, x: 90.5, y: 56.5},
+
+
+        {type: Snowman, x: 50.5, y: 31.5},
+        {type: Snowman, x: 99.5, y: 40.5},
+        {type: Snowman, x: 63.5, y: 73.5},
+        {type: Snowman, x: 21, y: 30.25},
+        // {type: Snowman, },
+        // {type: Snowman, },
+        
+
+    ],
+
     props: [
     // ice props
         // small broken ice
@@ -1263,7 +1344,42 @@ const snow2 = {
         imageHeight: 38, 
         collideable: false,
         spritesheet: "./sprites/biomes/snow/tiles.png",
-        custom_animations: {}
+        custom_animations: {
+            130: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            131: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            132: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            180: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            181: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            182: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            230: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            231: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            232: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            280: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            281: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            282: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            330: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            331: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            332: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+        
+            122: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            123: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            124: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            172: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            173: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            174: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            222: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            223: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            224: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            272: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            273: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            274: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            
+            326: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            327: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            328: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+
+
+        }
     },
 
     collideable: {
@@ -1284,7 +1400,7 @@ const snow2 = {
             51,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,122,123,123,123,124,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,51,
             51,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,172,-1,-1,-1,174,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,51,
             51,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,122,123,272,-1,-1,-1,273,124,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,51,
-            51,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,172,-1,-1,-1,-1,-1,-1,273,123,123,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,119,
+            51,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,172,-1,-1,-1,-1,-1,-1,273,123,123,124,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,119,
             51,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,172,-1,-1,-1,-1,-1,-1,-1,-1,-1,174,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,70,
             51,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,172,-1,-1,-1,-1,-1,-1,-1,-1,-1,273,123,124,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,169,
             51,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,172,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,273,123,124,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,169,
@@ -1362,7 +1478,42 @@ const snow2 = {
         imageHeight: 38, 
         collideable: true,
         spritesheet: "./sprites/biomes/snow/tiles.png",
-        custom_animations: {}
+        custom_animations: {
+            130: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            131: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            132: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            180: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            181: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            182: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            230: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            231: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            232: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            280: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            281: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            282: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            330: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            331: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            332: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+        
+            122: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            123: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            124: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            172: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            173: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            174: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            222: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            223: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            224: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            272: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            273: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            274: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            
+            326: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            327: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+            328: { frameCount: 2, frameDuration: 1, framePadding: 24 },
+
+
+        }
     },
 
     topper: {
