@@ -261,7 +261,7 @@ class GiantToad {
                     this.updateBB();
                 }
             }
-            if (!this.validateRegionalTrajectory(heroCenter, velCopy)) {
+            if (heroCenter && !this.validateRegionalTrajectory(heroCenter, velCopy)) {
                 this.randomPos = undefined;
             }  
         } else if (this.collisionFlag) {
