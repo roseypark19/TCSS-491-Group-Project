@@ -182,10 +182,17 @@ class Hero {
         this.ability3Cost = 50;
 
         this.abilitySpritesheet = ASSET_MANAGER.getAsset("./sprites/hero/spells.png");
+
         this.abilityData = [{ x: 0, y: 0, button: "Q"}, { x: 32, y: 0, button: "R"}, { x: 64, y: 0, button: "F"}];
         this.spriteCenter = 15.5;
 
-        this.weapon = { type: 2, attack: 5, dexterity: 0 }; 
+
+        this.weaponSpritesheet = ASSET_MANAGER.getAsset("./sprites/ui/weapon_icons.png");
+        
+        this.weaponIndex = 0;
+        this.weapon = { type: 4, attack: 75, dexterity: 8 };
+        this.weaponData = [{ type: 0, x: 24, y: 0, attack: 75, dexterity: 8 }, { type: 1, x: 48, y: 0, attack: 75, dexterity: 8 }, { type: 2, x: 60, y: 0, attack: 75, dexterity: 8 }, { type: 3, x: 36, y: 0, attack: 75, dexterity: 8 }, { type: 4, x: 48, y: 0, attack: 75, dexterity: 8 }, { type: 5, x: 12, y: 0, attack: 75, dexterity: 8 }];
+      
 
         // types: 0 = longsword, 1 = war axe, 2 = whip, 3 = flail, 4 = slingshot, 5 = bow
 
@@ -291,11 +298,6 @@ class Hero {
     };
     
     update() {
-
-        if (PARAMS.DEBUG === true && this.game.clicked) {
-            console.log(`{index: replaceme, x: ${(this.x + 16 * (PARAMS.SCALE / 1))/32}, y: ${(this.y + 16 * (PARAMS.SCALE / 1))/32}, centered: true},`);
-            
-        }
         
         let prevState = this.state;
         
@@ -535,7 +537,9 @@ class Hero {
 
         if (PARAMS.DEBUG === true && this.game.clicked) {
             let point = {x: this.game.click.x + this.game.camera.x, y: this.game.click.y + this.game.camera.y};
-            console.log(`{index: replaceme, x: ${Math.floor(point.x /32) + 0.5}, y: ${Math.floor(point.y /32) + 0.5}, centered: true},`);
+            //console.log(`{index: replaceme, x: ${Math.floor(point.x /32) + 0.5}, y: ${Math.floor(point.y /32) + 0.5}, centered: true},`);
+            console.log(this.game.camera.x);
+            console.log(this.game.camera.y);
         }
 
         // collision detection and resolve
@@ -555,6 +559,16 @@ class Hero {
                     this.updateBB();
                 }
             }
+        }
+
+        // weapon change logic
+        if (this.game.weaponChange) {
+                this.updateWeaponIndex();
+                this.weapon = this.weaponData[this.weaponIndex];
+                this.loadAnimations();
+                this.game.weaponChange = false;
+
+
         }
 
         // check for coins
@@ -626,6 +640,14 @@ class Hero {
                      this.y / (PARAMS.SCALE / PARAMS.MMAP_SCALE) - this.game.camera.mmY + 8 * PARAMS.MMAP_SCALE, 
                      16 * PARAMS.MMAP_SCALE, 16 * PARAMS.MMAP_SCALE);
     };
+
+    updateWeaponIndex() {
+        if (this.weaponIndex >= 5) {
+            this.weaponIndex = 0;
+        } else {
+            this.weaponIndex++;
+        }
+    }
 };
 
 class ElementBeam {
@@ -783,5 +805,6 @@ class ElementCircle {
     draw(ctx) {
         this.animation.drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, PARAMS.SCALE);
     };
+
 };
 
