@@ -43,8 +43,8 @@ const snow1 = {
 
         {type: PolarBear, x: 33.5, y: 27.5},
         {type: PolarBear, x: 86.5, y: 18.5},
-        // {type: PolarBear, x: , y: },
-        // {type: PolarBear, x: , y: },
+        {type: PolarBear, x: 68.5, y: 29.5},
+        {type: PolarBear, x: 95.5, y: 65.5},
         
         {type: Yeti, x: 3.5, y: 21.5},
 
