@@ -115,6 +115,11 @@ class SceneManager {
             this.game.addEntity(new Penguin(this.game, 50 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 55 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true));
             this.game.addEntity(new Penguin(this.game, 57 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 45 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false));
             this.game.addEntity(new Penguin(this.game, 1.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false));
+            
+            this.currentLevel.coins.forEach(coin => {
+                this.game.addEntity(new Coin(this.game, coin.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, coin.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, coin.value));
+            });
+            
             // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
             // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
             // this.game.addEntity(new SwordedMinion(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
@@ -132,6 +137,10 @@ class SceneManager {
                 }
             });
         } else if (this.currentLevel == snow2) {
+            this.currentLevel.coins.forEach(coin => {
+                this.game.addEntity(new Coin(this.game, coin.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, coin.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, coin.value));
+            });
+            
             let penguins = [
                 {x: 23, y: 3, facingRight: true},
                 {x: 45, y: 1, facingRight: true},
