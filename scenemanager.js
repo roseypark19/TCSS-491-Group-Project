@@ -337,7 +337,6 @@ class SceneManager {
         } else {
             this.x = this.hero.BB.center.x - midpoint.x;
         }
-
         let heroDead = this.hero.hp <= 0;
         if (PARAMS.GAMEOVER) {
             if (heroDead && this.elapsed === 4) {
@@ -349,8 +348,6 @@ class SceneManager {
                 this.game.addEntity(portal);
             } 
         }
-     
-        
     };
 
     travelTo(level) {
@@ -589,6 +586,5 @@ class CurrencyDisplay {
         ctx.font = 10 * (this.scale - 1) + 'px "silkscreenbold"';
         ctx.fillText(saveState.currency + this.game.camera.hero.currencyCount, this.x + 16 * this.scale, this.y + 10.5 * this.scale);
         ctx.strokeText(saveState.currency + this.game.camera.hero.currencyCount, this.x + 16 * this.scale, this.y + 10.5 * this.scale);
-
     };
 };
