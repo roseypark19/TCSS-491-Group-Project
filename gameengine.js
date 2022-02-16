@@ -235,9 +235,9 @@ class GameEngine {
         for (let i = 0; i < entitiesCount; i++) {
             let entity = this.entities[i];
             
-            // if (PARAMS.GAMEOVER && /*((!(entity instanceof Hero) && entity.hasOwnProperty("hp")) ||*/ entity.hasOwnProperty("friendlyProjectile") && !entity.friendlyProjectile) {
-            //     entity.removeFromWorld = true;
-            // }
+            if (PARAMS.GAMEOVER && entity.friendlyProjectile && this.camera.hero.hp <= 0) {
+                entity.removeFromWorld = true;
+            }
 
             if (!entity.removeFromWorld) {
                 entity.update();
@@ -260,7 +260,7 @@ class GameEngine {
 
         if (!PARAMS.GAMEOVER && this.livingCount === 1 && this.camera.hero.hp > 0 && this.camera.currentLevel !== town) {
             PARAMS.GAMEOVER = true;
-            ASSET_MANAGER.pauseBackgroundMusic();
+            // ASSET_MANAGER.pauseBackgroundMusic();
             ASSET_MANAGER.playAsset("./audio/victory.mp3");
         }
     };

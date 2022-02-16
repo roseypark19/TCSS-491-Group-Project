@@ -50,7 +50,7 @@ class Minotaur {
 
         let prevState = this.state;
         this.originalCollisionBB = this.collisionBB;
-        if (this.burningTimer === 0 && this.burnDamageTimer === 0) {
+        if (this.burningTimer === 0 && this.burnDamageTimer === 0 && !this.charging) {
             this.facing[0] = 0;
         } 
         this.velocity.x = 0;
@@ -77,16 +77,7 @@ class Minotaur {
                     } else {
                         entity.removeFromWorld = true;
                     }  
-                    this.hit = true; 
                     this.frozenTimer = 0;
-                    if (this.damagedTimer === 0 && this.deadTimer === 0) {
-                        this.damagedTimer = 0.6 - this.game.clockTick;
-                        this.state = 3;
-                        this.charging = false;
-                        this.attackTimer = 0;
-                        this.hitUnitVector = prevState === 0 ? { x: 0, y: 0 } : 
-                                                               unitVector({ x: this.hitBB.center.x - entity.sourcePoint.x, y: this.hitBB.center.y - entity.sourcePoint.y });
-                    }
                     this.hp -= entity.damage;
                     // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_hit.mp3");
                     if (entity.elemental) {
@@ -118,19 +109,7 @@ class Minotaur {
             });
         }
 
-        if (this.hit && this.damagedTimer === 0) {
-            this.hit = false;
-        }
-
-        if (this.state !== 4 && this.damagedTimer > 0 && this.hit) {
-            this.velocity.x = this.hitUnitVector.x * this.velocityConstant / 2;
-            this.velocity.y = this.hitUnitVector.y * this.velocityConstant / 2;
-            this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
-            this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
-            this.movementUnitVector = undefined;
-        }
-
-        if (this.state !== 4 && this.burningTimer > 0 && this.burnDamageTimer === 0) {
+        if (this.state !== 4 && this.burningTimer > 0 && this.burnDamageTimer === 0 && !PARAMS.GAMEOVER) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp -= 25;
             // play damaged sound
@@ -146,13 +125,6 @@ class Minotaur {
                 // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
             }
         }
-
-        if (this.state !== 4 && this.damagedTimer === 0 && this.frozenTimer > 0) {
-            this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
-            this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
-        }
-
-        // this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed * 3 : this.walkSpeed);
 
         let heroCenter = null;
 
@@ -184,30 +156,18 @@ class Minotaur {
                                 this.destination = { x: heroCenter.x + randomDist * posUnitVector.x, 
                                                      y: heroCenter.y + randomDist * posUnitVector.y };
                             }
-                            this.movementUnitVector = unitVector({ x: this.destination.x - center.x, y: this.destination.y - center.y });  
-                            // console.log(" center: " + center.x + " " + center.y)
-                            // console.log(" dest: " + this.destination.x + " " + this.destination.y)    
-                            // console.log(distance(this.BB.center, this.destination))             
+                            this.movementUnitVector = unitVector({ x: this.destination.x - center.x, y: this.destination.y - center.y });           
                         }
                         if (this.damagedTimer === 0 && this.frozenTimer === 0) {
                             if (!this.charging) {
                                 this.charging = true;
                                 this.chargeTimer = 1 - this.game.clockTick;
                                 this.chargeOrigin = null;
-                                // this.animations[1].setFrameDuration(this.walkSpeed);
                                 this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed * 3 : this.walkSpeed);
                             }
                             this.state = 1;
                             this.velocity.x = this.movementUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
                             this.velocity.y = this.movementUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
-
-                            // if (this.confusedTimer > 0) {
-                            //     this.velocity.x = this.confusionUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
-                            //     this.velocity.y = this.confusionUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
-                            // } else {
-                            //     this.velocity.x = this.movementUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
-                            //     this.velocity.y = this.movementUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
-                            // } 
                         }
                     } else if (this.damagedTimer === 0 && this.attackTimer === 0 && this.frozenTimer === 0) {
                         this.charging = false;
@@ -264,20 +224,8 @@ class Minotaur {
                     this.chargeDistance = distance(this.destination, this.chargeOrigin);
                     this.chargeUnitVector = unitVector({ x: this.destination.x - this.BB.center.x, y: this.destination.y - this.BB.center.y });
                 }
-                // this.velocity.x += this.chargeUnitVector.x * this.velocityConstant * 4;
-                // this.velocity.y += this.chargeUnitVector.y * this.velocityConstant * 4;
-
                 this.velocity.x = this.chargeUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant * 4 / 3 : this.velocityConstant * 4);
                 this.velocity.y = this.chargeUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant * 4 / 3 : this.velocityConstant * 4);
-
-                // if (this.confusedTimer > 0) {
-                //     this.velocity.x = this.confusionUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant * 4 / 3 : this.velocityConstant * 4);
-                //     this.velocity.y = this.confusionUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant * 4 / 3 : this.velocityConstant * 4);
-                // } else {
-                //     this.velocity.x = this.movementUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant * 4 / 3 : this.velocityConstant * 4);
-                //     this.velocity.y = this.movementUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant * 4 / 3 : this.velocityConstant * 4);
-                // } 
-                // this.animations[1].setFrameDuration(this.walkSpeed / 4);
                 this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed / (4/3) : this.walkSpeed / 4);
                 this.facing[0] = this.velocity.y >= 0 ? 0 : 1;
                 this.facing[1] = this.velocity.x >= 0 ? 0 : 1;
