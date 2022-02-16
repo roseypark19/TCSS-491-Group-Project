@@ -222,9 +222,9 @@ class GameEngine {
         for (let i = 0; i < entitiesCount; i++) {
             let entity = this.entities[i];
             
-            if (PARAMS.GAMEOVER && ((!(entity instanceof Hero) && entity.hasOwnProperty("hp")) || (entity.hasOwnProperty("friendlyProjectile") && !entity.friendlyProjectile))) {
-                entity.removeFromWorld = true;
-            }
+            // if (PARAMS.GAMEOVER && /*((!(entity instanceof Hero) && entity.hasOwnProperty("hp")) ||*/ entity.hasOwnProperty("friendlyProjectile") && !entity.friendlyProjectile) {
+            //     entity.removeFromWorld = true;
+            // }
 
             if (!entity.removeFromWorld) {
                 entity.update();
@@ -243,18 +243,12 @@ class GameEngine {
             }
         }
 
-        // audio volume
-        var mute = document.getElementById("mute").checked;
-        var volume = document.getElementById("volume").value;
-        ASSET_MANAGER.muteAudio(mute);
-        ASSET_MANAGER.adjustVolume(volume);
-
         // GAME OVER LOGIC -- to be implemented at a later time
 
-        if (!PARAMS.GAMEOVER && this.livingCount === 1 && this.camera.hero.hp > 0) {
+        if (!PARAMS.GAMEOVER && this.livingCount === 1 && this.camera.hero.hp > 0 && this.camera.currentLevel !== town) {
             PARAMS.GAMEOVER = true;
-            // ASSET_MANAGER.pauseBackgroundMusic();
-            // ASSET_MANAGER.playAsset("./audio/victory.mp3");
+            ASSET_MANAGER.pauseBackgroundMusic();
+            ASSET_MANAGER.playAsset("./audio/victory.mp3");
         }
     };
 

@@ -5,7 +5,7 @@ class SceneManager {
         this.x = 0;
         this.y = 0;
         this.elapsed = 0;
-        this.travelTo(snow1);
+        this.travelTo(titleScreen);
     };
 
     clearEntities() {
@@ -161,6 +161,15 @@ class SceneManager {
             this.abilityDisplay = new AbilityDisplay(this.game, 20, PARAMS.CANVAS_DIMENSION - abilityDisplayDimension() - 20);
             this.currencyDisplay = new CurrencyDisplay(this.game, 0, 175);
         }
+
+        ASSET_MANAGER.pauseBackgroundMusic();
+
+        if (level.music) {
+            
+            ASSET_MANAGER.autoRepeat(level.music);
+            ASSET_MANAGER.playAsset(level.music);
+
+        }
     };
 
     addPropBases() {
@@ -293,6 +302,7 @@ class SceneManager {
         }
 
         PARAMS.DEBUG = document.getElementById("debug").checked;
+        this.updateAudio();
         let midpoint = { x : PARAMS.CANVAS_DIMENSION / 2, y : PARAMS.CANVAS_DIMENSION / 2 };
 
         if (this.currentLevel != overworld) {
@@ -311,7 +321,7 @@ class SceneManager {
         if (PARAMS.GAMEOVER) {
             if (heroDead && this.elapsed === 4) {
                 this.travelTo(overworld);
-            } else if (!heroDead && !this.portalFlag && this.currentLevel !== town) {
+            } else if (!heroDead && !this.portalFlag && this.currentLevel !== town && this.currentLevel !== titleScreen) {
                 this.portalFlag = true;
                 let portal = new Portal(this.game, "Complete " + this.currentLevel.levelName, overworld, this.currentLevel.portalIndex, this.currentLevel.completePortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxWidth, true);
                 portal.npc = true;
@@ -331,18 +341,22 @@ class SceneManager {
     };
 
     updateAudio() {
-
+        // audio volume
+        var mute = document.getElementById("mute").checked;
+        var volume = document.getElementById("volume").value;
+        ASSET_MANAGER.muteAudio(mute);
+        ASSET_MANAGER.adjustVolume(volume);
     };
 
     draw(ctx) { 
-        if (this.currentLevel !== overworld) {
+        if (this.currentLevel !== overworld && this.currentLevel !== titleScreen) {
             this.statsDisplay.draw(ctx);
             this.abilityDisplay.draw(ctx);
             this.currencyDisplay.draw(ctx);
         }
 
         if (PARAMS.GAMEOVER) {
-            if (this.hero.hp > 0 && this.elapsed < 4 && this.currentLevel !== town) {
+            if (this.hero.hp > 0 && this.elapsed < 4 && this.currentLevel !== town && this.currentLevel !== titleScreen) {
                 ctx.fillStyle = rgb(255, 215, 0);
                 ctx.font = 5 * PARAMS.BLOCKWIDTH + 'px "silkscreenbold"';
                 ctx.fillText("LEVEL COMPLETE", 
@@ -502,7 +516,7 @@ class CurrencyDisplay {
         this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, this.scale);
         ctx.fillStyle = ctx.strokeStyle = "Black";
         ctx.font = 10 * (this.scale - 1) + 'px "silkscreenbold"';
-        ctx.fillText(parseInt(saveState.currency) + this.game.camera.hero.currencyCount, this.x + 16 * this.scale, this.y + 10.5 * this.scale);
-        ctx.strokeText(parseInt(saveState.currency) + this.game.camera.hero.currencyCount, this.x + 16 * this.scale, this.y + 10.5 * this.scale);
+        ctx.fillText(saveState.currency + this.game.camera.hero.currencyCount, this.x + 16 * this.scale, this.y + 10.5 * this.scale);
+        ctx.strokeText(saveState.currency + this.game.camera.hero.currencyCount, this.x + 16 * this.scale, this.y + 10.5 * this.scale);
     };
 };

@@ -45,7 +45,10 @@ const PROJECTILES = {
     7: { spritesheet: "./sprites/projectiles/projectile_slingshot.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.long },
     8: { spritesheet: "./sprites/projectiles/Green_Arrow.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.long },
     9: { spritesheet: "./sprites/projectiles/projectile_sword2.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.short },
-    10: { spritesheet: "./sprites/projectiles/snowball.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.long },
+    10: { spritesheet: "./sprites/projectiles/snowball.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
+    11: { spritesheet: "./sprites/projectiles/projectile_yeti.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
+    12: { spritesheet: "./sprites/projectiles/projectile_shrek.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
+    13: { spritesheet: "./sprites/projectiles/projectile_polarbear.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
 };
 
 // returns a random integer between 0 and n-1

@@ -103,7 +103,7 @@ function loadGame() {
         firstCutsceneFinished: storage.getItem("firstCutsceneFinished"),
         gameFinished: storage.getItem("gameFinished"),   
         numLevelsCompleted: storage.getItem("numLevelsCompleted"), 
-        currency: storage.getItem("currency"),
+        currency: parseInt(storage.getItem("currency")),
         
         numSpellsUnlocked: storage.getItem("numSpellsUnlocked"), 
     

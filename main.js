@@ -7,6 +7,27 @@ ASSET_MANAGER.queueDownload("./audio/Upgrade.wav");
 ASSET_MANAGER.queueDownload("./audio/CoinUpgrade.wav");
 ASSET_MANAGER.queueDownload("./audio/MaxLevelUpgrade.wav");
 
+ASSET_MANAGER.queueDownload("./audio/dungeon.mp3");
+ASSET_MANAGER.queueDownload("./audio/hero_death.mp3");
+ASSET_MANAGER.queueDownload("./audio/minotaur_ogre_hit.mp3");
+ASSET_MANAGER.queueDownload("./audio/minotaur_ogre_death.mp3");
+ASSET_MANAGER.queueDownload("./audio/orc_hit.mp3");
+ASSET_MANAGER.queueDownload("./audio/orc_death.mp3");
+ASSET_MANAGER.queueDownload("./audio/skeleton_hit.mp3");
+ASSET_MANAGER.queueDownload("./audio/skeleton_death.mp3");
+ASSET_MANAGER.queueDownload("./audio/slime_hit.mp3");
+ASSET_MANAGER.queueDownload("./audio/slime_death.mp3");
+ASSET_MANAGER.queueDownload("./audio/sword.mp3");
+ASSET_MANAGER.queueDownload("./audio/trasgo_hit.mp3");
+ASSET_MANAGER.queueDownload("./audio/trasgo_death.mp3");
+ASSET_MANAGER.queueDownload("./audio/hero_hit.mp3");
+ASSET_MANAGER.queueDownload("./audio/lightning.mp3");
+ASSET_MANAGER.queueDownload("./audio/victory.mp3");
+ASSET_MANAGER.queueDownload("./audio/snow_levels.mp3");
+ASSET_MANAGER.queueDownload("./audio/town.mp3");
+ASSET_MANAGER.queueDownload("./audio/overworld.mp3");
+ASSET_MANAGER.queueDownload("./audio/coin.wav");
+
 // sprites
 ASSET_MANAGER.queueDownload("./sprites/hero/tiny_hero.png");
 ASSET_MANAGER.queueDownload("./sprites/hero/hero.png");
@@ -86,6 +107,9 @@ ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_axe.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_sword2.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_whip.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_flail.png");
+ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_yeti.png");
+ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_shrek.png");
+ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_polarbear.png");
 
 ASSET_MANAGER.queueDownload("./sprites/biomes/castle/tiles.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/castle/carpet.png");

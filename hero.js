@@ -8,7 +8,7 @@ class TinyHero {
         this.state = 0; // idle, walking, shooting, charged, dead
                         // 0, 1, 2, 3, 4
         this.hp = 0;
-        this.velocityConstant = 15;
+        this.velocityConstant = 10;
         this.velocity = { x : 0, y : 0 };
         this.animations = [];
         this.scale = PARAMS.SCALE / 1;
@@ -177,8 +177,8 @@ class Hero {
         this.ability3Flag = false;
         this.ability3Cooldown = 0;
 
-        this.ability1Cost = 50;
-        this.ability2Cost = 50;
+        this.ability1Cost = 150;
+        this.ability2Cost = 250;
         this.ability3Cost = 50;
 
         this.abilitySpritesheet = ASSET_MANAGER.getAsset("./sprites/hero/spells.png");
@@ -332,17 +332,17 @@ class Hero {
                         this.state = 3;
                     }
                     entity.removeFromWorld = true;
-                    if (this.ability2Timer === 0 && this.ability1Timer === 0) {
-                        this.hp -= entity.damage;
-                        // ASSET_MANAGER.playAsset("./audio/hero_hit.mp3");
-                    }
+                    // if (this.ability2Timer === 0 && this.ability1Timer === 0) {
+                    this.hp -= entity.damage;
+                    ASSET_MANAGER.playAsset("./audio/hero_hit.mp3");
+                    // }
                     if (this.deadTimer === 0 && this.hp <= 0) {
                         this.deadTimer = 12 * 0.1 - this.game.clockTick;
                         this.state = 4;
                         this.facing = [0, 0];
                         PARAMS.GAMEOVER = true;
-                        // ASSET_MANAGER.pauseBackgroundMusic();
-                        // ASSET_MANAGER.playAsset("./audio/hero_death.mp3");
+                        ASSET_MANAGER.pauseBackgroundMusic();
+                        ASSET_MANAGER.playAsset("./audio/hero_death.mp3");
                     }
                 }
             });
@@ -512,6 +512,7 @@ class Hero {
                                                         75);
                         projectile.velocity = proj_vel;
                         this.game.addEntity(projectile);
+                        ASSET_MANAGER.playAsset("./audio/sword.mp3");
                     }
                     
                 }
@@ -562,7 +563,7 @@ class Hero {
                 if (entity instanceof Coin && this.collisionBB.collide(entity.collisionBB)) {
                     this.currencyCount += entity.value;
                     entity.removeFromWorld = true;
-                    // play coin sound
+                    ASSET_MANAGER.playAsset("./audio/coin.wav");
                 }
             });
         }
