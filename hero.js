@@ -156,7 +156,7 @@ class Hero {
                         // explosion cast, explosion hold, explosion launch, shield casting
                         // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 500;
+        this.maxHp = 5000000;
         this.maxMp = 1000;
         this.mp = this.maxMp;
         this.hp = this.maxHp;
@@ -534,9 +534,9 @@ class Hero {
 
         if (PARAMS.DEBUG === true && this.game.clicked) {
             let point = {x: this.game.click.x + this.game.camera.x, y: this.game.click.y + this.game.camera.y};
-            //console.log(`{index: replaceme, x: ${Math.floor(point.x /32) + 0.5}, y: ${Math.floor(point.y /32) + 0.5}, centered: true},`);
-            console.log(this.game.camera.x);
-            console.log(this.game.camera.y);
+            console.log(`{index: replaceme, x: ${Math.floor(point.x /32) + 0.5}, y: ${Math.floor(point.y /32) + 0.5}, centered: true},`);
+            // console.log(this.game.camera.x);
+            // console.log(this.game.camera.y);
         }
 
         // collision detection and resolve

@@ -5,7 +5,7 @@ class SceneManager {
         this.x = 0;
         this.y = 0;
         this.elapsed = 0;
-        this.travelTo(titleScreen);
+        this.travelTo(desert1);
     };
 
     clearEntities() {
@@ -311,6 +311,45 @@ class SceneManager {
                     case SwordedMinion:
                         this.game.addEntity(new SwordedMinion(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.minionType));
                         break;
+                    case Troll:
+                        this.game.addEntity(new Troll(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case Rhino:
+                        this.game.addEntity(new Rhino(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case Flame:
+                        this.game.addEntity(new Flame(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case Centaur:
+                        this.game.addEntity(new Centaur(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case Cyclops:
+                        this.game.addEntity(new Cyclops(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case Wargo:
+                        this.game.addEntity(new Wargo(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case Zombie:
+                        this.game.addEntity(new Zombie(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case Ogre:
+                        this.game.addEntity(new Ogre(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case GiantToad:
+                        this.game.addEntity(new GiantToad(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case MotherSlime:
+                        this.game.addEntity(new MotherSlime(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case BabySlime:
+                        this.game.addEntity(new BabySlime(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case Minotaur:
+                        this.game.addEntity(new Minotaur(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    // case Skeleton:
+                    //     this.game.addEntity(new Skeleton(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    //     break;
                 }
             });
         }

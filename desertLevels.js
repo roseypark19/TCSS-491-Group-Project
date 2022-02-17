@@ -1,3 +1,23 @@
+
+// NOTE RIGHT NOW ONLY USING SWORDED MINONS, NOT RANGED MINIONS...................
+        // plains enemies
+        // {type: Centaur, x: 60, y: 40},
+        // {type: Cyclops, x: 60, y: 40},
+        // {type: Wargo, x: 60, y: 40},
+        // {type: SwordedMinion, minionType: 0, x: 60, y: 40}, // dwarf
+
+        // swamp
+        // {type: Zombie, x: 60, y: 40},
+        // {type: Ogre, x: 60, y: 40},
+        // {type: GiantToad, x: 60, y: 40},
+        // {type: SwordedMinion, minionType: 3, x: 60, y: 40}, // 
+
+        // castle
+        // {type: MotherSlime, x: 60, y: 40},
+        // {type: Minotaur, x: 60, y: 40},
+        // {type: BabySlime, x: 60, y: 40},
+        // {type: Skeleton, x: 60, y: 40},
+        
 const desert1 = {
     levelName: "Desert 1",
     portalIndex: 1,
@@ -20,6 +40,48 @@ const desert1 = {
     heroX: 63,
     heroY: 39, 
     layer_names: ["ground", "ground2", "collideable", "hero",  "topper", "shadows"], 
+    
+    enemies: [
+        // desert enemies
+        {type: Flame, x: 29.5, y: 10.5},
+        {type: Flame, x: 30.5, y: 18.5},
+        {type: Flame, x: 42.5, y: 15.5},
+        {type: Flame, x: 52.5, y: 13.5},
+        {type: Flame, x: 35.5, y: 6.5},
+        {type: Flame, x: 12.5, y: 22.5},
+        {type: Flame, x: 7.5, y: 45.5},
+        {type: Flame, x: 9.5, y: 45.5},
+        {type: Flame, x: 8.5, y: 45.5},
+
+        {type: SwordedMinion, minionType: 1, x: 51.5, y: 31.5},
+        {type: SwordedMinion, minionType: 1, x: 88.5, y: 28.5},
+        {type: SwordedMinion, minionType: 1, x: 30.5, y: 40.5},
+        {type: SwordedMinion, minionType: 1, x: 44.5, y: 83.5},
+        {type: SwordedMinion, minionType: 1, x: 53.5, y: 86.5},
+        {type: SwordedMinion, minionType: 1, x: 7.5, y: 82.5},
+        {type: SwordedMinion, minionType: 1, x: 4.5, y: 75.5},
+        {type: SwordedMinion, minionType: 1, x: 96.5, y: 56.5},
+        {type: SwordedMinion, minionType: 1, x: 82.5, y: 57.5},
+        {type: SwordedMinion, minionType: 1, x: 105.5, y: 56.5},
+        {type: SwordedMinion, minionType: 1, x: 97.5, y: 83.5},
+        {type: SwordedMinion, minionType: 1, x: 109.5, y: 70.5},
+        
+        {type: Troll, x: 104.5, y: 12.5},
+        {type: Troll, x: 85.5, y: 35.},
+        {type: Troll, x: 97.5, y: 5.5},
+        {type: Troll, x: 54.5, y: 65.5},
+        {type: Troll, x: 43.5, y: 54.5},
+        {type: Troll, x: 85.5, y: 16.5},
+        
+        {type: Rhino, x: 70.5, y: 74.5},
+        {type: Rhino, x: 16.5, y: 80.5},,
+        {type: Rhino, x: 6.5, y: 58.5},
+        {type: Rhino, x: 10.5, y: 26.5},
+        {type: Rhino, x: 59.5, y: 10.5},
+        {type: Rhino,x: 47.5, y: 54.5},
+       
+
+    ],
 
     props: [
 
