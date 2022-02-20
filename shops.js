@@ -943,8 +943,6 @@ class WeaponsShop {
             } else {
                 ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width, this.BB.height);
                 ctx.strokeRect(this.openShopBB.x - this.game.camera.x, this.openShopBB.y - this.game.camera.y, this.openShopBB.width, this.openShopBB.height);
-                console.log(this.openShopBB);
-                console.log(this.shopMouseBB)
             }
            
         }

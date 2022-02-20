@@ -5,7 +5,7 @@ class SceneManager {
         this.x = 0;
         this.y = 0;
         this.elapsed = 0;
-        this.travelTo(desert2);
+        this.travelTo(town);
     };
 
     clearEntities() {
@@ -38,6 +38,7 @@ class SceneManager {
                     this.hero = new Hero(this.game, 36 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
                     this.game.addEntity(this.hero);
                     this.addPropToppers();
+                    this.addPropShadows();
 
                 } else if (this.currentLevel == castle) {
                     this.addPropBases();
