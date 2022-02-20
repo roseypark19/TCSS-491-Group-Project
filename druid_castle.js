@@ -4,7 +4,7 @@ const castle = {
     heroX: 55.5,
     heroY: 258,
     layer_names: ["floor", "carpet", "carpet_corners", "wall_base", "hero", "wall_topper", "overbars"], 
-
+    music: "./audio/castle.mp3",
 
     props: [
         {index: 150, x: 42.5, y: 255, centered: true},
