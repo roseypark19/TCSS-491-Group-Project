@@ -1029,8 +1029,9 @@ const plains2 = {
     completePortal: {
         x: 100.5,
         y: 79,
-        boxWidth: 580,
+        boxWidth: 585,
         boxX: 93,
+        boxY: 83,
     },
     width: 115, 
     height: 90,
