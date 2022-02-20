@@ -57,7 +57,7 @@ class DruidBeam {
         this.updateBB();
 
         this.game.collideableEntities.forEach(entity => {
-            if (entity.collideable && this.hitBB.collide(entity.BB)) { 
+            if (entity.projectile_collideable && this.hitBB.collide(entity.BB)) { 
                 this.removeFromWorld = true;
             }
         });
