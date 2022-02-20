@@ -17,7 +17,7 @@ const snow1 = {
         boxY: 71,
     },
 
-    music: "./audio/snow_levels.mp3",
+    music: "./audio/snow.mp3",
 
     width: 115,
     height: 85,
@@ -920,7 +920,7 @@ const snow2 = {
         boxY: 21,
     },
 
-    music: "./audio/snow_levels.mp3",
+    music: "./audio/snow.mp3",
 
     width: 115,
     height: 90,

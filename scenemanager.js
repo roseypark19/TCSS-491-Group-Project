@@ -80,6 +80,7 @@ class SceneManager {
 
         // loads the shops for the town at the end
         if (level == town) {
+            this.game.addEntity(new Druid(this.game, 1000, 1700, 6000, 0));
             this.game.addEntity(new Hen(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true));
             this.game.addEntity(new Hen(this.game, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 16 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false));
             this.game.addEntity(new Chick(this.game, 34 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true));
@@ -177,6 +178,8 @@ class SceneManager {
         }
 
         this.loadEnemies();
+
+        this.totalEnemies = this.countEnemies();
       
         // add stats and ability displays
         if (!isOverworld) {
@@ -184,6 +187,7 @@ class SceneManager {
             this.weaponsDisplay = new WeaponsDisplay(this.game, 20, PARAMS.CANVAS_DIMENSION - 20);
             this.abilityDisplay = new AbilityDisplay(this.game, 20, PARAMS.CANVAS_DIMENSION - abilityDisplayDimension() - 20);
             this.currencyDisplay = new CurrencyDisplay(this.game, 0, 175);
+            this.remEnemyDisplay = new RemainingEnemyDisplay(this.game, PARAMS.CANVAS_DIMENSION - 20 - (12 + 2 + 7 * 7) * PARAMS.GUI_SCALE, 20);
         }
 
         ASSET_MANAGER.pauseBackgroundMusic();
@@ -194,6 +198,20 @@ class SceneManager {
             ASSET_MANAGER.playAsset(level.music);
 
         }
+    };
+
+    countEnemies() {
+        let totalEnemies = 0;
+        this.game.livingEntities.forEach(entity => {
+            if (!(entity instanceof Hero) && !entity.removeFromWorld) {
+                if (entity instanceof MotherSlime) {
+                    totalEnemies += 4;
+                } else {
+                    totalEnemies++;
+                }
+            }
+        });
+        return totalEnemies;
     };
 
     addPropBases() {
@@ -416,7 +434,9 @@ class SceneManager {
                 this.abilityDisplay.draw(ctx);
             } 
             this.currencyDisplay.draw(ctx);
-
+            if (this.currentLevel !== town) {
+                this.remEnemyDisplay.draw(ctx);
+            }
         }
 
         if (PARAMS.GAMEOVER) {
@@ -628,5 +648,68 @@ class CurrencyDisplay {
         ctx.font = 10 * (this.scale - 1) + 'px "silkscreenbold"';
         ctx.fillText(saveState.currency + this.game.camera.hero.currencyCount, this.x + 16 * this.scale, this.y + 10.5 * this.scale);
         ctx.strokeText(saveState.currency + this.game.camera.hero.currencyCount, this.x + 16 * this.scale, this.y + 10.5 * this.scale);
+    };
+};
+
+class RemainingEnemyDisplay {
+
+    constructor(game, x, y) {
+        Object.assign(this, {game, x, y});
+        this.frameSprite = ASSET_MANAGER.getAsset("./sprites/ui/grids.png");
+        this.barSprite = ASSET_MANAGER.getAsset("./sprites/ui/bars.png");
+        this.barShadowSprite = ASSET_MANAGER.getAsset("./sprites/ui/bars_shadows.png");
+        this.enemySprite = ASSET_MANAGER.getAsset("./sprites/ui/enemies.png");
+    };
+
+    draw(ctx) {
+        ctx.drawImage(this.frameSprite, 98, 322, 12, 12, this.x, this.y, 12 * PARAMS.GUI_SCALE, 12 * PARAMS.GUI_SCALE);
+
+        ctx.drawImage(this.barShadowSprite, 88, 53, 7, 6, this.x + 14 * PARAMS.GUI_SCALE, this.y + 3 * PARAMS.GUI_SCALE, 7 * PARAMS.GUI_SCALE, 6 * PARAMS.GUI_SCALE);
+        let x = this.x + 21 * PARAMS.GUI_SCALE;
+        let y = this.y + 3 * PARAMS.GUI_SCALE;
+        for (let i = 0; i < 5; i++) {
+            ctx.drawImage(this.barShadowSprite, 89, 53, 7, 6, x, y, 7 * PARAMS.GUI_SCALE, 6 * PARAMS.GUI_SCALE);
+            x += 7 * PARAMS.GUI_SCALE;
+        }
+        ctx.drawImage(this.barShadowSprite, 113, 53, 7, 6, x, y, 7 * PARAMS.GUI_SCALE, 6 * PARAMS.GUI_SCALE);
+
+        let totalEnemies = this.game.camera.totalEnemies;
+        let currentEnemies = this.game.camera.countEnemies();
+
+        ctx.fillStyle = rgb(102, 204, 0);
+        ctx.fillRect(this.x + 17 * PARAMS.GUI_SCALE, this.y + 5 * PARAMS.GUI_SCALE, 43 * currentEnemies / totalEnemies * PARAMS.GUI_SCALE, 2 * PARAMS.GUI_SCALE);
+
+        ctx.drawImage(this.barSprite, 89, 54, 6, 4, this.x + 15 * PARAMS.GUI_SCALE, this.y + 4 * PARAMS.GUI_SCALE, 6 * PARAMS.GUI_SCALE, 4 * PARAMS.GUI_SCALE);
+        x = this.x + 21 * PARAMS.GUI_SCALE;
+        y = this.y + 4 * PARAMS.GUI_SCALE;
+        for (let i = 0; i < 5; i++) {
+            ctx.drawImage(this.barSprite, 96, 54, 7, 4, x, y, 7 * PARAMS.GUI_SCALE, 4 * PARAMS.GUI_SCALE);
+            x += 7 * PARAMS.GUI_SCALE;
+        }
+        ctx.drawImage(this.barSprite, 113, 54, 6, 4, x, y, 6 * PARAMS.GUI_SCALE, 4 * PARAMS.GUI_SCALE);
+
+        let enemyScale = PARAMS.GUI_SCALE - 2;
+
+        switch (this.game.camera.currentLevel) {
+            case plains1:
+            case plains2:
+                ctx.drawImage(this.enemySprite, 0, 0, 32, 32, this.x  + 6 * PARAMS.GUI_SCALE - 16 * enemyScale, this.y  + 7 * PARAMS.GUI_SCALE - 16 * enemyScale, 32 * enemyScale, 32 * enemyScale);
+                break;
+            case desert1:
+            case desert2:
+                ctx.drawImage(this.enemySprite, 32, 0, 32, 32, this.x  + 6 * PARAMS.GUI_SCALE - 16 * enemyScale, this.y  + 7 * PARAMS.GUI_SCALE - 16 * enemyScale, 32 * enemyScale, 32 * enemyScale);
+                break;
+            case snow1:
+            case snow2:
+                ctx.drawImage(this.enemySprite, 64, 0, 32, 32, this.x  + 6 * PARAMS.GUI_SCALE - 16 * enemyScale, this.y  + 7 * PARAMS.GUI_SCALE - 16 * enemyScale, 32 * enemyScale, 32 * enemyScale);
+                break;
+            case castle:
+                ctx.drawImage(this.enemySprite, 128, 0, 32, 32, this.x  + 6 * PARAMS.GUI_SCALE - 16 * enemyScale, this.y  + 7 * PARAMS.GUI_SCALE - 16 * enemyScale, 32 * enemyScale, 32 * enemyScale);
+                break;
+            case swamp1:
+            case swamp2:
+                ctx.drawImage(this.enemySprite, 96, 0, 32, 32, this.x  + 6 * PARAMS.GUI_SCALE - 16 * enemyScale, this.y  + 7 * PARAMS.GUI_SCALE - 16 * enemyScale, 32 * enemyScale, 32 * enemyScale);
+            
+        }
     };
 };

@@ -3,8 +3,8 @@ class DruidBeam {
     static rotationList = [];
     static elapsedTime = 0;
 
-    constructor(game, x, y, radians, velocity) {
-        Object.assign(this, { game, x, y, radians });
+    constructor(game, x, y, radians, velocity, lifetime = PROJECTILE_LIFETIMES.long) {
+        Object.assign(this, { game, x, y, radians, lifetime });
         this.roundedDegrees = Math.round(toDegrees(this.radians));
         this.roundedRadians = toRadians(this.roundedDegrees);
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/projectiles/druid_beam.png");
@@ -14,7 +14,6 @@ class DruidBeam {
         this.velocityConstant = velocity;
         this.velocity = { x: Math.cos(this.roundedRadians) * this.velocityConstant, 
                           y: Math.sin(this.roundedRadians) * this.velocityConstant };
-        this.lifetime = 4;
         this.animations = [];
         this.loadAnimations();
         this.updateBB();
@@ -95,7 +94,7 @@ class DruidBird {
         this.maxHp = 6000;
         this.minProximity = 5;
         this.visionDistance = 450;
-        this.attackDistance = 250;
+        this.attackDistance = 350;
         this.shotsTaken = [];
         this.shootTimer = 0;
         this.shootFlag = false;
@@ -107,7 +106,7 @@ class DruidBird {
         this.burnDamageTimer = 0;
         this.confusedTimer = 0;
         this.velocityConstant = 3;
-        this.walkSpeed = 0.1 * (4 / this.velocityConstant); // * (4 / this.velocityConstant);
+        this.walkSpeed = 0.1 * (4 / this.velocityConstant);
         this.velocity = { x: 0, y: 0 };
         this.fireTheta = 0;
         this.animations = [];
@@ -212,7 +211,7 @@ class DruidBird {
                 if (entity instanceof Hero) {
                     heroCenter = entity.BB.center;
                     let dist = distance(center, heroCenter);
-                    if (dist <= this.visionDistance) {
+                    if (dist <= this.visionDistance && !PARAMS.GAMEOVER) {
                         let vector = { x : heroCenter.x - center.x, y : heroCenter.y - center.y };
                         let heroDirectionUnitVector = unitVector(vector);
                         let movementDirectionUnitVector = heroDirectionUnitVector;
@@ -233,10 +232,11 @@ class DruidBird {
                         } 
                         if (this.damagedTimer === 0 && this.frozenTimer === 0) {
                             this.state = 1;
+                            console.log("setting state to 1")
                         }
                         if (dist <= this.attackDistance) {
-                            if (this.shootTimer === 0 && this.state === 1) {
-                                this.shootTimer = 0.75 * this.walkSpeed - this.game.clockTick;
+                            if (this.shootTimer === 0 && this.state === 1 && this.frozenTimer === 0) {
+                                this.shootTimer = 0.95 * this.walkSpeed - this.game.clockTick;
                                 let projectileCenter = { x: this.BB.center.x + 6 * PARAMS.SCALE * heroDirectionUnitVector.x,
                                                          y: this.BB.center.y + 6 * PARAMS.SCALE * heroDirectionUnitVector.y };
                                 if (this.shootFlag) {
@@ -526,7 +526,7 @@ class DruidHound {
                 if (entity instanceof Hero) {
                     heroCenter = entity.BB.center;
                     let dist = distance(center, heroCenter);
-                    if (dist <= this.visionDistance) {
+                    if (dist <= this.visionDistance && !PARAMS.GAMEOVER) {
                         let vector = { x : heroCenter.x - center.x, y : heroCenter.y - center.y };
                         let heroDirectionUnitVector = unitVector(vector);
                         let movementDirectionUnitVector = heroDirectionUnitVector;
@@ -845,7 +845,7 @@ class DruidBeast {
                     heroCenter = entity.BB.center;
                     let dist = distance(this.BB.center, heroCenter);
 
-                    if (dist <= this.visionDistance || this.charging) {
+                    if ((dist <= this.visionDistance || this.charging) && !PARAMS.GAMEOVER) {
                         if ((this.movementUnitVector === undefined || (this.confusedTimer === 0 && distance(heroCenter, this.destination) > this.minProximity)) && this.damagedTimer === 0) {
                             let center = this.BB.center;
                             let vector = { x : heroCenter.x - center.x, y : heroCenter.y - center.y };
@@ -947,10 +947,10 @@ class DruidBeast {
                     this.chargeUnitVector = unitVector({ x: this.destination.x - this.BB.center.x, y: this.destination.y - this.BB.center.y });
                 }
 
-                this.velocity.x = this.chargeUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant * 4 / 3 : this.velocityConstant * 4);
-                this.velocity.y = this.chargeUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant * 4 / 3 : this.velocityConstant * 4);
+                this.velocity.x = this.chargeUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant * 3 / 3 : this.velocityConstant * 3);
+                this.velocity.y = this.chargeUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant * 3 / 3 : this.velocityConstant * 3);
 
-                this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed / (4/3) : this.walkSpeed / 4);
+                this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed / (3/3) : this.walkSpeed / 3);
                 this.facing[0] = this.velocity.y >= 0 ? 0 : 1;
                 this.facing[1] = this.velocity.x >= 0 ? 0 : 1;
             } else {
@@ -1140,8 +1140,8 @@ class Druid {
                 if (!this.rootsCompleted) {
                     if (!this.rootsFlag) {
                         this.rootsFlag = true;
-                        this.rootsTimer = 15 - this.game.clockTick;
-                        this.rootsIntervalTimer = 1 - this.game.clockTick;
+                        this.rootsTimer = 21 - this.game.clockTick;
+                        this.rootsIntervalTimer = 3 - this.game.clockTick;
                         this.state = 7;
                     }
 
@@ -1149,23 +1149,24 @@ class Druid {
                         this.rootsCompleted = true;
                     } else {
                         if (this.rootsIntervalTimer === 0) {
-                            this.rootsIntervalTimer = 0.05 - this.game.clockTick;
-                            this.spawnRandomRoots();
-                        }
-                    }
-                    this.game.livingEntities.forEach(entity => {
-                        if (entity instanceof Hero) {
-                            if (this.shootTimer === 0) {
-                                this.shootTimer = 0.5 - this.game.clockTick;
-                                let unitVect = unitVector({ x: entity.BB.center.x - this.BB.center.x, y: entity.BB.center.y - this.BB.center.y });
-                                let theta = Math.atan2(unitVect.y, unitVect.x);
-                                if (theta < 0) {
-                                    theta += 2 * Math.PI;
-                                }
-                                this.game.addEntity(new DruidBeam(this.game, this.x, this.y, theta, 3));
+                            this.rootsIntervalTimer = 3 - this.game.clockTick;
+                            for (let theta = 0; theta < 2 * Math.PI; theta += Math.PI / 10) {
+                                this.game.addEntity(new DruidRoot(this.game, (this.BB.center.x + 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE * Math.cos(theta)) - 16 * PARAMS.SCALE,
+                                                                             (this.BB.center.y + 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE * Math.sin(theta)) - 16 * PARAMS.SCALE,
+                                                                             2, 10));
                             }
                         }
-                    });
+                        if (this.shootTimer === 0) {
+                            this.shootTimer = 0.75 - this.game.clockTick;
+                            let randomStartTheta = toRadians(randomInt(361));
+                            for (let theta = randomStartTheta; theta < randomStartTheta + 2 * Math.PI; theta += Math.PI / 4) {
+                                // this.game.addEntity(new DruidRoot(this.game, (this.BB.center.x + 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE * Math.cos(theta)) - 16 * PARAMS.SCALE,
+                                //                                              (this.BB.center.y + 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE * Math.sin(theta)) - 16 * PARAMS.SCALE,
+                                //                                              2, 10));
+                                this.game.addEntity(new DruidBeam(this.game, this.x, this.y, theta, 1.5, 10));
+                            }
+                        }
+                    }    
                 }
                 if (this.rootsCompleted) {
                     if (!this.transitionFlag) {
@@ -1189,6 +1190,11 @@ class Druid {
                         }
                     } else {
                         this.removeFromWorld = true;
+                        this.game.projectileEntities.forEach(entity => {
+                            if (entity instanceof DruidBeam) {
+                                entity.removeFromWorld = true;
+                            }
+                        });
                         switch(this.phase) {
                             case 0:
                             case 1:
@@ -1213,7 +1219,7 @@ class Druid {
         }
     };
 
-    spawnRandomRoots() {
+    spawnRoot() {
         
         // for (let i = 0; i < 2 * Math.PI; i += 5 * Math.PI / 180) {
         //     let randomTheta = toRadians(randomInt(360));
@@ -1226,9 +1232,9 @@ class Druid {
         //     }
         // }
 
-        let randomTheta = toRadians(randomInt(360));
-        let placementUnitVector = unitVector({ x: Math.cos(randomTheta), y: Math.sin(randomTheta) });
-        let randomDistance = randomInt(20 * PARAMS.BLOCKWIDTH * PARAMS.SCALE - 16 * PARAMS.SCALE) + 16 * PARAMS.SCALE;
+        // let randomTheta = toRadians(randomInt(360));
+        // let placementUnitVector = unitVector({ x: Math.cos(randomTheta), y: Math.sin(randomTheta) });
+        // let randomDistance = randomInt(20 * PARAMS.BLOCKWIDTH * PARAMS.SCALE - 16 * PARAMS.SCALE) + 16 * PARAMS.SCALE;
         this.game.addEntity(new DruidRoot(this.game, this.BB.center.x + placementUnitVector.x * randomDistance - 16 * PARAMS.SCALE,
                                                      this.BB.center.y + placementUnitVector.y * randomDistance - 16 * PARAMS.SCALE));
     };
@@ -1295,9 +1301,12 @@ class DruidRoot {
         this.lifetime -= this.game.clockTick;
         if (this.lifetime <= 0) {
             this.removeFromWorld = true;
-        } else if (!this.regionSpawned && this.lifetime <= this.origLT / 15 * 7) {
-            this.regionSpawned = true;
-            this.game.addEntity(new DamageRegion(this.game, this.x + 12 * PARAMS.SCALE, this.y + 12 * PARAMS.SCALE, 8 * PARAMS.SCALE, 8 * PARAMS.SCALE, false, 100, this.lifetime / 15 * 2, this.BB.center));
+        } else if (!this.shotsSpawned && this.lifetime <= this.origLT / 15 * 7) {
+            this.shotsSpawned = true;
+            for (let theta = 0; theta < 2 * Math.PI; theta += Math.PI / 2) {
+                this.game.addEntity(new DruidBeam(this.game, this.x, this.y, theta, 1, 8));
+            }
+            // this.game.addEntity(new DamageRegion(this.game, this.x + 12 * PARAMS.SCALE, this.y + 12 * PARAMS.SCALE, 8 * PARAMS.SCALE, 8 * PARAMS.SCALE, false, 100, this.lifetime / 15 * 2, this.BB.center));
         }
     };
 

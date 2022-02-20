@@ -79,9 +79,9 @@ const desert1 = {
         {type: Rhino, x: 10.5, y: 26.5},
         {type: Rhino, x: 59.5, y: 10.5},
         {type: Rhino,x: 47.5, y: 54.5},
-       
-
     ],
+      
+    music: "./audio/desert.mp3",
 
     props: [
 
@@ -915,6 +915,7 @@ const desert2 = {
     heroX: 29,
     heroY: 55, 
     layer_names: ["ground", "ground2", "collideable", "hero",  "topper", "shadows"], 
+    music: "./audio/desert.mp3",
 
     props: [
 

@@ -7,7 +7,6 @@ ASSET_MANAGER.queueDownload("./audio/Upgrade.wav");
 ASSET_MANAGER.queueDownload("./audio/CoinUpgrade.wav");
 ASSET_MANAGER.queueDownload("./audio/MaxLevelUpgrade.wav");
 
-ASSET_MANAGER.queueDownload("./audio/dungeon.mp3");
 ASSET_MANAGER.queueDownload("./audio/hero_death.mp3");
 ASSET_MANAGER.queueDownload("./audio/minotaur_ogre_hit.mp3");
 ASSET_MANAGER.queueDownload("./audio/minotaur_ogre_death.mp3");
@@ -23,10 +22,15 @@ ASSET_MANAGER.queueDownload("./audio/trasgo_death.mp3");
 ASSET_MANAGER.queueDownload("./audio/hero_hit.mp3");
 ASSET_MANAGER.queueDownload("./audio/lightning.mp3");
 ASSET_MANAGER.queueDownload("./audio/victory.mp3");
-ASSET_MANAGER.queueDownload("./audio/snow_levels.mp3");
+ASSET_MANAGER.queueDownload("./audio/coin.wav");
+
+ASSET_MANAGER.queueDownload("./audio/snow.mp3");
+ASSET_MANAGER.queueDownload("./audio/plains.mp3");
+ASSET_MANAGER.queueDownload("./audio/desert.mp3");
+ASSET_MANAGER.queueDownload("./audio/swamp.mp3");
+ASSET_MANAGER.queueDownload("./audio/castle.mp3");
 ASSET_MANAGER.queueDownload("./audio/town.mp3");
 ASSET_MANAGER.queueDownload("./audio/overworld.mp3");
-ASSET_MANAGER.queueDownload("./audio/coin.wav");
 
 // sprites
 ASSET_MANAGER.queueDownload("./sprites/hero/tiny_hero.png");
@@ -124,6 +128,8 @@ ASSET_MANAGER.queueDownload("./sprites/ui/bars_shadows.png");
 ASSET_MANAGER.queueDownload("./sprites/ui/frames.png");
 ASSET_MANAGER.queueDownload("./sprites/ui/frames_shadows.png");
 ASSET_MANAGER.queueDownload("./sprites/ui/icons.png");
+ASSET_MANAGER.queueDownload("./sprites/ui/grids.png");
+ASSET_MANAGER.queueDownload("./sprites/ui/enemies.png");
 
 ASSET_MANAGER.queueDownload("./sprites/hero/spells.png");
 
