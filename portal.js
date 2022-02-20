@@ -62,9 +62,14 @@ class Portal {
 
     update() {
         if (this.changeOnNextUpdate) {
+            let travelToSpellScene = false;
             // this IF statement will increment and save
             // the unlocked levels state if it makes sense to do
             if (this.isACompletePortal && isFinalUnlockedDungeon(this.game.camera.currentLevel)) {
+                travelToSpellScene = this.currentLevel == plains1 
+                    || this.currentLevel == snow1
+                    || this.currentLevel == desert1; // TODO: TEST THIS LINE
+                    // || this.currentLevel == swamp1;
                 saveState.numLevelsCompleted++;    
             }
             if (this.isACompletePortal) {
@@ -72,7 +77,31 @@ class Portal {
                 saveGame(saveState);
                 loadGame();
             }
-            this.game.camera.travelTo(this.destinationLevel); 
+// TODO: TEST THIS BLOCK 
+            if (travelToSpellScene) {
+                switch (this.currentLevel) {
+                    case plains2:
+                        elementAwardScreen.elementIndex = 0; 
+                        break;
+                    case snow2: 
+                        elementAwardScreen.elementIndex = 1;
+                        break;
+                    case desert2: 
+                        elementAwardScreen.elementIndex = 2;
+                        break;
+                    // case swamp2: 
+                    //     elementAwardScreen.elementIndex = 3;
+                    //     break;   
+                }
+                this.game.camera.travelTo(elementAwardScreen); 
+            } else {
+                this.game.camera.travelTo(this.destinationLevel); 
+            }
+
+
+
+
+            
 
         } else {
             // for loop prevents errors when the hero is not added to project... 

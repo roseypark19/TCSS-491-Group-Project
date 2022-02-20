@@ -5,7 +5,7 @@ class SceneManager {
         this.x = 0;
         this.y = 0;
         this.elapsed = 0;
-        this.travelTo(titleScreen);
+        this.travelTo(desert2);
     };
 
     clearEntities() {
@@ -49,7 +49,7 @@ class SceneManager {
                     this.game.addEntity(new Flame(this.game, this.hero.x, this.hero.y - 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 1));
                     this.addPropToppers();
 
-                }  else if (this.currentLevel == titleScreen) {
+                }  else if (this.currentLevel == titleScreen || this.currentLevel == elementAwardScreen) {
                     // do nothing lol
                     this.hero = new Hero(this.game, this.currentLevel.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
                         this.currentLevel.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
@@ -162,7 +162,10 @@ class SceneManager {
             this.game.addEntity(new Dialogue(this.game, "Welcome!", true, 44.5, 48, 47.5, 48.5, 1, 1, true)); // welcome!   
         } else if (this.currentLevel == titleScreen) {
             this.game.addEntity(new TitleScreen(this.game));
+        } else if (this.currentLevel == elementAwardScreen) {
+            this.game.addEntity(new ElementAwardScreen(this.game, this.currentLevel.elementIndex));
         }
+
         
         if (this.currentLevel == plains1) {
             this.x = 4;
@@ -329,6 +332,45 @@ class SceneManager {
                     case SwordedMinion:
                         this.game.addEntity(new SwordedMinion(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.minionType));
                         break;
+                    case Troll:
+                        this.game.addEntity(new Troll(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case Rhino:
+                        this.game.addEntity(new Rhino(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case Flame:
+                        this.game.addEntity(new Flame(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case Centaur:
+                        this.game.addEntity(new Centaur(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case Cyclops:
+                        this.game.addEntity(new Cyclops(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case Wargo:
+                        this.game.addEntity(new Wargo(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case Zombie:
+                        this.game.addEntity(new Zombie(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case Ogre:
+                        this.game.addEntity(new Ogre(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case GiantToad:
+                        this.game.addEntity(new GiantToad(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case MotherSlime:
+                        this.game.addEntity(new MotherSlime(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case BabySlime:
+                        this.game.addEntity(new BabySlime(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    case Minotaur:
+                        this.game.addEntity(new Minotaur(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
+                    // case Skeleton:
+                    //     this.game.addEntity(new Skeleton(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                    //     break;
                 }
             });
         }
@@ -359,7 +401,7 @@ class SceneManager {
         if (PARAMS.GAMEOVER) {
             if (heroDead && this.elapsed === 4) {
                 this.travelTo(overworld);
-            } else if (!heroDead && !this.portalFlag && this.currentLevel !== town && this.currentLevel !== titleScreen) {
+            } else if (!heroDead && !this.portalFlag && this.currentLevel !== town && this.currentLevel !== titleScreen && this.currentLevel !== elementAwardScreen) {
                 this.portalFlag = true;
                 let portal = new Portal(this.game, "Complete " + this.currentLevel.levelName, overworld, this.currentLevel.portalIndex, this.currentLevel.completePortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxWidth, true);
                 portal.npc = true;
@@ -385,7 +427,7 @@ class SceneManager {
     };
 
     draw(ctx) { 
-        if (this.currentLevel !== overworld && this.currentLevel !== titleScreen) {
+        if (this.currentLevel !== overworld && this.currentLevel !== titleScreen && this.currentLevel !== elementAwardScreen) {
             this.statsDisplay.draw(ctx);
             if (this.game.inventoryPressed) {
                 this.weaponsDisplay.draw(ctx);
@@ -398,7 +440,7 @@ class SceneManager {
         }
 
         if (PARAMS.GAMEOVER) {
-            if (this.hero.hp > 0 && this.elapsed < 4 && this.currentLevel !== town && this.currentLevel !== titleScreen) {
+            if (this.hero.hp > 0 && this.elapsed < 4 && this.currentLevel !== town && this.currentLevel !== titleScreen && this.currentLevel !== elementAwardScreen) {
                 ctx.fillStyle = rgb(255, 215, 0);
                 ctx.font = 5 * PARAMS.BLOCKWIDTH + 'px "silkscreenbold"';
                 ctx.fillText("LEVEL COMPLETE", 
