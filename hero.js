@@ -188,7 +188,7 @@ class Hero {
         this.weaponSpritesheet = ASSET_MANAGER.getAsset("./sprites/ui/weapon_icons.png");
         
         this.weaponIndex = 0;
-        this.weapon = { type: 4, attack: 75, dexterity: 8 };
+        this.weapon = { type: 4, attack: 5, dexterity: 4 };
         this.weaponData = [{ type: 0, x: 24, y: 0, attack: 75, dexterity: 8 }, { type: 1, x: 48, y: 0, attack: 75, dexterity: 8 }, { type: 2, x: 60, y: 0, attack: 75, dexterity: 8 }, { type: 3, x: 36, y: 0, attack: 75, dexterity: 8 }, { type: 4, x: 48, y: 0, attack: 75, dexterity: 8 }, { type: 5, x: 12, y: 0, attack: 75, dexterity: 8 }];
 
         // types: 0 = longsword, 1 = war axe, 2 = whip, 3 = flail, 4 = slingshot, 5 = bow
@@ -299,8 +299,8 @@ class Hero {
         let prevState = this.state;
         
         if (this.state !== 4) {
-            this.hp = Math.min(this.maxHp, this.hp + this.game.clockTick / 1 * 15);
-            this.mp = Math.min(this.maxMp, this.mp + this.game.clockTick / 1 * 15);
+            this.hp = Math.min(this.maxHp, this.hp + this.game.clockTick / 1 * 5);
+            this.mp = Math.min(this.maxMp, this.mp + this.game.clockTick / 1 * 10);
         }
 
         this.originalCollisionBB = this.collisionBB;

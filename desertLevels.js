@@ -20,7 +20,7 @@ const desert1 = {
     heroX: 63,
     heroY: 39, 
     layer_names: ["ground", "ground2", "collideable", "hero",  "topper", "shadows"], 
-
+    music: "./audio/desert.mp3",
     props: [
 
     // bottom right 
@@ -853,6 +853,7 @@ const desert2 = {
     heroX: 29,
     heroY: 55, 
     layer_names: ["ground", "ground2", "collideable", "hero",  "topper", "shadows"], 
+    music: "./audio/desert.mp3",
 
     props: [
 

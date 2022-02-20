@@ -21,6 +21,8 @@ const plains1 = {
     heroY: 6.5,
     layer_names: ["ground", "collideable", "hero", "topper", "shadows"],
 
+    music: "./audio/plains.mp3",
+
     props: [
 
         //Starting location
@@ -1037,6 +1039,7 @@ const plains2 = {
     heroX: 9.5,
     heroY: 77,
     layer_names: ["ground", "collideable", "hero", "topper", "shadows"],
+    music: "./audio/plains.mp3",
     props: [
 
 
