@@ -26,7 +26,7 @@ class GameEngine {
         this.clicked = false;
         this.spellChange = false;
         this.weaponChange = false;
-        this.inventoryPressed = true;
+        this.inventoryPressed = false;
     };
 
     init(ctx) { // called after the page has loaded
@@ -84,7 +84,12 @@ class GameEngine {
                 case "KeyX":
                     that.spellChange = true;
                     break;
-                    
+                case "KeyC":
+                    that.weaponChange = true;
+                    break;
+                case "KeyI":
+                    that.inventoryPressed = true;
+                    break;
             }
         }, false);
 
@@ -123,20 +128,14 @@ class GameEngine {
                 case "KeyX":
                     that.spellChange = false;
                     break;
+                case "KeyC":
+                    that.weaponChange = false;
+                    break;
+                case "KeyI":
+                    that.inventoryPressed = false;
+                    break;
             }
         }, false);
-
-
-        this.ctx.canvas.addEventListener("keypress", function(e) {
-            switch (e.code) {
-                case "KeyI":
-                    that.inventoryPressed = !that.inventoryPressed;
-                    break;
-                case "KeyC":
-                    that.weaponChange = true;
-                    break;
-            }
-        });
 
         let getXandY = function (e) {
             let x = e.clientX - that.ctx.canvas.getBoundingClientRect().left;

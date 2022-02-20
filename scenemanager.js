@@ -4,8 +4,9 @@ class SceneManager {
         this.game.camera = this;
         this.x = 0;
         this.y = 0;
+        this.drawInventory = true;
         this.elapsed = 0;
-        this.travelTo(desert2);
+        this.travelTo(titleScreen);
     };
 
     clearEntities() {
@@ -80,7 +81,6 @@ class SceneManager {
 
         // loads the shops for the town at the end
         if (level == town) {
-            this.game.addEntity(new Druid(this.game, 1000, 1700, 6000, 0));
             this.game.addEntity(new Hen(this.game, 35 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true));
             this.game.addEntity(new Hen(this.game, 37 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 16 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, false));
             this.game.addEntity(new Chick(this.game, 34 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, true));
@@ -429,10 +429,19 @@ class SceneManager {
     draw(ctx) { 
         if (this.currentLevel !== overworld && this.currentLevel !== titleScreen && this.currentLevel !== elementAwardScreen) {
             this.statsDisplay.draw(ctx);
-            if (this.game.inventoryPressed) {
+
+            if (this.game.inventoryPressed && !this.inventoryFlag) {
+                this.inventoryFlag = true;
+                this.drawInventory = !this.drawInventory;
+            } else if (!this.game.inventoryPressed) {
+                this.inventoryFlag = false;
+            }
+
+            if (this.drawInventory) {
                 this.weaponsDisplay.draw(ctx);
                 this.abilityDisplay.draw(ctx);
-            } 
+            }
+
             this.currencyDisplay.draw(ctx);
             if (this.currentLevel !== town) {
                 this.remEnemyDisplay.draw(ctx);
@@ -446,9 +455,6 @@ class SceneManager {
                 ctx.fillText("LEVEL COMPLETE", 
                              this.hero.BB.center.x - this.x - 5.5 * 5 * PARAMS.BLOCKWIDTH, 
                              this.hero.BB.top - this.y);
-                // this.statsDisplay.draw(ctx);
-                // this.abilityDisplay.draw(ctx);
-                // this.mmap.draw(ctx);
             } else if (this.hero.hp <= 0 && this.currentLevel !== overworld) {
                 ctx.fillStyle = "Red";
                 ctx.font = 5 * PARAMS.BLOCKWIDTH + 'px "silkscreenbold"';
@@ -457,11 +463,6 @@ class SceneManager {
                              this.hero.BB.top - this.y);
             }
         } 
-        // else {
-        //     this.statsDisplay.draw(ctx);
-        //     this.abilityDisplay.draw(ctx);
-        //     this.mmap.draw(ctx);
-        // } 
     };
 };
 
