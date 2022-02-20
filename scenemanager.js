@@ -5,7 +5,7 @@ class SceneManager {
         this.x = 0;
         this.y = 0;
         this.elapsed = 0;
-        this.travelTo(elementAwardScreen);
+        this.travelTo(desert2);
     };
 
     clearEntities() {

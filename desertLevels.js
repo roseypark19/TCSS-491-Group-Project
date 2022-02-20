@@ -1096,6 +1096,60 @@ const desert2 = {
 
     topper_props: [],
 
+    enemies: [
+        {type: Flame, x: 80.5, y: 11.5},
+        {type: Flame, x: 81.5, y: 25.5},
+        {type: Flame, x: 83.5, y: 34.5},
+        {type: Flame, x: 93.5, y: 30.5},
+        {type: Flame, x: 104.5, y: 21.5},
+        {type: Flame, x: 105.5, y: 11.5},
+        {type: Flame, x: 93.5, y: 12.5},
+        {type: Flame, x: 102.5, y: 54.5},
+        {type: Flame, x: 105.5, y: 54.5},
+        // {type: Flame, },
+        // {type: Flame, },
+
+
+        {type: SwordedMinion, minionType: 1, x: 23.5, y: 38.5},
+        {type: SwordedMinion, minionType: 1, x: 11.5, y: 41.5},
+        {type: SwordedMinion, minionType: 1, x: 11.5, y: 56.5},
+        {type: SwordedMinion, minionType: 1, x: 10.5, y: 77.5},
+        {type: SwordedMinion, minionType: 1, x: 26.5, y: 81.5},
+        {type: SwordedMinion, minionType: 1, x: 48.5, y: 79.5},
+        {type: SwordedMinion, minionType: 1, x: 52.5, y: 61.5},
+        {type: SwordedMinion, minionType: 1, x: 59.5, y: 31.5},
+        
+        {type: SwordedMinion, minionType: 1, x: 41.5, y: 18.5},
+        {type: SwordedMinion, minionType: 1,  x: 21.5, y: 10.5},
+        // {type: SwordedMinion, minionType: 1, },
+        // {type: SwordedMinion, minionType: 1, },
+        // {type: SwordedMinion, minionType: 1, },
+        // {type: SwordedMinion, minionType: 1, },
+
+        
+        {type: Troll, x: 84.5, y: 68.5},
+        {type: Troll, x: 51.5, y: 43.5},
+        {type: Troll, x: 30.5, y: 21.5},
+        {type: Troll,  x: 90.5, y: 20.5},
+        {type: Troll, x: 94.5, y: 20.},
+        {type: Troll, x: 107.5, y: 21.5},
+        {type: Troll, x: 4.5, y: 10.5},
+        // {type: Troll, },
+        // {type: Troll, },
+        // {type: Troll, },
+
+
+        {type: Rhino, x: 8.5, y: 27.5},
+        {type: Rhino, x: 63.5, y: 18.5},
+        {type: Rhino, x: 91.5, y: 64.5},
+        {type: Rhino, x: 70.5, y: 79.5},
+        // {type: Rhino, },
+        // {type: Rhino, },
+        // {type: Rhino, },
+
+        
+    ],
+
     ground: {
         data: [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
             -1,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,97,-1,
