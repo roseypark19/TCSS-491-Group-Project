@@ -50,6 +50,7 @@ ASSET_MANAGER.queueDownload("./sprites/biomes/snow/shadows.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/desert/tiles.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/desert/shadows.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/desert/props.png");
+ASSET_MANAGER.queueDownload("./sprites/biomes/swamp/tiles.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/swamp/props.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/swamp/propsShadows.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/swamp/propsNoShadows.png");
