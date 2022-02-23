@@ -6,7 +6,7 @@ class SceneManager {
         this.y = 0;
         this.drawInventory = true;
         this.elapsed = 0;
-        this.travelTo(druid_lair);
+        this.travelTo(titleScreen);
     };
 
     clearEntities() {
