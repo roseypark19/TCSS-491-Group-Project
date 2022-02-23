@@ -154,7 +154,7 @@ class BabySlime {
                 if (entity instanceof Hero) {
                     heroCenter = entity.BB.center;
                     let dist = distance(center, heroCenter);
-                    if (dist <= this.visionDistance) {
+                    if (dist <= this.visionDistance && !PARAMS.GAMEOVER) {
                         let vector = { x : heroCenter.x - center.x, y : heroCenter.y - center.y };
                         let heroDirectionUnitVector = unitVector(vector);
                         let movementDirectionUnitVector = heroDirectionUnitVector;
@@ -448,7 +448,7 @@ class MotherSlime {
                 if (entity instanceof Hero) {
                     heroCenter = entity.BB.center;
                     let dist = distance(center, heroCenter);
-                    if (dist <= this.visionDistance) {
+                    if (dist <= this.visionDistance && !PARAMS.GAMEOVER) {
                         let vector = { x : heroCenter.x - center.x, y : heroCenter.y - center.y };
                         let heroDirectionUnitVector = unitVector(vector);
                         let movementDirectionUnitVector = heroDirectionUnitVector;

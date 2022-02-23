@@ -134,7 +134,7 @@ class Cyclops {
                     heroCenter = entity.BB.center;
                     let dist = distance(this.BB.center, heroCenter);
 
-                    if (dist <= this.visionDistance || this.charging) {
+                    if ((dist <= this.visionDistance || this.charging) && !PARAMS.GAMEOVER) {
                         if ((this.movementUnitVector === undefined || (this.confusedTimer === 0 && distance(heroCenter, this.destination) > this.minProximity)) && this.damagedTimer === 0) {
                             let center = this.BB.center;
                             let vector = { x : heroCenter.x - center.x, y : heroCenter.y - center.y };
