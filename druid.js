@@ -9,7 +9,7 @@ class DruidBeam {
         this.roundedRadians = toRadians(this.roundedDegrees);
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/projectiles/druid_beam.png");
         this.friendlyProjectile = false;
-        this.damage = 75;
+        this.damage = 100;
         this.id = ++PARAMS.SHOT_ID;
         this.velocityConstant = velocity;
         this.velocity = { x: Math.cos(this.roundedRadians) * this.velocityConstant, 
@@ -91,9 +91,9 @@ class DruidBird {
         this.state = 0; // idle, attacking, damaged, dead
                         // 0, 1, 2, 3
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 6000;
+        this.maxHp = Druid.maxHp;
         this.minProximity = 5;
-        this.visionDistance = 450;
+        this.visionDistance = 600;
         this.attackDistance = 350;
         this.shotsTaken = [];
         this.shootTimer = 0;
@@ -162,7 +162,7 @@ class DruidBird {
                     }  
                     this.frozenTimer = 0; 
                     this.hp = Math.max(this.threshold, this.hp - entity.damage);
-                    // ASSET_MANAGER.playAsset("./audio/slime_hit.mp3");
+                    ASSET_MANAGER.playAsset("./audio/bird_hit.pm3");
                     if (entity.elemental) {
                         switch(entity.type) {
                             case 0: // wind
@@ -192,7 +192,7 @@ class DruidBird {
         if (this.state !== 3 && !this.originReached && this.burningTimer > 0 && this.burnDamageTimer === 0 && !PARAMS.GAMEOVER) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp = Math.max(this.threshold, this.hp - 25);
-            // play damaged sound
+            ASSET_MANAGER.playAsset("./audio/bird_hit.pm3");
             if (this.damagedTimer === 0) {
                 this.damagedTimer = 0.6 - this.game.clockTick;
                 this.state = 2;
@@ -232,16 +232,13 @@ class DruidBird {
                         } 
                         if (this.damagedTimer === 0 && this.frozenTimer === 0) {
                             this.state = 1;
-                            console.log("setting state to 1")
                         }
                         if (dist <= this.attackDistance) {
                             if (this.shootTimer === 0 && this.state === 1 && this.frozenTimer === 0) {
-                                this.shootTimer = 0.95 * this.walkSpeed - this.game.clockTick;
-                                let projectileCenter = { x: this.BB.center.x + 6 * PARAMS.SCALE * heroDirectionUnitVector.x,
-                                                         y: this.BB.center.y + 6 * PARAMS.SCALE * heroDirectionUnitVector.y };
+                                this.shootTimer = 3 * this.walkSpeed - this.game.clockTick;
                                 if (this.shootFlag) {
                                     for (let i = this.fireTheta; i < this.fireTheta + 2 * Math.PI; i += Math.PI / 4) {
-                                        this.game.addEntity(new DruidBeam(this.game, this.x, this.y, i, 8));
+                                        this.game.addEntity(new DruidBeam(this.game, this.x, this.y, i, 4));
                                     }
 
                                     this.fireTheta += Math.PI / 180 * 5;
@@ -406,9 +403,9 @@ class DruidHound {
         this.state = 0; // idle, walking, attacking, damaged, dead
                         // 0, 1, 2, 3, 4
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 6000;
+        this.maxHp = Druid.maxHp;
         this.minProximity = 5;
-        this.visionDistance = 400;
+        this.visionDistance = 600;
         this.attackDistance = 250;
         this.shotsTaken = [];
         this.shootTimer = 0;
@@ -477,7 +474,7 @@ class DruidHound {
                     }    
                     this.frozenTimer = 0;
                     this.hp = Math.max(this.threshold, this.hp - entity.damage);
-                    // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_hit.mp3");
+                    ASSET_MANAGER.playAsset("./audio/hound_hit.pm3");
                     if (entity.elemental) {
                         switch(entity.type) {
                             case 0: // wind
@@ -507,7 +504,7 @@ class DruidHound {
         if (this.state !== 4 && !this.originReached &&  this.burningTimer > 0 && this.burnDamageTimer === 0 && !PARAMS.GAMEOVER) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp = Math.max(this.threshold, this.hp - 25);
-            // play damaged sound
+            ASSET_MANAGER.playAsset("./audio/hound_hit.pm3");
             if (this.damagedTimer === 0) {
                 this.damagedTimer = 0.6 - this.game.clockTick;
                 this.state = 3;
@@ -721,9 +718,9 @@ class DruidBeast {
         this.state = 0; // idle, walking, attacking, damaged, dead
                         // 0, 1, 2, 3, 4
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 6000;
+        this.maxHp = Druid.maxHp;
         this.minProximity = 32 * 1.5;
-        this.visionDistance = 400;
+        this.visionDistance = 600;
         this.shotsTaken = [];
         this.shootTimer = 0;
         this.attackTimer = 0;
@@ -795,7 +792,7 @@ class DruidBeast {
                     }   
                     this.frozenTimer = 0;
                     this.hp = Math.max(this.threshold, this.hp - entity.damage);
-                    // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_hit.mp3");
+                    ASSET_MANAGER.playAsset("./audio/beast_hit.pm3");
                     if (entity.elemental) {
                         switch(entity.type) {
                             case 0: // wind
@@ -817,7 +814,6 @@ class DruidBeast {
                     }
                     if (this.hp <= this.threshold) {
                         this.state = 4;
-                        // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
                     }
                 }
             });
@@ -826,7 +822,7 @@ class DruidBeast {
         if (this.state !== 4 && !this.originReached && this.burningTimer > 0 && this.burnDamageTimer === 0 && !PARAMS.GAMEOVER) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp = Math.max(this.threshold, this.hp - 25);
-            // play damaged sound
+            ASSET_MANAGER.playAsset("./audio/beast_hit.pm3");
             if (this.damagedTimer === 0) {
                 this.damagedTimer = 0.6 - this.game.clockTick;
                 this.state = 3;
@@ -936,7 +932,7 @@ class DruidBeast {
                     let projectileCenter = { x: this.BB.center.x, y: this.BB.center.y };
                     if (this.attackFlag) {
                         for (let i = 0; i < 2 * Math.PI; i += Math.PI / 8) {
-                            this.game.addEntity(new DruidBeam(this.game, this.x, this.y, i, 10));
+                            this.game.addEntity(new DruidBeam(this.game, this.x, this.y, i, 6));
                         }
                     }
                 }
@@ -1050,14 +1046,16 @@ class DruidBeast {
 
 class Druid {
 
+    static maxHp = 10000;
+
     constructor(game, x, y, hp, phase) {
         Object.assign(this, { game, x, y, hp, phase });
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/druid.png");
         this.facing = [0, 0]; // down, up, right, left
                               // 0, 1, 0, 1 
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 6000;
-        this.visionDistance = 50;
+        this.maxHp = Druid.maxHp;
+        this.visionDistance = 100;
         this.activated = this.phase !== 0;
         this.activationTimer = 0;
         this.rootsTimer = 0;
@@ -1096,7 +1094,7 @@ class Druid {
         this.animations.push(new AnimationGroup(this.spritesheet, 136 * 32, 0, 32, 32, 21, 0.15, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 157 * 32, 0, 32, 32, 15, 0.15, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 173 * 32, 0, 32, 32, 2, 0.15, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 200 * 32, 0, 32, 32, 31, 0.1, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 200 * 32, 0, 32, 32, 31, 0.15, false, true));
     };
 
     updateBB() {
@@ -1121,6 +1119,10 @@ class Druid {
                 if (entity instanceof Hero && distance(this.BB.center, entity.BB.center) <= this.visionDistance) {
                     this.activated = true;
                     this.activationTimer = 5 - this.game.clockTick;
+                    this.dialog = new Dialogue(this.game, "Prepare to meet your end!", false, 24, 24, 22, 24, 4, 4);
+                    this.game.addEntity(this.dialog);
+                    this.dialog.showFor(this.activationTimer);
+                    ASSET_MANAGER.playAsset("./audio/druid_battle.mp3");
                 }
             });
         }
@@ -1129,18 +1131,30 @@ class Druid {
             if (this.hp <= 0) {
                 if (!this.deadFlag) {
                     this.deadFlag = true;
-                    this.deadTimer = 31 * 0.1 - this.game.clockTick;
+                    this.deadTimer = 31 * 0.15 - this.game.clockTick;
+                    this.dialog = new Dialogue(this.game, "Impossible!", false, 24, 24, 22, 24, 4, 4);
+                    this.game.addEntity(this.dialog);
+                    this.dialog.showFor(this.deadTimer);
                 }
                 this.state = 8;
                 if (this.deadTimer === 0) {
                     this.removeFromWorld = true;
+                    this.dialog.removeFromWorld = true;
+                    for (let theta = 0; theta < 2 * Math.PI; theta += toRadians(3.6)) { // 100 coins   
+                        let randomDist = randomInt(4) + 2;
+                        this.game.addEntity(new Coin(this.game, this.BB.center.x + Math.cos(theta) * randomDist * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
+                                                                this.BB.center.y + Math.sin(theta) * randomDist * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 10));
+                    }
+                    ASSET_MANAGER.playAsset("./audio/druid_death.pm3");
                 }
             } else {
-                // this.rootsCompleted = true;
+                if (this.dialog) {
+                    this.dialog.removeFromWorld = true;
+                }
                 if (!this.rootsCompleted) {
                     if (!this.rootsFlag) {
                         this.rootsFlag = true;
-                        this.rootsTimer = 21 - this.game.clockTick;
+                        this.rootsTimer = 16 - this.game.clockTick;
                         this.rootsIntervalTimer = 3 - this.game.clockTick;
                         this.state = 7;
                     }
@@ -1149,21 +1163,23 @@ class Druid {
                         this.rootsCompleted = true;
                     } else {
                         if (this.rootsIntervalTimer === 0) {
-                            this.rootsIntervalTimer = 3 - this.game.clockTick;
-                            for (let theta = 0; theta < 2 * Math.PI; theta += Math.PI / 10) {
-                                this.game.addEntity(new DruidRoot(this.game, (this.BB.center.x + 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE * Math.cos(theta)) - 16 * PARAMS.SCALE,
-                                                                             (this.BB.center.y + 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE * Math.sin(theta)) - 16 * PARAMS.SCALE,
-                                                                             2, 10));
+                            this.rootsIntervalTimer = 2 - this.game.clockTick;
+                            for (let theta = Math.PI / 4; theta < 2 * Math.PI; theta += Math.PI / 2) {
+                                this.game.addEntity(new DruidRoot(this.game, (this.BB.center.x + 11.313 * PARAMS.BLOCKWIDTH * PARAMS.SCALE * Math.cos(theta)) - 16 * PARAMS.SCALE,
+                                                                             (this.BB.center.y + 11.313 * PARAMS.BLOCKWIDTH * PARAMS.SCALE * Math.sin(theta)) - 16 * PARAMS.SCALE,
+                                                                             3, 10));
+                            }
+                            for (let theta = 0; theta < 2 * Math.PI; theta += Math.PI / 2) {
+                                this.game.addEntity(new DruidRoot(this.game, (this.BB.center.x + 22 * PARAMS.BLOCKWIDTH * PARAMS.SCALE * Math.cos(theta)) - 16 * PARAMS.SCALE,
+                                                                             (this.BB.center.y + 22 * PARAMS.BLOCKWIDTH * PARAMS.SCALE * Math.sin(theta)) - 16 * PARAMS.SCALE,
+                                                                             3, 10));
                             }
                         }
                         if (this.shootTimer === 0) {
-                            this.shootTimer = 0.75 - this.game.clockTick;
+                            this.shootTimer = 1 - this.game.clockTick;
                             let randomStartTheta = toRadians(randomInt(361));
                             for (let theta = randomStartTheta; theta < randomStartTheta + 2 * Math.PI; theta += Math.PI / 4) {
-                                // this.game.addEntity(new DruidRoot(this.game, (this.BB.center.x + 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE * Math.cos(theta)) - 16 * PARAMS.SCALE,
-                                //                                              (this.BB.center.y + 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE * Math.sin(theta)) - 16 * PARAMS.SCALE,
-                                //                                              2, 10));
-                                this.game.addEntity(new DruidBeam(this.game, this.x, this.y, theta, 1.5, 10));
+                                this.game.addEntity(new DruidBeam(this.game, this.x, this.y, theta, 6, 10));
                             }
                         }
                     }    
@@ -1172,7 +1188,7 @@ class Druid {
                     if (!this.transitionFlag) {
                         this.transitionFlag = true;
                         this.transitionTimer = 0.15 * 21 - this.game.clockTick;
-                        if ((this.hp === 2000 && this.phase === 2) || (this.hp === 4000 && this.phase === 1)) {
+                        if ((this.hp === Druid.maxHp * 1 / 3 && this.phase === 2) || (this.hp === Druid.maxHp * 2 / 3 && this.phase === 1)) {
                             this.phase++;
                         }
                         // console.log(this.phase)
@@ -1198,10 +1214,10 @@ class Druid {
                         switch(this.phase) {
                             case 0:
                             case 1:
-                                this.game.addEntity(new DruidBird(this.game, this.x, this.y, this.hp, 4000));
+                                this.game.addEntity(new DruidBird(this.game, this.x, this.y, this.hp, Druid.maxHp * 2 / 3));
                                 break;
                             case 2:
-                                this.game.addEntity(new DruidHound(this.game, this.x, this.y, this.hp, 2000));
+                                this.game.addEntity(new DruidHound(this.game, this.x, this.y, this.hp, Druid.maxHp * 1 / 3));
                                 break;
                             case 3:
                                 this.game.addEntity(new DruidBeast(this.game, this.x, this.y, this.hp, 0));
@@ -1217,26 +1233,6 @@ class Druid {
         if (this.state !== prevState) {
             this.animations[prevState].reset();
         }
-    };
-
-    spawnRoot() {
-        
-        // for (let i = 0; i < 2 * Math.PI; i += 5 * Math.PI / 180) {
-        //     let randomTheta = toRadians(randomInt(360));
-        //     let placementUnitVector = unitVector({ x: Math.cos(randomTheta + i), y: Math.sin(randomTheta + i) });
-        //     let rootsPerTheta = 2;
-        //     for (let j = 0; j < rootsPerTheta; j++) {
-        //         let randomDistance = randomInt(20 * PARAMS.BLOCKWIDTH * PARAMS.SCALE - 16 * PARAMS.SCALE) + 16 * PARAMS.SCALE;
-        //         this.game.addEntity(new DruidRoot(this.game, this.BB.center.x + placementUnitVector.x * randomDistance - 16 * PARAMS.SCALE,
-        //                                                      this.BB.center.y + placementUnitVector.y * randomDistance - 16 * PARAMS.SCALE));
-        //     }
-        // }
-
-        // let randomTheta = toRadians(randomInt(360));
-        // let placementUnitVector = unitVector({ x: Math.cos(randomTheta), y: Math.sin(randomTheta) });
-        // let randomDistance = randomInt(20 * PARAMS.BLOCKWIDTH * PARAMS.SCALE - 16 * PARAMS.SCALE) + 16 * PARAMS.SCALE;
-        this.game.addEntity(new DruidRoot(this.game, this.BB.center.x + placementUnitVector.x * randomDistance - 16 * PARAMS.SCALE,
-                                                     this.BB.center.y + placementUnitVector.y * randomDistance - 16 * PARAMS.SCALE));
     };
 
     drawMmap(ctx) {
@@ -1303,7 +1299,8 @@ class DruidRoot {
             this.removeFromWorld = true;
         } else if (!this.shotsSpawned && this.lifetime <= this.origLT / 15 * 7) {
             this.shotsSpawned = true;
-            for (let theta = 0; theta < 2 * Math.PI; theta += Math.PI / 2) {
+            let randomStartTheta = toRadians(randomInt(361));
+            for (let theta = randomStartTheta; theta < randomStartTheta + 2 * Math.PI; theta += Math.PI / 3) {
                 this.game.addEntity(new DruidBeam(this.game, this.x, this.y, theta, 1, 8));
             }
             // this.game.addEntity(new DamageRegion(this.game, this.x + 12 * PARAMS.SCALE, this.y + 12 * PARAMS.SCALE, 8 * PARAMS.SCALE, 8 * PARAMS.SCALE, false, 100, this.lifetime / 15 * 2, this.BB.center));

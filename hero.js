@@ -156,7 +156,7 @@ class Hero {
                         // explosion cast, explosion hold, explosion launch, shield casting
                         // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 5000000;
+        this.maxHp = 1000;
         this.maxMp = 1000;
         this.mp = this.maxMp;
         this.hp = this.maxHp;

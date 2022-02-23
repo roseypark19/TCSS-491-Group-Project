@@ -182,7 +182,6 @@ class GameEngine {
     };
 
     addEntity(entity) {
-        // this.entities.push(entity);
         if (this.heroIndex !== undefined) {
             if (entity.hasOwnProperty("hp") || entity.npc) {
                 this.entities.splice(this.heroIndex, 0, entity);
