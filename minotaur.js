@@ -224,9 +224,9 @@ class Minotaur {
                     this.chargeDistance = distance(this.destination, this.chargeOrigin);
                     this.chargeUnitVector = unitVector({ x: this.destination.x - this.BB.center.x, y: this.destination.y - this.BB.center.y });
                 }
-                this.velocity.x = this.chargeUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant * 4 / 3 : this.velocityConstant * 4);
-                this.velocity.y = this.chargeUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant * 4 / 3 : this.velocityConstant * 4);
-                this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed / (4/3) : this.walkSpeed / 4);
+                this.velocity.x = this.chargeUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant * 3 / 3 : this.velocityConstant * 3);
+                this.velocity.y = this.chargeUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant * 3 / 3 : this.velocityConstant * 3);
+                this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed / (3/3) : this.walkSpeed / 3);
                 this.facing[0] = this.velocity.y >= 0 ? 0 : 1;
                 this.facing[1] = this.velocity.x >= 0 ? 0 : 1;
             } else {

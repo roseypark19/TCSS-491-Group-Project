@@ -6,7 +6,7 @@ class SceneManager {
         this.y = 0;
         this.drawInventory = true;
         this.elapsed = 0;
-        this.travelTo(titleScreen);
+        this.travelTo(druid_lair);
     };
 
     clearEntities() {
@@ -45,6 +45,7 @@ class SceneManager {
                     this.addPropBases();
                     this.addNonCollidablePropBases();
                     this.addPropShadows();
+                    this.game.addEntity(new Portal(this.game, "Leave " + this.currentLevel.levelName, overworld, 5, this.currentLevel.cowardPortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxWidth));
                     this.hero = new Hero(this.game, castle.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
                                          castle.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
                     this.game.addEntity(this.hero);
@@ -63,9 +64,9 @@ class SceneManager {
                     this.addNonCollidablePropBases();
                     this.addPropBases();
                     // coward portal
-                    this.game.addEntity(new Portal(this.game, "Leave " + this.currentLevel.levelName, overworld, 5, this.currentLevel.cowardPortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxWidth));
-                    // leaving portal
-                    // this.game.addEntity(new Portal(this.game, "Complete " + this.currentLevel.levelName, overworld, this.currentLevel.portalIndex, this.currentLevel.completePortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxWidth, true));
+                    if (this.currentLevel != druid_lair) {
+                        this.game.addEntity(new Portal(this.game, "Leave " + this.currentLevel.levelName, overworld, 5, this.currentLevel.cowardPortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.cowardPortal.boxWidth));
+                    } 
                     // hero
                     this.hero = new Hero(this.game, this.currentLevel.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
                                          this.currentLevel.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
@@ -165,6 +166,10 @@ class SceneManager {
             this.game.addEntity(new TitleScreen(this.game));
         } else if (this.currentLevel == elementAwardScreen) {
             this.game.addEntity(new ElementAwardScreen(this.game, this.currentLevel.elementIndex));
+        } else if (this.currentLevel == castle) {
+            this.currentLevel.coins.forEach(coin => {
+                this.game.addEntity(new Coin(this.game, coin.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, coin.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, coin.value));
+            });
         }
 
         
@@ -369,6 +374,8 @@ class SceneManager {
                     case Minotaur:
                         this.game.addEntity(new Minotaur(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
                         break;
+                    case Druid:
+                        this.game.addEntity(new Druid(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, Druid.maxHp, 0));
                     // case Skeleton:
                     //     this.game.addEntity(new Skeleton(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
                     //     break;
@@ -404,7 +411,12 @@ class SceneManager {
                 this.travelTo(overworld);
             } else if (!heroDead && !this.portalFlag && this.currentLevel !== town && this.currentLevel !== titleScreen && this.currentLevel !== elementAwardScreen) {
                 this.portalFlag = true;
-                let portal = new Portal(this.game, "Complete " + this.currentLevel.levelName, overworld, this.currentLevel.portalIndex, this.currentLevel.completePortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxWidth, true);
+                let portal;
+                if (this.currentLevel == castle) {
+                    portal = new Portal(this.game, "Enter " + "Druid's Lair", druid_lair, this.currentLevel.portalIndex, this.currentLevel.completePortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxWidth, true);
+                } else {
+                    portal = new Portal(this.game, "Complete " + this.currentLevel.levelName, overworld, this.currentLevel.portalIndex, this.currentLevel.completePortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxWidth, true);
+                }
                 portal.npc = true;
                 this.game.addEntity(portal);
             } 
@@ -677,9 +689,22 @@ class RemainingEnemyDisplay {
 
         let totalEnemies = this.game.camera.totalEnemies;
         let currentEnemies = this.game.camera.countEnemies();
+        let currLevel = this.game.camera.currentLevel;
 
         ctx.fillStyle = rgb(102, 204, 0);
-        ctx.fillRect(this.x + 17 * PARAMS.GUI_SCALE, this.y + 5 * PARAMS.GUI_SCALE, 43 * currentEnemies / totalEnemies * PARAMS.GUI_SCALE, 2 * PARAMS.GUI_SCALE);
+
+        if (currLevel != druid_lair) {
+            ctx.fillRect(this.x + 17 * PARAMS.GUI_SCALE, this.y + 5 * PARAMS.GUI_SCALE, 43 * currentEnemies / totalEnemies * PARAMS.GUI_SCALE, 2 * PARAMS.GUI_SCALE);
+        } else {
+            this.game.livingEntities.forEach(entity => {
+                if (entity instanceof Druid || entity instanceof DruidBird || entity instanceof DruidHound || entity instanceof DruidBeast) {
+                    ctx.fillRect(this.x + 17 * PARAMS.GUI_SCALE, this.y + 5 * PARAMS.GUI_SCALE, 43 * entity.hp / Druid.maxHp * PARAMS.GUI_SCALE, 2 * PARAMS.GUI_SCALE);
+                }
+            })
+            
+        }
+        
+        
 
         ctx.drawImage(this.barSprite, 89, 54, 6, 4, this.x + 15 * PARAMS.GUI_SCALE, this.y + 4 * PARAMS.GUI_SCALE, 6 * PARAMS.GUI_SCALE, 4 * PARAMS.GUI_SCALE);
         x = this.x + 21 * PARAMS.GUI_SCALE;
@@ -707,6 +732,9 @@ class RemainingEnemyDisplay {
                 break;
             case castle:
                 ctx.drawImage(this.enemySprite, 128, 0, 32, 32, this.x  + 6 * PARAMS.GUI_SCALE - 16 * enemyScale, this.y  + 7 * PARAMS.GUI_SCALE - 16 * enemyScale, 32 * enemyScale, 32 * enemyScale);
+                break;
+            case druid_lair:
+                ctx.drawImage(this.enemySprite, 160, 0, 32, 32, this.x  + 6 * PARAMS.GUI_SCALE - 16 * enemyScale, this.y  + 7 * PARAMS.GUI_SCALE - 16 * enemyScale, 32 * enemyScale, 32 * enemyScale);
                 break;
             case swamp1:
             case swamp2:

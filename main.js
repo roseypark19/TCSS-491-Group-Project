@@ -118,6 +118,7 @@ ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_shrek.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_polarbear.png");
 
 ASSET_MANAGER.queueDownload("./sprites/biomes/castle/tiles.png");
+ASSET_MANAGER.queueDownload("./sprites/biomes/castle/tiles_shadows.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/castle/carpet.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/castle/props.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/castle/props_shadows.png");
