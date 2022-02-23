@@ -9,7 +9,7 @@ class DruidBeam {
         this.roundedRadians = toRadians(this.roundedDegrees);
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/projectiles/druid_beam.png");
         this.friendlyProjectile = false;
-        this.damage = 75;
+        this.damage = 100;
         this.id = ++PARAMS.SHOT_ID;
         this.velocityConstant = velocity;
         this.velocity = { x: Math.cos(this.roundedRadians) * this.velocityConstant, 
@@ -162,7 +162,7 @@ class DruidBird {
                     }  
                     this.frozenTimer = 0; 
                     this.hp = Math.max(this.threshold, this.hp - entity.damage);
-                    // ASSET_MANAGER.playAsset("./audio/slime_hit.mp3");
+                    ASSET_MANAGER.playAsset("./audio/bird_hit.pm3");
                     if (entity.elemental) {
                         switch(entity.type) {
                             case 0: // wind
@@ -192,7 +192,7 @@ class DruidBird {
         if (this.state !== 3 && !this.originReached && this.burningTimer > 0 && this.burnDamageTimer === 0 && !PARAMS.GAMEOVER) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp = Math.max(this.threshold, this.hp - 25);
-            // play damaged sound
+            ASSET_MANAGER.playAsset("./audio/bird_hit.pm3");
             if (this.damagedTimer === 0) {
                 this.damagedTimer = 0.6 - this.game.clockTick;
                 this.state = 2;
@@ -474,7 +474,7 @@ class DruidHound {
                     }    
                     this.frozenTimer = 0;
                     this.hp = Math.max(this.threshold, this.hp - entity.damage);
-                    // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_hit.mp3");
+                    ASSET_MANAGER.playAsset("./audio/hound_hit.pm3");
                     if (entity.elemental) {
                         switch(entity.type) {
                             case 0: // wind
@@ -504,7 +504,7 @@ class DruidHound {
         if (this.state !== 4 && !this.originReached &&  this.burningTimer > 0 && this.burnDamageTimer === 0 && !PARAMS.GAMEOVER) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp = Math.max(this.threshold, this.hp - 25);
-            // play damaged sound
+            ASSET_MANAGER.playAsset("./audio/hound_hit.pm3");
             if (this.damagedTimer === 0) {
                 this.damagedTimer = 0.6 - this.game.clockTick;
                 this.state = 3;
@@ -792,7 +792,7 @@ class DruidBeast {
                     }   
                     this.frozenTimer = 0;
                     this.hp = Math.max(this.threshold, this.hp - entity.damage);
-                    // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_hit.mp3");
+                    ASSET_MANAGER.playAsset("./audio/beast_hit.pm3");
                     if (entity.elemental) {
                         switch(entity.type) {
                             case 0: // wind
@@ -814,7 +814,6 @@ class DruidBeast {
                     }
                     if (this.hp <= this.threshold) {
                         this.state = 4;
-                        // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
                     }
                 }
             });
@@ -823,7 +822,7 @@ class DruidBeast {
         if (this.state !== 4 && !this.originReached && this.burningTimer > 0 && this.burnDamageTimer === 0 && !PARAMS.GAMEOVER) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp = Math.max(this.threshold, this.hp - 25);
-            // play damaged sound
+            ASSET_MANAGER.playAsset("./audio/beast_hit.pm3");
             if (this.damagedTimer === 0) {
                 this.damagedTimer = 0.6 - this.game.clockTick;
                 this.state = 3;
@@ -1123,6 +1122,7 @@ class Druid {
                     this.dialog = new Dialogue(this.game, "Prepare to meet your end!", false, 24, 24, 22, 24, 4, 4);
                     this.game.addEntity(this.dialog);
                     this.dialog.showFor(this.activationTimer);
+                    ASSET_MANAGER.playAsset("./audio/druid_battle.mp3");
                 }
             });
         }
@@ -1135,7 +1135,6 @@ class Druid {
                     this.dialog = new Dialogue(this.game, "Impossible!", false, 24, 24, 22, 24, 4, 4);
                     this.game.addEntity(this.dialog);
                     this.dialog.showFor(this.deadTimer);
-                    console.log(this.deadTimer)
                 }
                 this.state = 8;
                 if (this.deadTimer === 0) {
@@ -1146,9 +1145,12 @@ class Druid {
                         this.game.addEntity(new Coin(this.game, this.BB.center.x + Math.cos(theta) * randomDist * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
                                                                 this.BB.center.y + Math.sin(theta) * randomDist * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 10));
                     }
+                    ASSET_MANAGER.playAsset("./audio/druid_death.pm3");
                 }
             } else {
-                this.dialog.removeFromWorld = true;
+                if (this.dialog) {
+                    this.dialog.removeFromWorld = true;
+                }
                 if (!this.rootsCompleted) {
                     if (!this.rootsFlag) {
                         this.rootsFlag = true;

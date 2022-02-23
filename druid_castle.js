@@ -2091,8 +2091,7 @@ const druid_lair = {
     height: 50,
     heroX: 22,
     heroY: 32,
-    layer_names: ["floor", "wall_base", "hero", "shadows", "wall_topper"], 
-    music: "./audio/castle.mp3",
+    layer_names: ["floor", "wall_base", "hero", "shadows", "wall_topper"],
 
     completePortal: {
         x: 23,
