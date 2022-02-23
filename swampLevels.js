@@ -85,13 +85,13 @@ const swamp2 = {
         {type: Ogre, x: 97.5, y: 33.5},
         {type: Ogre, x: 102.5, y: 8.5},
         // {type: Ogre, },
-
-        {type: SwordedMinion, minionType: 3, x: 80.5, y: 7.5},
+        
+        {type: RangedMinion, minionType: 3, x: 80.5, y: 7.5},
         {type: SwordedMinion, minionType: 3, x: 84.5, y: 38.5},
         {type: SwordedMinion, minionType: 3, x: 73.5, y: 58.5},
-        {type: SwordedMinion, minionType: 3, x: 69.5, y: 77.5},
+        {type: RangedMinion, minionType: 3, x: 69.5, y: 77.5},
         {type: SwordedMinion, minionType: 3, x: 9.5, y: 44.5},
-        {type: SwordedMinion, minionType: 3, x: 24.5, y: 10.5},
+        {type: RangedMinion, minionType: 3, x: 24.5, y: 10.5},
         {type: SwordedMinion, minionType: 3, x: 100, y: 9},
 
     ],
