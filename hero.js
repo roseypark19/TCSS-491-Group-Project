@@ -156,14 +156,14 @@ class Hero {
                         // explosion cast, explosion hold, explosion launch, shield casting
                         // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 5000000;
+        this.maxHp = 1000;
         this.maxMp = 1000;
         this.mp = this.maxMp;
         this.hp = this.maxHp;
         this.damagedTimer = 0;
         this.deadTimer = 0;
         this.shootTimer = 0;
-        this.shootFlag = false;
+        this.shootFlag = false; 
 
         this.ability1Timer = 0;
         this.ability1Flag = false;
@@ -558,16 +558,19 @@ class Hero {
             }
         }
 
-        // weapon change logic
-        if (this.game.weaponChange) {
+        if (this.state !== 4) {
+            if (this.game.weaponChange && !this.weaponChangeFlag) {
+                this.weaponChangeFlag = true;
                 this.updateWeaponIndex();
                 this.weapon = this.weaponData[this.weaponIndex];
-                this.loadAnimations();
-                this.game.weaponChange = false;
                 this.ability1Timer = 0;
                 this.ability2Timer = 0;
                 this.ability3Timer = 0;
                 this.shootTimer = 0;
+                this.loadAnimations();
+            } else if (!this.game.weaponChange) {
+                this.weaponChangeFlag = false;
+            }
         }
 
         // check for coins
@@ -724,7 +727,7 @@ class ElementBeam {
         this.updateBB();
 
         this.game.collideableEntities.forEach(entity => {
-            if (entity.collideable && this.hitBB.collide(entity.BB)) { 
+            if (entity.projectile_collideable && this.hitBB.collide(entity.BB)) { 
                 this.removeFromWorld = true;
             }
         });

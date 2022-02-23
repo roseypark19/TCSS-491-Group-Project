@@ -41,7 +41,6 @@ const snow1 = {
         {x: 44.5, y: 5.5 , value: 10},
         {x: 45.5, y: 4 , value: 10},
         {x: 45.5, y: 5.5 , value: 10},
-        // {x: , y: , value: 10},
     ],
 
     enemies: [

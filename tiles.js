@@ -63,6 +63,8 @@ class MapTile {
 class PropTile {
     constructor(game, x, y, spritePath, spriteX, spriteY, offsetX, offsetY, width, height, collideable, scale = PARAMS.SCALE) {
         Object.assign(this, {game, spritePath, spriteX, spriteY, width, height, scale, collideable});
+
+        this.projectile_collideable = this.collideable;
         
         this.x = x + offsetX * this.scale;
         this.y = y + offsetY * this.scale;

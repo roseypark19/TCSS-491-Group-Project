@@ -34,7 +34,7 @@ class Flame {
     loadAnimations() {
         this.animations.push(new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 4, 0.15, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 4 * 32, 0, 32, 32, 4, this.walkSpeed, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 20 * 32, 0, 32, 32, 4, 0.15, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 20 * 32, 0, 32, 32, 4, 0.075, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 24 * 32, 0, 32, 32, 12, 0.15, false, true));
     };
 
@@ -67,7 +67,7 @@ class Flame {
         if (this.state !== 3) {
             this.game.projectileEntities.forEach(entity => {
                 if (entity.friendlyProjectile && this.hitBB.collide(entity.hitBB) && 
-                    (!(entity.passable || entity.removeFromWorld) || (entity.passable && !(this.shotsTaken.includes(entity.id)))) && this.state !== 4) {
+                    (!(entity.passable || entity.removeFromWorld) || (entity.passable && !(this.shotsTaken.includes(entity.id)))) && this.state !== 3) {
                     if (entity.passable) {
                         this.shotsTaken.push(entity.id);
                     } else {
@@ -105,17 +105,18 @@ class Flame {
             });
         }
 
-        if (this.state !== 4 && this.burningTimer > 0 && this.burnDamageTimer === 0 && !PARAMS.GAMEOVER) {
+        if (this.state !== 3 && this.burningTimer > 0 && this.burnDamageTimer === 0 && !PARAMS.GAMEOVER) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp -= 25;
             // play damaged sound
             if (this.damagedTimer === 0) {
-                this.damagedTimer = 0.6 - this.game.clockTick;
-                this.state = 3;
+                this.damagedTimer = 0.3 - this.game.clockTick;
+                this.state = 2;
+                this.facing = [0, 0];
             }
             if (this.deadTimer === 0 && this.hp <= 0) {
                 this.deadTimer = 12 * 0.15 - this.game.clockTick;
-                this.state = 4;
+                this.state = 3;
                 this.facing = [0, 0];
                 // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
             }
@@ -238,7 +239,7 @@ class Flame {
 
     draw(ctx) {
         this.animations[this.state].drawFrame(
-            this.frozenTimer > 0 && this.damagedTimer === 0 && this.state !== 4 ? 0 : this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, PARAMS.SCALE, this.facing[0], this.facing[1]);
+            this.frozenTimer > 0 && this.damagedTimer === 0 && this.state !== 3 ? 0 : this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, PARAMS.SCALE, this.facing[0], this.facing[1]);
 
         if (this.hp > 0) {
             ctx.lineWidth = 1;
