@@ -11,8 +11,8 @@ class GiantToad {
         this.maxHp = 500;
         this.hp = this.maxHp;
         this.minProximity = 5;
-        this.visionDistance = 400;
-        this.attackDistance = 150;
+        this.visionDistance = 600;
+        this.attackDistance = 300;
         this.shotsTaken = [];
         this.shootTimer = 0;
         this.shootFlag = false;
@@ -34,7 +34,7 @@ class GiantToad {
     loadAnimations() {
         this.animations.push(new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 16, 0.3, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 64 * 32, 0, 32, 32, 4, this.walkSpeed, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 80 * 32, 0, 32, 32, 8, 0.12, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 80 * 32, 0, 32, 32, 8, 0.08, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 112 * 32, 0, 32, 32, 4, 0.15, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 128 * 32, 0, 32, 32, 16, 0.15, false, true));
     };
@@ -171,11 +171,14 @@ class GiantToad {
                                 }
                             }
                             if (this.shootTimer === 0 && this.state === 2) {
-                                this.shootTimer = 0.12 * 8 - this.game.clockTick;
+                                this.shootTimer = 0.08 * 8 - this.game.clockTick;
                                 if (this.shootFlag) {
-                                    this.game.addEntity(new Projectile(this.game, 
-                                        this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(arrowTheta) * PARAMS.SCALE, 
-                                        this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(arrowTheta) * PARAMS.SCALE, arrowTheta, false, 8, this.BB.center, 50));
+                                    let initTheta = toRadians(randomInt(361));
+                                    for (let i = initTheta; i < initTheta + 2 * Math.PI; i += Math.PI / 3) {
+                                        this.game.addEntity(new Projectile(this.game, 
+                                            this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(i) * PARAMS.SCALE, 
+                                            this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, 14, this.BB.center, 90));
+                                    }
                                 }
                             }
                         } else if (this.damagedTimer === 0 && this.frozenTimer === 0) {

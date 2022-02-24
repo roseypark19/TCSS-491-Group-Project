@@ -57,7 +57,7 @@ const swamp2 = {
         {type: Zombie, x: 68.5, y: 41.5},
         {type: Zombie, x: 55.5, y: 18.5},
         {type: Zombie, x: 45.5, y: 13.5},
-        {type: Zombie, x: 87.5, y: 15.5},
+        {type: Zombie, x: 86.5, y: 15.5},
         {type: Zombie, x: 105.5, y: 57.5},
         {type: Zombie, x: 100.5, y: 86.5},
         {type: Zombie, x: 109.5, y: 82.5},
@@ -96,7 +96,7 @@ const swamp2 = {
 
     ],
       
-    music: "./audio/desert.mp3",
+    music: "./audio/swamp.mp3",
 
     props: [
 

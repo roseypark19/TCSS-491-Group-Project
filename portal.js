@@ -58,6 +58,10 @@ class Portal {
                                         this.buttonY + this.game.camera.y,
                                         this.buttonWidth,
                                         this.buttonHeight);
+
+        if (this.isACompletePortal) {
+            this.game.addEntity(new GuidingArrow(this.game, this.BB.center.x, this.BB.center.y, false));
+        }
     }
 
     update() {
@@ -173,4 +177,79 @@ class Portal {
         
         }
     }
-}
+};
+
+class GuidingArrow {
+
+    static rotations = [];
+
+    constructor(game, originX, originY, isOverworld) {
+        Object.assign(this, {game, originX, originY, isOverworld});
+        this.x = originX;
+        this.y = originY;
+        this.oscillateTime = 0.02;
+        this.maxAdjust = 15;
+        this.adjust = 0;
+        this.counter = 0;
+        this.elapsedTimeOscillate = 0;
+        this.scale = isOverworld ? PARAMS.SCALE / 4 : PARAMS.SCALE / 2;
+        this.theta = 0;
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/ui/portal_arrow.png");
+        this.updateBB();
+    };
+
+    updateBB() {
+        this.BB = new BoundingBox(this.x, this.y, 32 * this.scale, 32 * this.scale);
+    };
+
+    update() {
+
+        this.elapsedTimeOscillate += this.game.clockTick;
+
+        if (this.elapsedTimeOscillate >= this.oscillateTime) {
+            this.elapsedTimeOscillate = 0;
+            this.adjust = oscillate(this.counter, 0, this.maxAdjust) * -1;
+            this.counter = (this.counter + 1) % (2 * this.maxAdjust);
+        }
+
+        if (this.isOverworld) {
+            this.theta = Math.PI / 2;
+            this.x = this.originX - 16 * this.scale;
+            this.y = this.originY - 16 * this.scale;
+            // this.updateBB();
+        } else {
+            this.game.livingEntities.forEach(entity => {
+                if (entity instanceof Hero) {
+                    if (distance(entity.BB.center, {x: this.originX, y: this.originY}) < PARAMS.CANVAS_DIMENSION / 2) { // portal is within vision distance
+                        this.x = this.originX - 16 * this.scale;
+                        this.y = this.originY - 16 * this.scale - 2.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE;
+                        this.y += this.adjust;
+                        this.theta = Math.PI / 2;
+                    } else { // portal not within vision distance
+                        let vectorToPortal = { x: this.originX - entity.BB.center.x, y: this.originY - entity.BB.center.y };
+                        let portalTheta = Math.atan2(vectorToPortal.y, vectorToPortal.x); // find angle pointing to portal
+                        if (portalTheta < 0) {
+                            portalTheta += 2 * Math.PI;
+                        }
+                        this.theta = portalTheta;
+                        this.x = entity.BB.center.x + Math.cos(this.theta) * 3 * PARAMS.BLOCKWIDTH * PARAMS.SCALE - 16 * this.scale;
+                        this.y = entity.BB.center.y + Math.sin(this.theta) * 3 * PARAMS.BLOCKWIDTH * PARAMS.SCALE - 16 * this.scale;
+                        let adjustUnitVector = unitVector(vectorToPortal);
+                        this.x += adjustUnitVector.x * this.adjust;
+                        this.y += adjustUnitVector.y * this.adjust;
+                    }
+                }
+            });
+        }
+        
+        if (!GuidingArrow.rotations[this.theta]) {
+            GuidingArrow.rotations[this.theta] = rotateImage(this.spritesheet, 0, 0, 32, 32, this.theta, this.scale);
+        }
+
+        this.updateBB();
+    };
+
+    draw(ctx) {
+        ctx.drawImage(GuidingArrow.rotations[this.theta], 0, 0, 32 * this.scale, 32 * this.scale, this.x - this.game.camera.x, this.y - this.game.camera.y, 32 * this.scale, 32 * this.scale);
+    };
+};

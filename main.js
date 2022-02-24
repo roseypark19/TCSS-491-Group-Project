@@ -122,6 +122,7 @@ ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_flail.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_yeti.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_shrek.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_polarbear.png");
+ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_frog.png");
 
 ASSET_MANAGER.queueDownload("./sprites/biomes/castle/tiles.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/castle/tiles_shadows.png");
@@ -137,6 +138,7 @@ ASSET_MANAGER.queueDownload("./sprites/ui/frames_shadows.png");
 ASSET_MANAGER.queueDownload("./sprites/ui/icons.png");
 ASSET_MANAGER.queueDownload("./sprites/ui/grids.png");
 ASSET_MANAGER.queueDownload("./sprites/ui/enemies.png");
+ASSET_MANAGER.queueDownload("./sprites/ui/portal_arrow.png");
 
 ASSET_MANAGER.queueDownload("./sprites/hero/spells.png");
 

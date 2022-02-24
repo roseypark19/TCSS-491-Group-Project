@@ -156,8 +156,6 @@ class Yeti {
                             }
                             if (this.shootTimer === 0 && this.state === 2) {
                                 this.shootTimer = 0.18 * 4 - this.game.clockTick;
-                                let projectileCenter = { x: this.BB.center.x + 4 * PARAMS.SCALE * heroDirectionUnitVector.x,
-                                                         y: this.BB.center.y + 4 * PARAMS.SCALE * heroDirectionUnitVector.y };
                                 if (this.shootFlag) {
                                     for (let i = 0; i < 2 * Math.PI; i += Math.PI / 4) {
                                         this.game.addEntity(new Projectile(this.game, 
