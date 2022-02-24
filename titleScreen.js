@@ -31,9 +31,9 @@ class TitleScreen {
             
             if (!this.showHowTo && !this.showReset && !this.showCredits) {
                 // not in submenu
+                console.log(saveState);
                 if (this.mouseBB.collide(this.playBB)) {
-                    console.log(saveState.firstCutsceneFinished === true);
-                    if (saveState.firstCutSceneFinished === false) {
+                    if (!saveState.firstCutSceneFinished === true) {
                         console.log(saveState);
                         saveState.firstCutsceneFinished = true;
                         saveGame(saveState);
