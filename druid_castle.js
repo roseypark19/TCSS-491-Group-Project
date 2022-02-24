@@ -24,7 +24,7 @@ const castle = {
     },
 
     enemies: [
-        {type: Skeleton, x: 55.5, y: 245}
+        {type: MotherSlime, x: 55.5, y: 245, green: true}
     ],
 
     coins: [

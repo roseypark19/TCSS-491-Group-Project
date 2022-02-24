@@ -9,7 +9,7 @@ class CutSceneScreen {
         this.animationIndex = 0;
 
         this.animationList[0] = new AnimationGroup(this.cutScene, 0, 0, 1050, 1050, 89, 0.1, false, false);
-        this.animationList[1] = new AnimationGroup(this.cutScene2, 0, 0, 1050, 1050, 81, 0.1, false, false);
+        this.animationList[1] = new AnimationGroup(this.cutScene2, 0, 0, 1050, 1050, 81, 0.125, false, false);
         this.animationList[2] = new AnimationGroup(this.cutScene3, 0, 0, 1050, 1050, 92, 0.1, false, false);
 
     } 

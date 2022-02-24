@@ -60,7 +60,7 @@ class Portal {
                                         this.buttonHeight);
 
         if (this.isACompletePortal) {
-            this.game.addEntity(new GuidingArrow(this.game, this.BB.center.x, this.BB.center.y, false));
+            this.game.addEntity(new GuidingArrow(this.game, this.BB.center.x, this.BB.center.y, true, false));
         }
     }
 
@@ -183,18 +183,46 @@ class GuidingArrow {
 
     static rotations = [];
 
-    constructor(game, originX, originY, isOverworld) {
-        Object.assign(this, {game, originX, originY, isOverworld});
+    constructor(game, originX, originY, showWhenClose = true, isOverworld = false) {
+        Object.assign(this, {game, originX, originY, showWhenClose, isOverworld});
+        if (GuidingArrow.rotations.length === 0) {
+            for (let i = 0; i < 3; i++) {
+                GuidingArrow.rotations.push([]); // three types: overworld, enemy rem, and complete portal
+            }
+        }
+        if (this.isOverworld) {
+            this.type = 0; // overworld arrow
+        } else {
+            if (this.showWhenClose) {
+                this.type = 1; // complete arrow
+            } else {
+                this.type = 2; // enemy rem arrow
+            }
+        }
         this.x = originX;
         this.y = originY;
-        this.oscillateTime = 0.02;
-        this.maxAdjust = 15;
+        this.oscillateTime = this.type === 0 ? 0.04 : 0.02;
+        this.maxAdjust = this.type === 0 ? 10 : 15;
         this.adjust = 0;
         this.counter = 0;
         this.elapsedTimeOscillate = 0;
         this.scale = isOverworld ? PARAMS.SCALE / 4 : PARAMS.SCALE / 2;
         this.theta = 0;
-        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/ui/portal_arrow.png");
+        this.proximityReached = false;
+
+        switch (this.type) {
+            case 0:
+                this.spritesheet = ASSET_MANAGER.getAsset("./sprites/ui/overworld_arrow.png");
+                break;
+            case 1:
+                this.spritesheet = ASSET_MANAGER.getAsset("./sprites/ui/portal_arrow.png");
+                break;
+            case 2:
+                this.spritesheet = ASSET_MANAGER.getAsset("./sprites/ui/enemy_arrow.png");
+                break;
+        }
+
+        this.checkRotation();
         this.updateBB();
     };
 
@@ -215,8 +243,9 @@ class GuidingArrow {
         if (this.isOverworld) {
             this.theta = Math.PI / 2;
             this.x = this.originX - 16 * this.scale;
-            this.y = this.originY - 16 * this.scale;
-            // this.updateBB();
+            this.y = this.originY - 60 * this.scale;
+            this.y += this.adjust;
+            this.proximityReached = true;
         } else {
             this.game.livingEntities.forEach(entity => {
                 if (entity instanceof Hero) {
@@ -225,6 +254,7 @@ class GuidingArrow {
                         this.y = this.originY - 16 * this.scale - 2.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE;
                         this.y += this.adjust;
                         this.theta = Math.PI / 2;
+                        this.proximityReached = true;
                     } else { // portal not within vision distance
                         let vectorToPortal = { x: this.originX - entity.BB.center.x, y: this.originY - entity.BB.center.y };
                         let portalTheta = Math.atan2(vectorToPortal.y, vectorToPortal.x); // find angle pointing to portal
@@ -237,19 +267,26 @@ class GuidingArrow {
                         let adjustUnitVector = unitVector(vectorToPortal);
                         this.x += adjustUnitVector.x * this.adjust;
                         this.y += adjustUnitVector.y * this.adjust;
+                        this.proximityReached = false;
                     }
                 }
             });
         }
         
-        if (!GuidingArrow.rotations[this.theta]) {
-            GuidingArrow.rotations[this.theta] = rotateImage(this.spritesheet, 0, 0, 32, 32, this.theta, this.scale);
-        }
+        this.checkRotation();
 
         this.updateBB();
     };
 
+    checkRotation() {
+        if (!(GuidingArrow.rotations[this.type][this.theta])) {
+            GuidingArrow.rotations[this.type][this.theta] = rotateImage(this.spritesheet, 0, 0, 32, 32, this.theta, this.scale);
+        }
+    };
+
     draw(ctx) {
-        ctx.drawImage(GuidingArrow.rotations[this.theta], 0, 0, 32 * this.scale, 32 * this.scale, this.x - this.game.camera.x, this.y - this.game.camera.y, 32 * this.scale, 32 * this.scale);
+        if (!this.proximityReached || (this.proximityReached && this.showWhenClose)) {
+            ctx.drawImage(GuidingArrow.rotations[this.type][this.theta], 0, 0, 32 * this.scale, 32 * this.scale, this.x - this.game.camera.x, this.y - this.game.camera.y, 32 * this.scale, 32 * this.scale);
+        }
     };
 };

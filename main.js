@@ -36,6 +36,7 @@ ASSET_MANAGER.queueDownload("./audio/castle.mp3");
 ASSET_MANAGER.queueDownload("./audio/town.mp3");
 ASSET_MANAGER.queueDownload("./audio/overworld.mp3");
 ASSET_MANAGER.queueDownload("./audio/druid_battle.mp3");
+ASSET_MANAGER.queueDownload("./audio/cutscene.mp3");
 
 // sprites
 ASSET_MANAGER.queueDownload("./sprites/hero/tiny_hero.png");
@@ -124,6 +125,8 @@ ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_yeti.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_shrek.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_polarbear.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_frog.png");
+ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_skeleton.png");
+ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_green_slime.png");
 
 ASSET_MANAGER.queueDownload("./sprites/biomes/castle/tiles.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/castle/tiles_shadows.png");
@@ -140,6 +143,8 @@ ASSET_MANAGER.queueDownload("./sprites/ui/icons.png");
 ASSET_MANAGER.queueDownload("./sprites/ui/grids.png");
 ASSET_MANAGER.queueDownload("./sprites/ui/enemies.png");
 ASSET_MANAGER.queueDownload("./sprites/ui/portal_arrow.png");
+ASSET_MANAGER.queueDownload("./sprites/ui/overworld_arrow.png");
+ASSET_MANAGER.queueDownload("./sprites/ui/enemy_arrow.png");
 
 ASSET_MANAGER.queueDownload("./sprites/hero/spells.png");
 ASSET_MANAGER.queueDownload("./sprites/cutscene/opening_cutscene.png");

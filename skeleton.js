@@ -11,8 +11,8 @@ class Skeleton {
         this.maxHp = 500;
         this.hp = this.maxHp;
         this.minProximity = 5;
-        this.visionDistance = 600;
-        this.attackDistance = 150;
+        this.visionDistance = 500;
+        this.attackDistance = 400;
         this.shotsTaken = [];
         this.shootTimer = 0;
         this.shootFlag = false;
@@ -34,10 +34,10 @@ class Skeleton {
 
     loadAnimations() {
         this.animations.push(new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 1, 0.1, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 1 * 32, 0, 32, 32, 4, 0.12, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 1 * 32, 0, 32, 32, 4, 0.15, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 10 * 32, 0, 32, 32, 2, this.walkSpeed, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 5 * 32, 0, 32, 32, 4, 0.12, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 18 * 32, 0, 32, 32, 5, 0.12, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 5 * 32, 0, 32, 32, 4, 0.15, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 18 * 32, 0, 32, 32, 5, 0.10, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 38 * 32, 0, 32, 32, 4, 0.075, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 54 * 32, 0, 32, 32, 12, 0.15, false, true));
     };
@@ -116,6 +116,7 @@ class Skeleton {
             // play damaged sound
             if (this.damagedTimer === 0) {
                 this.damagedTimer = 0.3 - this.game.clockTick;
+                this.transitionTimer = 0;
                 this.state = 5;
             }
             if (this.deadTimer === 0 && this.hp <= 0) {
@@ -126,10 +127,15 @@ class Skeleton {
             }
         }
 
-        this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed * 3 : this.walkSpeed);
+        this.animations[2].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed * 3 : this.walkSpeed);
+
+        if (this.state !== 6 && this.damagedTimer === 0 && this.transitionTimer !== 0) {
+
+        }
+
 
         let heroCenter;
-        if (this.state !== 6) {
+        if (this.state !== 6 && this.transitionTimer === 0) {
             let center = this.BB.center;
             this.game.livingEntities.forEach(entity => {
                 if (entity instanceof Hero) {
@@ -159,24 +165,35 @@ class Skeleton {
                                 this.state = 4;
                             }
                             if (this.shootTimer === 0 && this.state === 4) {
-                                this.shootTimer = 0.12 * 5 - this.game.clockTick;
+                                this.shootTimer = 0.10 * 5 - this.game.clockTick;
                                 if (this.shootFlag) {
-                                    // this.game.addEntity(new DamageRegion(this.game, 
-                                    //                                      projectileCenter.x - 4 * PARAMS.SCALE, 
-                                    //                                      projectileCenter.y - 4 * PARAMS.SCALE, 
-                                    //                                      8 * PARAMS.SCALE, 
-                                    //                                      8 * PARAMS.SCALE, 
-                                    //                                      false, 75, 0.1));
+                                    let vector = this.confusedTimer === 0 ? heroDirectionUnitVector : this.confusionUnitVector;
+                                    let theta = Math.atan2(vector.y, vector.x);
+                                    if (theta < 0) {
+                                        theta += 2 * Math.PI;
+                                    }
+                                    for (let i = theta - Math.PI / 10; i <= theta + Math.PI * 1 / 10; i += 2 * Math.PI / 10) {
+                                        this.game.addEntity(new Projectile(this.game, 
+                                            this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(i) * PARAMS.SCALE, 
+                                            this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, 15, this.BB.center, 50));
+                                    }
                                 }
                             }
                         } else if (this.damagedTimer === 0 && this.frozenTimer === 0) {
-                            this.state = 2;
+                            if (this.state === 0) { // if idle, transition
+                                this.state = 1;
+                                this.transitionTimer = 0.6 - this.game.clockTick;
+                                this.facing = [0, 0];
+                            } else {
+                                this.state = 2;
+                            }
+                            // this.state = 2;
                         }
                         if (this.randomPos !== undefined) {
                             movementDirectionUnitVector = this.randomPosUnitVector;
                             dist = distance(center, this.randomPos);
                         }
-                        if (dist > this.minProximity && this.damagedTimer === 0 && this.frozenTimer === 0) {
+                        if (dist > this.minProximity && this.damagedTimer === 0 && this.frozenTimer === 0 && this.transitionTimer === 0) {
                             if (this.confusedTimer > 0) {
                                 this.velocity.x = this.confusionUnitVector.x * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
                                 this.velocity.y = this.confusionUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
@@ -185,7 +202,7 @@ class Skeleton {
                                 this.velocity.y = movementDirectionUnitVector.y * (this.slowedTimer > 0 ? this.velocityConstant / 3 : this.velocityConstant);
                             }  
                         }
-                        if (this.damagedTimer === 0 && this.frozenTimer === 0) {
+                        if (this.damagedTimer === 0 && this.frozenTimer === 0 && this.transitionTimer === 0) {
                             if (this.randomPos !== undefined && this.state === 4) {
                                 if (this.confusedTimer > 0) {
                                     this.facing[0] = this.confusionUnitVector.y >= 0 ? 0 : 1;
@@ -200,19 +217,22 @@ class Skeleton {
                             }  
                         }
                     } else if (this.damagedTimer === 0 && this.frozenTimer === 0) {
-                        this.state = 0;
                         this.facing = [0, 0];
-                        this.randomPos = undefined;
-                        this.confusedTimer = 0;
+                        if (this.state === 3 || this.state === 0) {
+                            this.state = 0;
+                            // this.facing = [0, 0];
+                            this.randomPos = undefined;
+                            this.confusedTimer = 0;
+                        } else {
+                            this.state = 3;
+                            this.transitionTimer = 0.6 - this.game.clockTick;
+                        } 
                     }
                 }
             });
-        } else {
-            if (this.deadTimer === 0) {
-                this.removeFromWorld = true;
-            }
+        } else if (this.deadTimer === 0 && this.hp <= 0) {
+            this.removeFromWorld = true;
         }
-        console.log(this.state)
 
         this.shootFlag = this.state === 4;
 
