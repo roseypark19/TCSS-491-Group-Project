@@ -1262,3 +1262,9 @@ const elementAwardScreen = {
     elementIndex: 3, // change before loading level
     layer_names: ['hero']
 }; 
+
+const cutSceneScreen = {
+    heroX: 14,
+    heroY: 16,
+    layer_names: ['hero']
+}; 

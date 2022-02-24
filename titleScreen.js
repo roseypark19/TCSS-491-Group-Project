@@ -1,6 +1,6 @@
 class TitleScreen {
-    constructor(game, x, y) {
-        Object.assign(this, { game, x, y});
+    constructor(game) {
+        Object.assign(this, { game});
         this.BB = new BoundingBox(0, 0, 1, 1);
         this.playBB = new BoundingBox(12 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 14 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 7.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
         this.howToBB = new BoundingBox(4 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 26 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 9.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 1.7 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
@@ -32,7 +32,17 @@ class TitleScreen {
             if (!this.showHowTo && !this.showReset && !this.showCredits) {
                 // not in submenu
                 if (this.mouseBB.collide(this.playBB)) {
-                    this.game.camera.travelTo(town);
+                    console.log(saveState.firstCutsceneFinished === true);
+                    if (saveState.firstCutSceneFinished === false) {
+                        console.log(saveState);
+                        saveState.firstCutsceneFinished = true;
+                        saveGame(saveState);
+                        loadGame();
+                        this.game.camera.travelTo(cutSceneScreen);
+
+                    } else {
+                        this.game.camera.travelTo(town);
+                    }
                 } else if (this.mouseBB.collide(this.howToBB)) {
                     this.showHowTo = true;
                 } else if (this.mouseBB.collide(this.resetBB)) {
