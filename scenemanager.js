@@ -50,7 +50,6 @@ class SceneManager {
                     this.hero = new Hero(this.game, castle.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
                                          castle.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
                     this.game.addEntity(this.hero);
-                    this.game.addEntity(new Flame(this.game, this.hero.x, this.hero.y - 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 1));
                     this.addPropToppers();
 
                 }  else if (this.currentLevel == titleScreen || this.currentLevel == elementAwardScreen || this.currentLevel == cutSceneScreen) {
@@ -383,9 +382,9 @@ class SceneManager {
                         break;
                     case Druid:
                         this.game.addEntity(new Druid(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, Druid.maxHp, 0));
-                    // case Skeleton:
-                    //     this.game.addEntity(new Skeleton(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    //     break;
+                    case Skeleton:
+                        this.game.addEntity(new Skeleton(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
                 }
             });
         }
