@@ -679,7 +679,7 @@ const overworld = {
         { origin: {x: 221.5, y: 58}, neighbors: {prev: {x: 0, y: -1}, next: {x: 1, y: 0}}, stoppable: false},
         { origin: {x: 225.5, y: 58}, neighbors: {prev: {x: -1, y: 0}, next: {x: 0, y: 1}}, stoppable: false},
         { origin: {x: 225.5, y: 65}, neighbors: {prev: {x: 0, y: -1}, next: {x: 1, y: 0}}, stoppable: false},
-        { origin: {x: 236.5, y: 65}, neighbors: {prev: {x: -1, y: 0}, next: {x: 1, y: 0}}, stoppable: true, levelName: "Swamp 2", level: town, buttonWidth: 490},
+        { origin: {x: 236.5, y: 65}, neighbors: {prev: {x: -1, y: 0}, next: {x: 1, y: 0}}, stoppable: true, levelName: "Swamp 2", level: swamp2, buttonWidth: 490},
         { origin: {x: 239.5, y: 65}, neighbors: {prev: {x: -1, y: 0}, next: {x: 0, y: -1}}, stoppable: false},
         { origin: {x: 239.5, y: 59}, neighbors: {prev: {x: 0, y: 1}, next: {x: 1, y: 0}}, stoppable: false},
         { origin: {x: 241.5, y: 59}, neighbors: {prev: {x: -1, y: 0}, next: {x: 0, y: -1}}, stoppable: false},
