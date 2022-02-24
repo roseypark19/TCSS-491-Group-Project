@@ -138,6 +138,9 @@ ASSET_MANAGER.queueDownload("./sprites/ui/grids.png");
 ASSET_MANAGER.queueDownload("./sprites/ui/enemies.png");
 
 ASSET_MANAGER.queueDownload("./sprites/hero/spells.png");
+ASSET_MANAGER.queueDownload("./sprites/cutscene/temp_test.png");
+ASSET_MANAGER.queueDownload("./sprites/cutscene/temp_test2.png");
+ASSET_MANAGER.queueDownload("./sprites/cutscene/temp_test3.png");
 
 ASSET_MANAGER.queueDownload("./sprites/items/coin.png");
 

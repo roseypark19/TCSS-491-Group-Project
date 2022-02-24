@@ -18,6 +18,7 @@ class SceneManager {
         let isOverworld = level == overworld;
         let isTown = level == town;
         this.overworld = isOverworld;
+        this.isCutScene = true;
         this.clearEntities();
         for (let i = 0; i < level.layer_names.length; i++) {
             let layer_name = level.layer_names[i];
@@ -52,7 +53,7 @@ class SceneManager {
                     this.game.addEntity(new Flame(this.game, this.hero.x, this.hero.y - 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 1));
                     this.addPropToppers();
 
-                }  else if (this.currentLevel == titleScreen || this.currentLevel == elementAwardScreen) {
+                }  else if (this.currentLevel == titleScreen || this.currentLevel == elementAwardScreen || this.currentLevel == cutSceneScreen) {
                     // do nothing lol
                     this.hero = new Hero(this.game, this.currentLevel.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
                         this.currentLevel.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
@@ -164,6 +165,10 @@ class SceneManager {
             this.game.addEntity(new Dialogue(this.game, "Welcome!", true, 44.5, 48, 47.5, 48.5, 1, 1, true)); // welcome!   
         } else if (this.currentLevel == titleScreen) {
             this.game.addEntity(new TitleScreen(this.game));
+
+        }  else if (this.currentLevel == cutSceneScreen) {
+            this.game.addEntity(new CutSceneScreen(this.game));
+
         } else if (this.currentLevel == elementAwardScreen) {
             this.game.addEntity(new ElementAwardScreen(this.game, this.currentLevel.elementIndex));
         } else if (this.currentLevel == castle) {
@@ -188,7 +193,7 @@ class SceneManager {
         this.totalEnemies = this.countEnemies();
       
         // add stats and ability displays
-        if (!isOverworld) {
+        if (!isOverworld && this.currentLevel !== cutSceneScreen) {
             this.statsDisplay = new StatsDisplay(this.game, 0, 20);
             this.weaponsDisplay = new WeaponsDisplay(this.game, 20, PARAMS.CANVAS_DIMENSION - 20);
             this.abilityDisplay = new AbilityDisplay(this.game, 20, PARAMS.CANVAS_DIMENSION - abilityDisplayDimension() - 20);
@@ -409,7 +414,8 @@ class SceneManager {
         if (PARAMS.GAMEOVER) {
             if (heroDead && this.elapsed === 4) {
                 this.travelTo(overworld);
-            } else if (!heroDead && !this.portalFlag && this.currentLevel !== town && this.currentLevel !== titleScreen && this.currentLevel !== elementAwardScreen) {
+            } else if (!heroDead && !this.portalFlag && this.currentLevel !== town && this.currentLevel !== titleScreen && this.currentLevel !== elementAwardScreen && this.currentLevel !== cutSceneScreen) {
+                
                 this.portalFlag = true;
                 let portal;
                 if (this.currentLevel == castle) {
@@ -440,7 +446,7 @@ class SceneManager {
     };
 
     draw(ctx) { 
-        if (this.currentLevel !== overworld && this.currentLevel !== titleScreen && this.currentLevel !== elementAwardScreen) {
+        if (this.currentLevel !== overworld && this.currentLevel !== titleScreen && this.currentLevel !== elementAwardScreen && this.currentLevel !== cutSceneScreen) {
             this.statsDisplay.draw(ctx);
 
             if (this.game.inventoryPressed && !this.inventoryFlag) {
@@ -736,9 +742,9 @@ class RemainingEnemyDisplay {
             case druid_lair:
                 ctx.drawImage(this.enemySprite, 160, 0, 32, 32, this.x  + 6 * PARAMS.GUI_SCALE - 16 * enemyScale, this.y  + 7 * PARAMS.GUI_SCALE - 16 * enemyScale, 32 * enemyScale, 32 * enemyScale);
                 break;
-            case swamp1:
-            case swamp2:
-                ctx.drawImage(this.enemySprite, 96, 0, 32, 32, this.x  + 6 * PARAMS.GUI_SCALE - 16 * enemyScale, this.y  + 7 * PARAMS.GUI_SCALE - 16 * enemyScale, 32 * enemyScale, 32 * enemyScale);
+            // case swamp1:
+            // case swamp2:
+            //     ctx.drawImage(this.enemySprite, 96, 0, 32, 32, this.x  + 6 * PARAMS.GUI_SCALE - 16 * enemyScale, this.y  + 7 * PARAMS.GUI_SCALE - 16 * enemyScale, 32 * enemyScale, 32 * enemyScale);
             
         }
     };

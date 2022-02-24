@@ -258,7 +258,7 @@ class GameEngine {
 
         // GAME OVER LOGIC -- to be implemented at a later time
 
-        if (!PARAMS.GAMEOVER && this.livingCount === 1 && this.camera.hero.hp > 0 && this.camera.currentLevel !== town) {
+        if (!PARAMS.GAMEOVER && this.livingCount === 1 && this.camera.hero.hp > 0 && this.camera.currentLevel !== town && this.camera.currentLevel !== cutSceneScreen) {
             PARAMS.GAMEOVER = true;
             ASSET_MANAGER.playAsset("./audio/victory.mp3");
         }

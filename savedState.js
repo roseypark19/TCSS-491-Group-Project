@@ -107,8 +107,8 @@ function saveGame(obj) {
 function loadGame() {
     const storage = window.localStorage;
     saveState = {
-        firstCutsceneFinished: storage.getItem("firstCutsceneFinished"),
-        gameFinished: storage.getItem("gameFinished"),   
+        firstCutsceneFinished: toBoolean(storage.getItem("firstCutsceneFinished")),
+        gameFinished: toBoolean(storage.getItem("gameFinished")),   
         numLevelsCompleted: storage.getItem("numLevelsCompleted"), 
         currency: parseInt(storage.getItem("currency")),
         
