@@ -49,6 +49,7 @@ const PROJECTILES = {
     11: { spritesheet: "./sprites/projectiles/projectile_yeti.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
     12: { spritesheet: "./sprites/projectiles/projectile_shrek.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
     13: { spritesheet: "./sprites/projectiles/projectile_polarbear.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
+    14: { spritesheet: "./sprites/projectiles/projectile_frog.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
 };
 
 // returns a random integer between 0 and n-1

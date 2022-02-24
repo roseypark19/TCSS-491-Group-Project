@@ -1122,7 +1122,6 @@ class Druid {
                     this.dialog = new Dialogue(this.game, "Prepare to meet your end!", false, 24, 24, 22, 24, 4, 4);
                     this.game.addEntity(this.dialog);
                     this.dialog.showFor(this.activationTimer);
-                    ASSET_MANAGER.playAsset("./audio/druid_battle.mp3");
                 }
             });
         }
