@@ -23,6 +23,10 @@ const castle = {
         boxY: 25,
     },
 
+    enemies: [
+        {type: MotherSlime, x: 55.5, y: 245, green: true}
+    ],
+
     coins: [
         {x: 66.5, y: 257.5, value: 2},
         {x: 60.5, y: 257.5, value: 2},

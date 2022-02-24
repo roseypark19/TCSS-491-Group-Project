@@ -50,7 +50,6 @@ class SceneManager {
                     this.hero = new Hero(this.game, castle.heroX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
                                          castle.heroY * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
                     this.game.addEntity(this.hero);
-                    this.game.addEntity(new Flame(this.game, this.hero.x, this.hero.y - 15 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 1));
                     this.addPropToppers();
 
                 }  else if (this.currentLevel == titleScreen || this.currentLevel == elementAwardScreen || this.currentLevel == cutSceneScreen) {
@@ -97,7 +96,7 @@ class SceneManager {
             // add the portals for level nodes
             overworld.destinations.forEach(destination => {
                 if (destination.stoppable) {
-                    let pX = destination.origin.x;
+                    let pX = destination.origin.x - 1 / 2;
                     let pY = destination.origin.y;
                     this.game.addEntity(new Portal(this.game, "Enter " + destination.levelName, destination.level, -1, 
                                                    pX * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE,
@@ -106,10 +105,13 @@ class SceneManager {
                                                    PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE,
                                                    (pX - ((10 + destination.levelName.length) / 2)) * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE,
                                                    (pY + 3) * PARAMS.BLOCKWIDTH / 2 * PARAMS.OVERWORLD_SCALE,
-            
                                                    destination.buttonWidth));
                 }
             });
+            if (!saveState.gameFinished) {
+                let final_dest = this.hero.destinations[this.hero.destinations.length - 1];
+                this.game.addEntity(new GuidingArrow(this.game, final_dest.originX, final_dest.originY, true, true));
+            }
 
         } else if (this.currentLevel == snow1) {
             this.game.addEntity(new Dialogue(this.game, "It's a hole!", true, 4, 15.5, 1, 17, 1, 1, true)); // upper left sign
@@ -292,9 +294,9 @@ class SceneManager {
                 
             // this IF will stop adding destinations 
             // if the next dungeon locked
-            // if (dest.level != undefined && isFinalUnlockedDungeon(dest.level)) { 
-            //     break;                    
-            // }
+            if (dest.level != undefined && isFinalUnlockedDungeon(dest.level)) {
+                break;                    
+            }
         }
         return destinations;
     };
@@ -373,19 +375,20 @@ class SceneManager {
                         this.game.addEntity(new GiantToad(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
                         break;
                     case MotherSlime:
-                        this.game.addEntity(new MotherSlime(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        this.game.addEntity(new MotherSlime(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.green));
                         break;
                     case BabySlime:
-                        this.game.addEntity(new BabySlime(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        this.game.addEntity(new BabySlime(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.green));
                         break;
                     case Minotaur:
                         this.game.addEntity(new Minotaur(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
                         break;
                     case Druid:
                         this.game.addEntity(new Druid(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, Druid.maxHp, 0));
-                    // case Skeleton:
-                    //     this.game.addEntity(new Skeleton(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
-                    //     break;
+                        break;
+                    case Skeleton:
+                        this.game.addEntity(new Skeleton(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
                 }
             });
         }

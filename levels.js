@@ -1266,5 +1266,6 @@ const elementAwardScreen = {
 const cutSceneScreen = {
     heroX: 14,
     heroY: 16,
-    layer_names: ['hero']
+    layer_names: ['hero'],
+    music: "./audio/cutscene.mp3"
 }; 

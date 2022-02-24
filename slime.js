@@ -23,7 +23,7 @@ class BabySlime {
         this.burningTimer = 0;
         this.burnDamageTimer = 0;
         this.confusedTimer = 0;
-        this.velocityConstant = 3;
+        this.velocityConstant = 4;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
         this.velocity = { x: 0, y: 0 };
         this.animations = [];
@@ -72,15 +72,8 @@ class BabySlime {
                         this.shotsTaken.push(entity.id);
                     } else {
                         entity.removeFromWorld = true;
-                    } 
-                    this.hit = true;  
+                    }  
                     this.frozenTimer = 0; 
-                    if (this.damagedTimer === 0 && this.deadTimer === 0) {
-                        this.damagedTimer = 0.6 - this.game.clockTick;
-                        this.state = 2;
-                        this.hitUnitVector = prevState === 0 ? { x: 0, y: 0 } : 
-                                                               unitVector({ x: this.hitBB.center.x - entity.sourcePoint.x, y: this.hitBB.center.y - entity.sourcePoint.y });
-                    }
                     this.hp -= entity.damage;
                     // ASSET_MANAGER.playAsset("./audio/slime_hit.mp3");
                     if (entity.elemental) {
@@ -112,18 +105,6 @@ class BabySlime {
             });
         }
 
-        if (this.hit && this.damagedTimer === 0) {
-            this.hit = false;
-        }
-
-        if (this.state !== 3 && this.damagedTimer > 0 && this.hit) {
-            this.velocity.x = this.hitUnitVector.x * this.velocityConstant / 2;
-            this.velocity.y = this.hitUnitVector.y * this.velocityConstant / 2;
-            this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
-            this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
-            this.randomPos = undefined;
-        }
-
         if (this.state !== 3 && this.burningTimer > 0 && this.burnDamageTimer === 0) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp -= 25;
@@ -138,11 +119,6 @@ class BabySlime {
                 this.facing = [0, 0];
                 // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
             }
-        }
-
-        if (this.state !== 3 && this.damagedTimer === 0 && this.frozenTimer > 0) {
-            this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
-            this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
         }
 
         this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed * 3 : this.walkSpeed);
@@ -179,15 +155,17 @@ class BabySlime {
                         if (dist <= this.attackDistance) {
                             if (this.shootTimer === 0 && this.state === 1) {
                                 this.shootTimer = 4 * this.walkSpeed - this.game.clockTick;
-                                let projectileCenter = { x: this.BB.center.x + 6 * PARAMS.SCALE * heroDirectionUnitVector.x,
-                                                         y: this.BB.center.y + 6 * PARAMS.SCALE * heroDirectionUnitVector.y };
                                 if (this.shootFlag) {
-                                    // this.game.addEntity(new DamageRegion(this.game, 
-                                    //                                      projectileCenter.x - 6 * PARAMS.SCALE, 
-                                    //                                      projectileCenter.y - 6 * PARAMS.SCALE, 
-                                    //                                      12 * PARAMS.SCALE, 
-                                    //                                      12 * PARAMS.SCALE, 
-                                    //                                      false, 100, 0.1));
+                                    let vector = this.confusedTimer === 0 ? heroDirectionUnitVector : this.confusionUnitVector;
+                                    let theta = Math.atan2(vector.y, vector.x);
+                                    if (theta < 0) {
+                                        theta += 2 * Math.PI;
+                                    }
+                                    // for (let i = theta - Math.PI / 4; i <= theta + Math.PI * 1 / 4; i += Math.PI / 10) {
+                                        this.game.addEntity(new Projectile(this.game, 
+                                            this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(theta) * PARAMS.SCALE, 
+                                            this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, theta, false, 17, this.BB.center, 50, PARAMS.PROJECTILE_SCALE / 2));
+                                    // }
                                 }  
                             }
                         }
@@ -330,7 +308,7 @@ class MotherSlime {
         this.hp = this.maxHp;
         this.minProximity = 5;
         this.visionDistance = 450;
-        this.attackDistance = 200;
+        this.attackDistance = 350;
         this.shotsTaken = [];
         this.shootTimer = 0;
         this.shootFlag = false;
@@ -474,15 +452,17 @@ class MotherSlime {
                         if (dist <= this.attackDistance) {
                             if (this.shootTimer === 0 && this.state === 1) {
                                 this.shootTimer = 4 * this.walkSpeed - this.game.clockTick;
-                                let projectileCenter = { x: this.BB.center.x + 6 * PARAMS.SCALE * heroDirectionUnitVector.x,
-                                                         y: this.BB.center.y + 6 * PARAMS.SCALE * heroDirectionUnitVector.y };
                                 if (this.shootFlag) {
-                                    // this.game.addEntity(new DamageRegion(this.game, 
-                                    //                                      projectileCenter.x - 6 * PARAMS.SCALE, 
-                                    //                                      projectileCenter.y - 6 * PARAMS.SCALE, 
-                                    //                                      12 * PARAMS.SCALE, 
-                                    //                                      12 * PARAMS.SCALE, 
-                                    //                                      false, 100, 0.1));
+                                    let vector = this.confusedTimer === 0 ? heroDirectionUnitVector : this.confusionUnitVector;
+                                    let theta = Math.atan2(vector.y, vector.x);
+                                    if (theta < 0) {
+                                        theta += 2 * Math.PI;
+                                    }
+                                    for (let i = theta - Math.PI / 4; i <= theta + Math.PI * 1 / 4; i += Math.PI / 10) {
+                                        this.game.addEntity(new Projectile(this.game, 
+                                            this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(i) * PARAMS.SCALE, 
+                                            this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, 16, this.BB.center, 150));
+                                    }
                                 }  
                             }
                         }

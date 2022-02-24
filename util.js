@@ -50,6 +50,9 @@ const PROJECTILES = {
     12: { spritesheet: "./sprites/projectiles/projectile_shrek.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
     13: { spritesheet: "./sprites/projectiles/projectile_polarbear.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
     14: { spritesheet: "./sprites/projectiles/projectile_frog.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
+    15: { spritesheet: "./sprites/projectiles/projectile_skeleton.png", velocity: 8, lifetime: PROJECTILE_LIFETIMES.mid },
+    16: { spritesheet: "./sprites/projectiles/projectile_green_slime.png", velocity: 4, lifetime: PROJECTILE_LIFETIMES.mid },
+    17: { spritesheet: "./sprites/projectiles/projectile_green_slime.png", velocity: 8, lifetime: PROJECTILE_LIFETIMES.long },
 };
 
 // returns a random integer between 0 and n-1
