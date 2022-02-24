@@ -141,9 +141,9 @@ ASSET_MANAGER.queueDownload("./sprites/ui/enemies.png");
 ASSET_MANAGER.queueDownload("./sprites/ui/portal_arrow.png");
 
 ASSET_MANAGER.queueDownload("./sprites/hero/spells.png");
-ASSET_MANAGER.queueDownload("./sprites/cutscene/temp_test.png");
-ASSET_MANAGER.queueDownload("./sprites/cutscene/temp_test2.png");
-ASSET_MANAGER.queueDownload("./sprites/cutscene/temp_test3.png");
+ASSET_MANAGER.queueDownload("./sprites/cutscene/opening_cutscene.png");
+ASSET_MANAGER.queueDownload("./sprites/cutscene/opening_cutscene_2.png");
+ASSET_MANAGER.queueDownload("./sprites/cutscene/opening_cutscene_3.png");
 
 ASSET_MANAGER.queueDownload("./sprites/items/coin.png");
 
