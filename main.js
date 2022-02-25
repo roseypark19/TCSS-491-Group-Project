@@ -23,10 +23,10 @@ ASSET_MANAGER.queueDownload("./audio/hero_hit.mp3");
 ASSET_MANAGER.queueDownload("./audio/lightning.mp3");
 ASSET_MANAGER.queueDownload("./audio/victory.mp3");
 ASSET_MANAGER.queueDownload("./audio/coin.wav");
-ASSET_MANAGER.queueDownload("./audio/bird_hit.wav");
-ASSET_MANAGER.queueDownload("./audio/hound_hit.wav");
-ASSET_MANAGER.queueDownload("./audio/beast_hit.wav");
-ASSET_MANAGER.queueDownload("./audio/druid_death.wav");
+ASSET_MANAGER.queueDownload("./audio/bird_hit.mp3");
+ASSET_MANAGER.queueDownload("./audio/hound_hit.mp3");
+ASSET_MANAGER.queueDownload("./audio/beast_hit.mp3");
+ASSET_MANAGER.queueDownload("./audio/druid_death.mp3");
 
 ASSET_MANAGER.queueDownload("./audio/snow.mp3");
 ASSET_MANAGER.queueDownload("./audio/plains.mp3");

@@ -188,7 +188,7 @@ class Hero {
         this.weaponSpritesheet = ASSET_MANAGER.getAsset("./sprites/ui/weapon_icons.png");
         
         this.weaponIndex = 0;
-        this.weapon = { type: 4, attack: 5, dexterity: 10 };
+        this.weapon = { type: 4, attack: 5, dexterity: 5 };
         this.weaponData = [{ type: 0, x: 24, y: 0, attack: 75, dexterity: 8 }, { type: 1, x: 48, y: 0, attack: 75, dexterity: 8 }, { type: 2, x: 60, y: 0, attack: 75, dexterity: 8 }, { type: 3, x: 36, y: 0, attack: 75, dexterity: 8 }, { type: 4, x: 0, y: 0, attack: 75, dexterity: 8 }, { type: 5, x: 12, y: 0, attack: 75, dexterity: 8 }];
 
         // types: 0 = longsword, 1 = war axe, 2 = whip, 3 = flail, 4 = slingshot, 5 = bow
@@ -588,7 +588,7 @@ class Hero {
         if (this.state !== 4 && this.game.livingEntities.length <= 6 && !PARAMS.GAMEOVER) { // create a guide arrow when 5 or less enemies remain
             let enemyLocList = [];
             this.game.livingEntities.forEach(entity => {
-                if (!(entity instanceof Hero) && entity.hp > 0) { // we have a living enemy
+                if (!(entity instanceof Hero || entity instanceof Druid || entity instanceof DruidBird || entity instanceof DruidHound || entity instanceof DruidBeast) && entity.hp > 0) { // we have a living enemy
                     enemyLocList.push(entity.BB.center);
                 }
             });
