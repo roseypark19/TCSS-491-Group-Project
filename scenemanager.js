@@ -6,7 +6,7 @@ class SceneManager {
         this.y = 0;
         this.drawInventory = true;
         this.elapsed = 0;
-        this.travelTo(titleScreen);
+        this.travelTo(overworld);
     };
 
     clearEntities() {
@@ -344,6 +344,7 @@ class SceneManager {
                         break;
                     case SwordedMinion:
                         this.game.addEntity(new SwordedMinion(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.minionType));
+                        break;
                     case RangedMinion:
                         this.game.addEntity(new SwordedMinion(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.minionType));
                         break;
