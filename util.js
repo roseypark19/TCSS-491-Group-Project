@@ -4,7 +4,7 @@ const PARAMS = {
     DEBUG_WIDTH : 1,
     DEBUG_COLOR: "Red",
     CANVAS_DIMENSION : 1000,
-    SCALE : 4,
+    SCALE : 2,
     OVERWORLD_SCALE: 6,
     PROJECTILE_SCALE: 1.2,
     GUI_SCALE : 6,
