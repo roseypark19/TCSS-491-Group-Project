@@ -27,6 +27,8 @@ ASSET_MANAGER.queueDownload("./audio/bird_hit.mp3");
 ASSET_MANAGER.queueDownload("./audio/hound_hit.mp3");
 ASSET_MANAGER.queueDownload("./audio/beast_hit.mp3");
 ASSET_MANAGER.queueDownload("./audio/druid_death.mp3");
+ASSET_MANAGER.queueDownload("./audio/ogre_hit.mp3");
+ASSET_MANAGER.queueDownload("./audio/ogre_death.mp3");
 
 ASSET_MANAGER.queueDownload("./audio/snow.mp3");
 ASSET_MANAGER.queueDownload("./audio/plains.mp3");
