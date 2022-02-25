@@ -162,7 +162,7 @@ class DruidBird {
                     }  
                     this.frozenTimer = 0; 
                     this.hp = Math.max(this.threshold, this.hp - entity.damage);
-                    ASSET_MANAGER.playAsset("./audio/bird_hit.pm3");
+                    ASSET_MANAGER.playAsset("./audio/bird_hit.mp3");
                     if (entity.elemental) {
                         switch(entity.type) {
                             case 0: // wind
@@ -192,7 +192,7 @@ class DruidBird {
         if (this.state !== 3 && !this.originReached && this.burningTimer > 0 && this.burnDamageTimer === 0 && !PARAMS.GAMEOVER) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp = Math.max(this.threshold, this.hp - 25);
-            ASSET_MANAGER.playAsset("./audio/bird_hit.pm3");
+            ASSET_MANAGER.playAsset("./audio/bird_hit.mp3");
             if (this.damagedTimer === 0) {
                 this.damagedTimer = 0.6 - this.game.clockTick;
                 this.state = 2;
@@ -474,7 +474,7 @@ class DruidHound {
                     }    
                     this.frozenTimer = 0;
                     this.hp = Math.max(this.threshold, this.hp - entity.damage);
-                    ASSET_MANAGER.playAsset("./audio/hound_hit.pm3");
+                    ASSET_MANAGER.playAsset("./audio/hound_hit.mp3");
                     if (entity.elemental) {
                         switch(entity.type) {
                             case 0: // wind
@@ -504,7 +504,7 @@ class DruidHound {
         if (this.state !== 4 && !this.originReached &&  this.burningTimer > 0 && this.burnDamageTimer === 0 && !PARAMS.GAMEOVER) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp = Math.max(this.threshold, this.hp - 25);
-            ASSET_MANAGER.playAsset("./audio/hound_hit.pm3");
+            ASSET_MANAGER.playAsset("./audio/hound_hit.mp3");
             if (this.damagedTimer === 0) {
                 this.damagedTimer = 0.6 - this.game.clockTick;
                 this.state = 3;
@@ -792,7 +792,7 @@ class DruidBeast {
                     }   
                     this.frozenTimer = 0;
                     this.hp = Math.max(this.threshold, this.hp - entity.damage);
-                    ASSET_MANAGER.playAsset("./audio/beast_hit.pm3");
+                    ASSET_MANAGER.playAsset("./audio/beast_hit.mp3");
                     if (entity.elemental) {
                         switch(entity.type) {
                             case 0: // wind
@@ -822,7 +822,7 @@ class DruidBeast {
         if (this.state !== 4 && !this.originReached && this.burningTimer > 0 && this.burnDamageTimer === 0 && !PARAMS.GAMEOVER) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp = Math.max(this.threshold, this.hp - 25);
-            ASSET_MANAGER.playAsset("./audio/beast_hit.pm3");
+            ASSET_MANAGER.playAsset("./audio/beast_hit.mp3");
             if (this.damagedTimer === 0) {
                 this.damagedTimer = 0.6 - this.game.clockTick;
                 this.state = 3;
@@ -1122,6 +1122,8 @@ class Druid {
                     this.dialog = new Dialogue(this.game, "Prepare to meet your end!", false, 24, 24, 22, 24, 4, 4);
                     this.game.addEntity(this.dialog);
                     this.dialog.showFor(this.activationTimer);
+                    ASSET_MANAGER.autoRepeat("./audio/druid_battle.mp3");
+                    ASSET_MANAGER.playAsset("./audio/druid_battle.mp3");
                 }
             });
         }
@@ -1144,7 +1146,7 @@ class Druid {
                         this.game.addEntity(new Coin(this.game, this.BB.center.x + Math.cos(theta) * randomDist * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
                                                                 this.BB.center.y + Math.sin(theta) * randomDist * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 10));
                     }
-                    ASSET_MANAGER.playAsset("./audio/druid_death.pm3");
+                    ASSET_MANAGER.playAsset("./audio/druid_death.mp3");
                 }
             } else {
                 if (this.dialog) {

@@ -188,7 +188,7 @@ class Hero {
         this.weaponSpritesheet = ASSET_MANAGER.getAsset("./sprites/ui/weapon_icons.png");
         
         this.weaponIndex = 0;
-        this.weapon = { type: 4, attack: 5, dexterity: 4 };
+        this.weapon = { type: 4, attack: 5, dexterity: 8 };
         this.weaponData = [{ type: 0, x: 24, y: 0, attack: 75, dexterity: 8 }, { type: 1, x: 48, y: 0, attack: 75, dexterity: 8 }, { type: 2, x: 60, y: 0, attack: 75, dexterity: 8 }, { type: 3, x: 36, y: 0, attack: 75, dexterity: 8 }, { type: 4, x: 0, y: 0, attack: 75, dexterity: 8 }, { type: 5, x: 12, y: 0, attack: 75, dexterity: 8 }];
 
         // types: 0 = longsword, 1 = war axe, 2 = whip, 3 = flail, 4 = slingshot, 5 = bow
@@ -534,7 +534,7 @@ class Hero {
 
         if (PARAMS.DEBUG === true && this.game.clicked) {
             let point = {x: this.game.click.x + this.game.camera.x, y: this.game.click.y + this.game.camera.y};
-            console.log(`{index: replaceme, x: ${Math.floor(point.x /32) + 0.5}, y: ${Math.floor(point.y /32) + 0.5}, centered: true},`);
+            console.log(`{type: Minotaur, x: ${Math.floor(point.x /32) + 0.5}, y: ${Math.floor(point.y /32) + 0.5}},`);
             // console.log(this.game.camera.x);
             // console.log(this.game.camera.y);
         }
@@ -582,6 +582,30 @@ class Hero {
                     ASSET_MANAGER.playAsset("./audio/coin.wav");
                 }
             });
+        }
+
+        // initialize enemy remaining arrow
+        if (this.state !== 4 && this.game.livingEntities.length <= 6 && !PARAMS.GAMEOVER) { // create a guide arrow when 5 or less enemies remain
+            let enemyLocList = [];
+            this.game.livingEntities.forEach(entity => {
+                if (!(entity instanceof Hero || entity instanceof Druid || entity instanceof DruidBird || entity instanceof DruidHound || entity instanceof DruidBeast) && entity.hp > 0) { // we have a living enemy
+                    enemyLocList.push(entity.BB.center);
+                }
+            });
+            if (enemyLocList.length > 0) { // sort by proximity to hero
+                enemyLocList.sort((loc1, loc2) => distance(this.BB.center, loc1) - distance(this.BB.center, loc2));
+                if (!this.addFlag) {
+                    this.enemyArrow = new GuidingArrow(this.game, enemyLocList[0].x, enemyLocList[0].y, false, false);
+                    this.game.addEntity(this.enemyArrow);
+                    this.addFlag = true;
+                } else {
+                    this.enemyArrow.originX = enemyLocList[0].x;
+                    this.enemyArrow.originY = enemyLocList[0].y;
+                }
+            }
+        } else if (this.enemyArrow && PARAMS.GAMEOVER) { // remove guiding arrow
+            this.enemyArrow.removeFromWorld = true;
+            this.addFlag = false;
         }
 
         if (this.state !== prevState) {
