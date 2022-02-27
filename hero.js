@@ -188,9 +188,10 @@ class Hero {
         this.weaponSpritesheet = ASSET_MANAGER.getAsset("./sprites/ui/weapon_icons.png");
         
         this.weaponIndex = 0;
-        this.weapon = { type: 4, attack: 5, dexterity: 8 };
-        this.weaponData = [{ type: 0, x: 24, y: 0, attack: 75, dexterity: 8 }, { type: 1, x: 48, y: 0, attack: 75, dexterity: 8 }, { type: 2, x: 60, y: 0, attack: 75, dexterity: 8 }, { type: 3, x: 36, y: 0, attack: 75, dexterity: 8 }, { type: 4, x: 0, y: 0, attack: 75, dexterity: 8 }, { type: 5, x: 12, y: 0, attack: 75, dexterity: 8 }];
-
+        this.weapon = { type: 0, attack: 5, dexterity: 8 };
+        this.weaponData = [];
+        this.weaponPixelData = [{type: 0, x: 24, y: 0}, {type: 1, x: 48, y: 0}, {type: 2, x: 60, y: 0}, {type: 3, x: 36, y: 0}, {type: 4, x: 0, y: 0}, {type: 5, x: 12, y: 0}];
+       
         // types: 0 = longsword, 1 = war axe, 2 = whip, 3 = flail, 4 = slingshot, 5 = bow
 
         this.spellType = 1; // 0 = wind, 1 = fire, 2 = ice, 3 = earth
@@ -198,8 +199,10 @@ class Hero {
         this.velocityConstant = 6;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
         this.velocity = { x : 0, y : 0 };
+        this.updateWeaponList();
         this.updateBB();
         this.loadAnimations();
+        
     };
 
     loadAnimations() {
@@ -534,11 +537,10 @@ class Hero {
 
         if (PARAMS.DEBUG === true && this.game.clicked) {
             let point = {x: this.game.click.x + this.game.camera.x, y: this.game.click.y + this.game.camera.y};
-            console.log(`{type: Minotaur, x: ${Math.floor(point.x /32) + 0.5}, y: ${Math.floor(point.y /32) + 0.5}},`);
+            console.log(`{type: Centaur, x:  ${Math.floor(point.x /32) + 0.5}, y: ${Math.floor(point.y /32) + 0.5}},`);
             // console.log(this.game.camera.x);
             // console.log(this.game.camera.y);
         }
-
         // collision detection and resolve
         let collisionList = [];
         this.game.collideableEntities.forEach(entity => {
@@ -668,13 +670,31 @@ class Hero {
     };
 
     updateWeaponIndex() {
-        if (this.weaponIndex >= 5) {
-            this.weaponIndex = 0;
-        } else {
-            this.weaponIndex++;
+        let flag = 0;
+        while (flag === 0) {
+            if (this.weaponIndex >= 5) {
+                this.weaponIndex = 0;
+                flag = 1;
+            } else if (this.weaponData[this.weaponIndex + 1] === undefined) {
+                this.weaponIndex++;
+            }
+            else {
+                this.weaponIndex++
+                flag = 1;
+            }
+        }
+    }
+
+    updateWeaponList() {
+        this.weaponData = [];
+        for (let i = 0;i<=5;i++) {
+            if (saveState.weapons[i].bought !== false) {
+                this.weaponData.push({type: i, x: this.weaponPixelData[i].x, y: this.weaponPixelData[i].y, attack: saveState.weapons[i].attack, dexterity: saveState.weapons[i].dexterity});
+            }
         }
     }
 };
+
 
 class ElementBeam {
 

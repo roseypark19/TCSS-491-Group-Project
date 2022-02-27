@@ -189,6 +189,10 @@ class SceneManager {
             this.x = 2;
             this.y = 1880;
         }
+        if (this.currentLevel == swamp1) {
+            this.x = 12.5;
+            this.y = 14.5;
+        }
 
         this.loadEnemies();
 
@@ -637,7 +641,7 @@ class WeaponsDisplay {
         }
         ctx.drawImage(this.frameShadowSprite, 15, 271, 18, 5, x, y - spacing * 2.5, 18 * PARAMS.GUI_SCALE, PARAMS.GUI_SCALE * 5);
 
-        // frame
+        // background frame
         ctx.drawImage(this.frameSprite, 16, 204, 16, 4, x + PARAMS.GUI_SCALE, this.y - 2.45 * spacing, 16 * PARAMS.GUI_SCALE, PARAMS.GUI_SCALE * 4);
         y = this.y - 4.65 * PARAMS.GUI_SCALE;
         for (let i = 0; i < hero.weaponData.length; i++) {
@@ -645,11 +649,23 @@ class WeaponsDisplay {
             y -= 5.75 * spacing;
         }
         ctx.drawImage(this.frameSprite, 16, 160, 16, 4, x + PARAMS.GUI_SCALE, y - spacing * 2 , 16 * PARAMS.GUI_SCALE, PARAMS.GUI_SCALE * 4);
+
+
+         // frame
+         y = this.y - 4.65 * PARAMS.GUI_SCALE;
+         for (let i = 0; i < hero.weaponData.length; i++) {
+             if ( hero.weaponData[i].type === hero.weapon.type) {
+                ctx.drawImage(this.frameSprite, 562, 114, 12, spacing, x + PARAMS.GUI_SCALE * 2, y - 5.75 * spacing,  14.05 * PARAMS.GUI_SCALE, PARAMS.GUI_SCALE * 11.5);
+             y -= 5.75 * spacing; 
+             } else {
+                ctx.drawImage(this.frameSprite, 562, 34, 12, spacing, x + PARAMS.GUI_SCALE * 2, y - 5.75 * spacing,  14.05 * PARAMS.GUI_SCALE, PARAMS.GUI_SCALE * 11.5);                y -= 5.75 * spacing;
+             }
+         }
        
        // the icons
         const drawScale = PARAMS.GUI_SCALE;
         x = x + 32;
-        y = this.y - 6.75 * spacing;
+        y = this.y - 7 * spacing;
         for (let i = 0; i < hero.weaponData.length; i++) {
             let data = hero.weaponData[i];
             ctx.drawImage(hero.weaponSpritesheet, data.x , data.y, 12, 12, x, y, 8 * PARAMS.GUI_SCALE, 8* PARAMS.GUI_SCALE);

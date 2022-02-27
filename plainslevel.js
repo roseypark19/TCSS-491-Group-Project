@@ -1,6 +1,6 @@
 const plains1 = { 
     levelName: "Plains 1",
-    portalIndex: 2,
+    portalIndex: 1,
     cowardPortal: {
         x: 8.5,
         y: 6.5,
@@ -22,6 +22,62 @@ const plains1 = {
     layer_names: ["ground", "collideable", "hero", "topper", "shadows"],
 
     music: "./audio/plains.mp3",
+
+    enemies: [
+        // starting area
+        {type: RangedMinion, minionType: 0, x: 34.5, y: 3.5},
+        {type: SwordedMinion, minionType: 0, x:  32.5, y: 9},
+        {type: RangedMinion, minionType: 0, x:  26.5, y: 12.5},
+        {type: SwordedMinion, minionType: 0, x:  31.5, y: 55},
+        {type: RangedMinion, minionType: 0, x:  37.5, y: 55},
+        {type: SwordedMinion, minionType: 0, x:  43.5, y: 55},
+        {type: Wargo, x:  9.5, y: 20.5},
+
+        //flower plains
+        {type: Centaur, x:  25.5, y: 35.5},
+        {type: Centaur, x:  18.5, y: 33.5},
+
+        //forest below flower plains
+        {type: Centaur, x:  10.5, y: 64.5},
+        {type: Centaur, x:  17.5, y: 68.5},
+        {type: Centaur, x:  28.5, y: 75.5},
+        {type: Cyclops, x:  9.5, y: 76.5},
+
+        //top path
+        {type: Centaur, x:  64.5, y: 6.5},
+        {type: Centaur, x:  60.5, y: 10.5},
+        {type: Wargo, x:  59.5, y: 3.5},
+
+        //top right corner
+        {type: Centaur, x:  99.5, y: 4.5},
+        {type: Centaur, x:  93.5, y: 1.5},
+        {type: Centaur, x:  105.5, y: 9.5},
+        {type: Wargo, x:  107, y: 3.5},
+
+        //stone structure
+        {type: SwordedMinion, minionType: 0, x:  95.5, y: 34.75},
+        {type: SwordedMinion, minionType: 0, x:  100.5, y: 34.75},
+        {type: RangedMinion, minionType: 0, x:  97.75, y: 38.75},
+        {type: Cyclops, x:  104.5, y: 43.75},
+        {type: SwordedMinion, minionType: 0, x:  95.5, y: 52.75},
+        {type: SwordedMinion, minionType: 0, x:  100.5, y: 52.75},
+        {type: RangedMinion, minionType: 0, x:  97.75, y: 47.75},
+
+        //bottom right
+        {type: Centaur, x:  105.5, y: 61.5},
+        {type: Wargo, x:  105.5, y: 68.5},
+        {type: Wargo, x:  109.5, y: 63.5},
+
+        // by portal
+        {type: RangedMinion, minionType: 0, x:  42.5, y: 78.5},
+        {type: RangedMinion, minionType: 0, x:  43.5, y: 73.5},
+        {type: SwordedMinion, minionType: 0, x:  49.5, y: 73.5},
+        {type: Centaur, x:  58.5, y: 57.5},
+        {type: Centaur, x:  66.5, y: 53.5},
+        {type: Cyclops, x:  64.5, y: 60.5},
+
+
+    ],
 
     props: [
 
@@ -289,19 +345,12 @@ const plains1 = {
 
         // Stones
 
-       {index: 38, x: 42.75, y: 25, centered: true},
-       {index: 37, x: 45.25, y: 25.55, centered: true},
-       {index: 36, x: 43.25, y: 27.5, centered: true},
-       {index: 36, x: 43.25, y: 27.5, centered: true},
-       {index: 35, x: 45.25, y: 28.5, centered: true},
-       {index: 34, x: 43.25, y: 29.5, centered: true},
-    //    {index: 36, x: 1, y: 3, centered: true},
-    //    {index: 36, x: 3, y: 1, centered: true},
-    //    {index: 36, x: 2, y: 2, centered: true},
-    //    {index: 36, x: 1, y: 5, centered: true},
-    //    {index: 36, x: 2, y: 6, centered: true},
-    //    {index: 36, x: 3, y: 7, centered: true},
-
+        {index: 38, x: 42.75, y: 25, centered: true},
+        {index: 37, x: 45.25, y: 25.55, centered: true},
+        {index: 36, x: 43.25, y: 27.5, centered: true},
+        {index: 36, x: 43.25, y: 27.5, centered: true},
+        {index: 35, x: 45.25, y: 28.5, centered: true},
+        {index: 34, x: 43.25, y: 29.5, centered: true},
         {index: 34, x: 11.5, y: 5.5, centered: true},
         {index: 36, x: 6.5, y: 5.5, centered: true},
         {index: 36, x: 6.5, y: 10.5, centered: true},
@@ -416,7 +465,6 @@ const plains1 = {
         {index: 50, x: 89.5, y: 74.5, centered: true},
         {index: 52, x: 85.5, y: 71.5, centered: true},
         {index: 49, x: 97, y: 80.85, centered: true},
-        //{index: 49, x: 102.5, y: 79.5, centered: true},
         {index: 36, x: 99.75, y: 80.25, centered: true},
         {index: 53, x: 82.5, y: 80.5, centered: true},
         {index: 54, x: 76.5, y: 76.5, centered: true},
@@ -429,9 +477,6 @@ const plains1 = {
         {index: 53, x: 79.5, y: 60.5, centered: true},
         {index: 10, x: 57.5, y: 84.75, centered: true},
         {index: 10, x: 54.5, y: 80.5, centered: true},
-
-
-
 
 
         //finishing portal
@@ -453,6 +498,9 @@ const plains1 = {
 
 
     ],
+
+
+
 
     ground: {
         data: [698,698,698,698,698,698,698,698,698,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,793,1115,669,887,887,819,1115,1115,821,891,891,669,1115,866,867,867,867,867,867,867,867,867,867,867,867,867,867,867,867,867,867,867,867,867,867,867,867,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,1115,
@@ -1020,7 +1068,7 @@ const plains1 = {
 
 const plains2 = { 
     levelName: "Plains 2",
-    portalIndex: 2,
+    portalIndex: 1,
     cowardPortal: {
         x: 10.5,
         y: 80.5,
@@ -1041,10 +1089,70 @@ const plains2 = {
     heroY: 77,
     layer_names: ["ground", "collideable", "hero", "topper", "shadows"],
     music: "./audio/plains.mp3",
+    
+    enemies : [
+        //north of portal
+        {type: Wargo, x:  5.5, y: 53.5},
+        {type: Centaur, x:  4.5, y: 61.5},
+        {type: Centaur, x:  4.5, y: 58.5},
+
+        
+        {type: RangedMinion, minionType: 0, x:  6.5, y: 31.5},
+        {type: SwordedMinion, minionType: 0, x:  16.5, y: 31.5},
+        {type: RangedMinion, minionType: 0, x:  10.5, y: 37.5},
+
+        // stone structure by lake
+        {type: Cyclops, x:  30.5, y: 22.5},
+        {type: Cyclops, x:  33, y: 22.5},
+        {type: RangedMinion, minionType: 0, x:  31.5, y: 25.5},
+
+        // waterfall
+        {type: RangedMinion, minionType: 0, x:  21.5, y: 7.5},
+        {type: SwordedMinion, minionType: 0, x:  21.5, y: 14.5},
+        {type: Centaur, x:  14.5, y: 10.5},
+
+        // south of waterfall
+        {type: Centaur, x:  33.5, y: 39.5},
+        {type: Centaur, x:  40, y: 39.5},
+        {type: Centaur, x:  36.5, y: 47.5},
+
+
+
+        //green belt to right of entrance
+
+        {type: Centaur, x:  41.5, y: 82.5},
+        {type: Wargo, x:  48.5, y: 76.5},
+        {type: Centaur, x:  57.5, y: 74.5},
+        {type: Centaur, x:  51.5, y: 69.5},
+        {type: Wargo, x:  56.5, y: 65.5},
+
+
+        // cross roads tree area
+        {type: Centaur, x:  66.5, y: 50.5},
+        {type: Wargo, x:  64.5, y: 43.5},
+
+        // top path area
+        {type: Centaur, x:  44.5, y: 8.5},
+        {type: Centaur, x:  61.5, y: 7.5},
+        {type: Wargo, x:  59.5, y: 12.5},
+        {type: Centaur, x:  66.5, y: 12.5},
+        {type: Cyclops, x:  78.5, y: 5.5},
+        {type: Centaur, x:  84.5, y: 1.5},
+
+        // top right corner
+        {type: Cyclops, x:  107.5, y: 7.5},
+        {type: Cyclops, x:  95.5, y: 5.5},
+        {type: RangedMinion, minionType: 0, x:  103.5, y: 6.5},
+        {type: RangedMinion, minionType: 0, x:  103.5, y: 10.5},
+        {type: Cyclops, x:  95.5, y: 5.5},
+     
+        {type: Centaur, x:  100.5, y: 45.5},
+        {type: Wargo, x:  102.5, y: 52.5},
+        {type: Centaur, x:  102.5, y: 61.5},
+
+    ],
+    
     props: [
-
-
-
 
         //trees
         {index: 10, x: 3.5, y: 53.5, centered: true},
@@ -1088,7 +1196,7 @@ const plains2 = {
         {index: 10, x: 55.5, y: 69.5, centered: true},
         {index: 10, x: 60.5, y: 72.5, centered: true},
         {index: 10, x: 70.5, y: 6.5, centered: true},
-        {index: 10, x: 71.5, y: 4.5, centered: true},
+
         {index: 10, x: 73.5, y: 6.5, centered: true},
         {index: 10, x: 74.5, y: 2.5, centered: true},
         {index: 10, x: 77.5, y: 3.5, centered: true},
