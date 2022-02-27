@@ -365,7 +365,9 @@ class WeaponsShop {
                         this.playUpgradeSound();
                     }
                 }
-            } 
+            } else {
+                this.game.camera.hero.updateWeaponList();
+            }
             
             // save game to ensure if something was bought it is saved
             saveGame(saveState);
