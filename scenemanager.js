@@ -6,7 +6,7 @@ class SceneManager {
         this.y = 0;
         this.drawInventory = true;
         this.elapsed = 0;
-        this.travelTo(titleScreen);
+        this.travelTo(swamp1);
     };
 
     clearEntities() {
@@ -394,6 +394,9 @@ class SceneManager {
                     case Skeleton:
                         this.game.addEntity(new Skeleton(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
                         break;
+                    case Tentacle:
+                        this.game.addEntity(new Tentacle(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));
+                        break;
                 }
             });
         }
@@ -434,6 +437,7 @@ class SceneManager {
                     portal = new Portal(this.game, "Complete " + this.currentLevel.levelName, overworld, this.currentLevel.portalIndex, this.currentLevel.completePortal.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxX * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxY * PARAMS.BLOCKWIDTH * PARAMS.SCALE, this.currentLevel.completePortal.boxWidth, true);
                 }
                 portal.npc = true;
+                portal.id = ++PARAMS.NPC_ID;
                 this.game.addEntity(portal);
             } 
         }
