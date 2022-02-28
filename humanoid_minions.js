@@ -194,8 +194,6 @@ class SwordedMinion {
                             }
                             if (this.shootTimer === 0 && this.state === 2) {
                                 this.shootTimer = 0.12 * 4 - this.game.clockTick;
-                                let projectileCenter = { x: this.BB.center.x + 4 * PARAMS.SCALE * heroDirectionUnitVector.x,
-                                                         y: this.BB.center.y + 4 * PARAMS.SCALE * heroDirectionUnitVector.y };
                                 if (this.shootFlag) {
                                     let vector = this.confusedTimer === 0 ? heroDirectionUnitVector : this.confusionUnitVector;
                                     let theta = Math.atan2(vector.y, vector.x);

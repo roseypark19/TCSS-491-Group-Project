@@ -4,6 +4,7 @@ class Snowman {
         Object.assign(this, {game, x, y});
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/snowman.png");
         this.npc = true;
+        this.id = ++PARAMS.NPC_ID;
         this.visionDistance = 350;
         this.state = 0; // idle, activating, shooting
         this.facing = [0, randomInt(2)];

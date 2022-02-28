@@ -112,6 +112,7 @@ ASSET_MANAGER.queueDownload("./sprites/enemies/zombie.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/giant_toad.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/livingfire.png");
 ASSET_MANAGER.queueDownload("./sprites/enemies/skeleton.png");
+ASSET_MANAGER.queueDownload("./sprites/enemies/tentacle.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_enemy_close_range.png");
 
 ASSET_MANAGER.queueDownload("./sprites/projectiles/snowball.png");
@@ -129,6 +130,7 @@ ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_polarbear.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_frog.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_skeleton.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_green_slime.png");
+ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_tentacle.png");
 
 ASSET_MANAGER.queueDownload("./sprites/biomes/castle/tiles.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/castle/tiles_shadows.png");
