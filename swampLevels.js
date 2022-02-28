@@ -41,7 +41,51 @@
     heroY: 13.85, 
     layer_names: ["ground", "collideable", "collideable2", "paths", "hero"], 
     
-    enemies: [],
+    enemies: [
+
+        {type: Zombie, x:  27.5, y: 8.5},
+        {type: Zombie, x:  31.5, y: 1},
+        {type: Zombie, x:  1.5, y: 37.5},
+        {type: Zombie, x:  11.5, y: 30.5},
+        {type: Zombie, x:  3.5, y: 47.5},
+        {type: Zombie, x:  28.5, y: 26.5},
+        {type: Zombie, x:  72.5, y: 81.5},
+        {type: Zombie, x:  74.5, y: 77.5},
+        {type: Zombie, x:  82.5, y: 72.5},
+        {type: Zombie, x:  107.5, y: 76.5},
+        {type: Zombie, x:  99.5, y: 67.5},
+        {type: Zombie, x:  90.5, y: 50.5},
+        {type: Zombie, x:  68.5, y: 13.5},
+
+        {type: SwordedMinion, minionType: 3, x:  57.5, y: 6.5},
+        {type: RangedMinion, minionType: 3, x:  59.5, y: 23.5},
+        {type: SwordedMinion, minionType: 3, x:  46.5, y: 28.5},
+        {type: RangedMinion, minionType: 3, x:  36.5, y: 38.5},
+        {type: SwordedMinion, minionType: 3, x:  33.5, y: 45.5},
+        {type: SwordedMinion, minionType: 3, x:  42.5, y: 55.5},
+        {type: RangedMinion, minionType: 3, x:  84.5, y: 5.5},
+        {type: SwordedMinion, minionType: 3, x:  96.5, y: 16.5},
+        {type: SwordedMinion, minionType: 3, x:  99.5, y: 24.5},
+        {type: RangedMinion, minionType: 3, x:  86.5, y: 35.5},
+        {type: SwordedMinion, minionType: 3, x:  106.5, y: 44.5},
+        {type: RangedMinion, minionType: 3, x:  111.5, y: 35.5},
+        {type: SwordedMinion, minionType: 3, x:  61.5, y: 61.5},
+        {type: SwordedMinion, minionType: 3, x:  40.5, y: 73.5},
+
+        //Toad
+        {type: GiantToad, x:  50.5, y: 12.5},
+        {type: GiantToad, x:  65.5, y: 46.5},
+        {type: GiantToad, x:  56.5, y: 42.5},
+        {type: GiantToad, x:  25.5, y: 41.5},
+
+        //Ogre
+        {type: Ogre, x:  111.5, y: 2.5},
+        {type: Ogre, x:  109.5, y: 66.5},
+        {type: Ogre, x:  60.5, y: 72.5},
+        {type: Ogre, x:  11.5, y: 73.5},
+
+
+    ],
     music: "./audio/swamp.mp3",
 
     props: [
@@ -76,8 +120,7 @@
         {index: 227, x: 114.5, y: 46.5, centered: true},
         {index: 227, x: 113.5, y: 26.5, centered: true},
         {index: 227, x: 0.5, y: 13.5, centered: true},
-
-{index: 227, x: 3.5, y: 24.5, centered: true},
+        {index: 227, x: 3.5, y: 24.5, centered: true},
         
 
         // Stumps
@@ -111,9 +154,7 @@
         {index: 221, x: 109.5, y: 45.5, centered: true},
         {index: 222, x: 83.5, y: 55.5, centered: true},
         {index: 221, x: 87.5, y: 51.5, centered: true},
-        
-       
-       
+            
 
         //fallen logs
         {index: 223, x: 3.5, y: 50.5, centered: true},
@@ -130,16 +171,10 @@
         {index: 224, x: 86.5, y: 54.5, centered: true},
         {index: 223, x: 10.5, y: 67.5, centered: true},
         {index: 224, x: 10.5, y: 36.5, centered: true},
-        
-       
-       //Vines
         {index: 219, x: 4.5, y: 1.5, centered: true},
-       
-
 
         //Rocks
 
-        //large
         {index: 213, x: 8.5, y: 9.5, centered: true},
         {index: 213, x: 28.5, y: 18.5, centered: true},
         {index: 213, x: 12.5, y: 81.5, centered: true},
@@ -151,39 +186,31 @@
         {index: 213, x: 101.5, y: 50.5, centered: true},
         {index: 213, x: 36.5, y: 83.5, centered: true},
         {index: 213, x: 53.5, y: 70.5, centered: true},
-
-       {index: 213, x: 77.5, y: 74.5, centered: true},
-    {index: 211, x: 74.5, y: 70.5, centered: true},
-    {index: 209, x: 81.5, y: 69.5, centered: true},
-
-
-
-
-
+        {index: 213, x: 77.5, y: 74.5, centered: true},
+        {index: 211, x: 74.5, y: 70.5, centered: true},
+        {index: 209, x: 81.5, y: 69.5, centered: true},
         {index: 209, x: 51.5, y: 72.5, centered: true},
-{index: 210, x: 63.5, y: 78.5, centered: true},
-{index: 211, x: 35.5, y: 75.5, centered: true},
-{index: 210, x: 38.5, y: 81.5, centered: true},
-{index: 209, x: 83.5, y: 48.5, centered: true},
-{index: 211, x: 81.5, y: 59.5, centered: true},
-{index: 209, x: 87.5, y: 61.5, centered: true},
-{index: 210, x: 86.5, y: 65.5, centered: true},
-{index: 212, x: 101.5, y: 45.5, centered: true},
-{index: 209, x: 87.5, y: 53.5, centered: true},
-{index: 210, x: 98.5, y: 49.5, centered: true},
-{index: 209, x: 104.5, y: 51.5, centered: true},
-{index: 211, x: 100.5, y: 33.5, centered: true},
-{index: 210, x: 96.5, y: 34.5, centered: true},
-{index: 211, x: 100.5, y: 26.5, centered: true},
-{index: 212, x: 113.5, y: 35.5, centered: true},
-{index: 211, x: 89.5, y: 12.5, centered: true},
-{index: 209, x: 86, y: 16.5, centered: true},
-{index: 210, x: 83.5, y: 12.5, centered: true},
-{index: 209, x: 92.5, y: 5.5, centered: true},
-{index: 211, x: 52.5, y: 12.5, centered: true},
-{index: 210, x: 41.5, y: 12.5, centered: true},
-
-
+        {index: 210, x: 63.5, y: 78.5, centered: true},
+        {index: 211, x: 35.5, y: 75.5, centered: true},
+        {index: 210, x: 38.5, y: 81.5, centered: true},
+        {index: 209, x: 83.5, y: 48.5, centered: true},
+        {index: 211, x: 81.5, y: 59.5, centered: true},
+        {index: 209, x: 87.5, y: 61.5, centered: true},
+        {index: 210, x: 86.5, y: 65.5, centered: true},
+        {index: 212, x: 101.5, y: 45.5, centered: true},
+        {index: 209, x: 87.5, y: 53.5, centered: true},
+        {index: 210, x: 98.5, y: 49.5, centered: true},
+        {index: 209, x: 104.5, y: 51.5, centered: true},
+        {index: 211, x: 100.5, y: 33.5, centered: true},
+        {index: 210, x: 96.5, y: 34.5, centered: true},
+        {index: 211, x: 100.5, y: 26.5, centered: true},
+        {index: 212, x: 113.5, y: 35.5, centered: true},
+        {index: 211, x: 89.5, y: 12.5, centered: true},
+        {index: 209, x: 86, y: 16.5, centered: true},
+        {index: 210, x: 83.5, y: 12.5, centered: true},
+        {index: 209, x: 92.5, y: 5.5, centered: true},
+        {index: 211, x: 52.5, y: 12.5, centered: true},
+        {index: 210, x: 41.5, y: 12.5, centered: true},
         {index: 209, x: 13.5, y: 41.5, centered: true},
         {index: 209, x: 3.5, y: 43.5, centered: true},
         {index: 211, x: 4.5, y: 42.5, centered: true},
@@ -198,7 +225,6 @@
         {index: 209, x: 37.5, y: 37.5, centered: true},
         {index: 211, x: 39.5, y: 38.5, centered: true},
         {index: 211, x: 12.5, y: 80.5, centered: true},
-
         {index: 209, x: 4.5, y: 9.5, centered: true},
         {index: 209, x: 19.5, y: 1.5, centered: true},
         {index: 210, x: 21.5, y: 23.5, centered: true},
