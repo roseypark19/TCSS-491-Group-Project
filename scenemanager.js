@@ -764,10 +764,10 @@ class RemainingEnemyDisplay {
             case druid_lair:
                 ctx.drawImage(this.enemySprite, 160, 0, 32, 32, this.x  + 6 * PARAMS.GUI_SCALE - 16 * enemyScale, this.y  + 7 * PARAMS.GUI_SCALE - 16 * enemyScale, 32 * enemyScale, 32 * enemyScale);
                 break;
-            // case swamp1:
-            // case swamp2:
-            //     ctx.drawImage(this.enemySprite, 96, 0, 32, 32, this.x  + 6 * PARAMS.GUI_SCALE - 16 * enemyScale, this.y  + 7 * PARAMS.GUI_SCALE - 16 * enemyScale, 32 * enemyScale, 32 * enemyScale);
-            
+            case swamp1:
+            case swamp2:
+                ctx.drawImage(this.enemySprite, 96, 0, 32, 32, this.x  + 6 * PARAMS.GUI_SCALE - 16 * enemyScale, this.y  + 7 * PARAMS.GUI_SCALE - 16 * enemyScale, 32 * enemyScale, 32 * enemyScale);
+                break;
         }
     };
 };
