@@ -537,7 +537,7 @@ class Hero {
 
         if (PARAMS.DEBUG === true && this.game.clicked) {
             let point = {x: this.game.click.x + this.game.camera.x, y: this.game.click.y + this.game.camera.y};
-            console.log(`{type: Centaur, x:  ${Math.floor(point.x /32) + 0.5}, y: ${Math.floor(point.y /32) + 0.5}},`);
+            console.log(`{type: Zombie, x:  ${Math.floor(point.x /32) + 0.5}, y: ${Math.floor(point.y /32) + 0.5}},`);
             // console.log(this.game.camera.x);
             // console.log(this.game.camera.y);
         }

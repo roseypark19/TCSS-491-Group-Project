@@ -14,7 +14,7 @@ const initialState = {
     firstCutsceneFinished: false,
     gameFinished: true,   // if boss is complete
     numLevelsCompleted: 9, // 1 - 9
-    currency: 2500,
+    currency: 1500,
     
     numSpellsUnlocked: 0, // 0 - 4
 
