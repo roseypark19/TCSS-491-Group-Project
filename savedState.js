@@ -109,50 +109,50 @@ function loadGame() {
     saveState = {
         firstCutsceneFinished: toBoolean(storage.getItem("firstCutsceneFinished")),
         gameFinished: toBoolean(storage.getItem("gameFinished")),   
-        numLevelsCompleted: storage.getItem("numLevelsCompleted"), 
+        numLevelsCompleted: parseInt(storage.getItem("numLevelsCompleted")), 
         currency: parseInt(storage.getItem("currency")),
         
         numSpellsUnlocked: storage.getItem("numSpellsUnlocked"), 
     
         heroStats: { 
-            0: storage.getItem("heroStats0"),
-            1: storage.getItem("heroStats1"),
-            2: storage.getItem("heroStats2"),
-            3: storage.getItem("heroStats3"),
-            4: storage.getItem("heroStats4"),
-            5: storage.getItem("heroStats5")
+            0: parseInt(storage.getItem("heroStats0")),
+            1: parseInt(storage.getItem("heroStats1")),
+            2: parseInt(storage.getItem("heroStats2")),
+            3: parseInt(storage.getItem("heroStats3")),
+            4: parseInt(storage.getItem("heroStats4")),
+            5: parseInt(storage.getItem("heroStats5"))
         },
     
         weapons: { 
             0 : { // sword
                 "bought": toBoolean(storage.getItem("weapons0bought")),
-                "attack": storage.getItem("weapons0attack"),
-                "dexterity": storage.getItem("weapons0dexterity")
+                "attack": parseInt(storage.getItem("weapons0attack")),
+                "dexterity": parseInt(storage.getItem("weapons0dexterity"))
             },
             1 : { // axe
                 "bought": toBoolean(storage.getItem("weapons1bought")),
-                "attack": storage.getItem("weapons1attack"),
-                "dexterity": storage.getItem("weapons1dexterity")
+                "attack": parseInt(storage.getItem("weapons1attack")),
+                "dexterity": parseInt(storage.getItem("weapons1dexterity"))
             },
             2 : { // whip
                 "bought": toBoolean(storage.getItem("weapons2bought")),
-                "attack": storage.getItem("weapons2attack"),
-                "dexterity": storage.getItem("weapons2dexterity")
+                "attack": parseInt(storage.getItem("weapons2attack")),
+                "dexterity": parseInt(storage.getItem("weapons2dexterity"))
             },
             3 : { // flail
                 "bought": toBoolean(storage.getItem("weapons3bought")),
-                "attack": storage.getItem("weapons3attack"),
-                "dexterity": storage.getItem("weapons3dexterity")
+                "attack": parseInt(storage.getItem("weapons3attack")),
+                "dexterity": parseInt(storage.getItem("weapons3dexterity"))
             },
             4 : { // slingshot
                 "bought": toBoolean(storage.getItem("weapons4bought")),
-                "attack": storage.getItem("weapons4attack"),
-                "dexterity": storage.getItem("weapons4dexterity")
+                "attack": parseInt(storage.getItem("weapons4attack")),
+                "dexterity": parseInt(storage.getItem("weapons4dexterity"))
             },
             5 : { // bow
                 "bought": toBoolean(storage.getItem("weapons5bought")),
-                "attack": storage.getItem("weapons5attack"),
-                "dexterity": storage.getItem("weapons5dexterity")
+                "attack": parseInt(storage.getItem("weapons5attack")),
+                "dexterity": parseInt(storage.getItem("weapons5dexterity"))
             }
         },
     

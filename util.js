@@ -26,12 +26,12 @@ const PROJECTILE_LIFETIMES = {
 };
 
 const WEAPONS = {
-    0 : { base_damage: 50, base_dexterity: 0.175, range: 6, projectileType: 2 },
-    1 : { base_damage: 75, base_dexterity: 0.2, range: 6, projectileType: 3 },
-    2 : { base_damage: 40, base_dexterity: 0.125, range: 14, projectileType: 4 },
-    3 : { base_damage: 65, base_dexterity: 0.15, range: 14, projectileType: 5 },
-    4 : { base_damage: 30, base_dexterity: 0.075, projectileType: 1 },
-    5 : { base_damage: 55, base_dexterity: 0.1, projectileType: 0 },
+    0 : { base_damage: 20, base_dexterity: 0.16, range: 6, projectileType: 2 },
+    1 : { base_damage: 30, base_dexterity: 0.17, range: 6, projectileType: 3 },
+    2 : { base_damage: 15, base_dexterity: 0.175, range: 14, projectileType: 4 },
+    3 : { base_damage: 25, base_dexterity: 0.25, range: 14, projectileType: 5 },
+    4 : { base_damage: 5, base_dexterity: 0.12, projectileType: 1 },
+    5 : { base_damage: 10, base_dexterity: 0.125, projectileType: 0 },
 };
 
 const PROJECTILES = {
