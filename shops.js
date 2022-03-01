@@ -365,9 +365,9 @@ class WeaponsShop {
                         this.playUpgradeSound();
                     }
                 }
-            } else {
-                this.game.camera.hero.updateWeaponList();
-            }
+            } 
+            
+            this.game.camera.hero.updateWeaponList();
             
             // save game to ensure if something was bought it is saved
             saveGame(saveState);
@@ -1144,6 +1144,7 @@ class StatsShop {
             if (this.shopMouseBB.collide(this.speedUpgradeBB) && saveState.currency >= this.speedCost) {
                 saveState.currency -= this.speedCost;
                 saveState.heroStats[0]++;
+                this.game.camera.hero.loadAnimations();
                 if (saveState.heroStats[0] == this.MAX_LEVEL) {
                     this.playMaxUpgradeSound();
                 } else {
