@@ -13,13 +13,13 @@ function toBoolean(str) {
 const initialState = {
     firstCutsceneFinished: false,
     gameFinished: true,   // if boss is complete
-    numLevelsCompleted: 9, // 1 - 9
+    numLevelsCompleted: 1, // 1 - 9
     currency: 1500,
     
     numSpellsUnlocked: 0, // 0 - 4
 
     heroStats: { 
-        0: 0, // speed of character
+        0: 10, // speed of character
         1: 0, // maxHp
         2: 0, // maxMp
         3: 0, // vitality (rate of health regen)

@@ -1258,8 +1258,8 @@ const titleScreen = {
 
 const elementAwardScreen = {
     heroX: 14,
-    heroY: 16,
-    elementIndex: 3, // change before loading level
+    heroY: 15,
+    elementIndex: 0, // change this value before loading level
     layer_names: ['hero']
 }; 
 

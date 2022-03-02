@@ -6,8 +6,11 @@ class ElementAwardScreen {
     constructor(game, elementIndex) {
         Object.assign(this, { game, elementIndex });
 
+        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/hero/spells.png");
+        this.animation = new AnimationGroup(this.spritesheet, 96 * this.elementIndex, 0, 96, 32, 1, 0.06, false, true);
+
         this.BB = new BoundingBox(0, 0, 1, 1);
-        this.playBB = new BoundingBox(6 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 21 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 19.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
+        this.playBB = new BoundingBox(6 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 24 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 19.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 2.5 * PARAMS.BLOCKWIDTH * PARAMS.SCALE);
 
         this.mouseBB = new BoundingBox(0, 0, 1, 1);   
 
@@ -19,7 +22,7 @@ class ElementAwardScreen {
             "EARTH SPELLS SLOW ENEMIES"
         ][elementIndex];
 
-
+        this.game.click = null;
 
     } 
 
@@ -27,6 +30,7 @@ class ElementAwardScreen {
         if (this.game.mouse) {
             this.mouseBB = new BoundingBox(this.game.mouse.x, this.game.mouse.y, 1, 1);   
         }
+
 
         if (this.game.click) {
             if (this.mouseBB.collide(this.playBB)) {
@@ -37,6 +41,9 @@ class ElementAwardScreen {
     }
 
     draw(ctx) {
+
+        this.animation.drawFrame(this.game.clockTick, ctx, PARAMS.CANVAS_DIMENSION / 4, PARAMS.CANVAS_DIMENSION * 0.55, 5);
+
         ctx.textAlign = "center";
         ctx.fillStyle = "lightgrey";
         ctx.font = 75 + 'px "silkscreenbold"';
