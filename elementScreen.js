@@ -31,11 +31,11 @@ class ElementAwardScreen {
             this.mouseBB = new BoundingBox(this.game.mouse.x, this.game.mouse.y, 1, 1);   
         }
 
-
         if (this.game.click) {
             if (this.mouseBB.collide(this.playBB)) {
                 this.game.camera.travelTo(overworld);
-            } 
+            }
+            this.game.click = null; 
         }
 
     }
