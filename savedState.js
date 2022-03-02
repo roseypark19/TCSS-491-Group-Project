@@ -19,7 +19,7 @@ const initialState = {
     numSpellsUnlocked: 0, // 0 - 4
 
     heroStats: { 
-        0: 10, // speed of character
+        0: 0, // speed of character
         1: 0, // maxHp
         2: 0, // maxMp
         3: 0, // vitality (rate of health regen)
