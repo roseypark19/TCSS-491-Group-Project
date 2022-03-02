@@ -13,7 +13,7 @@ function toBoolean(str) {
 const initialState = {
     firstCutsceneFinished: false,
     gameFinished: true,   // if boss is complete
-    numLevelsCompleted: 9, // 1 - 9
+    numLevelsCompleted: 1, // 1 - 9
     currency: 1500,
     
     numSpellsUnlocked: 0, // 0 - 4

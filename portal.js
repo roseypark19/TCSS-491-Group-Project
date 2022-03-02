@@ -70,10 +70,10 @@ class Portal {
             // this IF statement will increment and save
             // the unlocked levels state if it makes sense to do
             if (this.isACompletePortal && isFinalUnlockedDungeon(this.game.camera.currentLevel)) {
-                travelToSpellScene = this.currentLevel == plains1 
-                    || this.currentLevel == snow1
-                    || this.currentLevel == desert1; // TODO: TEST THIS LINE
-                    // || this.currentLevel == swamp1;
+                travelToSpellScene = this.game.camera.currentLevel == plains2 
+                    || this.game.camera.currentLevel == snow2
+                    || this.game.camera.currentLevel == desert2
+                    || this.game.camera.currentLevel == swamp2;
                 saveState.numLevelsCompleted++;    
             }
             if (this.isACompletePortal) {
@@ -82,30 +82,27 @@ class Portal {
                 loadGame();
             }
 // TODO: TEST THIS BLOCK 
+console.log("result: " + travelToSpellScene);
             if (travelToSpellScene) {
-                switch (this.currentLevel) {
+                switch (this.game.camera.currentLevel) {
                     case plains2:
                         elementAwardScreen.elementIndex = 0; 
                         break;
-                    case snow2: 
+                    case desert2: 
                         elementAwardScreen.elementIndex = 1;
                         break;
-                    case desert2: 
+                    case snow2: 
                         elementAwardScreen.elementIndex = 2;
                         break;
-                    // case swamp2: 
-                    //     elementAwardScreen.elementIndex = 3;
-                    //     break;   
+                    case swamp2: 
+                        elementAwardScreen.elementIndex = 3;
+                        break;   
                 }
                 this.game.camera.travelTo(elementAwardScreen); 
             } else {
                 this.game.camera.travelTo(this.destinationLevel); 
             }
 
-
-
-
-            
 
         } else {
             // for loop prevents errors when the hero is not added to project... 
