@@ -188,16 +188,13 @@ class Hero {
         this.weaponSpritesheet = ASSET_MANAGER.getAsset("./sprites/ui/weapon_icons.png");
         
         this.weaponIndex = 0;
-        this.weapon = { type: 0, attack: 5, dexterity: 8 };
         this.weaponData = [];
         this.weaponPixelData = [{type: 0, x: 24, y: 0}, {type: 1, x: 48, y: 0}, {type: 2, x: 60, y: 0}, {type: 3, x: 36, y: 0}, {type: 4, x: 0, y: 0}, {type: 5, x: 12, y: 0}];
        
         // types: 0 = longsword, 1 = war axe, 2 = whip, 3 = flail, 4 = slingshot, 5 = bow
 
         this.spellType = 1; // 0 = wind, 1 = fire, 2 = ice, 3 = earth
-
-        this.velocityConstant = 6;
-        this.walkSpeed = 0.1 * (4 / this.velocityConstant);
+        
         this.velocity = { x : 0, y : 0 };
         this.updateWeaponList();
         this.updateBB();
@@ -209,7 +206,12 @@ class Hero {
 
         this.animations = [];
 
-        this.dexterity = WEAPONS[this.weapon.type].base_dexterity - this.weapon.dexterity * 0.005;
+        this.weapon = this.weaponData[this.weaponIndex];
+        this.dexterity = WEAPONS[this.weapon.type].base_dexterity - this.weapon.dexterity * 0.01;
+        console.log(this.weapon)
+        console.log(WEAPONS[this.weapon.type].base_dexterity)
+        this.velocityConstant = saveState.heroStats[0] / 2.5 + 3;
+        this.walkSpeed = 0.1 * (4 / this.velocityConstant);
 
         this.animations.push(new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 16, 0.2, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 64 * 32, 0, 32, 32, 4, this.walkSpeed, false, true));
@@ -511,7 +513,7 @@ class Hero {
                                                         this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(theta) * PARAMS.SCALE, 
                                                         this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, 
                                                         theta, true, type, this.BB.center, 
-                                                        75);
+                                                        WEAPONS[this.weapon.type].base_damage + 5 * this.weapon.attack);
                         projectile.velocity = proj_vel;
                         this.game.addEntity(projectile);
                         ASSET_MANAGER.playAsset("./audio/sword.mp3");
@@ -568,7 +570,6 @@ class Hero {
                 this.ability1Timer = 0;
                 this.ability2Timer = 0;
                 this.ability3Timer = 0;
-                this.shootTimer = 0;
                 this.loadAnimations();
             } else if (!this.game.weaponChange) {
                 this.weaponChangeFlag = false;
@@ -687,11 +688,12 @@ class Hero {
 
     updateWeaponList() {
         this.weaponData = [];
-        for (let i = 0;i<=5;i++) {
+        for (let i = 0; i <= 5; i++) {
             if (saveState.weapons[i].bought !== false) {
                 this.weaponData.push({type: i, x: this.weaponPixelData[i].x, y: this.weaponPixelData[i].y, attack: saveState.weapons[i].attack, dexterity: saveState.weapons[i].dexterity});
             }
         }
+        this.loadAnimations();
     }
 };
 

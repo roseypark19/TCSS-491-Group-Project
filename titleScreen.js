@@ -153,14 +153,16 @@ class TitleScreen {
             ctx.font = 36 + 'px "silkscreennormal"';
             ctx.fillText("CONTROLS:", PARAMS.CANVAS_DIMENSION / 20, 300);
             ctx.fillText("- USE WASD OR ARROWS TO MOVE", PARAMS.CANVAS_DIMENSION / 20, 340);
-            ctx.fillText("- CLICK THE GAME WINDOW TO ATTACK", PARAMS.CANVAS_DIMENSION / 20, 380);
-            ctx.fillText("- USE SPELLS WITH Q, R, AND F", PARAMS.CANVAS_DIMENSION / 20, 420);
+            ctx.fillText("- CLICK(HOLD) THE GAME WINDOW TO ATTACK", PARAMS.CANVAS_DIMENSION / 20, 380);
+            ctx.fillText("- USE SPELLS WITH 'Q', 'R', AND 'F'", PARAMS.CANVAS_DIMENSION / 20, 420);
+            ctx.fillText("- CHANGE SPELL TYPE WITH 'X'", PARAMS.CANVAS_DIMENSION / 20, 460);
+            ctx.fillText("- CHANGE WEAPON TYPE WITH 'C'", PARAMS.CANVAS_DIMENSION / 20, 500);
 
-            ctx.fillText("TIPS:", PARAMS.CANVAS_DIMENSION / 20, 500);
-            ctx.fillText("- CHECK OUT THE SHOPS AT THE TOWN", PARAMS.CANVAS_DIMENSION / 20, 540);
-            ctx.fillText("  TO UPGRADE YOUR CHARACTER!", PARAMS.CANVAS_DIMENSION / 20, 580);
-            ctx.fillText("- ELIMINATE ALL ENEMIES TO ", PARAMS.CANVAS_DIMENSION / 20, 620);
-            ctx.fillText("  COMPLETE A DUNGEON!", PARAMS.CANVAS_DIMENSION / 20, 660);
+            ctx.fillText("TIPS:", PARAMS.CANVAS_DIMENSION / 20, 580);
+            ctx.fillText("- CHECK OUT THE SHOPS AT THE TOWN", PARAMS.CANVAS_DIMENSION / 20, 620);
+            ctx.fillText("  TO UPGRADE YOUR CHARACTER!", PARAMS.CANVAS_DIMENSION / 20, 660);
+            ctx.fillText("- ELIMINATE ALL ENEMIES TO ", PARAMS.CANVAS_DIMENSION / 20, 700);
+            ctx.fillText("  COMPLETE A DUNGEON!", PARAMS.CANVAS_DIMENSION / 20, 740);
 
         }
         if (this.showReset) {
