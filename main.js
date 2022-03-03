@@ -131,6 +131,7 @@ ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_frog.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_skeleton.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_green_slime.png");
 ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_tentacle.png");
+ASSET_MANAGER.queueDownload("./sprites/projectiles/projectile_sword3.png");
 
 ASSET_MANAGER.queueDownload("./sprites/biomes/castle/tiles.png");
 ASSET_MANAGER.queueDownload("./sprites/biomes/castle/tiles_shadows.png");
