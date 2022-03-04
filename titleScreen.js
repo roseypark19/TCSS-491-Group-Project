@@ -28,18 +28,14 @@ class TitleScreen {
                     this.showHowTo = false;
                 } 
             }
-            
             if (!this.showHowTo && !this.showReset && !this.showCredits) {
                 // not in submenu
-                console.log(saveState);
                 if (this.mouseBB.collide(this.playBB)) {
-                    if (!saveState.firstCutSceneFinished === true) {
-                        console.log(saveState);
+                    if (!saveState.firstCutsceneFinished) {
                         saveState.firstCutsceneFinished = true;
                         saveGame(saveState);
                         loadGame();
                         this.game.camera.travelTo(cutSceneScreen);
-
                     } else {
                         this.game.camera.travelTo(town);
                     }
