@@ -208,8 +208,8 @@ class Hero {
 
         this.weapon = this.weaponData[this.weaponIndex];
         this.dexterity = WEAPONS[this.weapon.type].base_dexterity - this.weapon.dexterity * 0.01;
-        console.log(this.weapon)
-        console.log(WEAPONS[this.weapon.type].base_dexterity)
+        //console.log(this.weapon)
+        //console.log(WEAPONS[this.weapon.type].base_dexterity)
         this.velocityConstant = saveState.heroStats[0] / 2.5 + 3;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
 
