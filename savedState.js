@@ -13,7 +13,7 @@ function toBoolean(str) {
 const initialState = {
     firstCutsceneFinished: false,
     gameFinished: true,   // if boss is complete
-    numLevelsCompleted: 9, // 1 - 9
+    numLevelsCompleted: 1, // 1 - 9
     currency: 1500,
     
     numSpellsUnlocked: 0, // 0 - 4
@@ -174,7 +174,7 @@ function resetGame() {
 
 loadGame();
 
-resetGame(); // REMOVE THIS LINE TO NOT RESET EVERY TIME PAGE IS RELOADED
+//resetGame(); // REMOVE THIS LINE TO NOT RESET EVERY TIME PAGE IS RELOADED
 
 
 // console.log(saveState.weapons[0].bought);

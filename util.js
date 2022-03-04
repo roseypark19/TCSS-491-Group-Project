@@ -26,7 +26,7 @@ const PROJECTILE_LIFETIMES = {
 };
 
 const WEAPONS = {
-    0 : { base_damage: 20, base_dexterity: 0.16, range: 6, projectileType: 2 },
+    0 : { base_damage: 20, base_dexterity: 0.16, range: 6, projectileType: 19 },
     1 : { base_damage: 30, base_dexterity: 0.17, range: 6, projectileType: 3 },
     2 : { base_damage: 15, base_dexterity: 0.175, range: 14, projectileType: 4 },
     3 : { base_damage: 25, base_dexterity: 0.25, range: 14, projectileType: 5 },
@@ -54,6 +54,7 @@ const PROJECTILES = {
     16: { spritesheet: "./sprites/projectiles/projectile_green_slime.png", velocity: 4, lifetime: PROJECTILE_LIFETIMES.mid },
     17: { spritesheet: "./sprites/projectiles/projectile_green_slime.png", velocity: 8, lifetime: PROJECTILE_LIFETIMES.long },
     18: { spritesheet: "./sprites/projectiles/projectile_tentacle.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
+    19: { spritesheet: "./sprites/projectiles/projectile_sword3.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
 };
 
 // returns a random integer between 0 and n-1
