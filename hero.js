@@ -156,7 +156,7 @@ class Hero {
                         // explosion cast, explosion hold, explosion launch, shield casting
                         // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 1000;
+        this.maxHp = 100000;
         this.maxMp = 1000;
         this.mp = this.maxMp;
         this.hp = this.maxHp;
@@ -208,8 +208,6 @@ class Hero {
 
         this.weapon = this.weaponData[this.weaponIndex];
         this.dexterity = WEAPONS[this.weapon.type].base_dexterity - this.weapon.dexterity * 0.01;
-        console.log(this.weapon)
-        console.log(WEAPONS[this.weapon.type].base_dexterity)
         this.velocityConstant = saveState.heroStats[0] / 2.5 + 3;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
 
@@ -304,8 +302,8 @@ class Hero {
         let prevState = this.state;
         
         if (this.state !== 4) {
-            this.hp = Math.min(this.maxHp, this.hp + this.game.clockTick / 1 * 5);
-            this.mp = Math.min(this.maxMp, this.mp + this.game.clockTick / 1 * 10);
+            this.hp = Math.min(this.maxHp, this.hp + this.game.clockTick / 1 * (5 * (saveState.heroStats[3] + 1)));
+            this.mp = Math.min(this.maxMp, this.mp + this.game.clockTick / 1 * (5 * (saveState.heroStats[4] + 1)));
         }
 
         this.originalCollisionBB = this.collisionBB;
