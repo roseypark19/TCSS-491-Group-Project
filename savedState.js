@@ -8,7 +8,7 @@ function toBoolean(str) {
     } else {
         return false;
     }
-}
+};
 
 const initialState = {
     firstCutsceneFinished: false,
@@ -107,7 +107,7 @@ function saveGame(obj) {
 function loadGame() {
     const storage = window.localStorage;
     saveState = {
-        firstCutsceneFinished: toBoolean(storage.getItem("firstCutsceneFinished")),
+        firstCutsceneFinished: storage.getItem("firstCutsceneFinished") === null ? null : toBoolean(storage.getItem("firstCutsceneFinished")),
         gameFinished: toBoolean(storage.getItem("gameFinished")),   
         numLevelsCompleted: parseInt(storage.getItem("numLevelsCompleted")), 
         currency: parseInt(storage.getItem("currency")),
@@ -160,7 +160,6 @@ function loadGame() {
     
     // set a default if first load
     if (saveState.firstCutsceneFinished == null) {
-
         saveGame(initialState);
         loadGame();
     }
@@ -172,7 +171,7 @@ function resetGame() {
     loadGame();
 }
 
-loadGame();
+// loadGame();
 
 // resetGame(); // REMOVE THIS LINE TO NOT RESET EVERY TIME PAGE IS RELOADED
 
