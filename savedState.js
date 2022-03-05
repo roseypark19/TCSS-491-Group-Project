@@ -21,7 +21,7 @@ const initialState = {
     heroStats: { 
         0: 0, // speed of character
         1: 0, // maxHp
-        2: 2, // maxMp
+        2: 0, // maxMp
         3: 0, // vitality (rate of health regen)
         4: 0, // wisdom (rate of mP regen)
         5: 0, // defense
@@ -49,7 +49,7 @@ const initialState = {
             "dexterity": 0
         },
         4 : { // slingshot
-            "bought": true,
+            "bought": false,
             "attack": 0,
             "dexterity": 0
         },

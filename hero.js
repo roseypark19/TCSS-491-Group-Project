@@ -206,6 +206,7 @@ class Hero {
 
         this.animations = [];
 
+        console.log(this.weaponData)
         this.weapon = this.weaponData[this.weaponIndex];
         this.dexterity = WEAPONS[this.weapon.type].base_dexterity - this.weapon.dexterity * WEAPONS[this.weapon.type].dexInc;
         this.velocityConstant = saveState.heroStats[0] / 2.5 + 3;
