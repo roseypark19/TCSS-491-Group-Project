@@ -12,16 +12,16 @@ function toBoolean(str) {
 
 const initialState = {
     firstCutsceneFinished: false,
-    gameFinished: true,   // if boss is complete
+    gameFinished: false,   // if boss is complete
     numLevelsCompleted: 1, // 1 - 9
-    currency: 1500,
+    currency: 50,
     
     numSpellsUnlocked: 0, // 0 - 4
 
     heroStats: { 
         0: 0, // speed of character
         1: 0, // maxHp
-        2: 0, // maxMp
+        2: 2, // maxMp
         3: 0, // vitality (rate of health regen)
         4: 0, // wisdom (rate of mP regen)
         5: 0, // defense
@@ -49,7 +49,7 @@ const initialState = {
             "dexterity": 0
         },
         4 : { // slingshot
-            "bought": false,
+            "bought": true,
             "attack": 0,
             "dexterity": 0
         },
@@ -174,7 +174,7 @@ function resetGame() {
 
 loadGame();
 
-//resetGame(); // REMOVE THIS LINE TO NOT RESET EVERY TIME PAGE IS RELOADED
+// resetGame(); // REMOVE THIS LINE TO NOT RESET EVERY TIME PAGE IS RELOADED
 
 
 // console.log(saveState.weapons[0].bought);

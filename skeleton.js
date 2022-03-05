@@ -175,7 +175,7 @@ class Skeleton {
                                     for (let i = theta - Math.PI / 10; i <= theta + Math.PI * 1 / 10; i += 2 * Math.PI / 10) {
                                         this.game.addEntity(new Projectile(this.game, 
                                             this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(i) * PARAMS.SCALE, 
-                                            this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, 15, this.BB.center, 50));
+                                            this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, 26, this.BB.center, 50));
                                     }
                                 }
                             }
@@ -187,7 +187,6 @@ class Skeleton {
                             } else {
                                 this.state = 2;
                             }
-                            // this.state = 2;
                         }
                         if (this.randomPos !== undefined) {
                             movementDirectionUnitVector = this.randomPosUnitVector;
@@ -232,6 +231,7 @@ class Skeleton {
             });
         } else if (this.deadTimer === 0 && this.hp <= 0) {
             this.removeFromWorld = true;
+            this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 5));
         }
 
         this.shootFlag = this.state === 4;

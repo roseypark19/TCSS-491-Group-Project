@@ -235,7 +235,7 @@ class GameEngine {
         for (let i = 0; i < entitiesCount; i++) {
             let entity = this.entities[i];
             
-            if (PARAMS.GAMEOVER && entity.friendlyProjectile && this.camera.hero.hp <= 0) {
+            if (PARAMS.GAMEOVER && (entity.friendlyProjectile || entity.heroFollower) && this.camera.hero.hp <= 0) {
                 entity.removeFromWorld = true;
             }
 

@@ -14,7 +14,7 @@ const SHOT_PATTERNS = {
     1: function(projectile) {
         if (projectile.updateVectorPoint()) {
             let radians = (projectile.maxLifetime - projectile.lifetime) / projectile.maxLifetime * 2 * Math.PI;
-            let shift = Math.sin(radians) * 75;
+            let shift = Math.sin(radians) * 25;
             // we need to find a unit vector perpendicular to the velocity vector
             let perpVect = {x: projectile.velocity.y, y: -projectile.velocity.x};
             let unitPerpVect = unitVector(perpVect);
@@ -30,7 +30,7 @@ const SHOT_PATTERNS = {
         if (!projectile.arcDirection) projectile.arcDirection = randomInt(2) === 0 ? -1 : 1;
         if (projectile.updateVectorPoint()) {
             let radians = (projectile.maxLifetime - projectile.lifetime) / projectile.maxLifetime * Math.PI;
-            let shift = Math.sin(radians) * 125 * projectile.arcDirection;
+            let shift = Math.sin(radians) * 50 * projectile.arcDirection;
             // we need to find a unit vector perpendicular to the velocity vector
             let perpVect = {x: projectile.velocity.y, y: -projectile.velocity.x};
             let unitPerpVect = unitVector(perpVect);

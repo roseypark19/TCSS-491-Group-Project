@@ -81,25 +81,24 @@ class WeaponsShop {
         // costs and levels
         this.MAX_DMG_LEVEL = 10;
         this.MAX_DXT_LEVEL = 10;
-        this.SWORD_DMG_COSTS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.SWORD_DXT_COSTS = [2, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.AXE_DMG_COSTS = [3, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.AXE_DXT_COSTS = [4, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.WHIP_DMG_COSTS = [5, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.WHIP_DXT_COSTS = [6, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.FLAIL_DMG_COSTS = [7, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.FLAIL_DXT_COSTS = [8, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.SLINGSHOT_DMG_COSTS = [9, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.SLINGSHOT_DXT_COSTS = [10, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.BOW_DMG_COSTS = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.BOW_DXT_COSTS = [12, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-        this.SWORD_UNLOCK_COST = 999;
-        this.AXE_UNLOCK_COST = 50;
-        this.WHIP_UNLOCK_COST = 100;
-        this.FLAIL_UNLOCK_COST = 300;
-        this.SLINGSHOT_UNLOCK_COST = 666;
-        this.BOW_UNLOCK_COST = 999;
+        this.SWORD_DMG_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
+        this.SWORD_DXT_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
+        this.AXE_DMG_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
+        this.AXE_DXT_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
+        this.WHIP_DMG_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
+        this.WHIP_DXT_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
+        this.FLAIL_DMG_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
+        this.FLAIL_DXT_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
+        this.SLINGSHOT_DMG_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
+        this.SLINGSHOT_DXT_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
+        this.BOW_DMG_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
+        this.BOW_DXT_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
+        this.SWORD_UNLOCK_COST = 0;
+        this.AXE_UNLOCK_COST = 75;
+        this.WHIP_UNLOCK_COST = 50;
+        this.FLAIL_UNLOCK_COST = 75;
+        this.SLINGSHOT_UNLOCK_COST = 50;
+        this.BOW_UNLOCK_COST = 75;
 
         this.swordDmgCost = this.SWORD_DMG_COSTS[saveState.weapons[0].attack];
         this.swordDxtCost = this.SWORD_DXT_COSTS[saveState.weapons[0].dexterity];
@@ -1032,12 +1031,12 @@ class StatsShop {
 
         // costs and levels
         this.MAX_LEVEL = 10;
-        this.SPEED_COSTS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.HEALTH_COSTS = [3, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.MANA_COSTS = [5, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.VITALITY_COSTS = [7, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.WISDOM_COSTS = [9, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.DEFENSE_COSTS = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        this.SPEED_COSTS = [10, 14, 18, 22, 26, 30, 34, 38, 42, 46];
+        this.HEALTH_COSTS = [10, 12, 14, 16, 18, 20, 22, 24, 26, 28];
+        this.MANA_COSTS = [10, 12, 14, 16, 18, 20, 22, 24, 26, 28];
+        this.VITALITY_COSTS = [10, 12, 14, 16, 18, 20, 22, 24, 26, 28];
+        this.WISDOM_COSTS = [10, 12, 14, 16, 18, 20, 22, 24, 26, 28];
+        this.DEFENSE_COSTS = [10, 12, 14, 16, 18, 20, 22, 24, 26, 28];
 
         this.SPEED_UNLOCK_COST = 999;
         this.HEALTH_UNLOCK_COST = 50;

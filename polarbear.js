@@ -220,7 +220,7 @@ class PolarBear {
                         for (let i = theta - Math.PI / 8; i <= theta + Math.PI / 8; i += Math.PI / 8) {
                             this.game.addEntity(new Projectile(this.game, 
                                 this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(i) * PARAMS.SCALE, 
-                                this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, 13, this.BB.center, 100));
+                                this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, 19, this.BB.center, 100));
                         }
                         this.facing[0] = vector.y >= 0 ? 0 : 1;
                         this.facing[1] = vector.x >= 0 ? 0 : 1;

@@ -5,9 +5,19 @@ class SwordedMinion {
         switch(this.type) {
             case 0:
                 this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/dwarf_beard.png");
+                this.maxHp = 50;
+                this.velocityConstant = 2;
+                this.dexterity = 0.17;
+                this.damage = 50;
+                this.coinAmt = 1;
                 break;
             case 1:
                 this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/orc_wild.png");
+                this.maxHp = 75;
+                this.velocityConstant = 2.5;
+                this.dexterity = 0.15;
+                this.damage = 60;
+                this.coinAmt = 3;
                 break;
             case 2:
                 this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/trasgo.png");
@@ -22,7 +32,6 @@ class SwordedMinion {
         this.state = 0; // idle, walking, attacking, damaged, dead
                         // 0, 1, 2, 3, 4
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 400;
         this.hp = this.maxHp;
         this.minProximity = 5;
         this.visionDistance = 400;
@@ -37,7 +46,6 @@ class SwordedMinion {
         this.burningTimer = 0;
         this.burnDamageTimer = 0;
         this.confusedTimer = 0;
-        this.velocityConstant = 4;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
         this.velocity = { x: 0, y: 0 };
         this.animations = [];
@@ -48,7 +56,7 @@ class SwordedMinion {
     loadAnimations() {
         this.animations.push(new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 16, 0.2, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 64 * 32, 0, 32, 32, 4, this.walkSpeed, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 80 * 32, 0, 32, 32, 4, 0.12, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 80 * 32, 0, 32, 32, 4, this.dexterity, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 96 * 32, 0, 32, 32, 4, 0.075, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 112 * 32, 0, 32, 32, 12, 0.15, false, true));
     };
@@ -127,18 +135,6 @@ class SwordedMinion {
             });
         }
 
-        // if (this.hit && this.damagedTimer === 0) {
-        //     this.hit = false;
-        // }
-
-        // if (this.state !== 4 && this.damagedTimer > 0 && this.hit) {
-        //     this.velocity.x = this.hitUnitVector.x * this.velocityConstant / 2;
-        //     this.velocity.y = this.hitUnitVector.y * this.velocityConstant / 2;
-        //     this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
-        //     this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
-        //     this.randomPos = undefined;
-        // }
-
         if (this.state !== 4 && this.burningTimer > 0 && this.burnDamageTimer === 0) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp -= 25;
@@ -154,11 +150,6 @@ class SwordedMinion {
                 ASSET_MANAGER.playAsset("./audio/trasgo_death.mp3");
             }
         }
-
-        // if (this.state !== 4 && this.damagedTimer === 0 && this.frozenTimer > 0) {
-        //     this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
-        //     this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
-        // }
 
         this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed * 3 : this.walkSpeed);
 
@@ -193,16 +184,31 @@ class SwordedMinion {
                                 this.state = 2;
                             }
                             if (this.shootTimer === 0 && this.state === 2) {
-                                this.shootTimer = 0.12 * 4 - this.game.clockTick;
+                                this.shootTimer = this.dexterity * 4 - this.game.clockTick;
                                 if (this.shootFlag) {
                                     let vector = this.confusedTimer === 0 ? heroDirectionUnitVector : this.confusionUnitVector;
                                     let theta = Math.atan2(vector.y, vector.x);
                                     if (theta < 0) {
                                         theta += 2 * Math.PI;
                                     }
+                                    let type;
+                                    switch(this.type) {
+                                        case 0:
+                                            type = 6;
+                                            break;
+                                        case 1:
+                                            type = 11;
+                                            break;
+                                        case 2:
+                                            type = 16;
+                                            break;
+                                        case 3:
+                                            type = 20;
+                                            break;
+                                    }
                                     this.game.addEntity(new Projectile(this.game, 
                                                                        this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(theta) * PARAMS.SCALE, 
-                                                                       this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, theta, false, 9, this.BB.center, 50));
+                                                                       this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, theta, false, type, this.BB.center, this.damage));
                                 }
                             }
                         } else if (this.damagedTimer === 0 && this.frozenTimer === 0) {
@@ -246,7 +252,7 @@ class SwordedMinion {
         } else {
             if (this.deadTimer === 0) {
                 this.removeFromWorld = true;
-                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 5));
+                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, this.coinAmt));
             }
         }
 
@@ -342,11 +348,21 @@ class RangedMinion {
         switch(this.type) {
             case 0:
                 this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/dwarf.png");
+                this.maxHp = 30;
+                this.velocityConstant = 2;
+                this.dexterity = 0.1;
+                this.damage = 25;
+                this.coinAmt = 1;
                 break;
             case 1:
                 this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/orc.png");
+                this.maxHp = 50;
+                this.velocityConstant = 2.5;
+                this.dexterity = 0.08;
+                this.damage = 35;
+                this.coinAmt = 3;
                 break;
-            case 2:
+            case 3:
                 this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/goblins.png");
                 break;
         }
@@ -355,11 +371,10 @@ class RangedMinion {
         this.state = 0; // idle, walking, attacking, damaged, dead
                         // 0, 1, 2, 3, 4
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 500;
         this.hp = this.maxHp;
         this.minProximity = 5;
-        this.visionDistance = 500;
-        this.attackDistance = 250;
+        this.visionDistance = 600;
+        this.attackDistance = 500;
         this.shotsTaken = [];
         this.shootTimer = 0;
         this.shootFlag = false;
@@ -370,7 +385,6 @@ class RangedMinion {
         this.burningTimer = 0;
         this.burnDamageTimer = 0;
         this.confusedTimer = 0;
-        this.velocityConstant = 3;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
         this.velocity = { x: 0, y: 0 };
         this.animations = [];
@@ -381,7 +395,7 @@ class RangedMinion {
     loadAnimations() {
         this.animations.push(new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 16, 0.2, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 64 * 32, 0, 32, 32, 4, this.walkSpeed, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 124 * 32, 0, 32, 32, 8, 0.04, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 124 * 32, 0, 32, 32, 8, this.dexterity, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 96 * 32, 0, 32, 32, 4, 0.15, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 112 * 32, 0, 32, 32, 12, 0.15, false, true));
     };
@@ -389,7 +403,7 @@ class RangedMinion {
     updateBB() {
         this.BB = new BoundingBox(this.x, this.y, 32 * PARAMS.SCALE, 32 * PARAMS.SCALE);
         this.hitBB = new BoundingBox(this.x + 12 * PARAMS.SCALE, this.y + 12 * PARAMS.SCALE, 8 * PARAMS.SCALE, 8 * PARAMS.SCALE);
-        this.collisionBB = new BoundingBox(this.hitBB.x, this.hitBB.y + 4 * PARAMS.SCALE, 8 * PARAMS.SCALE, 4 * PARAMS.SCALE);
+        this.collisionBB = new BoundingBox(this.hitBB.x, this.hitBB.y + 4 * PARAMS.SCALE, 8 * PARAMS.SCALE, 6 * PARAMS.SCALE);
     };
 
     update() {
@@ -421,14 +435,7 @@ class RangedMinion {
                     } else {
                         entity.removeFromWorld = true;
                     }   
-                    this.hit = true;  
                     this.frozenTimer = 0;
-                    if (this.damagedTimer === 0 && this.deadTimer === 0) {
-                        this.damagedTimer = 0.6 - this.game.clockTick;
-                        this.state = 3;
-                        this.hitUnitVector = prevState === 0 ? { x: 0, y: 0 } : 
-                                                               unitVector({ x: this.hitBB.center.x - entity.sourcePoint.x, y: this.hitBB.center.y - entity.sourcePoint.y });
-                    }
                     this.hp -= entity.damage;
                     // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_hit.mp3");
                     if (entity.elemental) {
@@ -460,17 +467,6 @@ class RangedMinion {
             });
         }
 
-        if (this.hit && this.damagedTimer === 0) {
-            this.hit = false;
-        }
-
-        if (this.state !== 4 && this.damagedTimer > 0 && this.hit) {
-            this.velocity.x = this.hitUnitVector.x * this.velocityConstant / 2;
-            this.velocity.y = this.hitUnitVector.y * this.velocityConstant / 2;
-            this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
-            this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
-            this.randomPos = undefined;
-        }
 
         if (this.state !== 4 && this.burningTimer > 0 && this.burnDamageTimer === 0) {
             this.burnDamageTimer = 1 - this.game.clockTick;
@@ -486,11 +482,6 @@ class RangedMinion {
                 this.facing = [0, 0];
                 // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
             }
-        }
-
-        if (this.state !== 4 && this.damagedTimer === 0 && this.frozenTimer > 0) {
-            this.facing[0] = this.hitUnitVector.y > 0 ? 1 : 0;
-            this.facing[1] = this.hitUnitVector.x > 0 ? 1 : 0;
         }
 
         this.animations[1].setFrameDuration(this.slowedTimer > 0 ? this.walkSpeed * 3 : this.walkSpeed);
@@ -542,11 +533,23 @@ class RangedMinion {
                                 }
                             }
                             if (this.shootTimer === 0 && this.state === 2) {
-                                this.shootTimer = 0.04 * 8 - this.game.clockTick;
+                                this.shootTimer = this.dexterity * 8 - this.game.clockTick;
+                                let type;
+                                    switch(this.type) {
+                                        case 0:
+                                            type = 7;
+                                            break;
+                                        case 1:
+                                            type = 12;
+                                            break;
+                                        case 3:
+                                            type = 21;
+                                            break;
+                                    }
                                 if (this.shootFlag) {
                                     this.game.addEntity(new Projectile(this.game, 
                                         this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(arrowTheta) * PARAMS.SCALE, 
-                                        this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(arrowTheta) * PARAMS.SCALE, arrowTheta, false, 8, this.BB.center, 50));
+                                        this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(arrowTheta) * PARAMS.SCALE, arrowTheta, false, type, this.BB.center, this.damage));
                                 }
                             }
                         } else if (this.damagedTimer === 0 && this.frozenTimer === 0) {
@@ -580,7 +583,7 @@ class RangedMinion {
         } else {
             if (this.deadTimer === 0) {
                 this.removeFromWorld = true;
-                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 1));
+                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, this.coinAmt));
             }
         }
 

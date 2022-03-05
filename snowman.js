@@ -62,7 +62,7 @@ class Snowman {
                             if (this.shootFlag) {
                                 this.game.addEntity(new Projectile(this.game, 
                                     this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE * 1.75 + 4 * Math.cos(snowballTheta) * PARAMS.PROJECTILE_SCALE * 1.75, 
-                                    this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE * 1.75 + 4 * Math.sin(snowballTheta) * PARAMS.PROJECTILE_SCALE * 1.75, snowballTheta, false, 10, this.BB.center, 25, PARAMS.PROJECTILE_SCALE * 1.75));
+                                    this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE * 1.75 + 4 * Math.sin(snowballTheta) * PARAMS.PROJECTILE_SCALE * 1.75, snowballTheta, false, 17, this.BB.center, 25, PARAMS.PROJECTILE_SCALE * 1.75));
                             }
                         }
                     }
