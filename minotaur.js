@@ -8,7 +8,7 @@ class Minotaur {
         this.state = 0; // idle, walking, attacking, damaged, dead
                         // 0, 1, 2, 3, 4
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 500;
+        this.maxHp = 800;
         this.hp = this.maxHp;
         this.minProximity = 32 * 1.5;
         this.visionDistance = 400;
@@ -181,7 +181,7 @@ class Minotaur {
         } else {
             if (this.deadTimer === 0) {
                 this.removeFromWorld = true;
-                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 5));
+                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 12));
             }
         }
 
@@ -210,14 +210,21 @@ class Minotaur {
                 if (this.shootTimer === 0 && this.state === 2) {
                     this.shootTimer = 0.075 * 8 - this.game.clockTick;
                     let vector = this.confusedTimer === 0 ? { x: heroCenter.x - this.BB.center.x, y: heroCenter.y - this.BB.center.y } : this.confusionUnitVector;
-                        let theta = Math.atan2(vector.y, vector.x);
-                        if (theta < 0) {
-                            theta += 2 * Math.PI;
-                        }
+                        // let theta = Math.atan2(vector.y, vector.x);
+                        // if (theta < 0) {
+                        //     theta += 2 * Math.PI;
+                        // }
                     if (this.attackFlag) {
-                        this.game.addEntity(new Projectile(this.game, 
-                            this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(theta) * PARAMS.SCALE, 
-                            this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, theta, false, 29, this.BB.center, 50, PARAMS.PROJECTILE_SCALE * 1.5));
+
+                        let initTheta = toRadians(randomInt(361));
+                        for (let i = initTheta; i < initTheta + 2 * Math.PI; i += Math.PI / 4) {
+                            this.game.addEntity(new Projectile(this.game, 
+                                this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE * 1.5 + 4 * Math.cos(i) * PARAMS.SCALE, 
+                                this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE * 1.5 + 4 * Math.sin(i) * PARAMS.SCALE, i, false, 31, this.BB.center, 200, PARAMS.PROJECTILE_SCALE * 1.5, 4));
+                        }
+                        // this.game.addEntity(new Projectile(this.game, 
+                        //     this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(theta) * PARAMS.SCALE, 
+                        //     this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, theta, false, 29, this.BB.center, 200, PARAMS.PROJECTILE_SCALE * 1.5));
                         this.facing[0] = vector.y >= 0 ? 0 : 1;
                         this.facing[1] = vector.x >= 0 ? 0 : 1;
                     }

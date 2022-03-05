@@ -11,12 +11,12 @@ function toBoolean(str) {
 };
 
 const initialState = {
-    firstCutsceneFinished: false,
+    firstCutsceneFinished: true,
     gameFinished: false,   // if boss is complete
-    numLevelsCompleted: 1, // 1 - 9
-    currency: 50,
+    numLevelsCompleted: 5, // 1 - 9
+    currency: 500,
     
-    numSpellsUnlocked: 0, // 0 - 4
+    numSpellsUnlocked: 2, // 0 - 4
 
     heroStats: { 
         0: 0, // speed of character

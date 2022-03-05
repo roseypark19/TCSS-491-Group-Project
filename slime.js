@@ -8,7 +8,7 @@ class BabySlime {
         this.state = 0; // idle, attacking, damaged, dead
                         // 0, 1, 2, 3
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 150;
+        this.maxHp = 200;
         this.hp = this.maxHp;
         this.minProximity = 5;
         this.visionDistance = 450;
@@ -163,8 +163,8 @@ class BabySlime {
                                     }
                                     // for (let i = theta - Math.PI / 4; i <= theta + Math.PI * 1 / 4; i += Math.PI / 10) {
                                         this.game.addEntity(new Projectile(this.game, 
-                                            this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(theta) * PARAMS.SCALE, 
-                                            this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, theta, false, this.green ? 27 : 28, this.BB.center, 50, PARAMS.PROJECTILE_SCALE / 2));
+                                            this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE / 2 + 4 * Math.cos(theta) * PARAMS.SCALE, 
+                                            this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE / 2 + 4 * Math.sin(theta) * PARAMS.SCALE, theta, false, this.green ? 28 : 30, this.BB.center, 50, PARAMS.PROJECTILE_SCALE / 2));
                                     // }
                                 }  
                             }
@@ -207,7 +207,7 @@ class BabySlime {
         } else {
             if (this.deadTimer === 0) {
                 this.removeFromWorld = true;
-                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 5));
+                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 1));
             }
         }
 
@@ -305,7 +305,7 @@ class MotherSlime {
         this.state = 0; // idle, attacking, damaged, dead
                         // 0, 1, 2, 3
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 300;
+        this.maxHp = 400;
         this.hp = this.maxHp;
         this.minProximity = 5;
         this.visionDistance = 450;
@@ -459,10 +459,10 @@ class MotherSlime {
                                     if (theta < 0) {
                                         theta += 2 * Math.PI;
                                     }
-                                    for (let i = theta - Math.PI / 4; i <= theta + Math.PI * 1 / 4; i += Math.PI / 10) {
+                                    for (let i = theta - Math.PI / 4; i <= theta + Math.PI * 1 / 4; i += Math.PI / 5) {
                                         this.game.addEntity(new Projectile(this.game, 
                                             this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(i) * PARAMS.SCALE, 
-                                            this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, this.green ? 27 : 28, this.BB.center, 150));
+                                            this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, this.green ? 27 : 29, this.BB.center, 150));
                                     }
                                 }  
                             }

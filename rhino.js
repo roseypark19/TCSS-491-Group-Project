@@ -8,7 +8,7 @@ class Rhino {
         this.state = 0; // idle, walking, attacking, damaged, dead
                         // 0, 1, 2, 3, 4
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 160;
+        this.maxHp = 210;
         this.hp = this.maxHp;
         this.minProximity = 32 * 1.5;
         this.visionDistance = 400;
@@ -182,7 +182,7 @@ class Rhino {
         } else {
             if (this.deadTimer === 0) {
                 this.removeFromWorld = true;
-                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 6));
+                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 7));
             }
         }
 
