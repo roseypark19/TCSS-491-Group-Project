@@ -298,6 +298,8 @@ class Hero {
     
     update() {
 
+        const isSpellUnlocked = saveState.numSpellsUnlocked > 0;
+
         this.maxHp = 500 + saveState.heroStats[1] * 50;
         this.maxMp = 250 + saveState.heroStats[2] * 25;
         
@@ -352,10 +354,10 @@ class Hero {
             });
         }
 
-        if (this.state !== 4) {
+        if (this.state !== 4 && saveState.numSpellsUnlocked > 1) {
             if (this.game.spellChange && !this.spellChangeFlag) {
                 this.spellChangeFlag = true;
-                this.spellType = (this.spellType + 1) % 4;
+                this.spellType = (this.spellType + 1) % saveState.numSpellsUnlocked;
                 this.ability1Timer = 0;
                 this.ability2Timer = 0;
                 this.ability3Timer = 0;
@@ -400,7 +402,7 @@ class Hero {
 
         if (this.state !== 4 && !this.game.camera.title) {
 
-            if (this.game.special1 && this.ability1Cooldown === 0 && this.ability1Timer === 0 && this.ability2Timer === 0 && this.mp >= this.ability1Cost) {
+            if (isSpellUnlocked && this.game.special1 && this.ability1Cooldown === 0 && this.ability1Timer === 0 && this.ability2Timer === 0 && this.mp >= this.ability1Cost) {
                 this.state = 5;
                 this.ability1Timer = (4 * 0.09 + 3 * 4 * 0.1 + 4 * 0.1) - this.game.clockTick;
                 this.ability1Cooldown = this.ability1Timer;
@@ -430,7 +432,7 @@ class Hero {
                 this.spawnBeam(theta);
             }
 
-            if (this.game.special2 && this.ability2Cooldown === 0 && this.ability2Timer === 0 && this.ability1Timer === 0 && this.mp >= this.ability2Cost) {
+            if (isSpellUnlocked && this.game.special2 && this.ability2Cooldown === 0 && this.ability2Timer === 0 && this.ability1Timer === 0 && this.mp >= this.ability2Cost) {
                 this.state = 8;
                 this.ability2Flag = true;
                 this.ability2Timer = (4 * 0.09 + 3 * 4 * 0.1 + 4 * 0.1) - this.game.clockTick;
@@ -457,7 +459,7 @@ class Hero {
                 }
             }
 
-            if (this.game.special3 && this.ability3Cooldown === 0 && this.ability3Timer === 0 && this.ability1Timer === 0 && this.ability2Timer === 0 && this.mp >= this.ability3Cost) {
+            if (isSpellUnlocked && this.game.special3 && this.ability3Cooldown === 0 && this.ability3Timer === 0 && this.ability1Timer === 0 && this.ability2Timer === 0 && this.mp >= this.ability3Cost) {
                 this.state = 11;
                 this.ability3Flag = true;
                 this.ability3Timer = 4 * 0.1 - this.game.clockTick;
@@ -562,7 +564,7 @@ class Hero {
             }
         }
 
-        if (this.state !== 4) {
+        if (this.state !== 4 && this.weaponData.length > 1) {
             if (this.game.weaponChange && !this.weaponChangeFlag) {
                 this.weaponChangeFlag = true;
                 this.updateWeaponIndex();
