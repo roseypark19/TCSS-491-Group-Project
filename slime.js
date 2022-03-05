@@ -164,7 +164,7 @@ class BabySlime {
                                     // for (let i = theta - Math.PI / 4; i <= theta + Math.PI * 1 / 4; i += Math.PI / 10) {
                                         this.game.addEntity(new Projectile(this.game, 
                                             this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(theta) * PARAMS.SCALE, 
-                                            this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, theta, false, 17, this.BB.center, 50, PARAMS.PROJECTILE_SCALE / 2));
+                                            this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, theta, false, this.green ? 27 : 28, this.BB.center, 50, PARAMS.PROJECTILE_SCALE / 2));
                                     // }
                                 }  
                             }
@@ -207,6 +207,7 @@ class BabySlime {
         } else {
             if (this.deadTimer === 0) {
                 this.removeFromWorld = true;
+                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 5));
             }
         }
 
@@ -461,7 +462,7 @@ class MotherSlime {
                                     for (let i = theta - Math.PI / 4; i <= theta + Math.PI * 1 / 4; i += Math.PI / 10) {
                                         this.game.addEntity(new Projectile(this.game, 
                                             this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(i) * PARAMS.SCALE, 
-                                            this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, 16, this.BB.center, 150));
+                                            this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, this.green ? 27 : 28, this.BB.center, 150));
                                     }
                                 }  
                             }

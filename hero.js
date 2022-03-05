@@ -8,7 +8,7 @@ class TinyHero {
         this.state = 0; // idle, walking, shooting, charged, dead
                         // 0, 1, 2, 3, 4
         this.hp = 0;
-        this.velocityConstant = 10;
+        this.velocityConstant = 8;
         this.velocity = { x : 0, y : 0 };
         this.animations = [];
         this.scale = PARAMS.SCALE / 1;
@@ -156,8 +156,8 @@ class Hero {
                         // explosion cast, explosion hold, explosion launch, shield casting
                         // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 1000;
-        this.maxMp = 1000;
+        this.maxHp = 500 + saveState.heroStats[1] * 50;
+        this.maxMp = 250 + saveState.heroStats[2] * 25;
         this.mp = this.maxMp;
         this.hp = this.maxHp;
         this.damagedTimer = 0;
@@ -178,8 +178,8 @@ class Hero {
         this.ability3Cooldown = 0;
 
         this.ability1Cost = 150;
-        this.ability2Cost = 250;
-        this.ability3Cost = 50;
+        this.ability2Cost = 200;
+        this.ability3Cost = 100;
 
         this.abilitySpritesheet = ASSET_MANAGER.getAsset("./sprites/hero/spells.png");
 
@@ -193,7 +193,7 @@ class Hero {
        
         // types: 0 = longsword, 1 = war axe, 2 = whip, 3 = flail, 4 = slingshot, 5 = bow
 
-        this.spellType = 1; // 0 = wind, 1 = fire, 2 = ice, 3 = earth
+        this.spellType = 0; // 0 = wind, 1 = fire, 2 = ice, 3 = earth
         
         this.velocity = { x : 0, y : 0 };
         this.updateWeaponList();
@@ -207,9 +207,7 @@ class Hero {
         this.animations = [];
 
         this.weapon = this.weaponData[this.weaponIndex];
-        this.dexterity = WEAPONS[this.weapon.type].base_dexterity - this.weapon.dexterity * 0.01;
-        //console.log(this.weapon)
-        //console.log(WEAPONS[this.weapon.type].base_dexterity)
+        this.dexterity = WEAPONS[this.weapon.type].base_dexterity - this.weapon.dexterity * WEAPONS[this.weapon.type].dexInc;
         this.velocityConstant = saveState.heroStats[0] / 2.5 + 3;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
 
@@ -300,12 +298,15 @@ class Hero {
     };
     
     update() {
+
+        this.maxHp = 500 + saveState.heroStats[1] * 50;
+        this.maxMp = 250 + saveState.heroStats[2] * 25;
         
         let prevState = this.state;
         
         if (this.state !== 4) {
-            this.hp = Math.min(this.maxHp, this.hp + this.game.clockTick / 1 * 5);
-            this.mp = Math.min(this.maxMp, this.mp + this.game.clockTick / 1 * 10);
+            this.hp = Math.min(this.maxHp, this.hp + this.game.clockTick / 1 * (3 * (saveState.heroStats[3] + 1)));
+            this.mp = Math.min(this.maxMp, this.mp + this.game.clockTick / 1 * (2 * (saveState.heroStats[4] + 1)));
         }
 
         this.originalCollisionBB = this.collisionBB;
@@ -337,7 +338,7 @@ class Hero {
                     }
                     entity.removeFromWorld = true;
                     // if (this.ability2Timer === 0 && this.ability1Timer === 0) {
-                    this.hp -= entity.damage;
+                    this.hp -= Math.max(0, entity.damage - 2 * saveState.heroStats[5] * (this.ability3Cooldown > 0 ? 2 : 1));
                     ASSET_MANAGER.playAsset("./audio/hero_hit.mp3");
                     // }
                     if (this.deadTimer === 0 && this.hp <= 0) {
@@ -513,7 +514,7 @@ class Hero {
                                                         this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(theta) * PARAMS.SCALE, 
                                                         this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, 
                                                         theta, true, type, this.BB.center, 
-                                                        WEAPONS[this.weapon.type].base_damage + 5 * this.weapon.attack);
+                                                        WEAPONS[this.weapon.type].base_damage + WEAPONS[this.weapon.type].damageInc * this.weapon.attack);
                         projectile.velocity = proj_vel;
                         this.game.addEntity(projectile);
                         ASSET_MANAGER.playAsset("./audio/sword.mp3");
@@ -708,7 +709,7 @@ class ElementBeam {
         this.roundedRadians = toRadians(this.roundedDegrees);
         this.loadSpriteSheet();
         this.friendlyProjectile = true;
-        this.damage = 50;
+        this.damage = 30;
         this.id = ++PARAMS.SHOT_ID;
         this.velocityConstant = 10;
         this.velocity = { x: Math.cos(this.roundedRadians) * this.velocityConstant, 

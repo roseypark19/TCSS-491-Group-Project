@@ -350,7 +350,7 @@ class SceneManager {
                         this.game.addEntity(new SwordedMinion(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.minionType));
                         break;
                     case RangedMinion:
-                        this.game.addEntity(new SwordedMinion(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.minionType));
+                        this.game.addEntity(new RangedMinion(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.minionType));
                         break;
                     case Troll:
                         this.game.addEntity(new Troll(this.game, enemy.x * PARAMS.BLOCKWIDTH * PARAMS.SCALE, enemy.y * PARAMS.BLOCKWIDTH * PARAMS.SCALE));

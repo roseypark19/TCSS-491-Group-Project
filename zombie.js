@@ -156,15 +156,15 @@ class Zombie {
                             }
                             if (this.shootTimer === 0 && this.state === 2) {
                                 this.shootTimer = 0.12 * 5 - this.game.clockTick;
-                                let projectileCenter = { x: this.BB.center.x + 4 * PARAMS.SCALE * heroDirectionUnitVector.x,
-                                                         y: this.BB.center.y + 4 * PARAMS.SCALE * heroDirectionUnitVector.y };
+                                let vector = this.confusedTimer === 0 ? heroDirectionUnitVector : this.confusionUnitVector;
+                                let theta = Math.atan2(vector.y, vector.x);
+                                if (theta < 0) {
+                                    theta += 2 * Math.PI;
+                                }
                                 if (this.shootFlag) {
-                                    // this.game.addEntity(new DamageRegion(this.game, 
-                                    //                                      projectileCenter.x - 4 * PARAMS.SCALE, 
-                                    //                                      projectileCenter.y - 4 * PARAMS.SCALE, 
-                                    //                                      8 * PARAMS.SCALE, 
-                                    //                                      8 * PARAMS.SCALE, 
-                                    //                                      false, 75, 0.1));
+                                    this.game.addEntity(new Projectile(this.game, 
+                                        this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(theta) * PARAMS.SCALE, 
+                                        this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, theta, false, 22, this.BB.center, 50, PARAMS.PROJECTILE_SCALE, 2));
                                 }
                             }
                         } else if (this.damagedTimer === 0 && this.frozenTimer === 0) {
@@ -208,6 +208,7 @@ class Zombie {
         } else {
             if (this.deadTimer === 0) {
                 this.removeFromWorld = true;
+                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 5));
             }
         }
 

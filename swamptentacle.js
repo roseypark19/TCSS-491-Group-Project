@@ -43,7 +43,7 @@ class Tentacle {
                             if (this.shootFlag) {
                                 this.game.addEntity(new Projectile(this.game, 
                                     this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(theta) * PARAMS.SCALE, 
-                                    this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, theta, false, 18, this.BB.center, 50));
+                                    this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, theta, false, 25, this.BB.center, 50));
                             }
                         }
                 } else {

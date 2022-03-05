@@ -1094,7 +1094,7 @@ const plains2 = {
     
     enemies : [
         //north of portal
-        //{type: Wargo, x:  5.5, y: 53.5},
+        {type: Wargo, x:  5.5, y: 53.5},
         //{type: Centaur, x:  4.5, y: 61.5},
         {type: Centaur, x:  4.5, y: 58.5},
 
@@ -1105,7 +1105,7 @@ const plains2 = {
 
         // stone structure by lake
         {type: Cyclops, x:  30.5, y: 22.5},
-        //{type: Cyclops, x:  33, y: 22.5},
+        {type: Cyclops, x:  33, y: 22.5},
         //{type: RangedMinion, minionType: 0, x:  31.5, y: 25.5},
 
         // waterfall
@@ -1137,12 +1137,12 @@ const plains2 = {
         {type: Centaur, x:  61.5, y: 7.5},
         //{type: Wargo, x:  59.5, y: 12.5},
         {type: Centaur, x:  66.5, y: 12.5},
-        //{type: Cyclops, x:  78.5, y: 5.5},
+        {type: Cyclops, x:  78.5, y: 5.5},
         {type: Centaur, x:  84.5, y: 1.5},
 
         // top right corner
         {type: Cyclops, x:  107.5, y: 7.5},
-       // {type: Cyclops, x:  95.5, y: 5.5},
+        {type: Cyclops, x:  95.5, y: 5.5},
         {type: RangedMinion, minionType: 0, x:  103.5, y: 6.5},
         {type: RangedMinion, minionType: 0, x:  103.5, y: 10.5},
         {type: Cyclops, x:  95.5, y: 5.5},

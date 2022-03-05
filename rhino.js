@@ -8,7 +8,7 @@ class Rhino {
         this.state = 0; // idle, walking, attacking, damaged, dead
                         // 0, 1, 2, 3, 4
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 500;
+        this.maxHp = 160;
         this.hp = this.maxHp;
         this.minProximity = 32 * 1.5;
         this.visionDistance = 400;
@@ -24,7 +24,8 @@ class Rhino {
         this.burningTimer = 0;
         this.burnDamageTimer = 0;
         this.confusedTimer = 0;
-        this.velocityConstant = 3;
+        this.velocityConstant = 2.5;
+        this.dexterity = 0.09;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
         this.velocity = { x: 0, y: 0 };
         this.animations = [];
@@ -35,7 +36,7 @@ class Rhino {
     loadAnimations() {
         this.animations.push(new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 12, 0.3, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 48 * 32, 0, 32, 32, 6, this.walkSpeed, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 72 * 32, 0, 32, 32, 5, 0.075, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 72 * 32, 0, 32, 32, 5, this.dexterity, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 92 * 32, 0, 32, 32, 4, 0.15, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 108 * 32, 0, 32, 32, 17, 0.15, false, true));
     };
@@ -181,6 +182,7 @@ class Rhino {
         } else {
             if (this.deadTimer === 0) {
                 this.removeFromWorld = true;
+                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 6));
             }
         }
 
@@ -194,7 +196,7 @@ class Rhino {
                 this.velocity.y = 0;
 
                 if (!this.attackFlag && prevState !== 3) {
-                    this.attackTimer = 3 * 0.075 * 5 - this.game.clockTick;
+                    this.attackTimer = 3 * this.dexterity * 5 - this.game.clockTick;
 
                 }
                 this.charging = false;
@@ -208,7 +210,7 @@ class Rhino {
                     }
                 }
                 if (this.shootTimer === 0 && this.state === 2) {
-                    this.shootTimer = 0.075 * 5 - this.game.clockTick;
+                    this.shootTimer = this.dexterity * 5 - this.game.clockTick;
                     if (this.attackFlag) {
                         let vector = this.confusedTimer === 0 ? { x: heroCenter.x - this.BB.center.x, y: heroCenter.y - this.BB.center.y } :
                                                                 this.confusionUnitVector;
@@ -219,7 +221,7 @@ class Rhino {
                         for (let i = theta - Math.PI / 8; i <= theta + Math.PI / 8; i += Math.PI / 8) {
                             this.game.addEntity(new Projectile(this.game, 
                                 this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(i) * PARAMS.SCALE, 
-                                this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, 6, this.BB.center, 50));
+                                this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, 14, this.BB.center, 90));
                         }
                         this.facing[0] = vector.y >= 0 ? 0 : 1;
                         this.facing[1] = vector.x >= 0 ? 0 : 1;

@@ -8,7 +8,7 @@ class Wargo {
         this.state = 0; // idle, walking, attacking, damaged, dead
                         // 0, 1, 2, 3, 4
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 500;
+        this.maxHp = 75;
         this.hp = this.maxHp;
         this.minProximity = 5;
         this.visionDistance = 400;
@@ -23,7 +23,8 @@ class Wargo {
         this.burningTimer = 0;
         this.burnDamageTimer = 0;
         this.confusedTimer = 0;
-        this.velocityConstant = 3;
+        this.velocityConstant = 2;
+        this.dexterity = 0.17;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
         this.velocity = { x: 0, y: 0 };
         this.animations = [];
@@ -34,7 +35,7 @@ class Wargo {
     loadAnimations() {
         this.animations.push(new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 12, 0.3, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 48 * 32, 0, 32, 32, 4, this.walkSpeed, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 64 * 32, 0, 32, 32, 4, 0.12, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 64 * 32, 0, 32, 32, 4, this.dexterity, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 80 * 32, 0, 32, 32, 4, 0.15, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 96 * 32, 0, 32, 32, 10, 0.15, false, true));
     };
@@ -155,16 +156,16 @@ class Wargo {
                                 this.state = 2;
                             }
                             if (this.shootTimer === 0 && this.state === 2) {
-                                this.shootTimer = 0.12 * 4 - this.game.clockTick;
-                                let projectileCenter = { x: this.BB.center.x + 4 * PARAMS.SCALE * heroDirectionUnitVector.x,
-                                                         y: this.BB.center.y + 4 * PARAMS.SCALE * heroDirectionUnitVector.y };
+                                this.shootTimer = this.dexterity * 4 - this.game.clockTick;
+                                let vector = this.confusedTimer === 0 ? heroDirectionUnitVector : this.confusionUnitVector;
+                                    let theta = Math.atan2(vector.y, vector.x);
+                                    if (theta < 0) {
+                                        theta += 2 * Math.PI;
+                                    }
                                 if (this.shootFlag) {
-                                    // this.game.addEntity(new DamageRegion(this.game, 
-                                    //                                      projectileCenter.x - 4 * PARAMS.SCALE, 
-                                    //                                      projectileCenter.y - 4 * PARAMS.SCALE, 
-                                    //                                      8 * PARAMS.SCALE, 
-                                    //                                      8 * PARAMS.SCALE, 
-                                    //                                      false, 75, 0.1));
+                                    this.game.addEntity(new Projectile(this.game, 
+                                        this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(theta) * PARAMS.SCALE, 
+                                        this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, theta, false, 9, this.BB.center, 60));
                                 }
                             }
                         } else if (this.damagedTimer === 0 && this.frozenTimer === 0) {
@@ -208,6 +209,7 @@ class Wargo {
         } else {
             if (this.deadTimer === 0) {
                 this.removeFromWorld = true;
+                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 3));
             }
         }
 

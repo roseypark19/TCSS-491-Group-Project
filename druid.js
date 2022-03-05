@@ -3,8 +3,9 @@ class DruidBeam {
     static rotationList = [];
     static elapsedTime = 0;
 
-    constructor(game, x, y, radians, velocity, lifetime = PROJECTILE_LIFETIMES.long) {
-        Object.assign(this, { game, x, y, radians, lifetime });
+    constructor(game, x, y, radians, velocity, lifetime = PROJECTILE_LIFETIMES.long, shotPattern = 0) {
+        Object.assign(this, { game, x, y, radians, lifetime, shotPattern });
+        this.maxLifetime = this.lifetime;
         this.roundedDegrees = Math.round(toDegrees(this.radians));
         this.roundedRadians = toRadians(this.roundedDegrees);
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/projectiles/druid_beam.png");
@@ -14,19 +15,20 @@ class DruidBeam {
         this.velocityConstant = velocity;
         this.velocity = { x: Math.cos(this.roundedRadians) * this.velocityConstant, 
                           y: Math.sin(this.roundedRadians) * this.velocityConstant };
-        this.animations = [];
+        this.originPoint = {x: this.x, y: this.y};
+        this.vectorPoint = {x: this.x, y: this.y};
         this.loadAnimations();
         this.updateBB();
     };
 
     loadAnimations() {
-        if (!(ElementBeam.rotationList[this.roundedDegrees])) {
-            Projectile.rotationList[this.roundedDegrees] = 
+        if (!(DruidBeam.rotationList[this.roundedDegrees])) {
+            DruidBeam.rotationList[this.roundedDegrees] = 
                 createSpritesheet(this.getRotatedFrames(), 32 * PARAMS.SCALE, 32 * PARAMS.SCALE);
         }
-        this.animations.push(
+        this.animation =
             new AnimationGroup(
-                Projectile.rotationList[this.roundedDegrees], 0, 0, 32 * PARAMS.SCALE, 32 * PARAMS.SCALE, 4, 0.1, false, true));
+                DruidBeam.rotationList[this.roundedDegrees], 0, 0, 32 * PARAMS.SCALE, 32 * PARAMS.SCALE, 4, 0.1, false, true);
     };
 
     getRotatedFrames() {
@@ -45,22 +47,39 @@ class DruidBeam {
         return frames;
     };
 
+    turnAround() {
+        this.radians += Math.PI;
+        this.roundedDegrees = Math.round(toDegrees(this.radians));
+        this.roundedRadians = toRadians(this.roundedDegrees);
+        this.loadAnimations();
+    };
+
     update() {
         this.lifetime = Math.max(0, this.lifetime - this.game.clockTick);
-
-        if (this.lifetime === 0) {
-            this.removeFromWorld = true;
-        } else {
-            this.x += this.velocity.x;
-            this.y += this.velocity.y;
+        SHOT_PATTERNS[this.shotPattern](this);
+        if (!this.removeFromWorld) {
+            this.updateBB();
+            this.game.collideableEntities.forEach(entity => {
+                if (entity.projectile_collideable && this.hitBB.collide(entity.BB)) { 
+                    this.removeFromWorld = true;
+                }
+            });
         }
-        this.updateBB();
+    };
 
-        this.game.collideableEntities.forEach(entity => {
-            if (entity.projectile_collideable && this.hitBB.collide(entity.BB)) { 
-                this.removeFromWorld = true;
-            }
-        });
+    getLinearDestination() {
+        let unitVel = unitVector(this.velocity);
+        if (this.reverse) {
+            unitVel.x *= -1;
+            unitVel.y *= -1;
+        }
+        return {x: this.originPoint.x + unitVel.x * this.range, y: this.originPoint.y + unitVel.y * this.range};
+    };
+
+    updateVectorPoint() {
+        this.vectorPoint.x += this.velocity.x;
+        this.vectorPoint.y += this.velocity.y;
+        return this.lifetime > 0;
     };
 
     updateBB() {
@@ -69,8 +88,8 @@ class DruidBeam {
     };
 
     draw(ctx) {
-        this.animations[0].elapsedTime = DruidBeam.elapsedTime;
-        this.animations[0].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, 1);
+        this.animation.elapsedTime = DruidBeam.elapsedTime;
+        this.animation.drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, 1);
 
         if (PARAMS.DEBUG) {
             ctx.lineWidth = PARAMS.DEBUG_WIDTH;
@@ -1180,7 +1199,7 @@ class Druid {
                             this.shootTimer = 1 - this.game.clockTick;
                             let randomStartTheta = toRadians(randomInt(361));
                             for (let theta = randomStartTheta; theta < randomStartTheta + 2 * Math.PI; theta += Math.PI / 4) {
-                                this.game.addEntity(new DruidBeam(this.game, this.x, this.y, theta, 6, 10));
+                                this.game.addEntity(new DruidBeam(this.game, this.x, this.y, theta, 5, 2, 4));
                             }
                         }
                     }    
@@ -1302,7 +1321,7 @@ class DruidRoot {
             this.shotsSpawned = true;
             let randomStartTheta = toRadians(randomInt(361));
             for (let theta = randomStartTheta; theta < randomStartTheta + 2 * Math.PI; theta += Math.PI / 3) {
-                this.game.addEntity(new DruidBeam(this.game, this.x, this.y, theta, 1, 8));
+                this.game.addEntity(new DruidBeam(this.game, this.x, this.y, theta, 1, 8, 1));
             }
             // this.game.addEntity(new DamageRegion(this.game, this.x + 12 * PARAMS.SCALE, this.y + 12 * PARAMS.SCALE, 8 * PARAMS.SCALE, 8 * PARAMS.SCALE, false, 100, this.lifetime / 15 * 2, this.BB.center));
         }

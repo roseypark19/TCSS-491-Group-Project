@@ -8,11 +8,11 @@ class Flame {
         this.state = 0; // idle, walking, attacking, damaged, dead
                         // 0, 1, 2, 3, 4
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 500;
+        this.maxHp = 75;
         this.hp = this.maxHp;
         this.minProximity = 5;
-        this.visionDistance = 400;
-        this.attackDistance = this.minProximity;
+        this.visionDistance = 600;
+        this.attackDistance = 500;
         this.shotsTaken = [];
         this.shootTimer = 0;
         this.shootFlag = false;
@@ -136,7 +136,20 @@ class Flame {
                         let heroDirectionUnitVector = unitVector(vector);
                         let movementDirectionUnitVector = heroDirectionUnitVector;
                         if ((this.randomPos === undefined || distance(this.randomPos, heroCenter) > 0.75 * this.attackDistance) && this.damagedTimer === 0) {
-                            this.randomPos = { x: heroCenter.x, y: heroCenter.y };
+                            // this.randomPos = { x: heroCenter.x, y: heroCenter.y };
+                            // this.randomPosUnitVector = unitVector({ x: this.randomPos.x - center.x, y: this.randomPos.y - center.y });
+                            let angle = Math.atan2(-vector.y, -vector.x);
+                            if (angle < 0) {
+                                angle += 2 * Math.PI;
+                            }
+                            let degrees = Math.round(toDegrees(angle));
+                            let randomDegree = randomInt(181);
+                            degrees = randomDegree >= 90 ? degrees + randomDegree - 90 : degrees - randomDegree;
+                            let radians = toRadians(degrees);
+                            let posUnitVector = unitVector({ x: Math.cos(radians), y: Math.sin(radians) });
+                            let randomDist = randomInt(Math.round(this.attackDistance * 0.5)) + Math.round(this.attackDistance * 0.25);
+                            this.randomPos = { x: heroCenter.x + randomDist * posUnitVector.x, 
+                                               y: heroCenter.y + randomDist * posUnitVector.y };
                             this.randomPosUnitVector = unitVector({ x: this.randomPos.x - center.x, y: this.randomPos.y - center.y });
                         }     
                         if (dist <= this.attackDistance && this.frozenTimer === 0) {       
@@ -144,9 +157,17 @@ class Flame {
                                 this.state = 1;
                             }
                             if (this.shootTimer === 0 && this.state === 1) {
-                                this.shootTimer = 0.5 - this.game.clockTick;
+                                this.shootTimer = 0.7 - this.game.clockTick;
                                 if (this.shootFlag) {
-                                    this.game.addEntity(new DamageRegion(this.game, this.collisionBB.x, this.collisionBB.y, 8 * PARAMS.SCALE, 8 * PARAMS.SCALE, false, 50, 0.5, this.BB.center));
+                                    // this.game.addEntity(new DamageRegion(this.game, this.collisionBB.x, this.collisionBB.y, 8 * PARAMS.SCALE, 8 * PARAMS.SCALE, false, 50, 0.5, this.BB.center));
+                                    let vector = this.confusedTimer === 0 ? heroDirectionUnitVector : this.confusionUnitVector;
+                                    let theta = Math.atan2(vector.y, vector.x);
+                                    if (theta < 0) {
+                                        theta += 2 * Math.PI;
+                                    }
+                                    this.game.addEntity(new Projectile(this.game, 
+                                        this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(theta) * PARAMS.SCALE, 
+                                        this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, theta, false, 13, this.BB.center, 25, PARAMS.PROJECTILE_SCALE, 1));
                                 }
                             }
                         } else if (this.damagedTimer === 0 && this.frozenTimer === 0) {
@@ -180,6 +201,7 @@ class Flame {
         } else {
             if (this.deadTimer === 0) {
                 this.removeFromWorld = true;
+                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 3));
             }
         }
 
