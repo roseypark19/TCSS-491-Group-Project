@@ -87,8 +87,8 @@ class TitleScreen {
 
             // title
             ctx.font = 128 + 'px "silkscreenbold"';
-            ctx.fillText("UNTITLED", PARAMS.CANVAS_DIMENSION / 2, 180);
-            ctx.fillText("GAME", PARAMS.CANVAS_DIMENSION / 2, 280);
+            ctx.fillText("ANIMAL", PARAMS.CANVAS_DIMENSION / 2, 180);
+            ctx.fillText("ASSAULT", PARAMS.CANVAS_DIMENSION / 2, 280);
 
             ctx.textAlign = "left";
             // play
