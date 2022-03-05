@@ -1259,6 +1259,7 @@ const titleScreen = {
 const elementAwardScreen = {
     heroX: 14,
     heroY: 15,
+    music: "./audio/spell_unlock.mp3",
     elementIndex: 0, // change this value before loading level
     layer_names: ['hero']
 }; 

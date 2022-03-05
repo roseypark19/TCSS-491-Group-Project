@@ -1,6 +1,6 @@
 const plains1 = { 
     levelName: "Plains 1",
-    portalIndex: 1,
+    portalIndex: 0,
     cowardPortal: {
         x: 8.5,
         y: 6.5,
@@ -1070,7 +1070,7 @@ const plains1 = {
 
 const plains2 = { 
     levelName: "Plains 2",
-    portalIndex: 1,
+    portalIndex: 0,
     cowardPortal: {
         x: 10.5,
         y: 80.5,
