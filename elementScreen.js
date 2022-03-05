@@ -21,7 +21,6 @@ class ElementAwardScreen {
             "ICE SPELLS FREEZE ENEMIES", 
             "EARTH SPELLS SLOW ENEMIES"
         ][elementIndex];
-
         this.game.click = null;
 
     } 
@@ -33,6 +32,9 @@ class ElementAwardScreen {
 
         if (this.game.click) {
             if (this.mouseBB.collide(this.playBB)) {
+                saveState.numSpellsUnlocked++;
+                saveGame(saveState);
+                loadGame();
                 this.game.camera.travelTo(overworld);
             }
             this.game.click = null; 

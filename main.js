@@ -8,6 +8,7 @@ ASSET_MANAGER.queueDownload("./audio/CoinUpgrade.wav");
 ASSET_MANAGER.queueDownload("./audio/MaxLevelUpgrade.wav");
 
 ASSET_MANAGER.queueDownload("./audio/hero_death.mp3");
+ASSET_MANAGER.queueDownload("./audio/spell_unlock.mp3");
 ASSET_MANAGER.queueDownload("./audio/minotaur_ogre_hit.mp3");
 ASSET_MANAGER.queueDownload("./audio/minotaur_ogre_death.mp3");
 ASSET_MANAGER.queueDownload("./audio/orc_hit.mp3");
