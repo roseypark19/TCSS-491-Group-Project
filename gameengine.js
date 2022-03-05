@@ -213,8 +213,9 @@ class GameEngine {
         let cameraDrawn = false;
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         for (let i = 0; i < this.entities.length; i++) {
-            if (Math.abs(this.camera.hero.BB.center.x - this.entities[i].BB.center.x) <= PARAMS.CANVAS_DIMENSION * (this.camera.overworld ? 0.75 : 1) &&
-                Math.abs(this.camera.hero.BB.center.y - this.entities[i].BB.center.y) <= PARAMS.CANVAS_DIMENSION * (this.camera.overworld ? 0.75 : 1)) {
+            if ((Math.abs(this.camera.hero.BB.center.x - this.entities[i].BB.center.x) <= PARAMS.CANVAS_DIMENSION * (this.camera.overworld ? 0.75 : 1) &&
+                Math.abs(this.camera.hero.BB.center.y - this.entities[i].BB.center.y) <= PARAMS.CANVAS_DIMENSION * (this.camera.overworld ? 0.75 : 1)) ||
+                this.camera.currentLevel === titleScreen || this.camera.currentLevel === elementAwardScreen || this.camera.currentLevel === cutSceneScreen) {
                 if (((this.entities[i] instanceof WeaponsShop || this.entities[i] instanceof StatsShop) && this.entities[i].enteredShop) || this.entities[i] instanceof LoadingScreen) {
                     this.camera.draw(this.ctx);
                     cameraDrawn = true;
