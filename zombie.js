@@ -8,11 +8,11 @@ class Zombie {
         this.state = 0; // idle, walking, attacking, damaged, dead
                         // 0, 1, 2, 3, 4
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 500;
+        this.maxHp = 220;
         this.hp = this.maxHp;
         this.minProximity = 5;
         this.visionDistance = 400;
-        this.attackDistance = 150;
+        this.attackDistance = 250;
         this.shotsTaken = [];
         this.shootTimer = 0;
         this.shootFlag = false;
@@ -24,6 +24,7 @@ class Zombie {
         this.burnDamageTimer = 0;
         this.confusedTimer = 0;
         this.velocityConstant = 3;
+        this.dexterity = 0.08;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
         this.velocity = { x: 0, y: 0 };
         this.animations = [];
@@ -34,7 +35,7 @@ class Zombie {
     loadAnimations() {
         this.animations.push(new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 19, 0.3, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 19 * 32, 0, 32, 32, 4, this.walkSpeed, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 35 * 32, 0, 32, 32, 5, 0.12, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 35 * 32, 0, 32, 32, 5, this.dexterity, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 55 * 32, 0, 32, 32, 4, 0.15, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 71 * 32, 0, 32, 32, 11, 0.15, false, true));
     };
@@ -155,7 +156,7 @@ class Zombie {
                                 this.state = 2;
                             }
                             if (this.shootTimer === 0 && this.state === 2) {
-                                this.shootTimer = 0.12 * 5 - this.game.clockTick;
+                                this.shootTimer = this.dexterity * 5 - this.game.clockTick;
                                 let vector = this.confusedTimer === 0 ? heroDirectionUnitVector : this.confusionUnitVector;
                                 let theta = Math.atan2(vector.y, vector.x);
                                 if (theta < 0) {
@@ -164,7 +165,7 @@ class Zombie {
                                 if (this.shootFlag) {
                                     this.game.addEntity(new Projectile(this.game, 
                                         this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(theta) * PARAMS.SCALE, 
-                                        this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, theta, false, 22, this.BB.center, 50, PARAMS.PROJECTILE_SCALE, 2));
+                                        this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(theta) * PARAMS.SCALE, theta, false, 22, this.BB.center, 90, PARAMS.PROJECTILE_SCALE, 2));
                                 }
                             }
                         } else if (this.damagedTimer === 0 && this.frozenTimer === 0) {
@@ -208,7 +209,7 @@ class Zombie {
         } else {
             if (this.deadTimer === 0) {
                 this.removeFromWorld = true;
-                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 5));
+                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 4));
             }
         }
 

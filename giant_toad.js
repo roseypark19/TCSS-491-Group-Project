@@ -8,11 +8,11 @@ class GiantToad {
         this.state = 0; // idle, walking, attacking, damaged, dead
                         // 0, 1, 2, 3, 4
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 500;
+        this.maxHp = 525;
         this.hp = this.maxHp;
         this.minProximity = 5;
         this.visionDistance = 600;
-        this.attackDistance = 300;
+        this.attackDistance = 400;
         this.shotsTaken = [];
         this.shootTimer = 0;
         this.shootFlag = false;
@@ -23,7 +23,7 @@ class GiantToad {
         this.burningTimer = 0;
         this.burnDamageTimer = 0;
         this.confusedTimer = 0;
-        this.velocityConstant = 3;
+        this.velocityConstant = 2.5;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
         this.velocity = { x: 0, y: 0 };
         this.animations = [];
@@ -177,7 +177,7 @@ class GiantToad {
                                     for (let i = initTheta; i < initTheta + 2 * Math.PI; i += Math.PI / 3) {
                                         this.game.addEntity(new Projectile(this.game, 
                                             this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(i) * PARAMS.SCALE, 
-                                            this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, 23, this.BB.center, 90, PARAMS.PROJECTILE_SCALE, 1));
+                                            this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, 23, this.BB.center, 130, PARAMS.PROJECTILE_SCALE, 1));
                                     }
                                 }
                             }
@@ -212,7 +212,7 @@ class GiantToad {
         } else {
             if (this.deadTimer === 0) {
                 this.removeFromWorld = true;
-                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 5));
+                this.game.addEntity(new Coin(this.game, this.BB.center.x, this.BB.center.y, 17));
             }
         }
 

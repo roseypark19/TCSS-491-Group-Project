@@ -10,7 +10,7 @@ class DruidBeam {
         this.roundedRadians = toRadians(this.roundedDegrees);
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/projectiles/druid_beam.png");
         this.friendlyProjectile = false;
-        this.damage = 100;
+        this.damage = 150;
         this.id = ++PARAMS.SHOT_ID;
         this.velocityConstant = velocity;
         this.velocity = { x: Math.cos(this.roundedRadians) * this.velocityConstant, 
@@ -125,6 +125,7 @@ class DruidBird {
         this.burnDamageTimer = 0;
         this.confusedTimer = 0;
         this.velocityConstant = 3;
+        this.changeTimer = 20;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
         this.velocity = { x: 0, y: 0 };
         this.fireTheta = 0;
@@ -158,6 +159,7 @@ class DruidBird {
         this.shootTimer = Math.max(0, this.shootTimer - this.game.clockTick);
         this.damagedTimer = Math.max(0, this.damagedTimer - this.game.clockTick);
         this.deadTimer = Math.max(0, this.deadTimer - this.game.clockTick);
+        this.changeTimer = Math.max(0, this.changeTimer - this.game.clockTick);
 
         this.frozenTimer = Math.max(0, this.frozenTimer - this.game.clockTick);
         this.slowedTimer = Math.max(0, this.slowedTimer - this.game.clockTick);
@@ -165,7 +167,7 @@ class DruidBird {
         this.burnDamageTimer = Math.max(0, this.burnDamageTimer - this.game.clockTick);
         this.confusedTimer = Math.max(0, this.confusedTimer - this.game.clockTick);
 
-        let rootChance = randomInt(2000) === 0;
+        let rootChance = randomInt(2000) === 0 && this.changeTimer === 0;
         if (rootChance) {
             this.state = 3;
         }
@@ -437,6 +439,7 @@ class DruidHound {
         this.burnDamageTimer = 0;
         this.confusedTimer = 0;
         this.velocityConstant = 3;
+        this.changeTimer = 20;
         this.walkSpeed = this.velocityConstant > 4 ? 0.15 * (4 / this.velocityConstant) : 0.15 / (4 / this.velocityConstant);
         this.velocity = { x: 0, y: 0 };
         this.animations = [];
@@ -447,7 +450,7 @@ class DruidHound {
     loadAnimations() {
         this.animations.push(new AnimationGroup(this.spritesheet, 0, 0, 32, 32, 12, 0.2, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 48 * 32, 0, 32, 32, 4, this.walkSpeed, false, true));
-        this.animations.push(new AnimationGroup(this.spritesheet, 64 * 32, 0, 32, 32, 4, 0.10, false, true));
+        this.animations.push(new AnimationGroup(this.spritesheet, 64 * 32, 0, 32, 32, 4, 0.13, false, true));
         this.animations.push(new AnimationGroup(this.spritesheet, 80 * 32, 0, 32, 32, 4, 0.15, false, true));
     };
 
@@ -470,6 +473,7 @@ class DruidHound {
         this.shootTimer = Math.max(0, this.shootTimer - this.game.clockTick);
         this.damagedTimer = Math.max(0, this.damagedTimer - this.game.clockTick);
         this.deadTimer = Math.max(0, this.deadTimer - this.game.clockTick);
+        this.changeTimer = Math.max(0, this.changeTimer - this.game.clockTick);
 
         this.frozenTimer = Math.max(0, this.frozenTimer - this.game.clockTick);
         this.slowedTimer = Math.max(0, this.slowedTimer - this.game.clockTick);
@@ -477,7 +481,7 @@ class DruidHound {
         this.burnDamageTimer = Math.max(0, this.burnDamageTimer - this.game.clockTick);
         this.confusedTimer = Math.max(0, this.confusedTimer - this.game.clockTick);
 
-        let rootChance = randomInt(1000) === 0;
+        let rootChance = randomInt(1000) === 0 && this.changeTimer === 0;
         if (rootChance) {
             this.state = 4;
         }
@@ -566,14 +570,14 @@ class DruidHound {
                                 this.state = 2;
                             }
                             if (this.shootTimer === 0 && this.state === 2) {
-                                this.shootTimer = 0.10 * 4 - this.game.clockTick;
+                                this.shootTimer = 0.13 * 4 - this.game.clockTick;
                                 if (this.shootFlag) {
                                     let theta = this.confusedTimer > 0 ? Math.atan2(this.confusionUnitVector.y, this.confusionUnitVector.x) : Math.atan2(heroDirectionUnitVector.y, heroDirectionUnitVector.x);
                                     if (theta < 0) {
                                         theta += 2 * Math.PI;
                                     }
                                     for (let i = theta - Math.PI / 4; i <= theta + Math.PI / 4; i += 18 * Math.PI / 180) {
-                                        this.game.addEntity(new DruidBeam(this.game, this.x, this.y, i, 6));
+                                        this.game.addEntity(new DruidBeam(this.game, this.x, this.y, i, 5));
                                     }
                                 }
                             }
@@ -753,6 +757,7 @@ class DruidBeast {
         this.burnDamageTimer = 0;
         this.confusedTimer = 0;
         this.velocityConstant = 4;
+        this.changeTimer = 20;
         this.walkSpeed = 0.1 * (4 / this.velocityConstant);
         this.velocity = { x: 0, y: 0 };
         this.animations = [];
@@ -788,6 +793,7 @@ class DruidBeast {
         this.deadTimer = Math.max(0, this.deadTimer - this.game.clockTick);
         this.chargeTimer = Math.max(0, this.chargeTimer - this.game.clockTick);
         this.attackTimer = Math.max(0, this.attackTimer - this.game.clockTick);
+        this.changeTimer = Math.max(0, this.changeTimer - this.game.clockTick);
 
         this.frozenTimer = Math.max(0, this.frozenTimer - this.game.clockTick);
         this.slowedTimer = Math.max(0, this.slowedTimer - this.game.clockTick);
@@ -795,7 +801,7 @@ class DruidBeast {
         this.burnDamageTimer = Math.max(0, this.burnDamageTimer - this.game.clockTick);
         this.confusedTimer = Math.max(0, this.confusedTimer - this.game.clockTick);
 
-        let rootChance = randomInt(500) === 0;
+        let rootChance = randomInt(500) === 0 && this.changeTimer === 0;
         if (rootChance) {
             this.state = 4;
         }
@@ -951,7 +957,7 @@ class DruidBeast {
                     let projectileCenter = { x: this.BB.center.x, y: this.BB.center.y };
                     if (this.attackFlag) {
                         for (let i = 0; i < 2 * Math.PI; i += Math.PI / 8) {
-                            this.game.addEntity(new DruidBeam(this.game, this.x, this.y, i, 6));
+                            this.game.addEntity(new DruidBeam(this.game, this.x, this.y, i, 8));
                         }
                     }
                 }
@@ -1080,6 +1086,7 @@ class Druid {
         this.rootsTimer = 0;
         this.rootsIntervalTimer = 0;
         this.shootTimer = 0;
+        this.rotationTheta = toRadians(randomInt(361));
 
         this.transitionTimer = this.phase === 0 ? 0 : 0.15 * 15;
 
@@ -1163,7 +1170,7 @@ class Druid {
                     for (let theta = 0; theta < 2 * Math.PI; theta += toRadians(3.6)) { // 100 coins   
                         let randomDist = randomInt(4) + 2;
                         this.game.addEntity(new Coin(this.game, this.BB.center.x + Math.cos(theta) * randomDist * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 
-                                                                this.BB.center.y + Math.sin(theta) * randomDist * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 10));
+                                                                this.BB.center.y + Math.sin(theta) * randomDist * PARAMS.BLOCKWIDTH * PARAMS.SCALE, 1));
                     }
                     ASSET_MANAGER.playAsset("./audio/druid_death.mp3");
                 }
@@ -1175,7 +1182,8 @@ class Druid {
                     if (!this.rootsFlag) {
                         this.rootsFlag = true;
                         this.rootsTimer = 16 - this.game.clockTick;
-                        this.rootsIntervalTimer = 3 - this.game.clockTick;
+                        this.clockwise = randomInt(2) === 0;
+                        this.rootsIntervalTimer = 2 - this.game.clockTick;
                         this.state = 7;
                     }
 
@@ -1196,11 +1204,12 @@ class Druid {
                             }
                         }
                         if (this.shootTimer === 0) {
-                            this.shootTimer = 1 - this.game.clockTick;
-                            let randomStartTheta = toRadians(randomInt(361));
-                            for (let theta = randomStartTheta; theta < randomStartTheta + 2 * Math.PI; theta += Math.PI / 4) {
-                                this.game.addEntity(new DruidBeam(this.game, this.x, this.y, theta, 5, 2, 4));
+                            this.shootTimer = 0.2 - this.game.clockTick;
+                            // let randomStartTheta = toRadians(randomInt(361));
+                            for (let theta = this.rotationTheta; theta < this.rotationTheta + 2 * Math.PI; theta += Math.PI / 4) {
+                                this.game.addEntity(new DruidBeam(this.game, this.x, this.y, theta, 4, 10, 1));
                             }
+                            this.rotationTheta += 3 * Math.PI / 180 * (this.clockwise ? 1 : -1);
                         }
                     }    
                 }
@@ -1321,7 +1330,7 @@ class DruidRoot {
             this.shotsSpawned = true;
             let randomStartTheta = toRadians(randomInt(361));
             for (let theta = randomStartTheta; theta < randomStartTheta + 2 * Math.PI; theta += Math.PI / 3) {
-                this.game.addEntity(new DruidBeam(this.game, this.x, this.y, theta, 1, 8, 1));
+                this.game.addEntity(new DruidBeam(this.game, this.x, this.y, theta, 1, 4, 4));
             }
             // this.game.addEntity(new DamageRegion(this.game, this.x + 12 * PARAMS.SCALE, this.y + 12 * PARAMS.SCALE, 8 * PARAMS.SCALE, 8 * PARAMS.SCALE, false, 100, this.lifetime / 15 * 2, this.BB.center));
         }

@@ -8,7 +8,7 @@ class Skeleton {
         this.state = 0; // idle, transitionUp, walking, transitionDown, attacking, damaged, dead
                         // 0, 1, 2, 3, 4, 5, 6
         this.id = ++PARAMS.LIFE_ID;
-        this.maxHp = 500;
+        this.maxHp = 400;
         this.hp = this.maxHp;
         this.minProximity = 5;
         this.visionDistance = 500;
@@ -175,7 +175,7 @@ class Skeleton {
                                     for (let i = theta - Math.PI / 10; i <= theta + Math.PI * 1 / 10; i += 2 * Math.PI / 10) {
                                         this.game.addEntity(new Projectile(this.game, 
                                             this.BB.center.x - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.cos(i) * PARAMS.SCALE, 
-                                            this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, 26, this.BB.center, 50));
+                                            this.BB.center.y - 16 * PARAMS.PROJECTILE_SCALE + 4 * Math.sin(i) * PARAMS.SCALE, i, false, 26, this.BB.center, 100, PARAMS.PROJECTILE_SCALE, 2));
                                     }
                                 }
                             }

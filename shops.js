@@ -81,18 +81,18 @@ class WeaponsShop {
         // costs and levels
         this.MAX_DMG_LEVEL = 10;
         this.MAX_DXT_LEVEL = 10;
-        this.SWORD_DMG_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
-        this.SWORD_DXT_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
-        this.AXE_DMG_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
-        this.AXE_DXT_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
-        this.WHIP_DMG_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
-        this.WHIP_DXT_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
-        this.FLAIL_DMG_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
-        this.FLAIL_DXT_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
-        this.SLINGSHOT_DMG_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
-        this.SLINGSHOT_DXT_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
-        this.BOW_DMG_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
-        this.BOW_DXT_COSTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
+        this.SWORD_DMG_COSTS = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
+        this.SWORD_DXT_COSTS = [15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
+        this.AXE_DMG_COSTS = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
+        this.AXE_DXT_COSTS = [15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
+        this.WHIP_DMG_COSTS = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
+        this.WHIP_DXT_COSTS = [15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
+        this.FLAIL_DMG_COSTS = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
+        this.FLAIL_DXT_COSTS = [15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
+        this.SLINGSHOT_DMG_COSTS = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
+        this.SLINGSHOT_DXT_COSTS = [15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
+        this.BOW_DMG_COSTS = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
+        this.BOW_DXT_COSTS = [15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
         this.SWORD_UNLOCK_COST = 0;
         this.AXE_UNLOCK_COST = 75;
         this.WHIP_UNLOCK_COST = 50;
@@ -1031,12 +1031,12 @@ class StatsShop {
 
         // costs and levels
         this.MAX_LEVEL = 10;
-        this.SPEED_COSTS = [10, 14, 18, 22, 26, 30, 34, 38, 42, 46];
-        this.HEALTH_COSTS = [10, 12, 14, 16, 18, 20, 22, 24, 26, 28];
-        this.MANA_COSTS = [10, 12, 14, 16, 18, 20, 22, 24, 26, 28];
-        this.VITALITY_COSTS = [10, 12, 14, 16, 18, 20, 22, 24, 26, 28];
-        this.WISDOM_COSTS = [10, 12, 14, 16, 18, 20, 22, 24, 26, 28];
-        this.DEFENSE_COSTS = [10, 12, 14, 16, 18, 20, 22, 24, 26, 28];
+        this.SPEED_COSTS = [10, 12, 14, 20, 28, 38, 50, 64, 80, 98];
+        this.HEALTH_COSTS = [10, 13, 16, 20, 24, 29, 34, 40, 46, 56];
+        this.MANA_COSTS = [8, 10, 12, 15, 18, 21, 24, 29, 34, 39];
+        this.VITALITY_COSTS = [12, 14, 17, 20, 24, 29, 34, 40, 46, 56];
+        this.WISDOM_COSTS = [12, 14, 17, 20, 24, 29, 34, 40, 46, 56];
+        this.DEFENSE_COSTS = [12, 14, 17, 20, 24, 29, 34, 40, 46, 56];
 
         this.SPEED_UNLOCK_COST = 999;
         this.HEALTH_UNLOCK_COST = 50;

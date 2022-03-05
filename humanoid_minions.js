@@ -17,13 +17,23 @@ class SwordedMinion {
                 this.velocityConstant = 2.5;
                 this.dexterity = 0.15;
                 this.damage = 60;
-                this.coinAmt = 3;
+                this.coinAmt = 4;
                 break;
             case 2:
                 this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/trasgo.png");
+                this.maxHp = 120;
+                this.velocityConstant = 3.5;
+                this.dexterity = 0.11;
+                this.damage = 85;
+                this.coinAmt = 5;
                 break;
             case 3:
                 this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/goblins.png");
+                this.maxHp = 180;
+                this.velocityConstant = 3.5;
+                this.dexterity = 0.10;
+                this.damage = 130;
+                this.coinAmt = 4;
                 break;
         }
         
@@ -35,7 +45,7 @@ class SwordedMinion {
         this.hp = this.maxHp;
         this.minProximity = 5;
         this.visionDistance = 400;
-        this.attackDistance = 150;
+        this.attackDistance = 200;
         this.shotsTaken = [];
         this.shootTimer = 0;
         this.shootFlag = false;
@@ -356,14 +366,19 @@ class RangedMinion {
                 break;
             case 1:
                 this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/orc.png");
-                this.maxHp = 50;
+                this.maxHp = 70;
                 this.velocityConstant = 2.5;
                 this.dexterity = 0.08;
                 this.damage = 35;
-                this.coinAmt = 3;
+                this.coinAmt = 4;
                 break;
             case 3:
                 this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/goblins.png");
+                this.maxHp = 130;
+                this.velocityConstant = 3.5;
+                this.dexterity = 0.06;
+                this.damage = 100;
+                this.coinAmt = 4;
                 break;
         }
         this.facing = [0, randomInt(2)]; // down, up, right, left
@@ -493,7 +508,7 @@ class RangedMinion {
                 if (entity instanceof Hero) {
                     heroCenter = entity.BB.center;
                     let dist = distance(center, heroCenter);
-                    if (dist <= this.visionDistance) {
+                    if (dist <= this.visionDistance && !PARAMS.GAMEOVER) {
                         let vector = { x : heroCenter.x - center.x, y : heroCenter.y - center.y };
                         let heroDirectionUnitVector = unitVector(vector);
                         let movementDirectionUnitVector = heroDirectionUnitVector;

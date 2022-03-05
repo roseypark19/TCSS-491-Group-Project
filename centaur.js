@@ -12,7 +12,7 @@ class Centaur {
         this.hp = this.maxHp;
         this.minProximity = 5;
         this.visionDistance = 400;
-        this.attackDistance = 150;
+        this.attackDistance = 250;
         this.shotsTaken = [];
         this.shootTimer = 0;
         this.shootFlag = false;

@@ -20,18 +20,18 @@ const PARAMS = {
 };
 
 const PROJECTILE_LIFETIMES = {
-    short: 0.75,
-    mid: 1.25,
-    long: 1.75
+    short: 0.6,
+    mid: 1.0,
+    long: 1.3
 };
 
 const WEAPONS = {
-    0 : { base_damage: 25, base_dexterity: 0.16, range: 6, projectileType: 0, damageInc: 10, dexInc: 0.008 },
-    1 : { base_damage: 40, base_dexterity: 0.17, range: 6, projectileType: 1, damageInc: 12, dexInc: 0.01 },
-    2 : { base_damage: 15, base_dexterity: 0.175, range: 14, projectileType: 2, damageInc: 6, dexInc: 0.01 },
-    3 : { base_damage: 25, base_dexterity: 0.25, range: 14, projectileType: 3, damageInc: 8, dexInc: 0.012 },
-    4 : { base_damage: 10, base_dexterity: 0.06, projectileType: 4, damageInc: 2, dexInc: 0.0035 },
-    5 : { base_damage: 15, base_dexterity: 0.08, projectileType: 5, damageInc: 4, damageInc: 5, dexInc: 0.0038 },
+    0 : { base_damage: 25, base_dexterity: 0.16, range: 6, projectileType: 0, damageInc: 7, dexInc: 0.011 },
+    1 : { base_damage: 40, base_dexterity: 0.165, range: 6, projectileType: 1, damageInc: 10, dexInc: 0.0105 },
+    2 : { base_damage: 15, base_dexterity: 0.175, range: 14, projectileType: 2, damageInc: 5, dexInc: 0.011 },
+    3 : { base_damage: 25, base_dexterity: 0.18, range: 14, projectileType: 3, damageInc: 7, dexInc: 0.01 },
+    4 : { base_damage: 10, base_dexterity: 0.06, projectileType: 4, damageInc: 4, dexInc: 0.0039 },
+    5 : { base_damage: 15, base_dexterity: 0.065, projectileType: 5, damageInc: 6, damageInc: 8, dexInc: 0.00385 },
 };
 
 const PROJECTILES = {
@@ -51,20 +51,22 @@ const PROJECTILES = {
     13: { spritesheet: "./sprites/projectiles/projectile_flame.png", velocity: 4, lifetime: PROJECTILE_LIFETIMES.mid },
     14: { spritesheet: "./sprites/projectiles/projectile_rhino.png", velocity: 4.5, lifetime: PROJECTILE_LIFETIMES.mid },
     15: { spritesheet: "./sprites/projectiles/projectile_troll.png", velocity: 5, lifetime: PROJECTILE_LIFETIMES.mid },
-    16: { spritesheet: "./sprites/projectiles/projectile_trasgo.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
-    17: { spritesheet: "./sprites/projectiles/projectile_snowball.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.long },
-    18: { spritesheet: "./sprites/projectiles/projectile_yeti.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
+    16: { spritesheet: "./sprites/projectiles/projectile_trasgo.png", velocity: 5, lifetime: PROJECTILE_LIFETIMES.short },
+    17: { spritesheet: "./sprites/projectiles/projectile_snowball.png", velocity: 5, lifetime: PROJECTILE_LIFETIMES.long },
+    18: { spritesheet: "./sprites/projectiles/projectile_yeti.png", velocity: 4, lifetime: PROJECTILE_LIFETIMES.mid },
     19: { spritesheet: "./sprites/projectiles/projectile_polarbear.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
-    20: { spritesheet: "./sprites/projectiles/projectile_goblin.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
-    21: { spritesheet: "./sprites/projectiles/projectile_swamp_arrow.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
-    22: { spritesheet: "./sprites/projectiles/projectile_zombie.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
-    23: { spritesheet: "./sprites/projectiles/projectile_frog.png", velocity: 4, lifetime: PROJECTILE_LIFETIMES.mid },
-    24: { spritesheet: "./sprites/projectiles/projectile_shrek.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
-    25: { spritesheet: "./sprites/projectiles/projectile_tentacle.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
+    20: { spritesheet: "./sprites/projectiles/projectile_goblin.png", velocity: 5.5, lifetime: PROJECTILE_LIFETIMES.short },
+    21: { spritesheet: "./sprites/projectiles/projectile_swamp_arrow.png", velocity: 5, lifetime: PROJECTILE_LIFETIMES.long },
+    22: { spritesheet: "./sprites/projectiles/projectile_zombie.png", velocity: 5, lifetime: PROJECTILE_LIFETIMES.long },
+    23: { spritesheet: "./sprites/projectiles/projectile_frog.png", velocity: 5, lifetime: PROJECTILE_LIFETIMES.mid },
+    24: { spritesheet: "./sprites/projectiles/projectile_shrek.png", velocity: 7, lifetime: PROJECTILE_LIFETIMES.mid },
+    25: { spritesheet: "./sprites/projectiles/projectile_tentacle.png", velocity: 5, lifetime: PROJECTILE_LIFETIMES.long },
     26: { spritesheet: "./sprites/projectiles/projectile_skeleton.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
-    27: { spritesheet: "./sprites/projectiles/projectile_green_slime.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
-    28: { spritesheet: "./sprites/projectiles/projectile_blue_slime.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
-    29: { spritesheet: "./sprites/projectiles/projectile_minotaur.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
+    27: { spritesheet: "./sprites/projectiles/projectile_green_slime.png", velocity: 4, lifetime: PROJECTILE_LIFETIMES.mid },
+    28: { spritesheet: "./sprites/projectiles/projectile_green_slime.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
+    29: { spritesheet: "./sprites/projectiles/projectile_blue_slime.png", velocity: 4, lifetime: PROJECTILE_LIFETIMES.mid },
+    30: { spritesheet: "./sprites/projectiles/projectile_blue_slime.png", velocity: 6, lifetime: PROJECTILE_LIFETIMES.mid },
+    31: { spritesheet: "./sprites/projectiles/projectile_minotaur.png", velocity: 7, lifetime: PROJECTILE_LIFETIMES.mid },
 };
 
 // returns a random integer between 0 and n-1
