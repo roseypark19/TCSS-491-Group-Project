@@ -175,6 +175,8 @@ ASSET_MANAGER.queueDownload("./sprites/items/coin.png");
 
 ASSET_MANAGER.downloadAll(function () {
 
+	loadGame();
+
 	let canvas = document.getElementById('gameWorld');
 	let ctx = canvas.getContext('2d');
 	ctx.imageSmoothingEnabled = false;
