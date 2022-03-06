@@ -43,6 +43,11 @@
     
     enemies: [
 
+        {type: Tentacle, x:  28, y: 68},
+        {type: Tentacle, x:  30, y: 87},
+        {type: Tentacle, x:  106, y: 83},
+        {type: Tentacle, x:  77, y: 27},
+
         {type: Zombie, x:  27.5, y: 8.5},
         {type: Zombie, x:  31.5, y: 1},
         {type: Zombie, x:  1.5, y: 37.5},
@@ -901,6 +906,14 @@ const swamp2 = {
         // {type: Ogre, x: 60, y: 40},
         // {type: GiantToad, x: 60, y: 40},
         // {type: SwordedMinion, minionType: 3, x: 60, y: 40}, // 
+
+
+        // {type: Tentacle, x: , y: },
+        {type: Tentacle, x: 40, y: 0},
+        {type: Tentacle, x: 97, y: 20},
+        {type: Tentacle, x: 93, y: 6},
+        {type: Tentacle, x: 35, y: 45},
+        {type: Tentacle, x: 34, y: 60},
  
         {type: Zombie, x: 47.5, y: 35.5},
         {type: Zombie, x: 57.5, y: 31.5},
@@ -918,7 +931,7 @@ const swamp2 = {
         {type: Zombie, x: 31.5, y: 79.5},
         {type: Zombie, x: 28.5, y: 82.5},
         {type: Zombie, x: 31.5, y: 75.5},
-        // {type: Zombie, },
+        // // {type: Zombie, },
 
         {type: GiantToad, x: 82.5, y: 46.5},
         {type: GiantToad, x: 67.5, y: 22.5},
