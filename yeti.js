@@ -76,7 +76,7 @@ class Yeti {
                     }    
                     this.frozenTimer = 0;
                     this.hp -= entity.damage;
-                    ASSET_MANAGER.playAsset("./audio/minotaur_ogre_hit.mp3");
+                    ASSET_MANAGER.playAsset("./audio/djinn_hit.mp3");
                     if (entity.elemental) {
                         switch(entity.type) {
                             case 0: // wind
@@ -100,7 +100,7 @@ class Yeti {
                         this.deadTimer = 14 * 0.15 - this.game.clockTick;
                         this.state = 4;
                         this.facing = [0, 0];
-                        ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
+                        ASSET_MANAGER.playAsset("./audio/djinn_death.mp3");
                     }
                 }
             });
@@ -109,7 +109,7 @@ class Yeti {
         if (this.state !== 4 && this.burningTimer > 0 && this.burnDamageTimer === 0 && !PARAMS.GAMEOVER) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp -= 25;
-            ASSET_MANAGER.playAsset("./audio/minotaur_ogre_hit.mp3");
+            ASSET_MANAGER.playAsset("./audio/djinn_hit.mp3");
             if (this.damagedTimer === 0) {
                 this.damagedTimer = 0.3 - this.game.clockTick;
                 this.state = 3;
@@ -118,7 +118,7 @@ class Yeti {
                 this.deadTimer = 14 * 0.15 - this.game.clockTick;
                 this.state = 4;
                 this.facing = [0, 0];
-                ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
+                ASSET_MANAGER.playAsset("./audio/djinn_death.mp3");
             }
         }
 

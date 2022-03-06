@@ -518,7 +518,21 @@ class Hero {
                                                         WEAPONS[this.weapon.type].base_damage + WEAPONS[this.weapon.type].damageInc * this.weapon.attack);
                         projectile.velocity = proj_vel;
                         this.game.addEntity(projectile);
-                        ASSET_MANAGER.playAsset("./audio/sword.mp3");
+                        switch(this.weapon.type) {
+                            case 0:
+                            case 1:
+                                ASSET_MANAGER.playAsset("./audio/sword.mp3");
+                                break;
+                            case 2:
+                            case 3:
+                                ASSET_MANAGER.playAsset("./audio/whip.mp3");
+                                break;
+                            case 4:
+                            case 5:
+                                ASSET_MANAGER.playAsset("./audio/bow.mp3");
+                                break;
+                        }
+                        
                     }
                     
                 }

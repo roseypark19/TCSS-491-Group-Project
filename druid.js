@@ -183,7 +183,7 @@ class DruidBird {
                     }  
                     this.frozenTimer = 0; 
                     this.hp = Math.max(this.threshold, this.hp - entity.damage);
-                    ASSET_MANAGER.playAsset("./audio/bird_hit.mp3");
+                    ASSET_MANAGER.playAsset("./audio/druid_hit.mp3");
                     if (entity.elemental) {
                         switch(entity.type) {
                             case 0: // wind
@@ -213,7 +213,7 @@ class DruidBird {
         if (this.state !== 3 && !this.originReached && this.burningTimer > 0 && this.burnDamageTimer === 0 && !PARAMS.GAMEOVER) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp = Math.max(this.threshold, this.hp - 25);
-            ASSET_MANAGER.playAsset("./audio/bird_hit.mp3");
+            ASSET_MANAGER.playAsset("./audio/druid_hit.mp3");
             if (this.damagedTimer === 0) {
                 this.damagedTimer = 0.6 - this.game.clockTick;
                 this.state = 2;
@@ -497,7 +497,7 @@ class DruidHound {
                     }    
                     this.frozenTimer = 0;
                     this.hp = Math.max(this.threshold, this.hp - entity.damage);
-                    ASSET_MANAGER.playAsset("./audio/hound_hit.mp3");
+                    ASSET_MANAGER.playAsset("./audio/druid_hit.mp3");
                     if (entity.elemental) {
                         switch(entity.type) {
                             case 0: // wind
@@ -527,7 +527,7 @@ class DruidHound {
         if (this.state !== 4 && !this.originReached &&  this.burningTimer > 0 && this.burnDamageTimer === 0 && !PARAMS.GAMEOVER) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp = Math.max(this.threshold, this.hp - 25);
-            ASSET_MANAGER.playAsset("./audio/hound_hit.mp3");
+            ASSET_MANAGER.playAsset("./audio/druid_hit.mp3");
             if (this.damagedTimer === 0) {
                 this.damagedTimer = 0.6 - this.game.clockTick;
                 this.state = 3;
@@ -817,7 +817,7 @@ class DruidBeast {
                     }   
                     this.frozenTimer = 0;
                     this.hp = Math.max(this.threshold, this.hp - entity.damage);
-                    ASSET_MANAGER.playAsset("./audio/beast_hit.mp3");
+                    ASSET_MANAGER.playAsset("./audio/druid_hit.mp3");
                     if (entity.elemental) {
                         switch(entity.type) {
                             case 0: // wind
@@ -847,7 +847,7 @@ class DruidBeast {
         if (this.state !== 4 && !this.originReached && this.burningTimer > 0 && this.burnDamageTimer === 0 && !PARAMS.GAMEOVER) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp = Math.max(this.threshold, this.hp - 25);
-            ASSET_MANAGER.playAsset("./audio/beast_hit.mp3");
+            ASSET_MANAGER.playAsset("./audio/druid_hit.mp3");
             if (this.damagedTimer === 0) {
                 this.damagedTimer = 0.6 - this.game.clockTick;
                 this.state = 3;
