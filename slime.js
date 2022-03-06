@@ -75,7 +75,7 @@ class BabySlime {
                     }  
                     this.frozenTimer = 0; 
                     this.hp -= entity.damage;
-                    // ASSET_MANAGER.playAsset("./audio/slime_hit.mp3");
+                    ASSET_MANAGER.playAsset("./audio/cubes_hit.mp3");
                     if (entity.elemental) {
                         switch(entity.type) {
                             case 0: // wind
@@ -99,7 +99,7 @@ class BabySlime {
                         this.deadTimer = 9 * 0.15 - this.game.clockTick;
                         this.state = 3;
                         this.facing = [0, 0];
-                        // ASSET_MANAGER.playAsset("./audio/slime_death.mp3");
+                        ASSET_MANAGER.playAsset("./audio/cubes_death.mp3");
                     }
                 }
             });
@@ -108,7 +108,7 @@ class BabySlime {
         if (this.state !== 3 && this.burningTimer > 0 && this.burnDamageTimer === 0) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp -= 25;
-            // play damaged sound
+            ASSET_MANAGER.playAsset("./audio/cubes_hit.mp3");
             if (this.damagedTimer === 0) {
                 this.damagedTimer = 0.6 - this.game.clockTick;
                 this.state = 2;
@@ -117,7 +117,7 @@ class BabySlime {
                 this.deadTimer = 9 * 0.15 - this.game.clockTick;
                 this.state = 3;
                 this.facing = [0, 0];
-                // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
+                ASSET_MANAGER.playAsset("./audio/cubes_death.mp3");
             }
         }
 
@@ -372,7 +372,7 @@ class MotherSlime {
                     }  
                     this.frozenTimer = 0; 
                     this.hp -= entity.damage;
-                    // ASSET_MANAGER.playAsset("./audio/slime_hit.mp3");
+                    ASSET_MANAGER.playAsset("./audio/cubes_hit.mp3");
                     if (entity.elemental) {
                         switch(entity.type) {
                             case 0: // wind
@@ -396,7 +396,7 @@ class MotherSlime {
                         this.deadTimer = 11 * 0.15 - this.game.clockTick;
                         this.state = 3;
                         this.facing = [0, 0];
-                        // ASSET_MANAGER.playAsset("./audio/slime_death.mp3");
+                        ASSET_MANAGER.playAsset("./audio/cubes_death.mp3");
                     }
                 }
             });
@@ -405,7 +405,7 @@ class MotherSlime {
         if (this.state !== 3 && this.burningTimer > 0 && this.burnDamageTimer === 0 && !PARAMS.GAMEOVER) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp -= 25;
-            // play damaged sound
+            ASSET_MANAGER.playAsset("./audio/cubes_hit.mp3");
             if (this.damagedTimer === 0) {
                 this.damagedTimer = 0.6 - this.game.clockTick;
                 this.state = 2;
@@ -414,7 +414,7 @@ class MotherSlime {
                 this.deadTimer = 9 * 0.15 - this.game.clockTick;
                 this.state = 3;
                 this.facing = [0, 0];
-                // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
+                ASSET_MANAGER.playAsset("./audio/cubes_death.mp3");
             }
         }
 

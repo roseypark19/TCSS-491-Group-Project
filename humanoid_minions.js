@@ -10,6 +10,8 @@ class SwordedMinion {
                 this.dexterity = 0.17;
                 this.damage = 50;
                 this.coinAmt = 1;
+                this.hitSound = "./audio/dwarves_hit.mp3";
+                this.deathSound = "./audio/dwarves_death.mp3";
                 break;
             case 1:
                 this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/orc_wild.png");
@@ -18,6 +20,8 @@ class SwordedMinion {
                 this.dexterity = 0.15;
                 this.damage = 60;
                 this.coinAmt = 4;
+                this.hitSound = "./audio/orc_hit.mp3";
+                this.deathSound = "./audio/orc_death.mp3";
                 break;
             case 2:
                 this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/trasgo.png");
@@ -26,6 +30,8 @@ class SwordedMinion {
                 this.dexterity = 0.11;
                 this.damage = 85;
                 this.coinAmt = 5;
+                this.hitSound = "./audio/trasgo_hit.mp3";
+                this.deathSound = "./audio/trasgo_death.mp3";
                 break;
             case 3:
                 this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/goblins.png");
@@ -34,6 +40,8 @@ class SwordedMinion {
                 this.dexterity = 0.10;
                 this.damage = 130;
                 this.coinAmt = 4;
+                this.hitSound = "./audio/orc_hit.mp3";
+                this.deathSound = "./audio/orc_death.mp3";
                 break;
         }
         
@@ -105,17 +113,10 @@ class SwordedMinion {
                         this.shotsTaken.push(entity.id);
                     } else {
                         entity.removeFromWorld = true;
-                    }   
-                    this.hit = true;  
+                    }    
                     this.frozenTimer = 0;
-                    if (this.damagedTimer === 0 && this.deadTimer === 0) {
-                        // this.damagedTimer = 0.3 - this.game.clockTick;
-                        // this.state = 3;
-                        this.hitUnitVector = prevState === 0 ? { x: 0, y: 0 } : 
-                                                               unitVector({ x: this.hitBB.center.x - entity.sourcePoint.x, y: this.hitBB.center.y - entity.sourcePoint.y });
-                    }
                     this.hp -= entity.damage;
-                    ASSET_MANAGER.playAsset("./audio/trasgo_hit.mp3");
+                    ASSET_MANAGER.playAsset(this.hitSound);
                     if (entity.elemental) {
                         switch(entity.type) {
                             case 0: // wind
@@ -139,7 +140,7 @@ class SwordedMinion {
                         this.deadTimer = 12 * 0.15 - this.game.clockTick;
                         this.state = 4;
                         this.facing = [0, 0];
-                        ASSET_MANAGER.playAsset("./audio/trasgo_death.mp3");
+                        ASSET_MANAGER.playAsset(this.deathSound);
                     }
                 }
             });
@@ -148,7 +149,7 @@ class SwordedMinion {
         if (this.state !== 4 && this.burningTimer > 0 && this.burnDamageTimer === 0) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp -= 25;
-            ASSET_MANAGER.playAsset("./audio/trasgo_hit.mp3");
+            ASSET_MANAGER.playAsset(this.hitSound);
             if (this.damagedTimer === 0) {
                 this.damagedTimer = 0.3 - this.game.clockTick;
                 this.state = 3;
@@ -157,7 +158,7 @@ class SwordedMinion {
                 this.deadTimer = 11 * 0.15 - this.game.clockTick;
                 this.state = 4;
                 this.facing = [0, 0];
-                ASSET_MANAGER.playAsset("./audio/trasgo_death.mp3");
+                ASSET_MANAGER.playAsset(this.deathSound);
             }
         }
 
@@ -363,6 +364,8 @@ class RangedMinion {
                 this.dexterity = 0.1;
                 this.damage = 25;
                 this.coinAmt = 1;
+                this.hitSound = "./audio/dwarves_hit.mp3";
+                this.deathSound = "./audio/dwarves_death.mp3";
                 break;
             case 1:
                 this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/orc.png");
@@ -371,6 +374,8 @@ class RangedMinion {
                 this.dexterity = 0.08;
                 this.damage = 35;
                 this.coinAmt = 4;
+                this.hitSound = "./audio/orc_hit.mp3";
+                this.deathSound = "./audio/orc_death.mp3";
                 break;
             case 3:
                 this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/goblins.png");
@@ -379,6 +384,8 @@ class RangedMinion {
                 this.dexterity = 0.06;
                 this.damage = 100;
                 this.coinAmt = 4;
+                this.hitSound = "./audio/orc_hit.mp3";
+                this.deathSound = "./audio/orc_death.mp3";
                 break;
         }
         this.facing = [0, randomInt(2)]; // down, up, right, left
@@ -452,7 +459,7 @@ class RangedMinion {
                     }   
                     this.frozenTimer = 0;
                     this.hp -= entity.damage;
-                    // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_hit.mp3");
+                    ASSET_MANAGER.playAsset(this.hitSound);
                     if (entity.elemental) {
                         switch(entity.type) {
                             case 0: // wind
@@ -476,7 +483,7 @@ class RangedMinion {
                         this.deadTimer = 12 * 0.15 - this.game.clockTick;
                         this.state = 4;
                         this.facing = [0, 0];
-                        // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
+                        ASSET_MANAGER.playAsset(this.deathSound);
                     }
                 }
             });
@@ -486,7 +493,7 @@ class RangedMinion {
         if (this.state !== 4 && this.burningTimer > 0 && this.burnDamageTimer === 0) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp -= 25;
-            // play damaged sound
+            ASSET_MANAGER.playAsset(this.hitSound);
             if (this.damagedTimer === 0) {
                 this.damagedTimer = 0.6 - this.game.clockTick;
                 this.state = 3;
@@ -495,7 +502,7 @@ class RangedMinion {
                 this.deadTimer = 12 * 0.15 - this.game.clockTick;
                 this.state = 4;
                 this.facing = [0, 0];
-                // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
+                ASSET_MANAGER.playAsset(this.deathSound);
             }
         }
 

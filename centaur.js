@@ -77,7 +77,7 @@ class Centaur {
                     }     
                     this.frozenTimer = 0;
                     this.hp -= entity.damage;
-                    // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_hit.mp3");
+                    ASSET_MANAGER.playAsset("./audio/dwarf_god_hit.mp3");
                     if (entity.elemental) {
                         switch(entity.type) {
                             case 0: // wind
@@ -101,7 +101,7 @@ class Centaur {
                         this.deadTimer = 12 * 0.15 - this.game.clockTick;
                         this.state = 4;
                         this.facing = [0, 0];
-                        // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
+                        ASSET_MANAGER.playAsset("./audio/dwarf_god_death.mp3");
                     }
                 }
             });
@@ -110,7 +110,7 @@ class Centaur {
         if (this.state !== 4 && this.burningTimer > 0 && this.burnDamageTimer === 0 && !PARAMS.GAMEOVER) {
             this.burnDamageTimer = 1 - this.game.clockTick;
             this.hp -= 25;
-            // play damaged sound
+            ASSET_MANAGER.playAsset("./audio/dwarf_god_hit.mp3");
             if (this.damagedTimer === 0) {
                 this.damagedTimer = 0.6 - this.game.clockTick;
                 this.state = 3;
@@ -119,7 +119,7 @@ class Centaur {
                 this.deadTimer = 12 * 0.15 - this.game.clockTick;
                 this.state = 4;
                 this.facing = [0, 0];
-                // ASSET_MANAGER.playAsset("./audio/minotaur_ogre_death.mp3");
+                ASSET_MANAGER.playAsset("./audio/dwarf_god_death.mp3");
             }
         }
 
