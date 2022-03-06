@@ -358,7 +358,7 @@ class RangedMinion {
         switch(this.type) {
             case 0:
                 this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemies/dwarf.png");
-                this.maxHp = 30;
+                this.maxHp = 40;
                 this.velocityConstant = 2;
                 this.dexterity = 0.1;
                 this.damage = 25;
