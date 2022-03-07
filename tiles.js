@@ -1,10 +1,10 @@
 class MapTile {
         
-    constructor(game, x, y, spritePath, spriteX, spriteY, blockwidth, scale, collideable) { 
+    constructor(game, x, y, spritePath, spriteX, spriteY, blockwidth, scale, collideable, projectile_collideable) { 
         // possibly add a final optional parameter for minimap draw color
-        Object.assign(this, {game, x, y, spritePath, spriteX, spriteY, blockwidth, scale, collideable});
+        Object.assign(this, {game, x, y, spritePath, spriteX, spriteY, blockwidth, scale, collideable, projectile_collideable});
         
-        if (this.collideable) {
+        if (this.collideable || this.projectile_collideable) {
             this.id = ++PARAMS.COLLIDE_ID;
         }
         this.animator = new AnimationGroup(ASSET_MANAGER.getAsset(this.spritePath), 
