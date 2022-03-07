@@ -321,7 +321,8 @@ class SceneManager {
                                            blockwidth * (Math.floor(spriteCode / property.imageWidth)),
                                            blockwidth,
                                            scale,
-                                           property.collideable);
+                                           property.collideable,
+                                           property.projectile_collideable);
                     if (property.hasOwnProperty("custom_animations") && 
                             property.custom_animations.hasOwnProperty(spriteCode)) {
                         let animData = property.custom_animations[spriteCode];

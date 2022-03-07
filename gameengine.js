@@ -200,7 +200,7 @@ class GameEngine {
         if (entity.hasOwnProperty("hp")) {
             this.livingEntities.push(entity);
             this.livingCount++;
-        } else if (entity.collideable) {
+        } else if (entity.collideable || entity.projectile_collideable) {
             this.collideableEntities.push(entity);
         } else if (entity.hasOwnProperty("friendlyProjectile")) {
             this.projectileEntities.push(entity);
@@ -275,7 +275,7 @@ class GameEngine {
         if (deletedEntity.hasOwnProperty("hp")) {
             this.livingCount--;
             this.removeFromEntityList(this.livingEntities, deletedEntity.id);
-        } else if (deletedEntity.collideable) {
+        } else if (deletedEntity.collideable || deletedEntity.projectile_collideable) {
             this.removeFromEntityList(this.collideableEntities, deletedEntity.id);
         } else if (deletedEntity.hasOwnProperty("friendlyProjectile")) {
             this.removeFromEntityList(this.projectileEntities, deletedEntity.id);
