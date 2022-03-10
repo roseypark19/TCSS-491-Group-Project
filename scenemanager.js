@@ -409,7 +409,7 @@ class SceneManager {
             this.elapsed = Math.min(4, this.elapsed + this.game.clockTick);
         }
 
-        PARAMS.DEBUG = document.getElementById("debug").checked;
+        // PARAMS.DEBUG = document.getElementById("debug").checked;
         this.updateAudio();
         let midpoint = { x : PARAMS.CANVAS_DIMENSION / 2, y : PARAMS.CANVAS_DIMENSION / 2 };
 
