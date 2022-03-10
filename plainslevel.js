@@ -1287,7 +1287,7 @@ const plains2 = {
         {type: Centaur, x:  61.5, y: 7.5},
         //{type: Wargo, x:  59.5, y: 12.5},
         {type: Centaur, x:  66.5, y: 12.5},
-        {type: Cyclops, x:  78.5, y: 5.5},
+        {type: Cyclops, x:  78.5, y: 9.5},
         {type: Centaur, x:  84.5, y: 1.5},
 
         // top right corner
